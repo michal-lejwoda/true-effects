@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const postLogin =(data)=>dispatch => {
         delete axios.defaults.headers.common["Authorization"];
-        axios.post('http://127.0.0.1:8000/api/login/',data)
+        axios.post('https://true-effects.herokuapp.com/api/login/',data)
         .then(res=>{
             window.localStorage.setItem('token',res.data.token)
             window.localStorage.getItem('name',res.data.name)
@@ -23,7 +23,7 @@ export const postLogin =(data)=>dispatch => {
 }
 export const postRegister = (data) => dispatch =>{
     delete axios.defaults.headers.common["Authorization"];
-    axios.post('http://127.0.0.1:8000/api/register/',data)
+    axios.post('https://true-effects.herokuapp.com/api/register/',data)
     .then(res=>dispatch({
         type: POST_REGISTER,
         payload: res.data
@@ -41,7 +41,7 @@ export const postLogoutAuth = () => dispatch =>{
 export const loadUser = (data) => (dispatch,getState) => {
     dispatch({type: USER_LOADING});
     delete axios.defaults.headers.common["Authorization"];
-    axios.post('http://127.0.0.1:8000/api/login/',data)
+    axios.post('https://true-effects.herokuapp.com/api/login/',data)
     .then(res=>{
         dispatch({
             type: USER_LOADED,
@@ -57,7 +57,7 @@ export const loadUser = (data) => (dispatch,getState) => {
 export const postLogout = ()=> (dispatch,getState) =>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    axios.get('http://127.0.0.1:8000/api/logout/')
+    axios.get('https://true-effects.herokuapp.com/api/logout/')
     .then(res=>dispatch({
         type: AUTH_ERROR
     }))
