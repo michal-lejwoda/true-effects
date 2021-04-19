@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  frontend:
+    build: .
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+    volumes:
+      - /app/node_modules
+      - .:/app
+    ports:
+      - 80:3000
+    

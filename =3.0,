@@ -1,0 +1,6 @@
+Collecting Django
+  Downloading Django-3.2-py3-none-any.whl (7.9 MB)
+Collecting asgiref<4,>=3.3.2
+  Downloading asgiref-3.3.4-py3-none-any.whl (22 kB)
+Collecting pytz
+  Downloading pytz-2021.1-py2.py3-none-any.whl (510 kB)
