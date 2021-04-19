@@ -1,0 +1,45 @@
+$maincolor: #1D3557;
+$secondcolor: #457B9D;
+$thirdcolor: #db3d44;
+.addmeasurementssummary{
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    background-color: $maincolor;
+    &-title{
+        color:white;
+        font-size:2rem;
+    }
+    &-secondtitle{
+        color:white;
+        font-size:2rem;
+    }
+    &__elements{
+        display:flex;
+        flex-direction: column;
+        color:white;
+        font-size:1.6rem;
+        font-weight: 600;
+        width:400px;
+        &__element{
+            display:flex;
+            justify-content: space-between;
+        }
+    }
+    &__button{
+        margin-top:2rem;
+        button{
+            padding:0.5rem 3rem 0.5rem 3rem;
+            background-color:white;
+            color:$maincolor;
+            border-color:$maincolor;
+            border-width: medium;
+            font-weight: 600;
+        }
+        button:hover{
+            cursor:pointer;
+        }
+    }
+}

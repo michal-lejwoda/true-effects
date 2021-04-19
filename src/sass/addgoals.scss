@@ -1,0 +1,103 @@
+$maincolor: #1D3557;
+$secondcolor: #457B9D;
+$pink: #FF5A5A;
+.addgoals{
+    background-color: $maincolor;
+    height:100%;
+    width:100%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    &-title{
+        color:white;
+        font-size:2rem;
+        font-weight: 700;
+        padding-bottom: 2rem;
+    }
+    &__container{
+        width:400px;
+        display:flex;
+        align-items: center;
+        flex-direction: column;
+        &__data{
+            &-input{
+                display:block;
+                margin:auto;
+                width:400px;
+                background-color: red;
+                input{
+                    background-color: $maincolor;
+                    padding:0.5rem;
+                }
+                input::after{
+                    content: "";
+                    width:400px;
+                    height:3px;
+                    background-color: white;
+                    color:white;
+    
+                }
+                .react-datepicker-wrapper{
+                    width:400px;
+                }
+            }
+            &__data::after{
+                content: "";
+                background-color: white;
+                width:200px;
+                height:2px;
+
+            }
+            
+            // &-input::after{
+            //     display:block;
+            //     content: "";
+            //     background-color:$maincolor;
+            //     width:400px;
+            //     height:2px;
+            // }
+            
+    }
+        &__description{
+            margin-top:1.5rem;
+            width:400px;
+            input#description{
+                display: block;
+                width: 400px;
+                background-color: $maincolor;
+                color:white;
+                padding:0.5rem;
+                
+            }
+            input#description::after{
+                display: block;
+                content: "";
+                background-color: white;
+                width:200px;
+                height:2px;
+
+            }
+        }
+        &__button{
+            margin-top:1.5rem;
+            button{
+                        
+                background-color: #db3d44;
+                color:white;
+                padding: 0.5rem 1rem 0.5rem 1rem;
+                -webkit-transition: ease-out 0.4s;
+                -moz-transition: ease-out 0.4s;
+                transition: ease-out 0.4s;
+                font-weight: 600;
+                
+            }
+            button:hover{
+                cursor:pointer;
+            }
+            button:hover{
+                box-shadow: inset 400px 0 0 0 $maincolor;
+            }
+        }
+    }
+}
