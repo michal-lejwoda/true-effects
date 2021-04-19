@@ -1,0 +1,393 @@
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen  and (max-width:500px){@content;}
+    }
+    @else if $point == mobilebig{
+        @media screen  and (max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen  and (max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen  and (max-width:1200px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }}
+    
+    $colors: (
+        fill: #a972cb,
+        pulse: #ef6eae, 
+        close: #ff7f82, 
+        raise: #ffa260, 
+        up: #e4cb58, 
+        slide: #8fc866, 
+        offset: #19bc8b
+      );
+      
+      // Sass variables compile to a static string; CSS variables are dynamic and inherited
+        // Loop through the map and set CSS custom properties using Sass variables
+      @each $button, $color in $colors {
+        .#{$button} {
+          --color: #{$color};
+          --hover: #{adjust-hue($color, 45deg)};
+        }
+      }
+$maincolor: #1D3557;
+$secondcolor: #457B9D;
+$thirdcolor: #db3d44;
+.createtraining{
+    padding:1rem;
+    background-color:$maincolor;
+    width: 100%;
+    height:100%;
+    &-title{
+        display:flex;
+        justify-content: center;
+        color:white;
+        font-size:2rem;
+    }
+
+    &__containers{
+        display:flex;
+        justify-content: space-around;
+        @include breakpoint(laptop){
+            flex-direction: column;
+            align-items: center;
+        }
+
+        
+        &__first{
+            display:flex;
+            flex-direction: column;
+            padding:1rem;
+            width:500px;
+            background-color: $secondcolor;
+            color:white;
+            &__newexercise{
+                display:flex;
+                justify-content: center;
+                flex-direction: column;
+                align-items: center;
+                margin-bottom:1rem;
+                &-button{
+                    width:100%;
+                    display:flex;
+                    justify-content: flex-end;
+                    margin-top:0.5rem;
+                    button{
+                        
+                        background-color: #db3d44;
+                        color:white;
+                        padding: 0.5rem 1rem 0.5rem 1rem;
+                        -webkit-transition: ease-out 0.4s;
+                        -moz-transition: ease-out 0.4s;
+                        transition: ease-out 0.4s;
+                        font-weight: 600;
+                        
+                    }
+                    button:hover{
+                        cursor:pointer;
+                    }
+                    button:hover{
+                        box-shadow: inset 400px 0 0 0 $maincolor;
+                    }
+                    
+
+                }
+                span:after{
+                    content: '';
+                    display: block;
+                    width: 320px;
+                    height: 2px;
+                    background-color: white;
+                }
+                input{
+                    margin-top:0.5rem;
+                    background-color: #457B9D;
+                    border: none;
+                    color: white;
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    text-align: center;
+                    width: 310px;
+                }
+                input:focus{
+                    outline:none;
+                }
+            }
+            &__trainingdata{
+                display:flex;
+                flex-direction: column;
+                margin-top:1rem;
+                font-size:1.3rem;
+                span::after{
+                    content: '';
+                    display:block;
+                    width:40px;
+                    background-color:white;
+                    height:2px;
+
+                }
+                input:focus{
+                    outline: none;
+                }
+                input{
+                    width:40px;
+                    background-color: $secondcolor;
+                    border:none;
+                    text-align: center;
+                    color:white;
+                    font-size:1.1rem;
+                }
+                &__series{
+                    display:flex;
+                    justify-content: space-between;
+                    margin-bottom:1rem;     
+                }
+                &__singleseries{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem;  
+                }
+                &__rest{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem;  
+                }
+                &__weight{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem;  
+                }
+                &__concentricphase{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem;  
+                }
+                &__pauseafterconcentricphase{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem; 
+                }
+                &__eccentricphase{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem;  
+                }
+                &__pauseaftereccentricphase{
+                    display:flex;
+                    justify-content: space-between;     
+                    margin-bottom:1rem; 
+                }
+            }
+            &__selectors{
+                display:flex;
+                padding-bottom:1rem;
+                border-bottom: 2px solid white;
+                margin-bottom: 1rem;
+                &-globalexercise{
+                    display:flex;
+                    width:50%;
+                    justify-content: center;
+                    border-right:2px solid white;
+                }
+                &-globalexercise:hover{
+                    cursor: pointer;
+                }
+                &-myexercise{
+                    display:flex;
+                    width:50%;
+                    justify-content: center;
+                }
+                &-myexercise:hover{
+                    cursor: pointer;
+                }
+            }
+            &-input{
+                display:flex;
+                justify-content: center;
+                font-size: 1.4rem;
+            }
+            &__exercises{
+                padding-top:1rem;
+                font-size: 1.6rem;
+                overflow-y: scroll;
+                height:211px;
+                &__element{
+                    border-bottom: 2px solid white;
+                    padding-top:1rem;
+                    padding-bottom: 1rem;
+                    padding-left:1rem;
+                }
+                &__element:hover{
+                    cursor:pointer;
+                    background-color:$thirdcolor;
+                    // opacity: 0.5;
+                }
+
+            }
+        }
+        &__second{
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            color:white;
+            font-size:1.4rem;
+            font-weight: 800;
+            &-select{
+                display:flex;
+                justify-content: center;
+                margin-bottom:2rem;
+                span{
+                    margin-left:1rem;
+                }
+            }
+            &-select:hover{
+                color:$thirdcolor;
+                cursor: pointer;
+            }
+            &-accepttraining:hover{
+                color:$thirdcolor;
+                cursor: pointer;
+            }
+        }
+        &__third{
+            display:flex;
+            flex-direction: column;
+            background-color: $secondcolor;
+            color:white;
+            width:500px;
+            padding:1rem;
+            &-title{
+                display:flex;
+                justify-content: center;
+                margin-bottom:1rem;
+                span::after{
+                    content:'';
+                    display:block;
+                    width:300px;
+                    height:2px;
+                    background-color: white;
+
+                }
+                input{
+                    background-color:$secondcolor;
+                    border: none;
+                    color: white;
+                    font-size:1.4rem;
+                    font-weight:600;
+                    text-align: center;
+                    width:300px;
+                }
+                input:focus{
+                    outline: none;
+                }  
+                
+            }
+            &-date{
+                display:flex;
+                justify-content: center;
+                margin-bottom:1rem;
+                span::after{
+                    content:'';
+                    display:block;
+                    width:300px;
+                    height:2px;
+                    background-color: white;
+
+                }
+                input{
+                    background-color:$secondcolor;
+                    border: none;
+                    color: white;
+                    font-size:1.3rem;
+                    font-weight:600;
+                    text-align: center;
+                    width:300px;
+                }
+                
+            }
+            &-description{
+                display:flex;
+                justify-content: center;
+                margin-bottom:1rem;
+                span::after{
+                    content:'';
+                    display:block;
+                    width:500px;
+                    height:2px;
+                    background-color: white;
+
+                }
+                input{
+                    background-color:$secondcolor;
+                    border: none;
+                    color: white;
+                    font-size:1.4rem;
+                    font-weight:600;
+                    text-align: center;
+                    width:500px;
+                }
+                input:focus{
+                    outline: none;
+                }  
+
+            }
+            &__elements{
+                display:flex;
+                flex-direction: column;
+                &-title{
+                    display:flex;
+                    justify-content: center;
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                }
+                &__element{
+                    height:512px;
+                    overflow-y:scroll;
+                    padding-top:1rem;
+                    display:flex;
+                    font-size: 1.4rem;
+                    #exercisetable{
+                        width:100%;
+                        th{
+                            height:30px;
+                            width:70%;
+                        }
+                        td{
+                            height:30px;
+                            padding:0.2rem;
+                            margin:auto;
+                            // text-align: center;
+                            span::after{
+                                content:'';
+                                display:block;
+                                
+                                width:40px;
+                                height:2px;
+                                background-color: white;
+            
+                            }
+                            input{
+                                text-align:center;
+                                background-color: $secondcolor;
+                                border:none;
+                                color:white;
+                                font-size:1rem;
+                                font-weight:600;
+                                width:40px;
+                            }
+                            input:focus{
+                                outline: none;
+                            }    
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

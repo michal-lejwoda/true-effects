@@ -1,0 +1,189 @@
+//$pink: #E90B33;
+$pink1: #db3d44;
+//$pink: #FF5A5A;
+$pink: #1D3557;
+.training{
+    background-color:$pink;
+    padding:2rem;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    color:white;
+
+    &__top{
+        display:flex;
+        justify-content: space-between;
+        font-size:1.8rem;  
+        
+    }
+    &__middle{
+        display:flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-top:2rem;
+        &__logotime{
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: stretch;
+            &-logo{
+                padding-right:2rem;
+            }
+            &-time{
+                font-size:5rem;
+            }
+        }
+        &-title{
+            display:flex;
+            justify-content: center;
+            font-size:1.8rem;
+            margin-bottom:2rem;
+        }
+        &-exercise{
+            display:flex;
+            justify-content: center;
+            font-size:2.4rem;
+        }
+        &__series{
+            display:flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            &-title{
+                font-size:1.4rem;
+                font-weight: 600;
+            }
+        }
+    }
+    &__bottom{
+        display:flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin-top:2rem;
+        &__leftbutton{
+            display:flex;
+            justify-content:center;
+            #endtraining{
+                background-color:$pink1;
+                height: 70px;
+                color:white;
+                font-size:1.2rem;
+                font-weight: 600;
+            }
+            #endtraining:hover{
+                cursor:pointer;
+            }
+        }
+        &__weight{
+            &-title{
+                display:flex;
+                justify-content: center;
+                font-size:1.8rem;
+                font-weight: 600;
+            }
+            &-title2{
+                display:flex;
+                justify-content: center;
+                font-size:1.8rem;
+                font-weight: 600;
+            }
+        }
+        &__phase{
+            &-title{
+                display:flex;
+                justify-content: center;
+                font-size:1.8rem;
+                font-weight: 600;
+            }
+            &__allphases{
+                margin-top:1rem;
+                display:flex;
+                flex-direction: row;
+                font-size:1.8rem;
+                justify-content: center;
+                font-weight: 600;
+            }
+            &-title2{
+                margin-top:1rem;
+                font-size:1.8rem;
+                font-weight: 600;
+            }
+            &__reps{
+                display:flex;
+                flex-direction:row;
+                justify-content: center;
+                font-size:2rem;
+                font-weight: 600;
+                &-actualreps{
+                    
+                    #actualreps{
+                        background-color:$pink;
+                        font-size:1.6rem;
+                        border:none;
+                        width: 60px;
+                        color:white;
+                        font-weight: 600;
+                    }
+                }
+                &-actualreps:after{
+                    display:block;
+                    content:"";
+                    width: 60px;
+                    height:2px;
+                    background-color:white;
+                }
+            }
+        }
+        &__rightbutton{
+            display:flex;
+            justify-content:center;
+            #nextexercise{
+                background-color:$pink1;
+                height: 70px;
+                color:white;
+                font-size:1.2rem;
+                font-weight: 600;
+            }
+            #nextexercise:hover{
+                cursor:pointer;
+            }
+        }
+        
+    }
+}
+
+.stopwatchbuttons{
+    display:flex;
+    justify-content: space-between;
+    margin-top:2rem;
+    #start{
+        background-color:$pink1;
+        color:white;
+        font-size:1.2rem;
+        font-weight: 600;
+        padding:0px 20px 0px 20px
+    }
+    #start:hover{
+        cursor:pointer;
+    }
+    #pause{
+        background-color:$pink1;
+        color:white;
+        font-size:1.2rem;
+        font-weight: 600;
+        padding:0px 20px 0px 20px
+    }
+    #pause:hover{
+        cursor:pointer;
+    }
+    #reset{
+        background-color:$pink1;
+        color:white;
+        font-size:1.2rem;
+        font-weight: 600;
+        padding:0px 20px 0px 20px
+    }
+    #reset:hover{
+        cursor:pointer;
+    }
+}
