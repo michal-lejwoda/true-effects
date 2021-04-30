@@ -1,11 +1,9 @@
 import React from 'react';
-import Scheduler from 'react-scheduler-calendar';
-import {Calendar , momentLocalizer  } from 'react-big-calendar' 
+import {Calendar , momentLocalizer} from 'react-big-calendar' 
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-
 import {connect} from 'react-redux';
-import {getMeasurements,postTraining,getTrainings,getGoals} from '../redux/actions/trainingActions';
+import {getMeasurements,getTrainings,getGoals} from '../redux/actions/trainingActions';
 import ModalDisplayTraining from './ModalDisplayTraining';
 import 'moment/locale/pl';
 require('moment/locale/pl.js')
@@ -20,9 +18,6 @@ export class Schedule extends React.Component {
       description: '',
       title: ''
     }
-    // handleSelect = () =>{
-    //   console.log("select")
-    // }
     handleSelectEvent = (e) =>{
       this.setState({
         modalopen:true,

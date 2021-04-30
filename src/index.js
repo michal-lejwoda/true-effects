@@ -7,7 +7,7 @@ import { BrowserRouter, Route,Switch } from 'react-router-dom';
 import {Provider} from 'react-redux'
 import store from './store';
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
-import './sass/index.scss';
+import './sass/index.css';
 ReactDOM.render(
   
   <Provider store={store}>

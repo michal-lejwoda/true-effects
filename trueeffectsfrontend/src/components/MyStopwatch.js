@@ -1,7 +1,6 @@
-import React,{forwardRef,useImperativeHandle,useRef}from 'react';
+import React, { forwardRef, useImperativeHandle } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 const MyStopwatch = forwardRef((props, ref) => {
-  const reference = useRef()
   const {
     seconds,
     minutes,
@@ -10,63 +9,62 @@ const MyStopwatch = forwardRef((props, ref) => {
     pause,
     reset,
   } = useStopwatch({ autoStart: false });
-  const handleStart = () =>{
-      start()
+  const handleStart = () => {
+    start()
   }
   useImperativeHandle(ref, () => ({
     getAlert() {
-      alert(`Zakonczono trenining w czasie ${hours<10 ? 0: ""}${hours}:${minutes<10 ? 0: ""}${minutes}:${seconds<10 ? 0: ""}${seconds}`);
+      alert(`Zakonczono trenining w czasie ${hours < 10 ? 0 : ""}${hours}:${minutes < 10 ? 0 : ""}${minutes}:${seconds < 10 ? 0 : ""}${seconds}`);
     },
-    handleStop(){
+    handleStop() {
       pause()
-  },
-    async posttrain (){
-      console.log(props.id)
+    },
+    async posttrain() {
       let string = ""
-      if (hours<10){
+      if (hours < 10) {
         string += "0" + hours
         string += ":"
       }
-      else{
+      else {
         string += hours
         string += ":"
       }
-      if (minutes<10){
+      if (minutes < 10) {
         string += "0" + minutes
         string += ":"
       }
-      else{
+      else {
         string += minutes
         string += ":"
       }
-      if (seconds<10){
+      if (seconds < 10) {
         string += "0" + seconds
-        
+
       }
-      else{
+      else {
         string += seconds
-        
+
       }
       props.training.time = string
-      await props.send(props.id,props.training)
+      await props.send(props.id, props.training)
       await props.get()
     }
-    
+
   }));
 
 
-  
+
   return (
-    <div style={{textAlign: 'center'}}>
-      <div style={{fontSize: '100px'}}>
-        <span >{hours<10 && 0}{hours}</span>:<span ref={props.refminutes}>{minutes<10 && 0}{minutes}</span>:<span ref={props.refseconds}>{seconds<10 && 0}{seconds}</span>
+    <div style={{ textAlign: 'center' }}>
+      <div className="stopwatch__timer" style={{ fontSize: '100px' }}>
+        <span >{hours < 10 && 0}{hours}</span>:<span ref={props.refminutes}>{minutes < 10 && 0}{minutes}</span>:<span ref={props.refseconds}>{seconds < 10 && 0}{seconds}</span>
       </div>
       <div className="stopwatchbuttons">
         <button ref={ref} id="start" onClick={handleStart}>Start</button>
         <button id="pause" onClick={pause}>Pause</button>
-        <button id="reset"onClick={reset}>Reset</button>
+        <button id="reset" onClick={reset}>Reset</button>
       </div>
     </div>
   );
 })
-export default MyStopwatch; 
+export default MyStopwatch;

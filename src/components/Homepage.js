@@ -1,8 +1,8 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import '../sass/homepage.scss';
 import {connect} from 'react-redux';
 import {postLogin} from '../redux/actions/authenticationActions';
-import {getMeasurements,postTraining,getTrainings,getGoals} from '../redux/actions/trainingActions';
+import {getMeasurements,getTrainings,getGoals} from '../redux/actions/trainingActions';
 import HomepageTrainingItem from './homepagecomponents/HomepageTrainingItem';
 import HomepageMeasurementItem from './homepagecomponents/HomepageMeasurementItem';
 import HomepageGoalItem from './homepagecomponents/HomepageGoalItem';

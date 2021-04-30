@@ -44,11 +44,22 @@ $thirdcolor: #db3d44;
     background-color:$maincolor;
     width: 100%;
     height:100%;
+    min-height: 100vh;
+    @include breakpoint(mobile){
+        padding:0;
+    }
     &-title{
         display:flex;
         justify-content: center;
         color:white;
         font-size:2rem;
+        font-weight: 600;
+        margin-bottom:2rem;
+        @include breakpoint(mobile){
+            font-size:1.1rem;
+            margin-bottom:1rem;
+            padding-top:1rem;
+        }
     }
 
     &__containers{
@@ -64,9 +75,16 @@ $thirdcolor: #db3d44;
             display:flex;
             flex-direction: column;
             padding:1rem;
-            width:500px;
+            width:400px;
             background-color: $secondcolor;
             color:white;
+            @include breakpoint(mobile){
+                max-width: 250px;
+            }
+            @include breakpoint(laptop){
+                margin-top: 1rem;
+                width: 400px;
+            }
             &__newexercise{
                 display:flex;
                 justify-content: center;
@@ -123,7 +141,13 @@ $thirdcolor: #db3d44;
                 display:flex;
                 flex-direction: column;
                 margin-top:1rem;
-                font-size:1.3rem;
+                font-size:1.1rem;
+                @include breakpoint(mobile){
+                    font-size: 0.9rem;
+                }
+                @include breakpoint(laptop){
+                    font-size: 1.1rem;
+                }
                 span::after{
                     content: '';
                     display:block;
@@ -194,6 +218,9 @@ $thirdcolor: #db3d44;
                     width:50%;
                     justify-content: center;
                     border-right:2px solid white;
+                    @include breakpoint(mobile){
+                        align-items: center;
+                    }
                 }
                 &-globalexercise:hover{
                     cursor: pointer;
@@ -202,6 +229,10 @@ $thirdcolor: #db3d44;
                     display:flex;
                     width:50%;
                     justify-content: center;
+                    text-align: center;
+                    @include breakpoint(mobile){
+                        align-items: center;
+                    }
                 }
                 &-myexercise:hover{
                     cursor: pointer;
@@ -211,10 +242,13 @@ $thirdcolor: #db3d44;
                 display:flex;
                 justify-content: center;
                 font-size: 1.4rem;
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                }
             }
             &__exercises{
                 padding-top:1rem;
-                font-size: 1.6rem;
+                font-size: 1.3rem;
                 overflow-y: scroll;
                 height:211px;
                 &__element{
@@ -222,6 +256,12 @@ $thirdcolor: #db3d44;
                     padding-top:1rem;
                     padding-bottom: 1rem;
                     padding-left:1rem;
+                    @include breakpoint(mobile){
+                        font-size:0.9rem;
+                    }
+                    @include breakpoint(laptop){
+                        font-size:1.1rem
+                    }
                 }
                 &__element:hover{
                     cursor:pointer;
@@ -238,6 +278,17 @@ $thirdcolor: #db3d44;
             color:white;
             font-size:1.4rem;
             font-weight: 800;
+            text-align: center;
+            @include breakpoint(mobile){
+                font-size:0.9rem;
+                max-width: 250px;
+                margin-top:1rem;
+                margin-bottom: 1rem;
+            }
+            @include breakpoint(laptop){
+                margin-top:1rem;
+                margin-bottom: 1rem;
+            }
             &-select{
                 display:flex;
                 justify-content: center;
@@ -262,16 +313,29 @@ $thirdcolor: #db3d44;
             color:white;
             width:500px;
             padding:1rem;
+            min-width: 350px;
+            @include breakpoint(mobile){
+                max-width: 250px;
+            }
+            @include breakpoint(laptop){
+                width:400px;
+            }
             &-title{
                 display:flex;
                 justify-content: center;
                 margin-bottom:1rem;
+                span{
+                    text-align: center;
+                }
                 span::after{
                     content:'';
                     display:block;
                     width:300px;
                     height:2px;
                     background-color: white;
+                    @include breakpoint(mobile){
+                        width: 200px;
+                    }
 
                 }
                 input{
@@ -282,6 +346,14 @@ $thirdcolor: #db3d44;
                     font-weight:600;
                     text-align: center;
                     width:300px;
+                    @include breakpoint(mobile){
+                        font-size: 1rem;
+                        width: 200px;
+                    }
+                    @include breakpoint(laptop){
+                        font-size: 1.2rem;
+                        width: 200px;
+                    }
                 }
                 input:focus{
                     outline: none;
@@ -298,6 +370,10 @@ $thirdcolor: #db3d44;
                     width:300px;
                     height:2px;
                     background-color: white;
+                    @include breakpoint(mobile){
+                        
+                        width: 150px;
+                    }
 
                 }
                 input{
@@ -308,6 +384,9 @@ $thirdcolor: #db3d44;
                     font-weight:600;
                     text-align: center;
                     width:300px;
+                    @include breakpoint(mobile){
+                        width: 150px;
+                    }
                 }
                 
             }
@@ -315,12 +394,22 @@ $thirdcolor: #db3d44;
                 display:flex;
                 justify-content: center;
                 margin-bottom:1rem;
+                
+                span{
+                    text-align: center;
+                }
                 span::after{
                     content:'';
                     display:block;
-                    width:500px;
+                    width: 350px;
                     height:2px;
                     background-color: white;
+                    @include breakpoint(mobile){
+                        width: 200px;
+                    }
+                    @include breakpoint(laptop){
+                        width: 350px;
+                    }
 
                 }
                 input{
@@ -330,7 +419,15 @@ $thirdcolor: #db3d44;
                     font-size:1.4rem;
                     font-weight:600;
                     text-align: center;
-                    width:500px;
+                    width: 350px;
+                    @include breakpoint(mobile){
+                        font-size: 1rem;
+                        width: 200px;
+                    }
+                    @include breakpoint(laptop){
+                        font-size: 1.1rem;
+                        width: 200px;
+                    }
                 }
                 input:focus{
                     outline: none;
@@ -352,21 +449,34 @@ $thirdcolor: #db3d44;
                     padding-top:1rem;
                     display:flex;
                     font-size: 1.4rem;
+                    @include breakpoint(mobile){
+                        font-size: 1rem;
+                    }
                     #exercisetable{
                         width:100%;
                         th{
                             height:30px;
                             width:70%;
+                            @include breakpoint(laptop){
+                                font-size: 1.2rem;
+                            }
                         }
                         td{
+                            
                             height:30px;
                             padding:0.2rem;
                             margin:auto;
-                            // text-align: center;
+                            text-align: center;
+                            @include breakpoint(mobile){
+                                font-size: 0.8rem;
+                            }
+                            @include breakpoint(laptop){
+                                font-size: 1.1rem;
+                            }
                             span::after{
                                 content:'';
                                 display:block;
-                                
+                                margin: auto;
                                 width:40px;
                                 height:2px;
                                 background-color: white;
@@ -390,4 +500,7 @@ $thirdcolor: #db3d44;
             }
         }
     }
+}
+.react-datepicker-wrapper{
+    width:100%;
 }

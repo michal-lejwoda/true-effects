@@ -1,19 +1,47 @@
-$pink : #E90B33;
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+ }
+ @mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+ }
+ @mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+ }
+ @mixin xl {
+    @media (max-width: #{$screen-xl-min}) {
+        @content;
+    }
+ }
+$pink: #E90B33;
 $pink1:#ff6666;
 $pink2:#ff4d4d;
 $pink3:#ff0000;
-//$pink1:#ff6666;
 .authenticatelogo{
     display:flex;
     width:50%;
-    height:100%;
     background-color:$pink;
+    @include xl{
+        display:none;
+    }
     &__block{
         display:flex;
         width: 100%;
         height:100%;
         align-items: center;
         justify-content: center;
+        @include xl{
+            display:none;
+        }
         &__circle1{
             display:flex;
             justify-content: center;
@@ -21,7 +49,6 @@ $pink3:#ff0000;
             position:relative;
             min-width: 500px;
             min-height: 500px;
-            
             width:60%;
             height:60%;
             border-radius: 50%;

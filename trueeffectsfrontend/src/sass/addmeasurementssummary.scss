@@ -1,3 +1,22 @@
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen  and (max-width:500px){@content;}
+    }
+    @else if $point == mobilebig{
+        @media screen  and (max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen  and (max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen  and (max-width:1200px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }}
 $maincolor: #1D3557;
 $secondcolor: #457B9D;
 $thirdcolor: #db3d44;
@@ -7,14 +26,35 @@ $thirdcolor: #db3d44;
     flex-direction: column;
     // justify-content: center;
     align-items: center;
+    min-width: 270px;
     background-color: $maincolor;
     &-title{
         color:white;
         font-size:2rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        @include breakpoint(laptop){
+            font-size:1.2rem;
+            
+            
+        }
+        @include breakpoint(mobile){
+            font-size:1.1rem;
+        }
     }
+    
+
     &-secondtitle{
         color:white;
         font-size:2rem;
+        margin-bottom: 1rem;
+        @include breakpoint(laptop){
+            font-size:1.1rem;
+        }
+        @include breakpoint(mobile){
+            font-size:1rem;
+            margin-top: 1rem;
+        }
     }
     &__elements{
         display:flex;
@@ -23,9 +63,18 @@ $thirdcolor: #db3d44;
         font-size:1.6rem;
         font-weight: 600;
         width:400px;
+        @include breakpoint(laptop){
+            font-size:1.2rem;
+            width: auto;
+        }
+        @include breakpoint(mobile){
+            font-size:1rem;
+            width: auto;
+        }
         &__element{
             display:flex;
             justify-content: space-between;
+            margin-bottom:0.4rem;
         }
     }
     &__button{

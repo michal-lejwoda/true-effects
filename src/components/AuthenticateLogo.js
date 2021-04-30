@@ -1,5 +1,6 @@
 import React from 'react';
-import '../sass/authenticatelogo.scss';
+// import '../sass/authenticatelogo.scss';
+import '../sass/authenticatelogo.css';
 import logo from '../images/logo.png' ;
 const AuthenticateLogo = () => {
     return (

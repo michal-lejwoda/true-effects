@@ -25,10 +25,13 @@ $pink1: #FF5A5A;
     background-color: $maincolor;
     height:100%;
     width:100%;
+    min-height: 100vh;
     display:flex;
     flex-direction: column;
     color:white;
-    
+    @include breakpoint(mobile){
+        align-items: center;
+    }
     &-title{
         display:flex;
         width:100%;
@@ -45,8 +48,20 @@ $pink1: #FF5A5A;
         justify-content: space-evenly;
         padding:2rem;
         align-items: center;
+        @include breakpoint(mobile){
+            height: 100%;
+            min-width: 200px;
+            align-items:center;
+            padding: 1rem;
+            
+        }
         @include breakpoint(laptop){
             flex-direction: column;
+            height: 100%;
+            padding-top:1rem;
+            padding-left:0;
+            padding-right:0;
+            padding-bottom:0;
         }
         
         &__oldmeasurementscontainer{
@@ -59,9 +74,19 @@ $pink1: #FF5A5A;
             margin-right: 2rem;
             height:450px;
             @include breakpoint(laptop){
-                width:auto;
-                margin-top: 6rem;
+                width:300px;
+                height: auto;
+                margin:0;
+                
             }
+            @include breakpoint(mobile){
+                margin:auto;
+                height:auto;
+                min-width: 250px;
+                width: auto;
+            }
+            
+            
 
             &-title{
                 display:flex;
@@ -69,6 +94,9 @@ $pink1: #FF5A5A;
                 justify-content:center;
                 font-size:1.5rem;
                 font-weight: 600;
+                @include breakpoint(mobile){
+                    font-size:1.1rem;
+                }
                 
             }
             &__data{
@@ -76,6 +104,9 @@ $pink1: #FF5A5A;
                 display:flex;
                 width: 100%;
                 justify-content: center;
+                &-input{
+                    font-size:0.9rem;
+                }
 
             }
             &__elements{
@@ -89,6 +120,13 @@ $pink1: #FF5A5A;
                     display:flex;
                     flex-direction: row;
                     justify-content: space-between;
+                    white-space: nowrap;
+                    @include breakpoint(mobile){
+                        font-size:0.8rem;
+                    }
+                    @include breakpoint(laptop){
+                        font-size:1rem;
+                    }
                     &-result{
                         width:70px;
                         text-align:center;
@@ -111,16 +149,25 @@ $pink1: #FF5A5A;
             width:500px;
             height:450px;
             @include breakpoint(laptop){
-                width:auto;
+                width:300px;
                 min-width: 200px;
                 margin-top: 2rem;
             }
+            @include breakpoint(mobile){
+                margin-top:1rem;
+                height:auto;
+                max-width: 250px;
+            }
+            
             &-title{
                 display:flex;
                 width:100%;
                 justify-content:center;
                 font-size:1.5rem;
                 font-weight: 600;
+                @include breakpoint(mobile){
+                    font-size: 1.1rem;
+                }
             }
             &__data{
                 padding-top:1rem;
@@ -135,7 +182,7 @@ $pink1: #FF5A5A;
                     display:block;
                     content: "";
                     background-color: white;
-                    width:200px;
+                    width:auto;
                     height:2px;
                 }
                 input{
@@ -168,9 +215,15 @@ $pink1: #FF5A5A;
                     display:flex;
                     flex-direction: row;
                     justify-content: space-between;
+                    @include breakpoint(mobile){
+                        font-size: 0.8rem;
+                    }
+                    @include breakpoint(laptop){
+                        font-size: 1rem;
+                    }
                     &-button{
                         display:flex;
-                        justify-content: end;
+                        justify-content: flex-end;
                         width: 100%;
                         padding:1rem;
                         button{
@@ -191,7 +244,9 @@ $pink1: #FF5A5A;
                     }
                     &-result{
                         width:150px;
-                        
+                        @include breakpoint(mobile){
+                            width: 70px;
+                        }
                         
                         input{
                             width: 100%;
@@ -200,6 +255,9 @@ $pink1: #FF5A5A;
                             color:white;
                             font-weight: 600;
                             font-size:0.9rem;
+                            @include breakpoint(mobile){
+                                font-size: 0.8rem;
+                            }
                         }
                     }
                     &-result::after{
@@ -208,6 +266,9 @@ $pink1: #FF5A5A;
                         background-color: white;
                         width:150px;
                         height:2px;
+                        @include breakpoint(mobile){
+                            width: 70px;
+                        }
                     }
                 }
             }}
@@ -229,6 +290,9 @@ $pink1: #FF5A5A;
         color:white;
         font-size:0.9rem;
         font-weight: 600;
+        @include breakpoint(mobile){
+            width: 200px;
+        }
     }
     input:hover{
         cursor:pointer;

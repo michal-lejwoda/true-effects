@@ -4,9 +4,9 @@ const MeasurementNotification = () => {
     return (
         <div className="measurementnotification">
             <div className="measurementnotification__logo">
-            <Logo />
-            <div className="measurementnotification__title">
-                Właśnie zaktualizowałeś swoje pomiary
+                <Logo />
+                <div className="measurementnotification__title">
+                    Właśnie zaktualizowałeś swoje pomiary
             </div>
             </div>
             <div className="measurementnotification__changes">
@@ -18,7 +18,7 @@ const MeasurementNotification = () => {
                     </div>
                 </div>
             </div>
-            
+
         </div>
     );
 };

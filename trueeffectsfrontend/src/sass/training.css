@@ -1,0 +1,627 @@
+.training {
+  background-color: #1D3557;
+  padding: 2rem;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  min-height: 100vh;
+}
+
+.training__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__top {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__top {
+    font-size: 1rem;
+  }
+}
+
+.training__middle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: 2rem;
+}
+
+.training__middle__logotime {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+}
+
+.training__middle__logotime-logo {
+  padding-right: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__logotime-logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__logotime-logo {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__logotime-logo img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__logotime-logo img {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.training__middle__logotime-time {
+  font-size: 5rem;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__logotime-time {
+    font-size: 1.8rem !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__logotime-time {
+    font-size: 1rem !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__logotime-time span {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__logotime-time span {
+    font-size: 1.5rem;
+  }
+}
+
+.training__middle-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle-title {
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+.training__middle-exercise {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle-exercise {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle-exercise {
+    font-size: 1.3rem;
+    text-align: center;
+  }
+}
+
+.training__middle__series {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__series {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__series {
+    margin-top: 0.6rem;
+  }
+}
+
+.training__middle__series-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__middle__series-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__middle__series-title {
+    font-size: 1rem;
+  }
+}
+
+.training__bottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom {
+    margin-top: 0.6rem;
+  }
+}
+
+.training__bottom__leftbutton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.training__bottom__leftbutton #endtraining {
+  background-color: #db3d44;
+  height: 70px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__leftbutton #endtraining {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__leftbutton #endtraining {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__leftbutton #endtraining:hover {
+  cursor: pointer;
+}
+
+.training__bottom__weight-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__weight-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__weight-title {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__weight-title2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__weight-title2 {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__weight-title2 {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__phase {
+  text-align: center;
+}
+
+.training__bottom__phase-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase-title {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__phase__allphases {
+  margin-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  font-size: 1.8rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase__allphases {
+    font-size: 1.2rem;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase__allphases {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+}
+
+.training__bottom__phase-title2 {
+  margin-top: 1rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase-title2 {
+    font-size: 1.2rem;
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase-title2 {
+    font-size: 0.8rem;
+    width: 100px;
+  }
+}
+
+.training__bottom__phase__reps {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase__reps {
+    font-size: 1.4rem;
+    width: 150px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase__reps {
+    font-size: 1.2rem;
+    width: 100px;
+  }
+}
+
+.training__bottom__phase__reps-actualreps #actualreps {
+  background-color: #1D3557;
+  font-size: 1.6rem;
+  border: none;
+  width: 60px;
+  color: white;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase__reps-actualreps #actualreps {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase__reps-actualreps #actualreps {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+.training__bottom__phase__reps-actualreps:after {
+  display: block;
+  content: "";
+  width: 60px;
+  height: 2px;
+  background-color: white;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__phase__reps-actualreps:after {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__phase__reps-actualreps:after {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__rightbutton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.training__bottom__rightbutton #nextexercise {
+  background-color: #db3d44;
+  height: 70px;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 900px) {
+  .training__bottom__rightbutton #nextexercise {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .training__bottom__rightbutton #nextexercise {
+    font-size: 0.8rem;
+  }
+}
+
+.training__bottom__rightbutton #nextexercise:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 900px) {
+  .stopwatch__timer {
+    font-size: 1.2rem !important;
+    font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stopwatch__timer {
+    font-size: 1.8rem !important;
+    font-weight: 600;
+  }
+}
+
+.stopwatchbuttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 900px) {
+  .stopwatchbuttons {
+    margin-top: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stopwatchbuttons {
+    margin-top: 0.5rem;
+  }
+}
+
+.stopwatchbuttons #start {
+  background-color: #db3d44;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0px 20px 0px 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .stopwatchbuttons #start {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stopwatchbuttons #start {
+    font-size: 0.8rem;
+  }
+}
+
+.stopwatchbuttons #start:hover {
+  cursor: pointer;
+}
+
+.stopwatchbuttons #pause {
+  background-color: #db3d44;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0px 20px 0px 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .stopwatchbuttons #pause {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stopwatchbuttons #pause {
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+}
+
+.stopwatchbuttons #pause:hover {
+  cursor: pointer;
+}
+
+.stopwatchbuttons #reset {
+  background-color: #db3d44;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0px 20px 0px 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .stopwatchbuttons #reset {
+    font-size: 1rem;
+    padding: 10px 10px 10px 10px;
+    margin-left: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stopwatchbuttons #reset {
+    font-size: 0.8rem;
+    padding: 10px 10px 10px 10px;
+    margin-left: 0.5rem;
+  }
+}
+
+.stopwatchbuttons #reset:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=training.css.map */

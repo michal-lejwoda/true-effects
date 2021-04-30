@@ -2,6 +2,25 @@
 $pink1: #db3d44;
 //$pink: #FF5A5A;
 $pink: #1D3557;
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen  and (max-width:500px){@content;}
+    }
+    @else if $point == mobilebig{
+        @media screen  and (max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen  and (max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen  and (max-width:1200px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }}
 .training{
     background-color:$pink;
     padding:2rem;
@@ -9,11 +28,19 @@ $pink: #1D3557;
     display:flex;
     flex-direction: column;
     color:white;
-
+    min-height:100vh;
     &__top{
         display:flex;
         justify-content: space-between;
         font-size:1.8rem;  
+        font-weight: 600;
+        @include breakpoint(laptop){
+            font-size: 1.2rem;
+        }
+        @include breakpoint(mobile){
+            font-size: 1rem;
+        }
+        
         
     }
     &__middle{
@@ -28,9 +55,42 @@ $pink: #1D3557;
             align-items: stretch;
             &-logo{
                 padding-right:2rem;
+                display: flex;
+                align-items: center;
+                @include breakpoint(laptop){
+                    display: none;
+                }
+                @include breakpoint(mobile){
+                    display:none;
+                }
+                img{
+                    @include breakpoint(laptop){
+                        width:100px;
+                        height: 100px;
+                    }
+                    @include breakpoint(mobile){
+                        width:100px;
+                        height: 100px;
+                    }
+                }
             }
             &-time{
                 font-size:5rem;
+                @include breakpoint(laptop){
+                    font-size: 1.8rem !important;
+                }
+                @include breakpoint(mobile){
+                    font-size:1rem !important;
+                }
+                span{
+                    @include breakpoint(laptop){
+                        font-size: 2rem;
+                    }
+                    @include breakpoint(mobile){
+                        font-size:1.5rem;
+                    }
+                }
+                
             }
         }
         &-title{
@@ -38,20 +98,49 @@ $pink: #1D3557;
             justify-content: center;
             font-size:1.8rem;
             margin-bottom:2rem;
+            @include breakpoint(laptop){
+                font-size: 1.2rem;
+                margin-bottom:1rem;
+            }
+            @include breakpoint(mobile){
+                font-size:1rem;
+                margin-bottom:0.8rem;
+            }
         }
         &-exercise{
             display:flex;
             justify-content: center;
             font-size:2.4rem;
+            font-weight: 600;
+            @include breakpoint(laptop){
+                font-size: 1.6rem;
+                text-align: center;
+            }
+            @include breakpoint(mobile){
+                font-size:1.3rem;
+                text-align: center;
+            }
         }
         &__series{
             display:flex;
             justify-content: center;
             flex-direction: column;
             align-items: center;
+            @include breakpoint(laptop){
+                margin-top:1rem;
+            }
+            @include breakpoint(mobile){
+                margin-top: 0.6rem;
+            }
             &-title{
                 font-size:1.4rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                }
+                @include breakpoint(mobile){
+                    font-size:1rem;
+                }
             }
         }
     }
@@ -60,6 +149,12 @@ $pink: #1D3557;
         flex-direction: row;
         justify-content: space-around;
         margin-top:2rem;
+        @include breakpoint(laptop){
+            font-size: 1rem;
+        }
+        @include breakpoint(mobile){
+            margin-top: 0.6rem;
+        }
         &__leftbutton{
             display:flex;
             justify-content:center;
@@ -69,6 +164,12 @@ $pink: #1D3557;
                 color:white;
                 font-size:1.2rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                }
             }
             #endtraining:hover{
                 cursor:pointer;
@@ -80,20 +181,39 @@ $pink: #1D3557;
                 justify-content: center;
                 font-size:1.8rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                }
             }
             &-title2{
                 display:flex;
                 justify-content: center;
                 font-size:1.8rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                }
             }
         }
         &__phase{
+            text-align: center;
             &-title{
                 display:flex;
                 justify-content: center;
                 font-size:1.8rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                }
+                @include breakpoint(mobile){
+                    font-size: 0.8rem;
+                }
             }
             &__allphases{
                 margin-top:1rem;
@@ -102,11 +222,28 @@ $pink: #1D3557;
                 font-size:1.8rem;
                 justify-content: center;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                    margin:0;
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                    margin:0;
+                }
             }
             &-title2{
                 margin-top:1rem;
                 font-size:1.8rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.2rem;
+                    width: 150px;
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                    width: 100px;
+
+                }
             }
             &__reps{
                 display:flex;
@@ -114,6 +251,14 @@ $pink: #1D3557;
                 justify-content: center;
                 font-size:2rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size: 1.4rem;
+                    width: 150px;
+                }
+                @include breakpoint(mobile){
+                    font-size:1.2rem;
+                    width: 100px;
+                }
                 &-actualreps{
                     
                     #actualreps{
@@ -123,6 +268,14 @@ $pink: #1D3557;
                         width: 60px;
                         color:white;
                         font-weight: 600;
+                        @include breakpoint(laptop){
+                            font-size:1.4rem;
+                            text-align: center;
+                        }
+                        @include breakpoint(mobile){
+                            font-size:1.2rem;
+                            text-align: center;
+                        }
                     }
                 }
                 &-actualreps:after{
@@ -131,6 +284,12 @@ $pink: #1D3557;
                     width: 60px;
                     height:2px;
                     background-color:white;
+                    @include breakpoint(laptop){
+                        font-size:1.2rem;
+                    }
+                    @include breakpoint(mobile){
+                        font-size:0.8rem;
+                    }
                 }
             }
         }
@@ -143,6 +302,13 @@ $pink: #1D3557;
                 color:white;
                 font-size:1.2rem;
                 font-weight: 600;
+                @include breakpoint(laptop){
+                    font-size:1rem;
+                    
+                }
+                @include breakpoint(mobile){
+                    font-size:0.8rem;
+                }
             }
             #nextexercise:hover{
                 cursor:pointer;
@@ -152,16 +318,39 @@ $pink: #1D3557;
     }
 }
 
+.stopwatch__timer{
+    @include breakpoint(laptop){
+        font-size:1.2rem !important;
+        font-weight: 600;
+        
+    }
+    @include breakpoint(mobile){
+        font-size:1.8rem !important;
+        font-weight: 600;
+    }
+}
 .stopwatchbuttons{
     display:flex;
     justify-content: space-between;
     margin-top:2rem;
+    @include breakpoint(laptop){
+        margin-top: 1rem;
+    }
+    @include breakpoint(mobile){
+        margin-top: 0.5rem;
+    }
     #start{
         background-color:$pink1;
         color:white;
         font-size:1.2rem;
         font-weight: 600;
-        padding:0px 20px 0px 20px
+        padding:0px 20px 0px 20px;
+        @include breakpoint(laptop){
+            font-size: 1rem;
+        }
+        @include breakpoint(mobile){
+            font-size:0.8rem;
+        }
     }
     #start:hover{
         cursor:pointer;
@@ -171,7 +360,15 @@ $pink: #1D3557;
         color:white;
         font-size:1.2rem;
         font-weight: 600;
-        padding:0px 20px 0px 20px
+        padding:0px 20px 0px 20px;
+        @include breakpoint(laptop){
+            font-size:1rem;
+            margin-left:0.5rem;
+        }
+        @include breakpoint(mobile){
+            font-size:0.8rem;
+            margin-left:0.5rem;
+        }
     }
     #pause:hover{
         cursor:pointer;
@@ -181,7 +378,17 @@ $pink: #1D3557;
         color:white;
         font-size:1.2rem;
         font-weight: 600;
-        padding:0px 20px 0px 20px
+        padding:0px 20px 0px 20px;
+        @include breakpoint(laptop){
+            font-size:1rem;
+            padding:10px 10px 10px 10px;
+            margin-left:0.5rem;
+        }
+        @include breakpoint(mobile){
+            font-size:0.8rem;
+            padding:10px 10px 10px 10px;
+            margin-left:0.5rem;
+        }
     }
     #reset:hover{
         cursor:pointer;

@@ -1,10 +1,40 @@
+$screen-sm-min: 576px;
+$screen-md-min: 768px;
+$screen-lg-min: 992px;
+$screen-xl-min: 1200px;
+@mixin s {
+    @media (max-width: #{$screen-sm-min}) {
+        @content;
+    }
+ }
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+ }
+ @mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+ }
+ @mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+ }
+ @mixin xl {
+    @media (max-width: #{$screen-xl-min}) {
+        @content;
+    }
+ }
 $pink : #E90B33;
 .login{
     margin:0;
     padding:0;
     display:flex;
-    height:100%;
+    min-height: 100vh;
     width:100%;
+    justify-content: center;
     &__firstcontainer{
         background-color:$pink;
         width:50%;
@@ -103,4 +133,17 @@ $pink : #E90B33;
 
     }
 
+}
+.MuiTextField-root{
+    @include s{
+        width: 7cm !important;
+    }
+    @include lg{
+        width: 15cm !important;
+    }
+    @include md{
+        width: 15cm !important;
+    }
+    
+    
 }

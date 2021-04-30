@@ -28,13 +28,6 @@ const AddMeasurements = (props) => {
     })
     const [startDate, setStartDate] = useState(new Date());
     const [actualDate, setActualDate] = useState(new Date())
-    const handleDate = () =>{
-        let date = new Date(inputdate.current.input.value)
-        let splitdate = inputdate.current.input.value.split("/")
-        let fullday = splitdate[2] + "-" + splitdate[1] + "-" +  splitdate[0]
-        setActualDate(fullday)
-        
-    }
     const handlePostMeasurement = () => {
         async function fetchData(){
             await props.postMeasurement(data)

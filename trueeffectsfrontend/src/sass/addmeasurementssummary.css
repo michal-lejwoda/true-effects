@@ -1,0 +1,109 @@
+.addmeasurementssummary {
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 270px;
+  background-color: #1D3557;
+}
+
+.addmeasurementssummary-title {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .addmeasurementssummary-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .addmeasurementssummary-title {
+    font-size: 1.1rem;
+  }
+}
+
+.addmeasurementssummary-secondtitle {
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 900px) {
+  .addmeasurementssummary-secondtitle {
+    font-size: 1.1rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .addmeasurementssummary-secondtitle {
+    font-size: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+.addmeasurementssummary__elements {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  color: white;
+  font-size: 1.6rem;
+  font-weight: 600;
+  width: 400px;
+}
+
+@media screen and (max-width: 900px) {
+  .addmeasurementssummary__elements {
+    font-size: 1.2rem;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .addmeasurementssummary__elements {
+    font-size: 1rem;
+    width: auto;
+  }
+}
+
+.addmeasurementssummary__elements__element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.addmeasurementssummary__button {
+  margin-top: 2rem;
+}
+
+.addmeasurementssummary__button button {
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  background-color: white;
+  color: #1D3557;
+  border-color: #1D3557;
+  border-width: medium;
+  font-weight: 600;
+}
+
+.addmeasurementssummary__button button:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=addmeasurementssummary.css.map */

@@ -8,10 +8,6 @@ from django.core.validators import int_list_validator,validate_comma_separated_i
 from django.contrib.postgres.fields import ArrayField
 class Exercise(models.Model):
     name = models.CharField(max_length=100)
-    # def __str__(self):
-    #     return self.name
-    
-
 class AssumedReps(models.Model):
     assumedreps = models.IntegerField()
     def __str__(self):
@@ -19,11 +15,8 @@ class AssumedReps(models.Model):
 class Reps(models.Model):
     reps = models.IntegerField()
 class AllSeries(models.Model):
-    #series = models.ManyToManyField(SingleSeries)
     number_of_series = models.IntegerField()
     rest_after = models.IntegerField()
-    #training2 = models.ForeignKey(Training,on_delete=models.CASCADE)
-
 class PersonalExercise(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=None)
     name = models.ForeignKey(Exercise,on_delete=models.CASCADE)
@@ -83,8 +76,6 @@ class SingleSeries(models.Model):
     pause_after_concentric_phase = models.IntegerField()
     pause_after_eccentric_phase = models.IntegerField()
     reps = ArrayField(models.IntegerField(), blank=True)
-    
-
 class Training(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=None)
     name = models.CharField(max_length=100)

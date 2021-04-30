@@ -1,6 +1,25 @@
 $maincolor: #1D3557;
 $secondcolor: #457B9D;
 $pink: #FF5A5A;
+@mixin breakpoint($point){
+    @if $point == mobile{
+      @media screen  and (max-width:500px){@content;}
+    }
+    @else if $point == mobilebig{
+        @media screen  and (max-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen  and (max-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen  and (max-width:1200px){@content;}
+    }
+    @else if $point == desktopsmall{
+        @media screen and(max-width:1400px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }}
 .addgoals{
     background-color: $maincolor;
     height:100%;
@@ -9,23 +28,47 @@ $pink: #FF5A5A;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
+    padding-top:1.5rem;
+    @include breakpoint(mobile){
+        justify-content: unset;
+    }
+    @include breakpoint(laptop){
+        justify-content: unset;
+    }
     &-title{
         color:white;
         font-size:2rem;
         font-weight: 700;
         padding-bottom: 2rem;
+        @include breakpoint(mobile){
+            font-size: 1.2rem;
+            text-align: center;
+            align-items: inherit;
+            justify-content: unset;
+        }
+        @include breakpoint(laptop){
+            text-align: center;
+            font-size:1.5rem;
+        }
     }
     &__container{
         width:400px;
         display:flex;
         align-items: center;
         flex-direction: column;
+        @include breakpoint(mobile){
+            width: 250px;
+            align-items: unset;
+        }
         &__data{
             &-input{
                 display:block;
                 margin:auto;
                 width:400px;
-                background-color: red;
+                @include breakpoint(mobile){
+                    width: 250px;
+                }
                 input{
                     background-color: $maincolor;
                     padding:0.5rem;
@@ -62,12 +105,18 @@ $pink: #FF5A5A;
         &__description{
             margin-top:1.5rem;
             width:400px;
+            @include breakpoint(mobile){
+                width: 200px;
+            }
             input#description{
                 display: block;
                 width: 400px;
                 background-color: $maincolor;
                 color:white;
                 padding:0.5rem;
+                @include breakpoint(mobile){
+                    width: 200px;
+                }
                 
             }
             input#description::after{
@@ -81,6 +130,11 @@ $pink: #FF5A5A;
         }
         &__button{
             margin-top:1.5rem;
+            @include breakpoint(mobile){
+                width: 220px;
+                display: flex;
+                justify-content: center;
+            }
             button{
                         
                 background-color: #db3d44;
@@ -90,6 +144,9 @@ $pink: #FF5A5A;
                 -moz-transition: ease-out 0.4s;
                 transition: ease-out 0.4s;
                 font-weight: 600;
+                
+
+ 
                 
             }
             button:hover{

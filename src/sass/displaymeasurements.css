@@ -1,0 +1,103 @@
+.displaymeasurements {
+  margin-left: 4px;
+  width: 100%;
+  height: 100%;
+  background-color: #1D3557;
+}
+
+.displaymeasurements-title {
+  padding-top: 1rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  font-size: 2rem;
+}
+
+.displaymeasurements__containers {
+  color: white;
+  font-size: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: calc(100% - 64px);
+  padding-left: 1rem;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.displaymeasurements__containers__container {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: #457B9D;
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 250px;
+  min-width: 300px;
+}
+
+.displaymeasurements__containers__container__elements {
+  width: 100%;
+}
+
+.displaymeasurements__containers__container__elements-date {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: white;
+  font-weight: 700;
+}
+
+.displaymeasurements__containers__container__elements__element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.displaymeasurements__containers__container__elements__element-delete {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  margin-bottom: 0.4rem;
+}
+
+.displaymeasurements__containers__container__elements__element-delete button {
+  background-color: #db3d44;
+  color: white;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  -webkit-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
+  font-weight: 600;
+}
+
+.displaymeasurements__containers__container__elements__element-delete button:hover {
+  cursor: pointer;
+}
+
+.displaymeasurements__containers__container__elements__element-delete button:hover {
+  -webkit-box-shadow: inset 400px 0 0 0 #1D3557;
+          box-shadow: inset 400px 0 0 0 #1D3557;
+}
+/*# sourceMappingURL=displaymeasurements.css.map */

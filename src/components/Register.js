@@ -25,9 +25,7 @@ const Register = (props) => {
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
     const [password2,setPassword2] = useState('')
-    const [usernameerror,setUsernameError] = useState(false)
     const [emailerror,setEmailError] = useState(false)
-    const [passworderror,setPasswordError] = useState(false)
     function validateEmail(email) {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -95,7 +93,6 @@ const Register = (props) => {
                     </div>
                     <div className="register__secondcontainer__form__button">
                         <button className="register__secondcontainer__form__button-register" onClick={handleRegister}>Zarejestruj się</button>
-                        {/* <p className="register__secondcontainer__form__button-forget">Zapomniałem hasła</p> */}
                     </div>
                     </form>
                 </div>

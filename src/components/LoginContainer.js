@@ -1,4 +1,4 @@
-import { BrowserRouter, Route,Redirect } from 'react-router-dom';
+import {Route} from 'react-router-dom';
 import React, {useEffect } from 'react';
 import Login from './Login';
 import Register from './Register';
@@ -10,7 +10,6 @@ const LoginContainer = () => {
   },[])
   return(
     <div className="containerlogin">
-      {/* <Route exact path="/" render={() => <Redirect to="/login" />} /> */}
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
     </div>

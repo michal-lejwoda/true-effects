@@ -1,0 +1,30 @@
+.containerdefault {
+  margin-left: 64px;
+  min-height: 100vh;
+}
+
+.containerlogin {
+  height: 100%;
+  min-height: 100vh;
+}
+
+.makeStyles-root-1 {
+  border-bottom-width: medium;
+  border-bottom-style: solid;
+  border-bottom-color: white;
+  overflow-x: hidden;
+  width: 20ch;
+}
+
+@media (min-width: 576px) {
+  .makeStyles-root-1 {
+    width: 50ch;
+  }
+}
+
+@media (min-width: 576px) {
+  .makeStyles-root-1 {
+    width: 40ch;
+  }
+}
+/*# sourceMappingURL=defaultcontainer.css.map */
