@@ -16,7 +16,7 @@ const CreateTraining = (props) => {
     const [activediv, setActivediv] = useState(null)
     const [ownexercise, setOwnExercise] = useState({ id: '', name: '' })
     const [exercise, setExercise] = useState({ id: '', name: '' })
-    const [series, setSeries] = useState(1)
+    const [series, setSeries] = useState(3)
     const [assumedreps, setAssumedReps] = useState(1)
     const [rest, setRest] = useState(60)
     const [weight, setWeight] = useState(0)
@@ -64,7 +64,7 @@ const CreateTraining = (props) => {
     }
     const clearState = () => {
         // Domyślne dane
-        setSeries(1)
+        setSeries(3)
         // setAssumedReps(1)
         // setRest(60)
         // setWeight(0)
@@ -199,10 +199,10 @@ const CreateTraining = (props) => {
 
                     <div className='createtraining__containers__first-input'>Wyszukaj ćwiczenie</div>
                     <div className="createtraining__containers__first__exercises">
-                        {ownexerciseActive ? props.ownexercises.map((element) => <div className="createtraining__containers__first__exercises__element " onClick={(e) => handleClickExercise(e, element)}>{element.name}</div>) : props.exercises.map((element) => <div className="createtraining__containers__first__exercises__element " onClick={(e) => handleClickExercise(e, element)}>{element.name}</div>)}
+                        {ownexerciseActive ? props.ownexercises.map((element,key) => <div className="createtraining__containers__first__exercises__element " onClick={(e) => handleClickExercise(e, element)}>{element.name}</div>) : props.exercises.map((element) => <div className="createtraining__containers__first__exercises__element " onClick={(e) => handleClickExercise(e, element)}>{element.name}</div>)}
                     </div>
                     <div className="createtraining__containers__first__trainingdata">
-                        <div className="createtraining__containers__first__trainingdata__series">Podaj liczbę serii danego ćwiczenia *<span><input placeholder={series} value={series} onChange={(e) => setSeries(parseInt(e.target.value))} /></span></div>
+                        <div className="createtraining__containers__first__trainingdata__series">Podaj liczbę serii danego ćwiczenia *<span><input placeholder={series}  onChange={(e) => setSeries(parseInt(e.target.value))} /></span></div>
                         <div className="createtraining__containers__first__trainingdata__singleseries">Podaj liczbę powtórzeń danego ćwiczenia *<span><input placeholder={assumedreps} onChange={(e) => setAssumedReps(parseInt(e.target.value))} /></span></div>
                         <div className="createtraining__containers__first__trainingdata__rest">Podaj czas odpoczynku w (s) *<span><input placeholder={rest} onChange={(e) => setRest(parseInt(e.target.value))} /></span></div>
                         <div className="createtraining__containers__first__trainingdata__weight">Podaj ciężar w kg(domyślnie 0) <span><input placeholder={weight} onChange={(e) => setWeight(parseInt(e.target.value))} /></span></div>

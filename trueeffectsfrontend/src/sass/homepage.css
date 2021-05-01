@@ -414,6 +414,7 @@
 
 .homepage__measurementcontainer__container__element-result {
   width: 70px;
+  white-space: nowrap;
 }
 
 .homepage__measurementcontainer-add {

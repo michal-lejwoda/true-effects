@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 const HomepageMeasurementItem = (props) => {
-    console.log(props)
     const history = useHistory()
 
     const addNewMeasurement = () => {

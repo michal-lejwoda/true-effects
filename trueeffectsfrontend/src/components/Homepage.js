@@ -28,7 +28,7 @@ const Homepage = (props) => {
                         <div className="homepage__goalscontainer-title">Twoje cele do zrealizowania</div>
                         <div className="homepage__goalscontainer-add"><button onClick={addNewGoals}>+ Dodaj nowe cele</button></div>
                         <div className="homepage__goalscontainer__elements">
-                            {props.goals.length > 0 ? props.goals.map((goal) => <HomepageGoalItem goal={goal} />) : <p>Nie masz aktualnie żadnych celów do zrealizowania</p>}
+                            {props.goals.length > 0 ? props.goals.map((goal,key) => <HomepageGoalItem key={key} goal={goal} />) : <p>Nie masz aktualnie żadnych celów do zrealizowania</p>}
                         </div>
                     </div>
                     <div className="homepage__measurementcontainer">
@@ -39,7 +39,7 @@ const Homepage = (props) => {
                     <div className="homepage__lasttrainingscontainer-title">Twoje treningi</div>
                     <div className="homepage__lasttrainingscontainer-add"><button onClick={addNewTraining}>+ Dodaj nowy trening</button></div>
                     <div className="homepage__lasttrainingscontainer__container">
-                        {props.trainings.length > 0 ? props.trainings.map((training) => <HomepageTrainingItem allprops={props} training={training} />) : <p>Nie wykonałeś jeszcze żadnych treningów</p>}
+                        {props.trainings.length > 0 ? props.trainings.map((training,key) => <HomepageTrainingItem key={key} allprops={props} training={training} />) : <p>Nie wykonałeś jeszcze żadnych treningów</p>}
                     </div>
                 </div>
             </div>

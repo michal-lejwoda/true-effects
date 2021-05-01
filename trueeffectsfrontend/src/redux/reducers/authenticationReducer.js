@@ -50,7 +50,6 @@ export default function authreducer(state=initialState,action){
                 isLoading: true
             }
         case USER_LOADED:
-            console.log(action.payload.name)
             return{
                 ...state,
                 isLoaded: true,

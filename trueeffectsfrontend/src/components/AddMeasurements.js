@@ -19,6 +19,16 @@ const AddMeasurements = (props) => {
     const [summary, setSummary] = useState(false)
     const [data, setData] = useState()
     const inputdate = useRef(null)
+    const handleFloats = () => {
+        if (isNaN(weight) === false && isNaN(growth) ===false && isNaN(leftbiceps) === false && isNaN(rightbiceps) === false
+            && isNaN(leftforearm) === false && isNaN(rightforearm) === false && isNaN(leftleg) === false
+            && isNaN(rightleg) === false && weight >= 0 && growth >= 0 && leftbiceps >= 0 && rightbiceps >= 0
+            && leftforearm >= 0 && rightforearm >= 0 && leftleg >= 0 && rightleg >= 0) {
+            return true
+        } else {
+            return false
+        }
+    }
     const [olddata, setOldData] = useState(() => {
         if (props.measurements[props.measurements.length - 1] !== undefined) {
             return props.measurements[props.measurements.length - 1]
@@ -27,38 +37,35 @@ const AddMeasurements = (props) => {
         }
     })
     const [actualDate, setActualDate] = useState(new Date())
-    // const handleDate = () =>{
-    //     let date = new Date(inputdate.current.input.value)
-    //     let splitdate = inputdate.current.input.value.split("/")
-    //     let fullday = splitdate[2] + "-" + splitdate[1] + "-" +  splitdate[0]
-    //     setActualDate(fullday)
-
-    // }
     const handlePostMeasurement = () => {
-        async function fetchData() {
-            await props.postMeasurement(data)
-            await props.getMeasurements()
-        }
-        let splitdate = inputdate.current.input.value.split("/")
-        let fullday = splitdate[2] + "-" + splitdate[1] + "-" + splitdate[0]
-        let data =
-        {
-            "date": fullday,
-            "weight": weight,
-            "growth": growth,
-            "left_biceps": leftbiceps,
-            "right_biceps": rightbiceps,
-            "right_forearm": rightforearm,
-            "left_forearm": leftforearm,
-            "left_leg": leftleg,
-            "right_leg": rightleg,
-            "bodyfat": bodyfat,
+        if (handleFloats()) {
+            async function fetchData() {
+                await props.postMeasurement(data)
+                await props.getMeasurements()
+            }
+            let splitdate = inputdate.current.input.value.split("/")
+            let fullday = splitdate[2] + "-" + splitdate[1] + "-" + splitdate[0]
+            let data =
+            {
+                "date": fullday,
+                "weight": weight,
+                "growth": growth,
+                "left_biceps": leftbiceps,
+                "right_biceps": rightbiceps,
+                "right_forearm": rightforearm,
+                "left_forearm": leftforearm,
+                "left_leg": leftleg,
+                "right_leg": rightleg,
+                "bodyfat": bodyfat,
 
+            }
+            setOldData(props.measurements[props.measurements.length - 1])
+            fetchData()
+            setData(data)
+            setSummary(true)
+        }else{
+            alert("Wartości są nieprawidłowe. Powinny być liczbami większymi lub równymi 0")
         }
-        setOldData(props.measurements[props.measurements.length - 1])
-        fetchData()
-        setData(data)
-        setSummary(true)
     }
     registerLocale('pl', pl)
     return (
