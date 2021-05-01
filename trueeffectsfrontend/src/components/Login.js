@@ -29,8 +29,8 @@ const Login = (props) => {
     const handleMovetoBack = () => {
         props.history.goBack()
     }
-    const [login, setLogin] = useState("")
-    const [password, setPassword] = useState("")
+    const [login, setLogin] = useState("test")
+    const [password, setPassword] = useState("test")
     const classes = useStyles();
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -60,10 +60,10 @@ const Login = (props) => {
                         <div className="login__secondcontainer__form__title">Zaloguj się</div>
                         <div className="login__secondcontainer__form__secondtitle">Zaloguj się aby kontynuować</div>
                         <div className="login__secondcontainer__form__username-input">
-                            <TextField onChange={(e) => setLogin(e.target.value)} id="standard-password-input" label="Nazwa użytkownika" type="text" autoComplete="current-password" />
+                            <TextField defaultValue="test" onChange={(e) => setLogin(e.target.value)} id="standard-password-input" label="Nazwa użytkownika" type="text" autoComplete="current-password" />
                         </div>
                         <div className="login__secondcontainer__form__username-password">
-                            <TextField onChange={(e) => setPassword(e.target.value)} id="standard-password-input" label="Hasło" type="password" autoComplete="current-password" />
+                            <TextField defaultValue="test" onChange={(e) => setPassword(e.target.value)} id="standard-password-input" label="Hasło" type="password" autoComplete="current-password" />
                         </div>
                         {props.error !== '' && <p style={{ color: 'red' }}>{props.error}</p>}
                         <div className="login__secondcontainer__form__button">

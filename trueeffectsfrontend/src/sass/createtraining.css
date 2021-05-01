@@ -485,6 +485,7 @@
 
 @media screen and (max-width: 500px) {
   .createtraining__containers__third {
+    min-width: auto;
     max-width: 250px;
   }
 }
@@ -613,15 +614,15 @@
   background-color: white;
 }
 
-@media screen and (max-width: 500px) {
-  .createtraining__containers__third-description span::after {
-    width: 200px;
-  }
-}
-
 @media screen and (max-width: 900px) {
   .createtraining__containers__third-description span::after {
     width: 350px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .createtraining__containers__third-description span::after {
+    width: 200px;
   }
 }
 
@@ -702,6 +703,12 @@
 @media screen and (max-width: 900px) {
   .createtraining__containers__third__elements__element #exercisetable th {
     font-size: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .createtraining__containers__third__elements__element #exercisetable th {
+    font-size: 1.1rem;
   }
 }
 

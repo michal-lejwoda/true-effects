@@ -315,6 +315,7 @@ $thirdcolor: #db3d44;
             padding:1rem;
             min-width: 350px;
             @include breakpoint(mobile){
+                min-width: auto;
                 max-width: 250px;
             }
             @include breakpoint(laptop){
@@ -404,11 +405,12 @@ $thirdcolor: #db3d44;
                     width: 350px;
                     height:2px;
                     background-color: white;
-                    @include breakpoint(mobile){
-                        width: 200px;
-                    }
+                    
                     @include breakpoint(laptop){
                         width: 350px;
+                    }
+                    @include breakpoint(mobile){
+                        width: 200px;
                     }
 
                 }
@@ -459,6 +461,9 @@ $thirdcolor: #db3d44;
                             width:70%;
                             @include breakpoint(laptop){
                                 font-size: 1.2rem;
+                            }
+                            @include breakpoint(mobile){
+                                font-size: 1.1rem;
                             }
                         }
                         td{

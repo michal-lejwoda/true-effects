@@ -64,11 +64,15 @@ $secondcolor:#457B9D;
         flex-wrap:wrap;
         width: calc(100% - 64px);
         padding-left: 1rem;
-        justify-content: space-between;
+        justify-content: center;
+        @include breakpoint(mobile){
+            margin-left:1rem;
+        }
         @include breakpoint(laptop){
             justify-content: center;
             font-size: 1.1rem;
             font-weight: 600;
+            
         }
         &__container{
             margin-top: 2rem;
@@ -76,6 +80,7 @@ $secondcolor:#457B9D;
             padding-left:1rem;
             padding-right:1rem;
             padding-bottom: 2rem;
+            margin-right: 1rem;
             background-color:$secondcolor;
             width:30%;
             display:flex;
@@ -85,6 +90,7 @@ $secondcolor:#457B9D;
             @include breakpoint(mobile){
                 min-width: 250px;
                 margin-bottom :1rem;
+                margin-right: auto;
             }
             &__elements{
                 width:100%;

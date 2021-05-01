@@ -95,8 +95,16 @@ const CreateTraining = (props) => {
             e.target.style.background = '#db3d44'
         }
     }
+    const checkIntegers = () => {
+        if(Number.isInteger(series) && series >= 0 && Number.isInteger(assumedreps) && assumedreps >= 0 && Number.isInteger(rest) && rest >= 0 && Number.isInteger(concentricphase) && concentricphase >= 0 && Number.isInteger(pauseconcentricphase) && pauseconcentricphase >= 0 && Number.isInteger(eccentricphase) && eccentricphase >= 0 && Number.isInteger(pauseeccentricphase) && pauseeccentricphase >= 0 && weight >=0){
+            return true
+        }else{
+            alert("Wartości powinny być całkowite dodatnie. Waga może być wartością niecałkowitą dodatnią")
+            return false
+        }
+    }
     const handleClickSelect = (e) => {
-        if (activediv !== null) {
+        if (activediv !== null && checkIntegers()) {
             addElementstoMainItems()
             for (let i = 0; i < series; i++) {
                 setItemsPlaceHolders(oldArray => [...oldArray, assumedreps])
@@ -168,7 +176,6 @@ const CreateTraining = (props) => {
                 allobjects.push(objects)
             }
             fetchData(array)
-            // props.postTraining(array)
         }
     }
     return (

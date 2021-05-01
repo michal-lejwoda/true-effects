@@ -32,6 +32,7 @@ $pink: #FF5A5A;
     padding-top:1.5rem;
     @include breakpoint(mobile){
         justify-content: unset;
+        overflow:hidden;
     }
     @include breakpoint(laptop){
         justify-content: unset;

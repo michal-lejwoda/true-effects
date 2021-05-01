@@ -9,6 +9,22 @@ html {
   box-sizing: border-box;
 }
 
+html ::-webkit-input-placeholder {
+  color: red;
+}
+
+html :-ms-input-placeholder {
+  color: red;
+}
+
+html ::-ms-input-placeholder {
+  color: red;
+}
+
+html ::placeholder {
+  color: red;
+}
+
 body {
   width: 100%;
   min-height: 100%;

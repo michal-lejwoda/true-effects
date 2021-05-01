@@ -537,6 +537,12 @@
   border-bottom: 2px solid white;
 }
 
+@media screen and (max-width: 500px) {
+  .homepage__lasttrainingscontainer__container__element {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+  }
+}
+
 .homepage__lasttrainingscontainer__container__element__top {
   display: -webkit-box;
   display: -ms-flexbox;
