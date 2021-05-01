@@ -94,6 +94,12 @@
   height: 450px;
 }
 
+@media screen and (max-width: 500px) {
+  .addmeasurements__container__oldmeasurementscontainer {
+    padding: 0.2rem 0.4rem 1rem 0.4rem;
+  }
+}
+
 @media screen and (max-width: 900px) {
   .addmeasurements__container__oldmeasurementscontainer {
     width: 300px;
@@ -224,6 +230,7 @@
     margin-top: 1rem;
     height: auto;
     max-width: 250px;
+    padding: 0.2rem 0.4rem 0.4rem 0.4rem;
   }
 }
 

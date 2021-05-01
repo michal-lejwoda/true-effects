@@ -1,6 +1,5 @@
 *.log
 *.pot
-*.pyc
 __pycache__
 db.sqlite3
 media
@@ -11,3 +10,5 @@ venv/
 ENV/ 
 env.bak/ 
 venv.bak/ 
+*.pyc 
+.eslintcache

@@ -73,10 +73,14 @@ $pink1: #FF5A5A;
             width:500px;
             margin-right: 2rem;
             height:450px;
+            @include breakpoint(mobile){
+                padding: 0.2rem 0.4rem 1rem 0.4rem;
+            }
             @include breakpoint(laptop){
                 width:300px;
                 height: auto;
                 margin:0;
+                
                 
             }
             @include breakpoint(mobile){
@@ -157,7 +161,9 @@ $pink1: #FF5A5A;
                 margin-top:1rem;
                 height:auto;
                 max-width: 250px;
+                padding: 0.2rem 0.4rem 0.4rem 0.4rem;
             }
+            
             
             &-title{
                 display:flex;

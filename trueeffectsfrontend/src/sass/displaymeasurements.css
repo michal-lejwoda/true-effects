@@ -63,9 +63,15 @@
       flex-wrap: wrap;
   width: calc(100% - 64px);
   padding-left: 1rem;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+@media screen and (max-width: 500px) {
+  .displaymeasurements__containers {
+    margin-left: 1rem;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -84,6 +90,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
   padding-bottom: 2rem;
+  margin-right: 1rem;
   background-color: #457B9D;
   width: 30%;
   display: -webkit-box;
@@ -97,6 +104,7 @@
   .displaymeasurements__containers__container {
     min-width: 250px;
     margin-bottom: 1rem;
+    margin-right: auto;
   }
 }
 

@@ -24,6 +24,7 @@
     -webkit-box-pack: unset;
         -ms-flex-pack: unset;
             justify-content: unset;
+    overflow: hidden;
   }
 }
 
