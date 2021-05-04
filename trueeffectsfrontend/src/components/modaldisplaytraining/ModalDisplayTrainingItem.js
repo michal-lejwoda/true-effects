@@ -12,8 +12,7 @@ const ModalDisplayTrainingItem = (props) => {
                     return (
                     <span>{point}</span>
                     )}else{
-                        console.log(index)
-                        console.log(props.training.reps.length)
+              
                     return (<span>{point}/</span>)
       }
     }
