@@ -7,5 +7,4 @@ W bazie danych możemy zapisywać zarówno treninigi jak i pomiary ciała i oraz
 Todo:
 
 Dostosowanie pomiarów pod potrzeny użytkownika zamiast statycznych typów
-testy
 
