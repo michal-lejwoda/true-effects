@@ -1,4 +1,5 @@
 user : test
+
 password :test
 
 Aplikacja pozwala na dopasowanie treninigu do swoich potrzeb. Pozwala na tworzenie oraz zarządzanie czasem treningu jak i powtórzeniami wykonanymi podczas treningu.
