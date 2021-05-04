@@ -19,7 +19,6 @@ export class Schedule extends React.Component {
     title: ''
   }
   handleSelectEvent = (e) => {
-    console.log(e)
     this.setState({
       modalopen: true,
       training: e.data,
