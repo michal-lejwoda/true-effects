@@ -103,19 +103,17 @@ class TrainingSerializer(serializers.ModelSerializer):
             singleseries = SingleSeries.objects.get(id = instance.training.all()[el].id)
             singleseries.reps = training[el]['reps']
             singleseries.save(update_fields=['reps'])
-            
-        print("koniec treningu")
         return instance
     def create(self,validated_data):
         singleseries_data = validated_data.pop('training')
         training = Training.objects.create(**validated_data)
         for singleseries_dat in singleseries_data:
             if 'exercise' in singleseries_dat:
-                print("Jeśt ćwiczenie ")
+               
                 exercise = Exercise.objects.get(name = singleseries_dat['exercise']['name'])
                 singleseries_dat['exercise'] = exercise
             else:
-                print("nie ma Ćwiczenia")
+       
                 ownexercise = OwnExercise.objects.get(name = singleseries_dat['ownexercise']['name'])
                 singleseries_dat['ownexercise'] = ownexercise
             singleseries = SingleSeries.objects.create(**singleseries_dat)
