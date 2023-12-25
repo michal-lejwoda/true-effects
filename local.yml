@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres4
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5434:5434"
+  trueeffects_backend:
+    container_name: trueeffects_backend
+    build:
+      context: .
+      dockerfile: ./compose/local/trueeffects_backend/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ".:/app"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+  trueeffects_frontend:
+    stdin_open: true
+    container_name: trueeffects_frontend
+    build:
+      context: .
+      dockerfile: ./compose/local/trueeffects_frontend/Dockerfile
+    volumes:
+      - "./trueeffectsfrontend:/frontend"
+    ports:
+      - "3000:3000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
