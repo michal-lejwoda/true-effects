@@ -1,44 +1,29 @@
 from django.urls import path
+
 from . import views
-from rest_framework.authtoken.views import obtain_auth_token
-from django.views.generic import TemplateView
 
 urlpatterns=[
-    path('display_exercises/',views.exerciseView,name="exercise-view"),
-    path('create_exercise/',views.exerciseCreate,name="create_exercise"),
+    path('display_exercises/',views.exercise_view,name="exercise-view"),
+    path('create_exercise/',views.exercise_create,name="create_exercise"),
     path('register/',views.registration_view,name='register'),
-    # path('login/',obtain_auth_token,name="login"),
     path('login/', views.CustomAuthToken.as_view()),
-    path('create_personal_dimensions/',views.createpersonalDimensions,name="create_personal_Dimensions"),
-    path('display_personal_dimensions/',views.displaypersonalDimensions,name="display_personal_Dimensions"),
+    path('create_personal_dimensions/',views.create_personal_dimensions,name="create_personal_Dimensions"),
+    path('display_personal_dimensions/',views.display_personal_dimensions,name="display_personal_Dimensions"),
     path('logout/', views.Logout.as_view()),
-    path('create_training/',views.createTraining,name="create_training"),
-    path('display_training/',views.displayTraining,name="display_training"),
-    path('create_own_exercise/',views.createOwnExercise,name="create_own_exercise"),
-    path('display_own_exercise/',views.displayOwnExercise,name="display_own_exercise"),
-    path('create_personal_goals/',views.createPersonalGoals,name="create_personal_goals"),
-    path('display_personal_goals/',views.displayPersonalGoals,name="display_personal_goals"),
-    # path('create_personal_goals/',views.createPersonalResults,name="create_personal_results"),
-    # path('display_personal_goals/',views.displayPersonalResults,name="display_personal_results"),
-    path('display_single_series/',views.displaySingleSeries,name="display_single_series"),
-    path('create_single_series/',views.createSingleSeries,name="create_single_series"),
-    path('display_description_goals/',views.displayDescriptionGoals,name="display_description_goals"),
-    path('create_description_goals/',views.createDescriptionGoals,name="create_description_goals"),
-    path('update_training/',views.updateTraining,name="update_training"),
-    path('delete_goals/<str:pk>',views.deleteGoals,name="delete_goals"),
-    path('delete_measurement/<str:pk>',views.deleteMeasurement,name="delete_measurement"),
-    path('delete_training/<str:pk>',views.deleteTraining,name="delete_training"),
-    path('update_training_date/<str:pk>',views.updatedateofTraining,name="update_date_of_training"),
-    path('update_training_after_end/<str:pk>',views.updateTrainingafterEnd,name="update_training_after_end"),
-    path('overview/',views.apiOverview),
+    path('create_training/',views.create_training,name="create_training"),
+    path('display_training/',views.display_training,name="display_training"),
+    path('create_own_exercise/',views.create_own_exercise,name="create_own_exercise"),
+    path('display_own_exercise/',views.display_own_exercise,name="display_own_exercise"),
+    path('create_personal_goals/',views.create_personal_goals,name="create_personal_goals"),
+    path('display_personal_goals/',views.display_personal_goals,name="display_personal_goals"),
+    path('display_single_series/',views.display_single_series,name="display_single_series"),
+    path('create_single_series/',views.create_single_series,name="create_single_series"),
+    path('display_description_goals/',views.display_description_goals,name="display_description_goals"),
+    path('create_description_goals/',views.create_description_goals,name="create_description_goals"),
+    # path('update_training/',views.updateTraining,name="update_training"),
+    path('delete_goals/<str:pk>',views.delete_goals,name="delete_goals"),
+    path('delete_measurement/<str:pk>',views.delete_measurement,name="delete_measurement"),
+    path('delete_training/<str:pk>',views.delete_training,name="delete_training"),
+    path('update_training_date/<str:pk>',views.update_date_of_training,name="update_date_of_training"),
+    path('update_training_after_end/<str:pk>',views.update_training_after_end,name="update_training_after_end"),
 ]
-#createTraining
-#displayTraining
-#createOwnExercise
-#displayOwnExercise
-#createPersonalGoals
-#displayPersonalGoals
-#createPersonalResults
-#displayPersonalResults
-#createpersonalDimensions
-#displaypersonalDimensions
