@@ -52,11 +52,11 @@ class PersonalDimensionsSerializer(serializers.ModelSerializer):
 class PersonalGoalsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonalGoals
-        fields = ['__all__']
+        fields = '__all__'
 class PersonalResultsSerializer(serializers.ModelSerializer):
     class Meta:
         model = PersonalResults
-        fields = ['__all__']
+        fields = '__all__'
 class ExerciseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Exercise
