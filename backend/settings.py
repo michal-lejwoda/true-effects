@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,10 +26,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS=True
-print("os.getenv('DATABASE_URL')")
-print(os.getenv('DATABASE_URL'))
-print("os.getenv('SECRET_KEY')")
-print(os.getenv('SECRET_KEY'))
 # Application definition
 
 INSTALLED_APPS = [
@@ -101,9 +97,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 #     }
 # }
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(default=os.getenv('DATABASE_URL'))
-# DATABASES['default']['ENGINE']='django.db.backends.postgresql_psycopg2'
-
+print("os.getenv('DATABASE_URL')")
+print(config('DATABASE_URL'))
+DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
+DATABASES['default']['ENGINE']='django.db.backends.postgresql_psycopg2'
+# DATABASES['default']['NAME']='postgres'
 REST_FRAMEWORK = {
     
     'DEFAULT_AUTHENTICATION_CLASSES': [

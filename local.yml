@@ -1,13 +1,14 @@
 version: "3.7"
 services:
-  db:
+  trueeffects_db:
     image: postgres
     environment:
       - POSTGRES_DB=postgres4
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-      - "5434:5434"
+      - "5432:5432"
+
   trueeffects_backend:
     container_name: trueeffects_backend
     build:
@@ -19,7 +20,7 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - db
+      - trueeffects_db
 
   trueeffects_frontend:
     stdin_open: true
@@ -31,5 +32,8 @@ services:
       - "./trueeffectsfrontend:/frontend"
     ports:
       - "3000:3000"
+    depends_on:
+      - trueeffects_db
+      - trueeffects_backend
     environment:
       - CHOKIDAR_USEPOLLING=true
