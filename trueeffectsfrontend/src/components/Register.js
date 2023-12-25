@@ -46,6 +46,8 @@ const Register = (props) => {
                 "password": password,
                 "password2": password2
             }
+            console.log("data")
+            console.log(data)
             await props.postRegister(data)
         } else {
             setEmailError(true)

@@ -27,7 +27,6 @@
     "react-moment": "^1.1.1",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
-    "react-scheduler-calendar": "^0.4.12-5",
     "react-scripts": "4.0.1",
     "react-stopwatch": "^2.0.4",
     "react-stopwatch-timer": "^1.0.0",

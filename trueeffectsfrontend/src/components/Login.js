@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Login = (props) => {
+
     if (props.token !== null) {
         props.history.push('/')
     }
@@ -40,6 +41,8 @@ const Login = (props) => {
         }
         await props.loadUser(data)
     }
+    console.log("import.meta.env.TRUEEFFECTS_URL")
+    console.log(process.env.REACT_APP_TRUEEFFECTS_URL)
     return (
 
         <div className="login">

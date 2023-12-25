@@ -4,6 +4,7 @@ import {GET_TIME,GET_TIME_SUCCESS,GET_MEASUREMENTS_SUCCESS,GET_MEASUREMENTS,GET_
      GET_EXERCISES_SUCCESS,GET_OWN_EXERCISES_SUCCESS,END_TRAINING_SUCCESS,POST_TIME} from './types';
 import axios from 'axios';
 
+const TRUEEFFECTS_URL =  process.env.REACT_APP_TRUEEFFECTS_URL
 export const getTime = (time)=>(dispatch) =>{
     dispatch({type: GET_TIME})
     dispatch({
@@ -15,7 +16,7 @@ export const getMeasurements =()=>(dispatch,getState) => {
     dispatch({type: GET_MEASUREMENTS})
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get('https://true-effects.herokuapp.com/api/display_personal_dimensions/')
+    return axios.get(`${TRUEEFFECTS_URL}/api/display_personal_dimensions/`)
     .then(res=> dispatch({
         type: GET_MEASUREMENTS_SUCCESS,
         payload: res,
@@ -25,13 +26,13 @@ export const getExercises = () =>(dispatch,getState)=>{
     let token = getState().authentication.token
     dispatch({type: GET_EXERCISES})
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    axios.get('https://true-effects.herokuapp.com/api/display_own_exercise/')
+    axios.get(`${TRUEEFFECTS_URL}/api/display_own_exercise/`)
     .then(res=>dispatch({
         type: GET_OWN_EXERCISES_SUCCESS,
         payload: res.data
     }))
     .then(
-    axios.get('https://true-effects.herokuapp.com/api/display_exercises/')
+    axios.get(`${TRUEEFFECTS_URL}/api/display_exercises/`)
     .then(res=> dispatch({
         type: GET_EXERCISES_SUCCESS,
         payload: res,
@@ -43,7 +44,7 @@ export const postTraining = (data) => async(dispatch,getState) => {
         token = getState().authentication.token
     }
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return await axios.post('https://true-effects.herokuapp.com/api/create_training/',data)
+    return await axios.post(`${TRUEEFFECTS_URL}/api/create_training/`,data)
     .then(res=>{
         alert("Trening został dodany")
     })
@@ -56,7 +57,7 @@ export const getTrainings = () => (dispatch,getState) =>{
     dispatch({type: GET_TRAININGS})
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get('https://true-effects.herokuapp.com/api/display_training/')
+    return axios.get(`${TRUEEFFECTS_URL}/api/display_training/`)
     .then(res => dispatch({
         type: GET_TRAININGS_SUCCESS,
         payload: res,
@@ -66,7 +67,7 @@ export const getGoals = () => (dispatch,getState) =>{
     dispatch({type: GET_GOALS})
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get('https://true-effects.herokuapp.com/api/display_description_goals/')
+    return axios.get(`${TRUEEFFECTS_URL}/api/display_description_goals/`)
     .then(res => dispatch({
         type: GET_GOALS_SUCCESS,
         payload: res,
@@ -75,7 +76,7 @@ export const getGoals = () => (dispatch,getState) =>{
 export const postGoals = (data) => (dispatch,getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post('https://true-effects.herokuapp.com/api/create_description_goals/',data)
+    return axios.post(`${TRUEEFFECTS_URL}/api/create_description_goals/`,data)
     .then(res=>{
         alert("Dodano cel")
     })
@@ -88,7 +89,7 @@ export const postMeasurement = (data) => (dispatch,getState) =>{
     dispatch({type: POST_MEASUREMENT})
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post('https://true-effects.herokuapp.com/api/create_personal_dimensions/',data)
+    return axios.post(`${TRUEEFFECTS_URL}/api/create_personal_dimensions/`,data)
     .then(res=>dispatch({
         type: POST_MEASUREMENT_SUCCESS,
     }))
@@ -102,7 +103,7 @@ export const postOwnExercise = (data) => (dispatch,getState) =>{
     let token = getState().authentication.token
     let dictdata = {"name": data}
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post('https://true-effects.herokuapp.com/api/create_own_exercise/',dictdata)
+    return axios.post(`${TRUEEFFECTS_URL}/api/create_own_exercise/`,dictdata)
     .catch(err=>{
         alert("Wystąpił błąd")
     })
@@ -110,7 +111,7 @@ export const postOwnExercise = (data) => (dispatch,getState) =>{
 export const deleteTraining = pk =>(dispatch,getState)=>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`https://true-effects.herokuapp.com/api/delete_training/${pk}`)
+    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_training/${pk}`)
     .then(res => {
         alert("Trening został usunięty")
     })
@@ -120,7 +121,7 @@ export const deleteTraining = pk =>(dispatch,getState)=>{
 export const deleteMeasurement = pk =>(dispatch,getState)=>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`https://true-effects.herokuapp.com/api/delete_measurement/${pk}`)
+    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_measurement/${pk}`)
     .then(res=>dispatch({
         type: DELETE_MEASUREMENT_SUCCESS,
     }))
@@ -133,7 +134,7 @@ export const deleteMeasurement = pk =>(dispatch,getState)=>{
 export const deleteGoals = pk =>(dispatch,getState)=>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`https://true-effects.herokuapp.com/api/delete_goals/${pk}`)
+    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_goals/${pk}`)
     .then(res => {
         alert("Trening został usunięty")
     })
@@ -142,7 +143,7 @@ export const updateDateTraining = (pk,data) =>(dispatch,getState) =>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     console.log(data)
-    return axios.post(`https://true-effects.herokuapp.com/api/update_training_date/${pk}`,data)
+    return axios.post(`${TRUEEFFECTS_URL}/api/update_training_date/${pk}`,data)
     .then(res => {
         alert("Data treningu została zaktualizowana")
     })
@@ -153,7 +154,7 @@ export const updateDateTraining = (pk,data) =>(dispatch,getState) =>{
 export const endTraining = (pk,data)=>(dispatch,getState) =>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`https://true-effects.herokuapp.com/api/update_training_after_end/${pk}`,data)
+    return axios.post(`${TRUEEFFECTS_URL}/api/update_training_after_end/${pk}`,data)
     .then(res=>dispatch({
         type: END_TRAINING_SUCCESS,
     }))
