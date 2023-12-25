@@ -1,11 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import User
-from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
+from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
-from django.core.validators import int_list_validator, validate_comma_separated_integer_list
-from django.contrib.postgres.fields import ArrayField
 
 
 class Exercise(models.Model):
