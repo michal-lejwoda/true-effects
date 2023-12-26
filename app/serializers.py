@@ -1,35 +1,65 @@
+from django.core.validators import validate_email
+from django.db.models import Q
+
 from .models import *
 from rest_framework import serializers
 from django.contrib.auth.models import User
-class RegisterSerializer(serializers.ModelSerializer):
+
+class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     class Meta:
-        model = User
-        fields=['username','email', 'password','password2']
-        extra_kwargs = {
-            'password': {'write_only':True}
-        }
-        def save(self):
-            user = User(
-                username=self.validated_data['username'],
-                email=self.validated_data['email'],
-            )
-            password = self.validated_data['password']
-            password2 = self.validated_data['password2']
-            if password != password2:
-                raise serializers.ValidationError({'password': 'Hasła się nie zgadzają'})
-            else:
-                user.set_password(password)
-                user.save()
-                return user
+        model = CustomUser
+        fields = ('id', 'username', 'email', 'password', 'password2')
+        write_only_fields = ('password')
+        read_only_fields = ('id',)
+        extra_kwargs = {'email': {'required': True}}
+
+    @staticmethod
+    def validate_password(password):
+        if len(password) < 4:
+            raise serializers.ValidationError('Hasło za krótkie (minimum 4 litery)')
+
+        if len(password) > 50:
+            raise serializers.ValidationError('Hasło za długie (maksimum 50 liter)')
+        return password
+    @staticmethod
+    def validate_username(username):
+        if len(username) < 4:
+            raise serializers.ValidationError('Nazwa użytkowanika jest za krótka (minimum 4 litery)')
+
+        if len(username) > 30:
+            raise serializers.ValidationError('Nazwa użytkowanika jest za długa (maksimum 30 liter)')
+        return username
+
+    @staticmethod
+    def validate_email(email):
+        try:
+            validate_email(email)
+        except:
+            raise serializers.ValidationError({'email': 'Email jest nie poprawny'})
+        return email
+    def validate(self, data):
+        if data['password'] != data['password2']:
+            raise serializers.ValidationError({'password': 'Hasła się nie zgadzają'})
+        return data
+    def create(self, validated_data):
+        user = CustomUser.objects.create(
+            username=validated_data['username'],
+            email=validated_data['email'],
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user.return_dict_data_with_token
+
 
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)
     class Meta:
         model = User
         fields = ('id', 'username','email', 'password','password2')
-        write_only_fields = ('password',)
+        write_only_fields = ('password')
         read_only_fields = ('id',)
+        extra_kwargs = {'email': {'required': True}}
 
     def create(self, validated_data):
         user = User.objects.create(
