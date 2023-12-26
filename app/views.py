@@ -105,7 +105,7 @@ def displayPersonalResults(request):
 
 @api_view(['POST'])
 # @permission_classes([IsAuthenticated,])
-def createPersonalResults(request):
+def create_personal_results(request):
     user = request.user
     serializer = PersonalResultsSerializer(data=request.data)
     if serializer.is_valid():
@@ -124,7 +124,7 @@ def display_personal_goals(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated, ])
-def createPersonalGoals(request):
+def create_personal_goals(request):
     user = request.user
     serializer = PersonalGoalsSerializer(data=request.data)
     if serializer.is_valid():
@@ -202,7 +202,7 @@ def display_own_exercise(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, ])
-def displaySingleSeries(request):
+def display_single_series(request):
     user = request.user
     elements = SingleSeries.objects.all()
     serializer = SingleSeriesSerializer(elements, many=True)

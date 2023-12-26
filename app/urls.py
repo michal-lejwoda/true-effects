@@ -1,8 +1,9 @@
-from django.urls import path
-
+from django.urls import path, include
+from .api.api_router import router
 from . import views
 
 urlpatterns=[
+    path('v1/',include(router.urls)),
     path('display_exercises/',views.exercise_view,name="exercise-view"),
     path('create_exercise/',views.exercise_create,name="create_exercise"),
     path('register/',views.registration_view,name='register'),

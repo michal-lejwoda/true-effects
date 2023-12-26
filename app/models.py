@@ -1,9 +1,18 @@
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
+
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
+    @property
+    def return_dict_data_with_token(self):
+        token = Token.objects.get(user=self).key
+        return {'response': "Poprawnie zarejestrowano użytkownika", 'email': self.email, 'username': self.username,
+                'token': token}
 
 
 class Exercise(models.Model):
@@ -27,7 +36,7 @@ class AllSeries(models.Model):
 
 
 class PersonalExercise(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     name = models.ForeignKey(Exercise, on_delete=models.CASCADE)
     # ownexercisename = models.ForeignKey(OwnExercise,on_delete=models.CASCADE,default=None)
     reps = models.IntegerField()
@@ -41,7 +50,7 @@ class PersonalExercise(models.Model):
 
 
 class PersonalDimensions(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     date = models.DateField(null=True)
     weight = models.FloatField(default=0)
     growth = models.FloatField(default=0)
@@ -55,7 +64,7 @@ class PersonalDimensions(models.Model):
 
 
 class PersonalResults(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     Pullups = models.IntegerField()
     Dips = models.IntegerField()
     Pushups = models.IntegerField()
@@ -63,14 +72,14 @@ class PersonalResults(models.Model):
 
 
 class DescriptionGoals(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     description = models.CharField(max_length=100)
     date = models.DateField(null=True)
     completed = models.BooleanField(default=False)
 
 
 class PersonalGoals(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     Pullups = models.IntegerField()
     Dips = models.IntegerField()
     Pushups = models.IntegerField()
@@ -78,7 +87,7 @@ class PersonalGoals(models.Model):
 
 
 class OwnExercise(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -86,7 +95,7 @@ class OwnExercise(models.Model):
 
 
 class SingleSeries(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, default=None, blank=True, null=True)
     ownexercise = models.ForeignKey(OwnExercise, on_delete=models.CASCADE, default=None, blank=True, null=True)
     weight = models.FloatField()
@@ -99,7 +108,7 @@ class SingleSeries(models.Model):
 
 
 class Training(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=100)
     training = models.ManyToManyField(SingleSeries)
     date = models.DateField(null=True)
@@ -107,7 +116,7 @@ class Training(models.Model):
     time = models.TimeField(auto_now=False, auto_now_add=False, null=True, default='00:00:00')
 
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=CustomUser)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)

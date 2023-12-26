@@ -19,6 +19,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS=True
+AUTH_USER_MODEL="app.CustomUser"
 # Application definition
 
 INSTALLED_APPS = [
