@@ -9,16 +9,13 @@ from rest_framework.viewsets import GenericViewSet
 from app.serializers import RegistrationSerializer
 
 
-class CustomAuthToken(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
+class CustomAuthToken(ObtainAuthToken, GenericViewSet):
+    def create(self, request):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        token, created = Token.objects.get_or_create(user=user)
-        return Response({
-            'token': token.key,
-            'username': user.username,
-        })
+        return Response(user.return_login_dict_with_token)
+
 
 
 class Logout(APIView):
