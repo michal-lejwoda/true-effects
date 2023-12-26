@@ -13,7 +13,13 @@ class CustomUser(AbstractUser):
         token = Token.objects.get(user=self).key
         return {'response': "Poprawnie zarejestrowano użytkownika", 'email': self.email, 'username': self.username,
                 'token': token}
-
+    @property
+    def return_login_dict_with_token(self):
+        token, created = Token.objects.get_or_create(user=self)
+        return {
+            'token': token.key,
+            'username': self.username,
+        }
 
 class Exercise(models.Model):
     name = models.CharField(max_length=100)
