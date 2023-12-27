@@ -93,7 +93,7 @@ class PersonalGoals(models.Model):
 
 
 class OwnExercise(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -101,15 +101,15 @@ class OwnExercise(models.Model):
 
 
 class SingleSeries(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     exercise = models.ForeignKey(Exercise, on_delete=models.CASCADE, default=None, blank=True, null=True)
     ownexercise = models.ForeignKey(OwnExercise, on_delete=models.CASCADE, default=None, blank=True, null=True)
     weight = models.FloatField()
     rest = models.IntegerField()
     concentric_phase = models.IntegerField(default=0)
     eccentric_phase = models.IntegerField(default=0)
-    pause_after_concentric_phase = models.IntegerField()
-    pause_after_eccentric_phase = models.IntegerField()
+    pause_after_concentric_phase = models.IntegerField(default=0)
+    pause_after_eccentric_phase = models.IntegerField(default=0)
     reps = ArrayField(models.IntegerField(), blank=True)
 
 

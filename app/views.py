@@ -180,16 +180,16 @@ def create_training(request):
     return Response(serializer.data)
 
 
-@api_view(['POST'])
-# @permission_classes([IsAuthenticated,])
-def createTraining2(request):
-    serializer = TrainingSerializer(data=request.data)
-    if serializer.is_valid():
-        serializer.save()
-    else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    return Response(serializer.data)
-
+# @api_view(['POST'])
+# # @permission_classes([IsAuthenticated,])
+# def createTraining2(request):
+#     serializer = TrainingSerializer(data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#     else:
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#     return Response(serializer.data)
+#
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated, ])
