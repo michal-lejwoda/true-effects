@@ -1,12 +1,10 @@
-from rest_framework import viewsets, status
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from app.models import Exercise, PersonalDimensions, PersonalGoals, OwnExercise, Training
+from app.models import Exercise, PersonalDimensions, PersonalGoals, OwnExercise
 from app.serializers import ExerciseSerializer, PersonalDimensionsSerializer, PersonalGoalsSerializer, \
-    OwnExerciseSerializer, TrainingSerializer
+    OwnExerciseSerializer
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -48,15 +46,15 @@ class OwnExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
-class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
-    permission_classes = [IsAuthenticated]
-    serializer_class = TrainingSerializer
-
-    def get_queryset(self):
-        return Training.objects.filter(user=self.request.user).order_by('date')
-
-    def perform_create(self, serializer):
-        serializer.save(user_id=self.request.user.id)
+# class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+#     permission_classes = [IsAuthenticated]
+#     serializer_class = TrainingSerializer
+#
+#     def get_queryset(self):
+#         return Training.objects.filter(user=self.request.user).order_by('date')
+#
+#     def perform_create(self, serializer):
+#         serializer.save(user_id=self.request.user.id)
 
 class SingleSeriesViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
