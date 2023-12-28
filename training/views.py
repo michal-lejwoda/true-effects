@@ -4,7 +4,7 @@ from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
-
+from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer
 
@@ -44,7 +44,6 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         user = request.user
         user_exercises =  Exercise.objects.filter(user=user).order_by('-popularity')
         serializer = ExerciseSerializer(user_exercises, many=True)
-
         return Response(serializer.data)
 
 class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -68,6 +67,8 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         user = self.request.user
         return UserGoal.objects.filter(user=user)
 
+    def perform_create(self, serializer):
+        serializer.save(user_id=self.request.user.id, created_date=timezone.now().date())
 
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
