@@ -33,5 +33,4 @@ class RegistrationViewSet(GenericViewSet, CreateModelMixin):
             test = serializer.save()
             return Response(test, status=status.HTTP_201_CREATED)
         else:
-            # error_list = [serializer.errors[error][0].title() for error in serializer.errors]
             return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
