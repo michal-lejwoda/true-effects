@@ -59,6 +59,7 @@ class Training(models.Model):
 class UserGoal(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     goal = models.CharField(max_length=100)
+    description = models.TextField(null=True)
     date = models.DateField(null=True)
     completed = models.BooleanField(default=False)
 
