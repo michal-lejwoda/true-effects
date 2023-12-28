@@ -57,16 +57,17 @@ class Training(models.Model):
 
 
 class UserGoal(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    created_date = models.DateField(null=True)
     goal = models.CharField(max_length=100)
     description = models.TextField(null=True)
-    date = models.DateField(null=True)
+    finish_date = models.DateField(null=False)
     completed = models.BooleanField(default=False)
 
 
 class UserDimension(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
-    date = models.DateField(null=True)
+    date = models.DateField(null=False)
     weight = models.FloatField(null=True, blank=True)
     growth = models.FloatField(null=True, blank=True)
     left_biceps = models.FloatField(null=True, blank=True)
