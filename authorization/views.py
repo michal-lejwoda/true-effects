@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
-from app.serializers import RegistrationSerializer
+from authorization.serializers import RegistrationSerializer
 
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
