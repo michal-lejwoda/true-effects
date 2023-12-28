@@ -1,12 +1,8 @@
-from rest_framework import viewsets, status
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from app.models import Exercise, PersonalDimensions, PersonalGoals, OwnExercise, Training
-from app.serializers import ExerciseSerializer, PersonalDimensionsSerializer, PersonalGoalsSerializer, \
-    OwnExerciseSerializer, TrainingSerializer
+from training.models import Exercise
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -27,7 +23,7 @@ class PersonalDimensionsViewSet(CreateModelMixin, ListModelMixin, GenericViewSet
         serializer.save(user_id=self.request.user.id)
 
 
-#TODO Fix this
+# TODO Fix this
 class PersonalGoalsViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = PersonalGoalsSerializer
@@ -48,6 +44,7 @@ class OwnExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
+
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TrainingSerializer
@@ -57,6 +54,7 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
+
 
 class SingleSeriesViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]

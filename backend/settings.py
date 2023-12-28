@@ -19,7 +19,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS=True
-AUTH_USER_MODEL="auth.CustomUser"
+AUTH_USER_MODEL="authorization.CustomUser"
 # Application definition
 
 INSTALLED_APPS = [
@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'app',
-    
+    'authorization',
+    'training',
 ]
 
 MIDDLEWARE = [
