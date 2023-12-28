@@ -1,6 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.mixins import CreateModelMixin
@@ -25,12 +22,6 @@ class LogoutViewSet(ViewSet):
     def list(self, request):
         request.user.auth_token.delete()
         return Response(data="Zostałeś wylogowany", status=status.HTTP_200_OK)
-
-
-# class Logout(APIView):
-#     def get(self, request):
-#         request.user.auth_token.delete()
-#         return Response(data="Zostałeś wylogowany", status=status.HTTP_200_OK)
 
 
 class RegistrationViewSet(GenericViewSet, CreateModelMixin):
