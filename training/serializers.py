@@ -43,19 +43,19 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
 
 class MultiSeriesSerializer(serializers.ModelSerializer):
     exercise = ExerciseSerializer(required=False, allow_null=True)
-    single_series = SingleSeriesSerializer(required=False, allow_null=True)
+    single_series = SingleSeriesSerializer(required=False, allow_null=True, many=True)
     class Meta:
-        model = SingleSeries
+        model = MultiSeries
         fields = '__all__'
 
 class TrainingSerializer(serializers.ModelSerializer):
-    multi_series = MultiSeriesSerializer(required=False, allow_null=True)
+    multi_series = MultiSeriesSerializer(many=True, required=False, allow_null=True)
     class Meta:
         model = Training
         fields = '__all__'
 
     def create(self, validated_data):
-        singleseries_list = validated_data.pop('training')
+        singleseries_list = validated_data.pop('multi_series')
         training = Training.objects.create(**validated_data)
 
         for singleseries_data in singleseries_list:
