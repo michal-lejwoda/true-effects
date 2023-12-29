@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training
-from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer
+from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
+    MultiSeriesSerializer
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -80,5 +81,18 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
-
-
+    @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
+    def update_multi_series(self, request):
+        data = request.data.copy()
+        training_id = data.pop('id')
+        training_obj = Training.objects.get(id=training_id)
+        user = request.user
+        #TODO For loop
+        serializer = MultiSeriesSerializer(data=data)
+        if serializer.is_valid():
+            serializer = serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # user_exercises = Exercise.objects.filter(user=user).order_by('-popularity')
+        # serializer = ExerciseSerializer(user_exercises, many=True)
+        # return Response(serializer.data)

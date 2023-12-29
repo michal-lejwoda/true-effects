@@ -47,7 +47,7 @@ class MultiSeries(models.Model):
 class Training(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=100)
-    multi_series = models.ManyToManyField(MultiSeries)
+    multi_series = models.ManyToManyField(MultiSeries, blank=True)
     date = models.DateField(null=True)
     description = models.TextField(null=True)
     time = models.TimeField(auto_now=False, auto_now_add=False, null=True, default='00:00:00')
