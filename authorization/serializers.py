@@ -50,3 +50,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user.return_dict_data_with_token
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id',)
