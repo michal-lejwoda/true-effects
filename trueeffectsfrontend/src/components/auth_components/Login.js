@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
-import '../sass/login.scss';
+import '../../sass/login.scss';
 import {connect} from 'react-redux';
-import {postLogin, loadUser} from '../redux/actions/authenticationActions';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
-import AuthenticateLogo from './AuthenticateLogo';
-import {getMeasurements, postTraining, getTrainings, getGoals, getExercises} from '../redux/actions/trainingActions';
+import AuthenticateLogo from "../AuthenticateLogo";
+import {loadUser, postLogin} from "../../redux/actions/authenticationActions";
+import {getExercises, getGoals, getMeasurements, getTrainings, postTraining} from "../../redux/actions/trainingActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {

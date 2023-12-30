@@ -21,3 +21,19 @@
 .sidenav---sidenav---_2tBP.sidenav---expanded---1KdUL{
     min-width: 280px !important;
 }
+
+.navbar{
+    &__root{
+        flex-grow: 1;
+    }
+    &__bar{
+        background-color: #db3d44 !important;
+    }
+    &__title{
+        text-align: center;
+        flex-grow: 1;
+    }
+    &__secondtitle{
+        text-align: center;
+    }
+}
