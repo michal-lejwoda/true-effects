@@ -3,6 +3,7 @@ const initialState = {
     token: null,
     name: null,
     isAuthenticated: null,
+    login_error: null,
     error: '',
     error_register: [],
     tokenloaded: false,
@@ -23,7 +24,8 @@ export default function authreducer(state=initialState,action){
         case LOGIN_ERROR:
             return{
                 ...state,
-                error:action.payload
+                // error:action.payload,
+                login_error: action.payload
             }
         case POST_REGISTER:
             return{
@@ -36,7 +38,7 @@ export default function authreducer(state=initialState,action){
         case REGISTER_ERROR:
             return{
                 ...state,
-                error_register:action.payload
+                error_register: action.payload
             }
         case POST_LOGOUT_AUTH:
             return{
