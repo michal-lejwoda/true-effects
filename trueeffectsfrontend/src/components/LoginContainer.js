@@ -5,9 +5,6 @@ import Register from './Register';
 import '../sass/defaultcontainer.scss';
 
 const LoginContainer = () => {
-  useEffect(() => {
-    document.title = "TrueEffects"
-  }, [])
   return (
     <div className="containerlogin">
       <Route path="/login" component={Login} />
