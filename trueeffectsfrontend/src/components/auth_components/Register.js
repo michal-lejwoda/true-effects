@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import '../sass/register.scss';
+import '../../sass/register.scss';
 import TextField from '@material-ui/core/TextField';
 import {makeStyles} from '@material-ui/core/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
-import AuthenticateLogo from './AuthenticateLogo';
-import {postRegister} from '../redux/actions/authenticationActions';
 import {connect} from 'react-redux';
+import AuthenticateLogo from "../AuthenticateLogo";
+import {postRegister} from "../../redux/actions/authenticationActions";
 
 const useStyles = makeStyles((theme) => ({
     root: {

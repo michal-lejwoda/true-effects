@@ -12,7 +12,7 @@
       @media screen  and (max-width:1200px){@content;}
     }
     @else if $point == desktopsmall{
-        @media screen and(max-width:1400px){@content;}
+        @media screen and (max-width:1400px){@content;}
     }
     @else if $point == LGdesktop{
       @media screen and (min-width:1401px){@content;}
@@ -20,13 +20,14 @@
 $maincolor: #1D3557;
 $pink2: #db3d44;
 $pink: #1D3557;
-$pink2:#457B9D;
+$light_pink: #D97762;
+//$pink2:#457B9D;
 .homepage{
     width:100%;
     height:100%;
     display:flex;
     flex-wrap:wrap;
-    background-color: $pink;
+    background-color: $light_pink;
     color: white;
     justify-content: space-around;
     min-height: 100vh;
@@ -38,7 +39,7 @@ $pink2:#457B9D;
         -webkit-box-sizing: border-box; 
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        background-color:$pink;
+        background-color:$light_pink;
         @include breakpoint(laptop){
             flex-direction: column;
             align-items: center;
@@ -78,7 +79,7 @@ $pink2:#457B9D;
         height:300px;
         margin-left:0.2rem;
         margin-right:0.2rem;
-        background-color:$pink2;
+        background-color: $pink2;
         margin-bottom: 3rem;
         &-title{
             display:flex;
