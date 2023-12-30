@@ -7,7 +7,7 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
-    MultiSeriesSerializer
+    MultiSeriesSerializer, SingleSeriesSerializer
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -86,13 +86,25 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         data = request.data.copy()
         training_id = data.pop('id')
         training_obj = Training.objects.get(id=training_id)
+        multi_series_elements = data.pop('multi_series')
         user = request.user
         #TODO For loop
-        serializer = MultiSeriesSerializer(data=data)
-        if serializer.is_valid():
-            serializer = serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        # user_exercises = Exercise.objects.filter(user=user).order_by('-popularity')
-        # serializer = ExerciseSerializer(user_exercises, many=True)
-        # return Response(serializer.data)
+        for multi_series_element in multi_series_elements:
+            print("test")
+            mss = MultiSeriesSerializer(data = multi_series_element)
+            if mss.is_valid():
+                multi_series_obj = mss.save()
+            else:
+                print(mss.errors)
+            for single_series_element in multi_series_element['single_series']:
+                print("test")
+                print(single_series_element)
+                single_series_serializer = SingleSeriesSerializer(data=single_series_element)
+                if single_series_serializer.is_valid():
+                    single_series_obj = single_series_serializer.save()
+
+            # serializer = MultiSeriesSerializer(data=multi_series_element)
+            # if serializer.is_valid():
+            #     saved_object = serializer.save()
+            #     training_obj.multi_series.set(saved_object)
+        return Response(training_obj)
