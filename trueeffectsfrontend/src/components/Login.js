@@ -67,7 +67,8 @@ const Login = (props) => {
                         <div className="login__secondcontainer__form__username-password">
                             <TextField defaultValue="test" onChange={(e) => setPassword(e.target.value)} id="standard-password-input" label="Hasło" type="password" autoComplete="current-password" />
                         </div>
-                        {props.error !== '' && <p style={{ color: 'red' }}>{props.error}</p>}
+                        {/*{props.error !== '' && <p style={{ color: 'red' }}>{props.error}</p>}*/}
+                        {props.login_error && <p style={{ color: 'red' }}>{props.login_error.non_field_errors[0]}</p>}
                         <div className="login__secondcontainer__form__button">
                             <button className="login__secondcontainer__form__button-login" onClick={handleLogin}>Zaloguj się</button>
                             <p className="login__secondcontainer__form__button-forget">Zapomniałem hasła</p>
@@ -82,6 +83,7 @@ const Login = (props) => {
 const mapStateToProps = (state) => {
     return {
         error: state.authentication.error,
+        login_error: state.authentication.login_error,
         token: state.authentication.token,
         tokenloaded: state.authentication.tokenloaded
     }

@@ -18,25 +18,25 @@ import '../sass/defaultcontainer.scss';
 import { BoxLoading } from 'react-loadingg';
 import AddMeasurementsSummary from './AddMeasurementsSummary';
 const DefaultContainer = (props) => {
-  useEffect(() => {
-    document.title = "TrueEffects"
-    if (props.token === "undefined") {
-      props.postLogoutAuth()
-    } else if (props.token) {
-      props.getMeasurements();
-      props.getTrainings();
-      props.getGoals();
-      props.getExercises();
-    } else {
-      props.history.push('/login')
-    }
-  }, [])
-
-  useEffect(() => {
-    if (props.token === null) {
-      props.history.push('/login')
-    }
-  }, [props.token])
+  // useEffect(() => {
+  //   document.title = "TrueEffects"
+  //   if (props.token === "undefined") {
+  //     props.postLogoutAuth()
+  //   } else if (props.token) {
+  //     props.getMeasurements();
+  //     props.getTrainings();
+  //     props.getGoals();
+  //     props.getExercises();
+  //   } else {
+  //     props.history.push('/login')
+  //   }
+  // }, [])
+  //
+  // useEffect(() => {
+  //   if (props.token === null) {
+  //     props.history.push('/login')
+  //   }
+  // }, [props.token])
   return (
     <div className="containerdefault">
       {props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? <>
