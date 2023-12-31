@@ -66,11 +66,17 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return UserGoal.objects.filter(user=user)
+        return UserGoal.objects.filter(user=user, completed=False).order_by('finish_date')
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id, created_date=timezone.now().date())
 
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def completed(self, request):
+        user = request.user
+        queryset = UserGoal.objects.filter(user=user, completed=True).order_by('-finish_date')
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TrainingSerializer

@@ -60,7 +60,7 @@ class UserGoal(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
     created_date = models.DateField(null=True)
     goal = models.CharField(max_length=100)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     finish_date = models.DateField(null=False)
     completed = models.BooleanField(default=False)
 

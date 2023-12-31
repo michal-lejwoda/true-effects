@@ -63,7 +63,7 @@ const SideNavbar = () => {
                         <FontAwesomeIcon icon={faClock}/>
                     </NavIcon>
                     <NavText>
-                        Dodaj Cel do zrealizowania
+                        Cele i Pomiary
                     </NavText>
                 </NavItem>
             </SideNav.Nav>
