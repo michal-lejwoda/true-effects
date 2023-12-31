@@ -14,6 +14,7 @@ import '../sass/defaultcontainer.scss';
 import AddMeasurementsSummary from './AddMeasurementsSummary';
 import UpperNavbar from "./navbar_components/UpperNavbar";
 import SideNavbar from "./navbar_components/SideNavbar";
+import Goals from "./main_components/Goals";
 
 const DefaultContainer = (props) => {
     // useEffect(() => {
@@ -49,6 +50,7 @@ const DefaultContainer = (props) => {
                 <Route path="/createtraining" component={CreateTraining}/>
                 <Route path="/measurementsummary" component={AddMeasurementsSummary}/>
                 <Route path="/addgoals" component={AddGoals}/>
+                <Route path="/goals" component={Goals}/>
             </>
             {/*// : <BoxLoading />}*/}
         </div>

@@ -12,7 +12,7 @@
       @media screen  and (max-width:1200px){@content;}
     }
     @else if $point == desktopsmall{
-        @media screen and(max-width:1400px){@content;}
+        @media screen and (max-width:1400px){@content;}
     }
     @else if $point == LGdesktop{
       @media screen and (min-width:1401px){@content;}

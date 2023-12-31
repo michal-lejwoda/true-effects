@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 // import LoginContainer from './components/LoginContainer';
 import DefaultContainer from './components/DefaultContainer';
@@ -12,15 +12,17 @@ import Register from "./components/auth_components/Register";
 
 ReactDOM.render(
     <Provider store={store}>
-        <BrowserRouter>
-            <Switch>
-                <Route exact path="/login" component={Login}/>
-                <Route exact path="/register" component={Register}/>
-                {/*<Route exact path="/(login)" component={LoginContainer}/>*/}
-                {/*<Route exact path="/(register)" component={LoginContainer}/>*/}
-                <Route component={DefaultContainer}/>
-            </Switch>
-        </BrowserRouter>
+        <StrictMode>
+            <BrowserRouter>
+                <Switch>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/register" component={Register}/>
+                    {/*<Route exact path="/(login)" component={LoginContainer}/>*/}
+                    {/*<Route exact path="/(register)" component={LoginContainer}/>*/}
+                    <Route component={DefaultContainer}/>
+                </Switch>
+            </BrowserRouter>
+        </StrictMode>
     </Provider>,
     document.getElementById('root')
 );
