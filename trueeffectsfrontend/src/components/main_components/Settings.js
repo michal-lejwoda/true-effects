@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import {PasswordItems} from "../settings_components/PasswordItems";
-import {DimensionItems} from "../settings_components/DimensionItems";
+import {SettingsPasswordItems} from "../settings_components/SettingsPasswordItems";
+import SettingsDimensionItems from "../settings_components/SettingsDimensionItems";
+
 
 const Settings = () => {
     const [activeState, setActiveState] = useState('DIMENSIONS')
-
-
     return (
         <div className="settings">
             <div className="settings__container">
@@ -14,8 +13,8 @@ const Settings = () => {
                     <div className="settings__container__menu-password" onClick={()=>setActiveState("PASSWORD")}>Hasło</div>
                 </div>
                 <div className="settings__container__options">
-                    {activeState === 'DIMENSIONS' && <DimensionItems />}
-                    {activeState === 'PASSWORD' && <PasswordItems />}
+                    {activeState === 'DIMENSIONS' && <SettingsDimensionItems />}
+                    {activeState === 'PASSWORD' && <SettingsPasswordItems />}
 
                 </div>
             </div>

@@ -14,6 +14,14 @@ export const handleMovetoMeasurements = (history) => {
 export const handleMovetoAllMeasurements = (history) => {
     history.push("/displaymeasurements");
 }
+
+export const handleMovetoGoalsAndDimensions = (history) =>{
+    history.push("/goals_and_dimensions")
+}
 export const handleMovetoAddGoals = (history) => {
     history.push("/addgoals");
+}
+
+export const handleMovetoSettings = (history) =>{
+    history.push("/settings")
 }

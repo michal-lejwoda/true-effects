@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export const PasswordItems = () => {
+export const SettingsPasswordItems = () => {
     return (
         <form>
             <h2>Zmiana hasła</h2>
