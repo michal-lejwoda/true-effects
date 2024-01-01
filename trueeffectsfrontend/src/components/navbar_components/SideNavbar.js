@@ -7,10 +7,10 @@ import {faClipboardList, faClock, faGavel, faHome, faWeight} from '@fortawesome/
 import {
     handleMovetoAddGoals,
     handleMovetoAllMeasurements,
-    handleMovetoCreator,
+    handleMovetoCreator, handleMovetoGoalsAndDimensions,
     handleMovetoHome,
     handleMovetoMeasurements,
-    handleMovetoScheduler
+    handleMovetoScheduler, handleMovetoSettings
 } from "../helpers/history_helpers";
 const SideNavbar = () => {
     const history = useHistory()
@@ -58,12 +58,28 @@ const SideNavbar = () => {
                         Wyświetl wszystkie pomiary
                     </NavText>
                 </NavItem>
+                <NavItem onClick={()=>handleMovetoGoalsAndDimensions(history)} eventKey="weightall">
+                    <NavIcon>
+                        <FontAwesomeIcon icon={faWeight}/>
+                    </NavIcon>
+                    <NavText>
+                        Cele i pomiary
+                    </NavText>
+                </NavItem>
                 <NavItem onClick={()=>handleMovetoAddGoals(history)} eventKey="goal">
                     <NavIcon>
                         <FontAwesomeIcon icon={faClock}/>
                     </NavIcon>
                     <NavText>
-                        Cele i Pomiary
+                        Cele
+                    </NavText>
+                </NavItem>
+                <NavItem onClick={()=>handleMovetoSettings(history)} eventKey="settings">
+                    <NavIcon>
+                        <FontAwesomeIcon icon={faClock}/>
+                    </NavIcon>
+                    <NavText>
+                        Ustawienia
                     </NavText>
                 </NavItem>
             </SideNav.Nav>

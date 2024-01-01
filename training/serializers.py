@@ -14,6 +14,10 @@ class UserGoalSerializer(serializers.ModelSerializer):
         model = UserGoal
         fields = '__all__'
 
+class UserDimensionConfigurationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserDimensionConfiguration
+        fields = '__all__'
 
 class ExerciseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)

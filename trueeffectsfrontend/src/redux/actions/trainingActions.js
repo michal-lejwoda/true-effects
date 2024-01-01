@@ -14,7 +14,11 @@ import {
     GET_EXERCISES_SUCCESS,
     GET_OWN_EXERCISES_SUCCESS,
     END_TRAINING_SUCCESS,
-    POST_TIME, GET_USER_COMPLETED_GOALS_SUCCESS, GET_USER_GOALS_TO_ACHIEVE_SUCCESS, GET_USER_DIMENSIONS_SUCCESS,
+    POST_TIME,
+    GET_USER_COMPLETED_GOALS_SUCCESS,
+    GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
+    GET_USER_DIMENSIONS_SUCCESS,
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
 } from './types';
 import axios from 'axios';
 
@@ -88,6 +92,8 @@ export const getGoals = () => (dispatch, getState) => {
         }));
 }
 export const postGoals = (data) => (dispatch, getState) => {
+    console.log("data post Goals")
+    console.log(data)
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/create_description_goals/`, data)
@@ -295,7 +301,34 @@ export const getSingleDimension = (id) => (getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/user_dimension/${id}`)
-    .then(res => {
+        .then(res => {
             return res.data
         });
+}
+
+export const putDimensionConfiguration = (data) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_dimension_configuration/${data.id}/`, data)
+        .then(res => dispatch({
+            type: PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            console.log(err.response)
+        })
+}
+
+export const getDimensionConfiguration = () => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension_configuration/get_user_dimension_config/`)
+        .then(res => dispatch({
+            type: GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            console.log(err.response)
+        })
+
 }

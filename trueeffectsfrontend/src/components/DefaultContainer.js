@@ -1,11 +1,17 @@
 import {Route} from 'react-router-dom';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Training from './Training';
 import Schedule from './Schedule';
 import Homepage from './Homepage';
 import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
-import {getExercises, getGoals, getMeasurements, getTrainings} from '../redux/actions/trainingActions';
+import {
+    getDimensionConfiguration,
+    getExercises,
+    getGoals,
+    getMeasurements,
+    getTrainings
+} from '../redux/actions/trainingActions';
 import {postLogoutAuth} from '../redux/actions/authenticationActions';
 import DisplayMeasurements from './DisplayMeasurements'
 import AddMeasurements from './AddMeasurements';
@@ -19,19 +25,20 @@ import {GoalsAndDimensions} from "./main_components/GoalsAndDimensions";
 import Settings from "./main_components/Settings";
 
 const DefaultContainer = (props) => {
-    // useEffect(() => {
-    //   document.title = "TrueEffects"
-    //   if (props.token === "undefined") {
-    //     props.postLogoutAuth()
-    //   } else if (props.token) {
-    //     props.getMeasurements();
-    //     props.getTrainings();
-    //     props.getGoals();
-    //     props.getExercises();
-    //   } else {
-    //     props.history.push('/login')
-    //   }
-    // }, [])
+    useEffect(() => {
+      if (props.token === "undefined") {
+        props.postLogoutAuth()
+      } else if (props.token) {
+
+        // props.getMeasurements();
+        props.getDimensionConfiguration();
+        // props.getTrainings();
+        // props.getGoals();
+        // props.getExercises();
+      } else {
+        props.history.push('/login')
+      }
+    }, [])
     //
     // useEffect(() => {
     //   if (props.token === null) {
@@ -71,6 +78,7 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, {
+    getDimensionConfiguration,
     getMeasurements,
     getTrainings,
     getGoals,

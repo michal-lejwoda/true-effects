@@ -1,13 +1,13 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import CreateModelMixin, ListModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from django.utils import timezone
-from training.models import Exercise, UserDimension, UserGoal, Training
+from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
-    MultiSeriesSerializer, SingleSeriesSerializer
+    MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -77,6 +77,7 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         queryset = UserGoal.objects.filter(user=user, completed=True).order_by('-finish_date')
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TrainingSerializer
@@ -114,3 +115,29 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             #     saved_object = serializer.save()
             #     training_obj.multi_series.set(saved_object)
         return Response(training_obj)
+
+
+class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserDimensionConfigurationSerializer
+    queryset = UserDimensionConfiguration.objects.all()
+    def update(self, request, *args, **kwargs):
+        data = request.data.copy()
+        data['user'] = self.request.user.id
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_user_dimension_config(self, request):
+        data = request.data.copy()
+        user = self.request.user
+        data['user'] = user.id
+        user_config = UserDimensionConfiguration.objects.get(user=user)
+        serializer = UserDimensionConfigurationSerializer(instance=user_config, data=data)
+        if serializer.is_valid():
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
