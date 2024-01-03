@@ -1,13 +1,47 @@
 from rest_framework import serializers
+from rest_framework.fields import empty
 
 from .models import *
 
 
 class UserDimensionSerializer(serializers.ModelSerializer):
+    def __init__(self, instance, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        user = self.context['request'].user
+        user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
+        user_dimension_config_attrs = vars(user_dimension_config)
+        for key in user_dimension_config_attrs:
+            if not user_dimension_config_attrs[key]:
+                self.fields.pop(key)
+
     class Meta:
         model = UserDimension
         fields = '__all__'
 
+
+class UserDimensionSerializerForCreate(serializers.ModelSerializer):
+    def __init__(self, instance=None, data=empty, **kwargs):
+        super().__init__(data, **kwargs)
+        user = self.context['request'].user
+        user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
+        user_dimension_config_attrs = vars(user_dimension_config)
+        for key in user_dimension_config_attrs:
+            if not user_dimension_config_attrs[key]:
+                self.fields.pop(key)
+        self.fields.pop('user')
+        self.fields.pop('id')
+        self.fields.pop('date')
+        self.instance = instance
+        if data is not empty:
+            self.initial_data = data
+        self.partial = kwargs.pop('partial', False)
+        self._context = kwargs.pop('context', {})
+        kwargs.pop('many', None)
+
+
+    class Meta:
+        model = UserDimension
+        fields = '__all__'
 
 class UserGoalSerializer(serializers.ModelSerializer):
     class Meta:

@@ -38,7 +38,7 @@ const initialState = {
     hours: '',
     userGoalsToAchieve: null,
     userGoalsCompleted: null,
-    userDimensions: null,
+    userDimensions: [],
     userDimensionConfiguration: []
 
 };
