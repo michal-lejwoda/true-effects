@@ -4,12 +4,14 @@ import Modal from 'react-bootstrap/Modal'
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
-import {handleDateForDimensions} from "../helpers/function_helpers";
+// import {handleDateForDimensions} from "../helpers/function_helpers";
+import {useDate} from "../hooks";
 
 export function CreateDimension(props) {
-    const [date, setDate] = useState(null)
-    const [jsDate, setJsDate] = useState(null)
-    const [dateError, setDateError] = useState(null)
+    const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
+    // const [date, setDate] = useState(null)
+    // const [jsDate, setJsDate] = useState(null)
+    // const [dateError, setDateError] = useState(null)
     const {values, setFieldValue, handleSubmit, handleChange, errors, setValues} = useFormik({
         validationSchema: createDimensionValidation,
         validateOnChange: false,
@@ -46,7 +48,7 @@ export function CreateDimension(props) {
                                         placeholderText={"Wybierz date"}
                                         dateFormat='dd/MM/yyyy'
                                         selected={jsDate}
-                                        onChange={date => handleDateForDimensions(date, setDate, setJsDate)}/>
+                                        onChange={(date)=>handleDateForDimensions(date)}/>
                             {dateError && <p>{dateError}</p>}
                             {values !== undefined && Object.keys(values).map((keyName, i) => (
                                 <div className="createdimension__elements__element" key={i}>
