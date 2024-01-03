@@ -7,6 +7,8 @@ import {getGoals, postDimension, postGoal} from "../../redux/actions/trainingAct
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
     const [showCompareDimensions, setShowCompareDimensions] = useState(false);
+    console.log("userDimensionConfigurationForCompare")
+    console.log(props.userDimensionConfigurationForCompare)
     const handleShowCreateDimension = () => setShowCreateDimension(true);
     const handleShowCompareDimensions = () => setShowCompareDimensions(true);
     const handleCloseCreateDimension = () => setShowCreateDimension(false);
@@ -22,11 +24,15 @@ const Dimensions = (props) => {
                              handleShow={handleShowCreateDimension}
                              userDimensionConfiguration={props.userDimensionConfiguration}
                              userDimensionsForCreate={props.userDimensionsForCreate}
-                             userDimensions = {props.userDimensions}
-                             postDimension = {props.postDimension}
+                             userDimensions={props.userDimensions}
+                             postDimension={props.postDimension}
             />
             <CompareDimensions show={showCompareDimensions} handleClose={handleCloseCompareDimensions}
-                               handleShow={handleShowCompareDimensions}/>
+                               handleShow={handleShowCompareDimensions}
+                               userDimensions={props.userDimensions}
+                               userDimensionConfiguration={props.userDimensionConfiguration}
+
+            />
         </div>
     );
 };
@@ -34,7 +40,8 @@ const mapStateToProps = (state) => {
     return {
         userDimensionConfiguration: state.training.userDimensionConfiguration,
         userDimensions: state.training.userDimensions,
-        userDimensionsForCreate: state.training.userDimensionsForCreate
+        userDimensionsForCreate: state.training.userDimensionsForCreate,
+        userDimensionConfigurationForCompare: state.training.userDimensionConfigurationForCompare
     }
 }
 export default connect(mapStateToProps, {postDimension})(Dimensions);

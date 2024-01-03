@@ -18,7 +18,10 @@ import {
     GET_USER_COMPLETED_GOALS_SUCCESS,
     GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
     GET_USER_DIMENSIONS_SUCCESS,
-    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSIONS_FOR_CREATE,
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    GET_USER_DIMENSIONS_FOR_CREATE,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
 } from './types';
 import axios from 'axios';
 
@@ -334,6 +337,20 @@ export const getDimensionConfiguration = () => (dispatch, getState) => {
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension_configuration/get_user_dimension_config/`)
         .then(res => dispatch({
             type: GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+            payload: res.data
+        }))
+        .catch(err => {
+            console.log(err.response)
+        })
+
+}
+
+export const getDimensionConfigurationForCompare = () => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension_configuration/get_user_dimensions_configuration_for_compare/`)
+        .then(res => dispatch({
+            type: GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
             payload: res.data
         }))
         .catch(err => {
