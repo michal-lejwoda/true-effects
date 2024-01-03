@@ -18,7 +18,7 @@ import {
     GET_USER_COMPLETED_GOALS_SUCCESS,
     GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
     GET_USER_DIMENSIONS_SUCCESS,
-    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSIONS_FOR_CREATE,
 } from './types';
 import axios from 'axios';
 
@@ -260,6 +260,15 @@ export const getDimensions = () => (dispatch, getState) => {
         }));
 }
 
+export const getUserDimensionsForCreate = () => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension/get_user_dimensions_for_create/`)
+        .then(res => dispatch({
+            type: GET_USER_DIMENSIONS_FOR_CREATE,
+            payload: res.data,
+        }));
+}
 
 export const postTraining = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
