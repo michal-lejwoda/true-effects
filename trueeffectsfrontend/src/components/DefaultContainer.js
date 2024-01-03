@@ -10,7 +10,7 @@ import {
     getExercises,
     getGoals,
     getMeasurements,
-    getTrainings
+    getTrainings, getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import {postLogoutAuth} from '../redux/actions/authenticationActions';
 import DisplayMeasurements from './DisplayMeasurements'
@@ -32,7 +32,8 @@ const DefaultContainer = (props) => {
 
         // props.getMeasurements();
         props.getDimensionConfiguration();
-        props.getDimensions()
+        props.getDimensions();
+        props.getUserDimensionsForCreate();
         // props.getTrainings();
         // props.getGoals();
         // props.getExercises();
@@ -81,6 +82,7 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     getDimensionConfiguration,
     getDimensions,
+    getUserDimensionsForCreate,
     getMeasurements,
     getTrainings,
     getGoals,

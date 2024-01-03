@@ -5,18 +5,10 @@ from .models import *
 
 
 class UserDimensionSerializer(serializers.ModelSerializer):
-    def __init__(self, instance, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        user = self.context['request'].user
-        user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
-        user_dimension_config_attrs = vars(user_dimension_config)
-        for key in user_dimension_config_attrs:
-            if not user_dimension_config_attrs[key]:
-                self.fields.pop(key)
-
     class Meta:
         model = UserDimension
         fields = '__all__'
+
 
 
 class UserDimensionSerializerForCreate(serializers.ModelSerializer):

@@ -9,7 +9,7 @@ import {
     GET_OWN_EXERCISES_SUCCESS,
     GET_TRAININGS,
     GET_TRAININGS_SUCCESS,
-    GET_USER_COMPLETED_GOALS_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    GET_USER_COMPLETED_GOALS_SUCCESS, GET_USER_DIMENSION_CONFIGURATION_SUCCESS, GET_USER_DIMENSIONS_FOR_CREATE,
     GET_USER_DIMENSIONS_SUCCESS,
     GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
     POST_LOGOUT,
@@ -39,7 +39,8 @@ const initialState = {
     userGoalsToAchieve: null,
     userGoalsCompleted: null,
     userDimensions: [],
-    userDimensionConfiguration: []
+    userDimensionConfiguration: [],
+    userDimensionsForCreate: {}
 
 };
 export default function trainreducer(state = initialState, action) {
@@ -150,6 +151,11 @@ export default function trainreducer(state = initialState, action) {
             return {
                 ...state,
                 userDimensionConfiguration: action.payload
+            }
+        case GET_USER_DIMENSIONS_FOR_CREATE:
+            return {
+                ...state,
+                userDimensionsForCreate: action.payload
             }
 
         default:

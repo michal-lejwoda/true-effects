@@ -4,26 +4,13 @@ import Modal from 'react-bootstrap/Modal'
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
-import {getActiveDimensions, handleDateForDimensions} from "../helpers/function_helpers";
+import {handleDateForDimensions} from "../helpers/function_helpers";
 
 export function CreateDimension(props) {
-
     const [date, setDate] = useState(null)
     const [jsDate, setJsDate] = useState(null)
     const [dateError, setDateError] = useState(null)
-    const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
-        initialValues: {
-            weight: null,
-            growth: null,
-            left_biceps: null,
-            right_biceps: null,
-            left_forearm: null,
-            right_forearm: null,
-            left_leg: null,
-            right_leg: null,
-            bodyfat: null
-
-        },
+    const {values, setFieldValue, handleSubmit, handleChange, errors, setValues} = useFormik({
         validationSchema: createDimensionValidation,
         validateOnChange: false,
         validationOnBlue: false,
@@ -36,27 +23,16 @@ export function CreateDimension(props) {
     const handleSendDimension = async () => {
         let data_obj = values
         data_obj.date = date
-        console.log(" handle date")
-        console.log(date)
         if (date) {
             await props.postDimension(data_obj)
         } else {
             setDateError("Wybierz datę")
         }
-
-
     }
 
     useEffect(() => {
-        getActiveDimensions(props.userDimensions, props.userDimensionConfiguration, setFieldValue)
+        setValues(props.userDimensionsForCreate)
     }, [props.userDimensionConfiguration, props.userDimensions])
-
-    console.log("dateError")
-    console.log(dateError)
-    console.log("props.userDimensions")
-    console.log(props.userDimensions)
-    console.log("values")
-    console.log(values)
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
@@ -72,28 +48,15 @@ export function CreateDimension(props) {
                                         selected={jsDate}
                                         onChange={date => handleDateForDimensions(date, setDate, setJsDate)}/>
                             {dateError && <p>{dateError}</p>}
-                            {/*{Object.keys(props.userDimensions[0]).map(((keyName, i) => {*/}
-                            {/*    <div className="createdimension__elements__element" key={i}>*/}
-                            {/*        <div className="createdimension__elements__element__row">*/}
-                            {/*            <label htmlFor={keyName}>{keyName}</label>*/}
-                            {/*            <input type="number" onChange={handleChange} name={keyName}*/}
-                            {/*            />*/}
-                            {/*            {errors[keyName] && <p>{errors[keyName]}</p>}*/}
-                            {/*        </div>*/}
-
-                            {/*    </div>*/}
-                            {/*}))}*/}
-
-                            {Object.keys(values).map((keyName, i) => (
+                            {values !== undefined && Object.keys(values).map((keyName, i) => (
                                 <div className="createdimension__elements__element" key={i}>
-                                    {values[keyName] !== null &&
-                                        <div className="createdimension__elements__element__row">
-                                            <label htmlFor={keyName}>{keyName}</label>
-                                            <input type="number" onChange={handleChange} name={keyName}
-                                            />
-                                            {errors[keyName] && <p>{errors[keyName]}</p>}
-                                        </div>
-                                    }
+                                    <div className="createdimension__elements__element__row">
+                                        <label htmlFor={keyName}>{keyName}</label>
+                                        <input type="number" onChange={handleChange} name={keyName}
+                                               value={values[`${keyName}`]}
+                                        />
+                                        {errors[keyName] && <p>{errors[keyName]}</p>}
+                                    </div>
                                 </div>
                             ))}
                         </div>

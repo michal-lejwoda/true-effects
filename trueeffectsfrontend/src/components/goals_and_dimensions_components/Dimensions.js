@@ -21,6 +21,7 @@ const Dimensions = (props) => {
             <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                              handleShow={handleShowCreateDimension}
                              userDimensionConfiguration={props.userDimensionConfiguration}
+                             userDimensionsForCreate={props.userDimensionsForCreate}
                              userDimensions = {props.userDimensions}
                              postDimension = {props.postDimension}
             />
@@ -32,7 +33,8 @@ const Dimensions = (props) => {
 const mapStateToProps = (state) => {
     return {
         userDimensionConfiguration: state.training.userDimensionConfiguration,
-        userDimensions: state.training.userDimensions
+        userDimensions: state.training.userDimensions,
+        userDimensionsForCreate: state.training.userDimensionsForCreate
     }
 }
 export default connect(mapStateToProps, {postDimension})(Dimensions);
