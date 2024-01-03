@@ -8,7 +8,7 @@ from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
     MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
-    UserDimensionSerializerForCreate
+    UserDimensionSerializerForCreate, UserDimensionSerializerConfigurationForCompare
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -54,7 +54,7 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        return UserDimension.objects.filter(user=user).order_by('date')
+        return UserDimension.objects.filter(user=user).order_by('-date')
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
@@ -147,6 +147,16 @@ class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, Up
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_user_dimensions_configuration_for_compare(self, request):
+        user = request.user
+        try:
+            user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
+            serializer = UserDimensionSerializerConfigurationForCompare(instance=user_dimension_config, context={'request': request})
+            return Response(serializer.data)
+        except UserDimension.DoesNotExist:
+            return Response(None, status=status.HTTP_404_NOT_FOUND)
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_user_dimension_config(self, request):

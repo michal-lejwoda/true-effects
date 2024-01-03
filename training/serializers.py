@@ -10,7 +10,6 @@ class UserDimensionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-
 class UserDimensionSerializerForCreate(serializers.ModelSerializer):
     def __init__(self, instance=None, data=empty, **kwargs):
         super().__init__(data, **kwargs)
@@ -30,20 +29,82 @@ class UserDimensionSerializerForCreate(serializers.ModelSerializer):
         self._context = kwargs.pop('context', {})
         kwargs.pop('many', None)
 
+    class Meta:
+        model = UserDimension
+        fields = '__all__'
+
+
+class UserDimensionSerializerConfigurationForCompare(serializers.ModelSerializer):
+    weight = serializers.SerializerMethodField()
+    growth = serializers.SerializerMethodField()
+    left_biceps = serializers.SerializerMethodField()
+    right_biceps = serializers.SerializerMethodField()
+    left_forearm = serializers.SerializerMethodField()
+    right_forearm = serializers.SerializerMethodField()
+    left_leg = serializers.SerializerMethodField()
+    right_leg = serializers.SerializerMethodField()
+    bodyfat = serializers.SerializerMethodField()
+
+    def get_weight(self, obj):
+        return "Waga"
+
+    def get_growth(self, obj):
+        return "Wzrost"
+
+    def get_left_biceps(self, obj):
+        return "Lewy Biceps"
+
+    def get_right_biceps(self, obj):
+        return "Prawy Biceps"
+
+    def get_left_forearm(self, obj):
+        return "Lewe Ramię"
+
+    def get_right_forearm(self, obj):
+        return "Prawe Ramię"
+
+    def get_left_leg(self, obj):
+        return "Lewa Noga"
+
+    def get_right_leg(self, obj):
+        return "Prawa Noga"
+
+    def get_bodyfat(self, obj):
+        return "Tkanka tłuszczowa"
+
+    def __init__(self, instance=None, data=empty, **kwargs):
+
+        super().__init__(data, **kwargs)
+        instance_values = vars(instance)
+        for key in instance_values:
+            if instance_values[key] is False:
+                self.fields.pop(key)
+        self.fields.pop('user')
+        self.fields.pop('id')
+        self.fields.pop('date')
+        self.instance = instance
+        if data is not empty:
+            self.initial_data = data
+        self.partial = kwargs.pop('partial', False)
+        self._context = kwargs.pop('context', {})
+        kwargs.pop('many', None)
 
     class Meta:
         model = UserDimension
         fields = '__all__'
+
 
 class UserGoalSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserGoal
         fields = '__all__'
 
+
 class UserDimensionConfigurationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserDimensionConfiguration
         fields = '__all__'
+
 
 class ExerciseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
