@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from authorization.models import CustomUser
 
@@ -90,3 +92,9 @@ class UserDimensionConfiguration(models.Model):
     left_leg = models.BooleanField(default=True)
     right_leg = models.BooleanField(default=True)
     bodyfat = models.BooleanField(default=False)
+
+"""Signals"""
+@receiver(post_save, sender=CustomUser)
+def create_user_dimension_configuration(sender, instance=None, created=False, **kwargs):
+    if created:
+        UserDimensionConfiguration.objects.create(user=instance)

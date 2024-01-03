@@ -253,10 +253,10 @@ export const putDimension = (data) => (dispatch, getState) => {
 export const getDimensions = () => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get(`${TRUEEFFECTS_URL}/api/user_dimension/`)
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension/`)
         .then(res => dispatch({
             type: GET_USER_DIMENSIONS_SUCCESS,
-            payload: res,
+            payload: res.data,
         }));
 }
 

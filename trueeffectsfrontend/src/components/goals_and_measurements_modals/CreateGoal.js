@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createGoalValidation} from "../validation/validation";
-import {convertDate} from "../helpers/function_helpers";
+import {handleDateForGoals} from "../helpers/function_helpers";
 import {postGoals} from "../../redux/actions/trainingActions";
 
 export function CreateGoal(props) {
@@ -22,11 +22,11 @@ export function CreateGoal(props) {
             handleSendGoals(values)
         },
     });
-    const handleDate = (date) => {
-        const convertedDate = convertDate(date)
-        setFieldValue("finishDate", convertedDate)
-        setFieldValue("finishJsDate", date)
-    }
+    // const handleDate = (date) => {
+    //     const convertedDate = convertDate(date)
+    //     setFieldValue("finishDate", convertedDate)
+    //     setFieldValue("finishJsDate", date)
+    // }
     const handleSendGoals = async () => {
         console.log("sendGoals")
         const data = {
@@ -36,7 +36,6 @@ export function CreateGoal(props) {
         }
         console.log(data)
         await props.postGoals(data)
-        console.log("posted")
     }
     return (
         <>
@@ -55,7 +54,7 @@ export function CreateGoal(props) {
                                                                                                   placeholderText={"Wybierz date"}
                                                                                                   dateFormat='dd/MM/yyyy'
                                                                                                   selected={values.finishJsDate}
-                                                                                                  onChange={date => handleDate(date)}
+                                                                                                  onChange={date => handleDateForGoals(date, setFieldValue)}
                             />
                             </div>
                             {errors.finishDate && <p>{errors.finishDate}</p>}

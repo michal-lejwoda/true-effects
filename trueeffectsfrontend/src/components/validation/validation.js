@@ -18,3 +18,15 @@ export const settingsDimensionValidation = yup.object().shape({
     right_leg: yup.boolean().required(),
     bodyfat: yup.boolean().required(),
 });
+
+export const createDimensionValidation = yup.object().shape({
+    weight: yup.number().nullable(true),
+    growth: yup.number().nullable(true),
+    left_biceps: yup.number().nullable(true),
+    right_biceps: yup.number().nullable(true),
+    left_forearm: yup.number().nullable(true),
+    right_forearm: yup.number().nullable(true),
+    left_leg: yup.number().nullable(true),
+    right_leg: yup.number().nullable(true),
+    bodyfat: yup.number().nullable(true),
+})

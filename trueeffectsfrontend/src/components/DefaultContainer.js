@@ -6,7 +6,7 @@ import Homepage from './Homepage';
 import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
 import {
-    getDimensionConfiguration,
+    getDimensionConfiguration, getDimensions,
     getExercises,
     getGoals,
     getMeasurements,
@@ -32,6 +32,7 @@ const DefaultContainer = (props) => {
 
         // props.getMeasurements();
         props.getDimensionConfiguration();
+        props.getDimensions()
         // props.getTrainings();
         // props.getGoals();
         // props.getExercises();
@@ -79,6 +80,7 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps, {
     getDimensionConfiguration,
+    getDimensions,
     getMeasurements,
     getTrainings,
     getGoals,

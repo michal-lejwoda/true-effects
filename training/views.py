@@ -7,7 +7,8 @@ from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
-    MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer
+    MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
+    UserDimensionSerializerForCreate
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -57,6 +58,22 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
+
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_user_dimensions_for_create(self, request):
+        user = request.user
+        try:
+            user_dimension = UserDimension.objects.filter(user=user).latest("date")
+            serializer = UserDimensionSerializerForCreate(instance=user_dimension, context={'request': request})
+            return Response(serializer.data)
+        except UserDimension.DoesNotExist:
+            data = {"weight": None, "growth": None, "left_biceps": None,"right_biceps": None, "left_forearm": None, "right_forearm": None, "left_leg": None,"right_leg": None, "bodyfat": None}
+            serializer = UserDimensionSerializerForCreate(data=data, context={'request': request})
+            if serializer.is_valid():
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors)
+
 
 
 # TODO Fix this
