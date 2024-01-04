@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension";
 import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
 import {connect} from "react-redux";
-import {getGoals, postDimension, postGoal} from "../../redux/actions/trainingActions";
+import {getDimensions, getGoals, postDimension, postGoal} from "../../redux/actions/trainingActions";
 
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
@@ -20,8 +20,11 @@ const Dimensions = (props) => {
             <button onClick={handleShowCompareDimensions}>+ Porównaj Pomiary</button>
             <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                              handleShow={handleShowCreateDimension}
+                             getDimensions={props.getDimensions}
                              userDimensionConfiguration={props.userDimensionConfiguration}
                              userDimensionsForCreate={props.userDimensionsForCreate}
+                             userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+
                              userDimensions={props.userDimensions}
                              postDimension={props.postDimension}
             />
@@ -42,4 +45,4 @@ const mapStateToProps = (state) => {
         userDimensionConfigurationForCompare: state.training.userDimensionConfigurationForCompare
     }
 }
-export default connect(mapStateToProps, {postDimension})(Dimensions);
+export default connect(mapStateToProps, {postDimension, getDimensions})(Dimensions);

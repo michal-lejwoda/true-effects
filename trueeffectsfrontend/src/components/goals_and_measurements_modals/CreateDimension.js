@@ -9,6 +9,7 @@ import {useDate} from "../hooks";
 export function CreateDimension(props) {
     const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
     const {values, handleSubmit, handleChange, errors, setValues} = useFormik({
+        initialValues: props.userDimensionsForCreate,
         validationSchema: createDimensionValidation,
         validateOnChange: false,
         validationOnBlue: false,
@@ -17,12 +18,13 @@ export function CreateDimension(props) {
         },
     });
 
-
     const handleSendDimension = async () => {
         let data_obj = values
         data_obj.date = date
         if (date) {
             await props.postDimension(data_obj)
+            await props.getDimensions()
+            await props.handleClose()
         } else {
             setDateError("Wybierz datę")
         }
@@ -30,7 +32,7 @@ export function CreateDimension(props) {
 
     useEffect(() => {
         setValues(props.userDimensionsForCreate)
-    }, [props.userDimensionConfiguration, props.userDimensions])
+    }, [props.userDimensionConfiguration, props.userDimensions, props.userDimensionsForCreate])
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
@@ -46,17 +48,19 @@ export function CreateDimension(props) {
                                         selected={jsDate}
                                         onChange={(date) => handleDateForDimensions(date)}/>
                             {dateError && <p>{dateError}</p>}
-                            {values !== undefined && Object.keys(values).map((keyName, i) => (
-                                <div className="createdimension__elements__element" key={i}>
-                                    <div className="createdimension__elements__element__row">
-                                        <label htmlFor={keyName}>{keyName}</label>
-                                        <input type="number" onChange={handleChange} name={keyName}
-                                               value={values[`${keyName}`]}
-                                        />
-                                        {errors[keyName] && <p>{errors[keyName]}</p>}
+                            {values !== undefined && Object.keys(props.userDimensionConfigurationForCompare).map(element =>{
+                                return (
+                                    <div className="createdimension__elements__element" key={element}>
+                                        <div className="createdimension__elements__element__row">
+                                            <label>{props.userDimensionConfigurationForCompare[element]}</label>
+                                            <input type="number" onChange={handleChange} name={element}
+                                                   value={values[element]}
+                                            />
+                                            {errors[{element}] && <p>{errors[{element}]}</p>}
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                )
+                            })}
                         </div>
 
                     </Modal.Body>

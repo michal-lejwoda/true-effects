@@ -32,10 +32,12 @@ import {useAuth} from "./hooks";
 const DefaultContainer = (props) => {
     const {} = useAuth(props.loadToken, props.postLogoutAuth, props.history)
     useEffect(() => {
-        props.getDimensionConfiguration();
-        props.getDimensions();
-        props.getUserDimensionsForCreate();
-        props.getDimensionConfigurationForCompare()
+        if (props.token) {
+            props.getDimensionConfiguration();
+            props.getDimensions();
+            props.getUserDimensionsForCreate();
+            props.getDimensionConfigurationForCompare()
+        }
     }, [props.token])
 
     return (
