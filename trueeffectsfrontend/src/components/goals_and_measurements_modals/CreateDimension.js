@@ -48,7 +48,7 @@ export function CreateDimension(props) {
                                         selected={jsDate}
                                         onChange={(date) => handleDateForDimensions(date)}/>
                             {dateError && <p>{dateError}</p>}
-                            {values !== undefined && Object.keys(props.userDimensionConfigurationForCompare).map(element =>{
+                            {values !== undefined && Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                                 return (
                                     <div className="createdimension__elements__element" key={element}>
                                         <div className="createdimension__elements__element__row">
@@ -56,7 +56,7 @@ export function CreateDimension(props) {
                                             <input type="number" onChange={handleChange} name={element}
                                                    value={values[element]}
                                             />
-                                            {errors[{element}] && <p>{errors[{element}]}</p>}
+                                            {errors[element] && <p>{errors[element]}</p>}
                                         </div>
                                     </div>
                                 )

@@ -20,7 +20,7 @@ export const settingsDimensionValidation = yup.object().shape({
 });
 
 export const createDimensionValidation = yup.object().shape({
-    weight: yup.number().nullable(false).required(),
+    weight: yup.number().nullable(false).required("Waga jest wymagana"),
     growth: yup.number().nullable(true),
     left_biceps: yup.number().nullable(true),
     right_biceps: yup.number().nullable(true),
