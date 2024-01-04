@@ -12,7 +12,8 @@ export const useAuth = (loadToken, postLogoutAuth, history) => {
             // props.getUserDimensionsForCreate();
             // props.getDimensionConfigurationForCompare()
         }else{
-            postLogoutAuth(removeCookie)
+            // postLogoutAuth(removeCookie)
+            // console.log("login")
             history.push('/login')
         }
     }, [])

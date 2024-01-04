@@ -34,10 +34,14 @@ export const postLogin = (data) => dispatch => {
         }))
 
 }
-export const postRegister = (data) => dispatch => {
+export const postRegister = (data, setCookie) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
 
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
+        .then(res =>{
+            setCookie("true_effects_token", res.data.token)
+            return res
+        })
         .then(res => dispatch(
             {
                 type: POST_REGISTER,

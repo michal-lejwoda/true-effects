@@ -28,6 +28,7 @@ import {GoalsAndDimensions} from "./main_components/GoalsAndDimensions";
 import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
 import {useAuth} from "./hooks";
+import Scheduler from "./main_components/Scheduler";
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.loadToken, props.postLogoutAuth, props.history)
@@ -56,7 +57,7 @@ const DefaultContainer = (props) => {
                 <Route path="/addgoals" component={AddGoals}/>
                 <Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>
                 <Route path="/settings" component={Settings}/>
-
+                <Route path="/scheduler" component={Scheduler}/>
             </>
             {/*// : <BoxLoading />}*/}
         </div>
