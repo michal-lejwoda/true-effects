@@ -2,25 +2,28 @@ import React, {useState} from 'react';
 import '../../sass/login.scss';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import {makeStyles} from '@material-ui/core/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser, postLogin} from "../../redux/actions/authenticationActions";
 import {getExercises, getGoals, getMeasurements, getTrainings, postTraining} from "../../redux/actions/trainingActions";
+import {useCookies} from "react-cookie";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& .MuiTextField-root': {
-            width: '60ch',
-            '& .MuiInputBase-input': {
-                fontWeight: '700'
-            }
-        },
-    },
-}));
+
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         '& .MuiTextField-root': {
+//             width: '60ch',
+//             '& .MuiInputBase-input': {
+//                 fontWeight: '700'
+//             }
+//         },
+//     },
+// }));
 
 const Login = (props) => {
+
+    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
 
     if (props.token !== null) {
         props.history.push('/')
@@ -33,14 +36,14 @@ const Login = (props) => {
     }
     const [login, setLogin] = useState("test")
     const [password, setPassword] = useState("test")
-    const classes = useStyles();
+    // const classes = useStyles();
     const handleLogin = async (e) => {
         e.preventDefault();
         let data = {
             "username": login,
             "password": password
         }
-        await props.loadUser(data)
+        await props.loadUser(data, setCookie)
     }
 
     return (
@@ -61,7 +64,9 @@ const Login = (props) => {
                         </div>
                     </div>
                     <div className="login__secondcontainer__form">
-                        <form className={classes.root} noValidate autoComplete="off">
+                        <form
+                            // className={classes.root}
+                              noValidate autoComplete="off">
                             <div className="login__secondcontainer__form__title">Zaloguj się</div>
                             <div className="login__secondcontainer__form__secondtitle">Zaloguj się aby kontynuować</div>
                             <div className="login__secondcontainer__form__username-input">

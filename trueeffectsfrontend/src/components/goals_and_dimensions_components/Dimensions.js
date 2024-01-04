@@ -7,8 +7,6 @@ import {getGoals, postDimension, postGoal} from "../../redux/actions/trainingAct
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
     const [showCompareDimensions, setShowCompareDimensions] = useState(false);
-    console.log("userDimensionConfigurationForCompare")
-    console.log(props.userDimensionConfigurationForCompare)
     const handleShowCreateDimension = () => setShowCreateDimension(true);
     const handleShowCompareDimensions = () => setShowCompareDimensions(true);
     const handleCloseCreateDimension = () => setShowCreateDimension(false);
