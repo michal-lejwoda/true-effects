@@ -12,3 +12,20 @@ export const useDate = () => {
     }
     return {date, jsDate, dateError, setDateError, handleDateForDimensions}
 }
+
+export const useCompareDimensions = (userDimensions) =>{
+    console.log("trest")
+    console.log(userDimensions)
+    console.log("koniec")
+    const [firstDimension, setFirstDimension] = useState({})
+    const [secondDimension, setSecondDimension] = useState({})
+
+    const handleFirstDimensionChange = (event) => {
+        setFirstDimension(userDimensions.find(x => x.id === event.target.value))
+    }
+
+    const handleSecondDimensionChange = (event) => {
+        setSecondDimension(userDimensions.find(x => x.id === event.target.value))
+    }
+    return {firstDimension, secondDimension, handleFirstDimensionChange, handleSecondDimensionChange}
+}
