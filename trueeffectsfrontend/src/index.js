@@ -18,8 +18,6 @@ ReactDOM.render(
                 <Switch>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
-                    {/*<Route exact path="/(login)" component={LoginContainer}/>*/}
-                    {/*<Route exact path="/(register)" component={LoginContainer}/>*/}
                     <Route component={DefaultContainer}/>
                 </Switch>
             </BrowserRouter>

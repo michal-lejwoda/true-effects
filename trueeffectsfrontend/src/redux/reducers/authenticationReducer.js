@@ -6,7 +6,7 @@ import {
     POST_REGISTER,
     REGISTER_ERROR,
     POST_LOGOUT_AUTH,
-    USER_LOADING,
+    USER_LOADING, TOKEN_LOADED,
 } from '../actions/types';
 const initialState = {
     token: null,
@@ -79,6 +79,11 @@ export default function authreducer(state=initialState,action){
                 name: null,
                 isAuthenticated:false,
                 isLoading: false
+            }
+        case TOKEN_LOADED:
+            return {
+                ...state,
+                token: action.payload
             }
 
         default: 

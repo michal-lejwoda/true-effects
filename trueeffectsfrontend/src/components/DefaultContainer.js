@@ -5,6 +5,7 @@ import Schedule from './Schedule';
 import Homepage from './Homepage';
 import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
+
 import {
     getDimensionConfiguration, getDimensionConfigurationForCompare, getDimensions,
     getExercises,
@@ -12,7 +13,7 @@ import {
     getMeasurements,
     getTrainings, getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
-import {postLogoutAuth} from '../redux/actions/authenticationActions';
+// import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
 import DisplayMeasurements from './DisplayMeasurements'
 import AddMeasurements from './AddMeasurements';
 import CreateTraining from './CreateTraining';
@@ -23,29 +24,24 @@ import SideNavbar from "./navbar_components/SideNavbar";
 import Goals from "./goals_and_dimensions_components/Goals";
 import {GoalsAndDimensions} from "./main_components/GoalsAndDimensions";
 import Settings from "./main_components/Settings";
+import {useCookies} from "react-cookie";
+import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
 
 const DefaultContainer = (props) => {
+    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
     useEffect(() => {
-      if (props.token === "undefined") {
-        props.postLogoutAuth()
-      } else if (props.token) {
-
-        // props.getMeasurements();
-        props.getDimensionConfiguration();
-        props.getDimensions();
-        props.getUserDimensionsForCreate();
-        props.getDimensionConfigurationForCompare()
-
-      } else {
-        props.history.push('/login')
-      }
+        if (cookies.true_effects_token !== undefined) {
+            props.loadToken(cookies.true_effects_token)
+            props.getDimensionConfiguration();
+            props.getDimensions();
+            props.getUserDimensionsForCreate();
+            props.getDimensionConfigurationForCompare()
+        }else{
+            props.postLogoutAuth(removeCookie)
+            props.history.push('/login')
+        }
     }, [])
-    //
-    // useEffect(() => {
-    //   if (props.token === null) {
-    //     props.history.push('/login')
-    //   }
-    // }, [props.token])
+
     return (
         <div className="containerdefault">
             {/*{props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? */}
@@ -87,5 +83,6 @@ export default connect(mapStateToProps, {
     getTrainings,
     getGoals,
     getExercises,
-    postLogoutAuth
+    postLogoutAuth,
+    loadToken,
 })(DefaultContainer);
