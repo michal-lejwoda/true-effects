@@ -2,18 +2,10 @@ import {useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {MenuItem, Select} from "@material-ui/core";
+import {useCompareDimensions} from "../hooks";
 
 export function CompareDimensions(props) {
-    const [firstDimension, setFirstDimension] = useState({})
-    const [secondDimension, setSecondDimension] = useState({})
-
-    const handleFirstDimensionChange = (event) => {
-        setFirstDimension(props.userDimensions.find(x => x.id === event.target.value))
-    }
-
-    const handleSecondDimensionChange = (event) => {
-        setSecondDimension(props.userDimensions.find(x => x.id === event.target.value))
-    }
+    const {firstDimension, secondDimension, handleFirstDimensionChange, handleSecondDimensionChange} = useCompareDimensions(props.userDimensions)
 
     return (
         <>
@@ -64,5 +56,3 @@ export function CompareDimensions(props) {
         </>
     );
 }
-
-// export default CreateGoal;
