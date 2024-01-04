@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {convertDate} from "./helpers/function_helpers";
 
 export const useDate = () => {
@@ -14,11 +14,18 @@ export const useDate = () => {
 }
 
 export const useCompareDimensions = (userDimensions) =>{
-    console.log("trest")
-    console.log(userDimensions)
-    console.log("koniec")
-    const [firstDimension, setFirstDimension] = useState({})
-    const [secondDimension, setSecondDimension] = useState({})
+    const [firstDimension, setFirstDimension] = useState(null)
+    const [secondDimension, setSecondDimension] = useState(null)
+
+    useEffect(()=>{
+        if(userDimensions.length > 1){
+            setFirstDimension(userDimensions[0])
+            setSecondDimension(userDimensions[1])
+        }else if(userDimensions.length == 1){
+            setFirstDimension(userDimensions[0])
+            setSecondDimension(userDimensions[0])
+        }
+    },[])
 
     const handleFirstDimensionChange = (event) => {
         setFirstDimension(userDimensions.find(x => x.id === event.target.value))

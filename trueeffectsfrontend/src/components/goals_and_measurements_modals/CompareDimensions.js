@@ -6,7 +6,6 @@ import {useCompareDimensions} from "../hooks";
 
 export function CompareDimensions(props) {
     const {firstDimension, secondDimension, handleFirstDimensionChange, handleSecondDimensionChange} = useCompareDimensions(props.userDimensions)
-
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
@@ -18,7 +17,9 @@ export function CompareDimensions(props) {
                         <tr>
                             <th>Parametry</th>
                             <th>
-                                <Select onChange={handleFirstDimensionChange}>
+                                <Select onChange={handleFirstDimensionChange}
+                                        value={firstDimension && firstDimension.id}
+                                >
                                     {Object.values(props.userDimensions).map(el => {
                                         return (
                                             <MenuItem value={el.id}>{el.date}</MenuItem>
@@ -27,7 +28,9 @@ export function CompareDimensions(props) {
                                 </Select>
                             </th>
                             <th>
-                                <Select onChange={handleSecondDimensionChange}>
+                                <Select onChange={handleSecondDimensionChange}
+                                value={secondDimension && secondDimension.id}
+                                >
                                     {Object.values(props.userDimensions).map(el => {
                                         return (
                                             <MenuItem value={el.id}>{el.date}</MenuItem>
@@ -40,8 +43,8 @@ export function CompareDimensions(props) {
                             return (
                                 <tr>
                                     <td>{props.userDimensionConfigurationForCompare[element]}</td>
-                                    <td>{firstDimension !== undefined && firstDimension[element]}</td>
-                                    <td>{secondDimension !== undefined && secondDimension[element]}</td>
+                                    <td>{firstDimension && firstDimension[element]}</td>
+                                    <td>{secondDimension  && secondDimension[element]}</td>
                                 </tr>
                             )
                         })}
