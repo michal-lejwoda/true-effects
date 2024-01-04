@@ -7,11 +7,14 @@ import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
 
 import {
-    getDimensionConfiguration, getDimensionConfigurationForCompare, getDimensions,
+    getDimensionConfiguration,
+    getDimensionConfigurationForCompare,
+    getDimensions,
     getExercises,
     getGoals,
     getMeasurements,
-    getTrainings, getUserDimensionsForCreate
+    getTrainings,
+    getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 // import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
 import DisplayMeasurements from './DisplayMeasurements'
@@ -21,26 +24,19 @@ import '../sass/defaultcontainer.scss';
 import AddMeasurementsSummary from './AddMeasurementsSummary';
 import UpperNavbar from "./navbar_components/UpperNavbar";
 import SideNavbar from "./navbar_components/SideNavbar";
-import Goals from "./goals_and_dimensions_components/Goals";
 import {GoalsAndDimensions} from "./main_components/GoalsAndDimensions";
 import Settings from "./main_components/Settings";
-import {useCookies} from "react-cookie";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
+import {useAuth} from "./hooks";
 
 const DefaultContainer = (props) => {
-    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    const {} = useAuth(props.loadToken, props.postLogoutAuth, props.history)
     useEffect(() => {
-        if (cookies.true_effects_token !== undefined) {
-            props.loadToken(cookies.true_effects_token)
-            props.getDimensionConfiguration();
-            props.getDimensions();
-            props.getUserDimensionsForCreate();
-            props.getDimensionConfigurationForCompare()
-        }else{
-            props.postLogoutAuth(removeCookie)
-            props.history.push('/login')
-        }
-    }, [])
+        props.getDimensionConfiguration();
+        props.getDimensions();
+        props.getUserDimensionsForCreate();
+        props.getDimensionConfigurationForCompare()
+    }, [props.token])
 
     return (
         <div className="containerdefault">
