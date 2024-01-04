@@ -22,7 +22,7 @@ export function CompareDimensions(props) {
                                 >
                                     {Object.values(props.userDimensions).map(el => {
                                         return (
-                                            <MenuItem value={el.id}>{el.date}</MenuItem>
+                                            <MenuItem key={el.id} value={el.id}>{el.date}</MenuItem>
                                         )
                                     })}
                                 </Select>
@@ -33,7 +33,7 @@ export function CompareDimensions(props) {
                                 >
                                     {Object.values(props.userDimensions).map(el => {
                                         return (
-                                            <MenuItem value={el.id}>{el.date}</MenuItem>
+                                            <MenuItem key={el.id} value={el.id}>{el.date}</MenuItem>
                                         )
                                     })}
                                 </Select>
@@ -41,7 +41,7 @@ export function CompareDimensions(props) {
                         </tr>
                         {Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                             return (
-                                <tr>
+                                <tr key={element}>
                                     <td>{props.userDimensionConfigurationForCompare[element]}</td>
                                     <td>{firstDimension && firstDimension[element]}</td>
                                     <td>{secondDimension  && secondDimension[element]}</td>

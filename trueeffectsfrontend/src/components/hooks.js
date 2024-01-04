@@ -36,14 +36,14 @@ export const useCompareDimensions = (userDimensions) => {
     const [secondDimension, setSecondDimension] = useState(null)
 
     useEffect(() => {
-        if (userDimensions.length > 1) {
+        if (Object.keys(userDimensions).length > 1) {
             setFirstDimension(userDimensions[0])
             setSecondDimension(userDimensions[1])
-        } else if (userDimensions.length == 1) {
+        } else if (Object.keys(userDimensions).length == 1) {
             setFirstDimension(userDimensions[0])
             setSecondDimension(userDimensions[0])
         }
-    }, [])
+    }, [userDimensions])
 
     const handleFirstDimensionChange = (event) => {
         setFirstDimension(userDimensions.find(x => x.id === event.target.value))
