@@ -2,20 +2,21 @@ import {useEffect, useState} from "react";
 import {convertDate} from "./helpers/function_helpers";
 import {useCookies} from "react-cookie";
 
-export const useAuth = () => {
+export const useAuth = (loadToken, postLogoutAuth, history) => {
     const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
     useEffect(() => {
         if (cookies.true_effects_token !== undefined) {
-            props.loadToken(cookies.true_effects_token)
-            props.getDimensionConfiguration();
-            props.getDimensions();
-            props.getUserDimensionsForCreate();
-            props.getDimensionConfigurationForCompare()
+            loadToken(cookies.true_effects_token)
+            // props.getDimensionConfiguration();
+            // props.getDimensions();
+            // props.getUserDimensionsForCreate();
+            // props.getDimensionConfigurationForCompare()
         }else{
-            props.postLogoutAuth(removeCookie)
-            props.history.push('/login')
+            postLogoutAuth(removeCookie)
+            history.push('/login')
         }
     }, [])
+    return {}
 }
 
 export const useDate = () => {
