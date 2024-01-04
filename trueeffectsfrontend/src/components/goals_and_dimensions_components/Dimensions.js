@@ -31,7 +31,7 @@ const Dimensions = (props) => {
                                handleShow={handleShowCompareDimensions}
                                userDimensions={props.userDimensions}
                                userDimensionConfiguration={props.userDimensionConfiguration}
-
+                               userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
             />
         </div>
     );
