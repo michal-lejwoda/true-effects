@@ -7,6 +7,7 @@ import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import {connect} from 'react-redux';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {postRegister} from "../../redux/actions/authenticationActions";
+import {useCookies} from "react-cookie";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -22,6 +23,7 @@ const Register = (props) => {
     if (props.token !== null) {
         props.history.push('/')
     }
+    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -48,7 +50,7 @@ const Register = (props) => {
                 "password": password,
                 "password2": password2
             }
-            await props.postRegister(data)
+            await props.postRegister(data, setCookie)
         } else {
             setEmailError(true)
         }

@@ -23,7 +23,7 @@ import {useCookies} from "react-cookie";
 
 const Login = (props) => {
 
-    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    const [setCookie] = useCookies(['true_effects_token']);
 
     if (props.token !== null) {
         props.history.push('/')
