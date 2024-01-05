@@ -35,6 +35,10 @@ const Register = (props) => {
         return re.test(String(email).toLowerCase());
     }
 
+    const handleSetToken = (token) => {
+        setCookie("true_effects_token", token)
+    }
+
     const handleMoveToLogin = () => {
         props.history.push('/login')
     }
@@ -50,7 +54,7 @@ const Register = (props) => {
                 "password": password,
                 "password2": password2
             }
-            await props.postRegister(data, setCookie)
+            await props.postRegister(data, handleSetToken)
         } else {
             setEmailError(true)
         }

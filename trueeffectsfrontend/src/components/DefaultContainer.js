@@ -31,13 +31,17 @@ import {useAuth} from "./hooks";
 import Scheduler from "./main_components/Scheduler";
 
 const DefaultContainer = (props) => {
-    const {} = useAuth(props.loadToken, props.postLogoutAuth, props.history)
+    const {} = useAuth(props.token ,props.loadToken, props.postLogoutAuth, props.history)
     useEffect(() => {
+        if (props.token == null){
+            props.history.push('/login')
+        }
         if (props.token) {
             props.getDimensionConfiguration();
             props.getDimensions();
             props.getUserDimensionsForCreate();
-            props.getDimensionConfigurationForCompare()
+            props.getDimensionConfigurationForCompare();
+            props.getTrainings();
         }
     }, [props.token])
 

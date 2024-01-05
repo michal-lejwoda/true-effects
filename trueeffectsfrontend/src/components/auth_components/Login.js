@@ -23,10 +23,14 @@ import {useCookies} from "react-cookie";
 
 const Login = (props) => {
 
-    const [setCookie] = useCookies(['true_effects_token']);
-
+    const [cookies, setCookie] = useCookies(['true_effects_token']);
+    console.log(cookies)
     if (props.token !== null) {
         props.history.push('/')
+    }
+
+    const handleSetToken = (token) => {
+        setCookie("true_effects_token", token)
     }
     const handleMoveToRegister = () => {
         props.history.push('/register')
@@ -43,7 +47,7 @@ const Login = (props) => {
             "username": login,
             "password": password
         }
-        await props.loadUser(data, setCookie)
+        await props.loadUser(data, handleSetToken)
     }
 
     return (
