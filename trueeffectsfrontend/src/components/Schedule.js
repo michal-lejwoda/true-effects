@@ -52,6 +52,7 @@ export class Schedule extends React.Component {
       })
       return events
     })
+    console.log(events)
     const localizer = momentLocalizer(moment)
     return (
       <>
