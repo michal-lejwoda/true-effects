@@ -1,6 +1,7 @@
 import React, {StrictMode} from 'react';
 import ReactDOM from 'react-dom';
 // import LoginContainer from './components/LoginContainer';
+import {CookiesProvider} from "react-cookie";
 import DefaultContainer from './components/DefaultContainer';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import {Provider} from 'react-redux'
@@ -12,17 +13,19 @@ import Register from "./components/auth_components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
-    <Provider store={store}>
-        <StrictMode>
-            <BrowserRouter>
-                <Switch>
-                    <Route exact path="/login" component={Login}/>
-                    <Route exact path="/register" component={Register}/>
-                    <Route component={DefaultContainer}/>
-                </Switch>
-            </BrowserRouter>
-        </StrictMode>
-    </Provider>,
+    <CookiesProvider>
+        <Provider store={store}>
+            <StrictMode>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route component={DefaultContainer}/>
+                    </Switch>
+                </BrowserRouter>
+            </StrictMode>
+        </Provider>
+    </CookiesProvider>,
     document.getElementById('root')
 );
 

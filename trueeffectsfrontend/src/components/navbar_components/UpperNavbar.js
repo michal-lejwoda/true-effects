@@ -8,11 +8,16 @@ import IconButton from '@material-ui/core/IconButton';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faDumbbell} from '@fortawesome/fontawesome-free-solid';
 import {connect} from 'react-redux';
-import {postLogout} from '../../redux/actions/authenticationActions';
+import {logoutUser, postLogout} from '../../redux/actions/authenticationActions';
+import {useCookies} from "react-cookie";
 
 const UpperNavbar = (props) => {
+    const [cookies, setCookies, removeCookie] = useCookies(['true_effects_token']);
+    const handleRemoveToken = () =>{
+        removeCookie('true_effects_token');
+    }
     const handleLogout = async () => {
-        await props.postLogout()
+        await props.logoutUser(handleRemoveToken)
     }
 
     return (
@@ -50,4 +55,4 @@ const mapStateToProps = (state) => {
         token: state.authentication.token
     }
 }
-export default connect(mapStateToProps, {postLogout})(UpperNavbar);
+export default connect(mapStateToProps, {logoutUser})(UpperNavbar);

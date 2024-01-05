@@ -34,7 +34,6 @@ export default function authreducer(state=initialState,action){
         case LOGIN_ERROR:
             return{
                 ...state,
-                // error:action.payload,
                 login_error: action.payload
             }
         case POST_REGISTER:

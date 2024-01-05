@@ -34,12 +34,12 @@ export const postLogin = (data) => dispatch => {
         }))
 
 }
-export const postRegister = (data, setCookie) => dispatch => {
+export const postRegister = (data, handleSetToken) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
 
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
         .then(res =>{
-            setCookie("true_effects_token", res.data.token)
+            handleSetToken(res.data.token)
             return res
         })
         .then(res => dispatch(
@@ -58,12 +58,12 @@ export const postLogoutAuth = (removeCookie) => dispatch => {
         type: POST_LOGOUT_AUTH
     })
 }
-export const loadUser = (data, setCookie) => (dispatch, getState) => {
+export const loadUser = (data, handleSetToken) => (dispatch, getState) => {
     dispatch({type: USER_LOADING});
     delete axios.defaults.headers.common["Authorization"];
     axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
         .then(res =>{
-            setCookie("true_effects_token", res.data.token)
+            handleSetToken(res.data.token)
             return res
         })
         .then(res => {
@@ -78,20 +78,24 @@ export const loadUser = (data, setCookie) => (dispatch, getState) => {
         })
     })
 }
-export const postLogout = () => (dispatch, getState) => {
+export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    axios.get(`${TRUEEFFECTS_URL}/api/logout/`)
+    axios.get(`${TRUEEFFECTS_URL}/api/v1/logout/`)
+        .then(res => {
+            // handleRemoveToken()
+            handleRemoveToken()
+            window.localStorage.removeItem('token')
+            window.localStorage.removeItem('name')
+            return res
+        })
         .then(res => dispatch({
             type: AUTH_ERROR
         }))
-        .then(res => dispatch({
-            type: POST_LOGOUT,
-        }))
-        .then(res => {
-            window.localStorage.removeItem('token')
-            window.localStorage.removeItem('name')
-        })
+        // .then(res => dispatch({
+        //     type: POST_LOGOUT,
+        // }))
+
 }
 
 export const loadToken = (token) => (dispatch, getState) => {
