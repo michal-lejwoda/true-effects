@@ -9,7 +9,7 @@ import {
     handleMovetoAllMeasurements,
     handleMovetoCreator, handleMovetoGoalsAndDimensions,
     handleMovetoHome,
-    handleMovetoMeasurements,
+    handleMovetoMeasurements, handleMoveToScheduler,
     handleMovetoScheduler, handleMovetoSettings
 } from "../helpers/history_helpers";
 const SideNavbar = () => {
@@ -56,6 +56,14 @@ const SideNavbar = () => {
                     </NavIcon>
                     <NavText>
                         Wyświetl wszystkie pomiary
+                    </NavText>
+                </NavItem>
+                <NavItem onClick={()=>handleMoveToScheduler(history)} eventKey="clipboard">
+                    <NavIcon>
+                        <FontAwesomeIcon icon={faClipboardList}/>
+                    </NavIcon>
+                    <NavText>
+                        Kalendarz treningów v2
                     </NavText>
                 </NavItem>
                 <NavItem onClick={()=>handleMovetoGoalsAndDimensions(history)} eventKey="weightall">

@@ -22,6 +22,10 @@ export const handleMovetoAddGoals = (history) => {
     history.push("/addgoals");
 }
 
+export const handleMoveToScheduler = (history) =>{
+    history.push("/scheduler");
+}
+
 export const handleMovetoSettings = (history) =>{
     history.push("/settings")
 }

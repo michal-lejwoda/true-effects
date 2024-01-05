@@ -1,32 +1,44 @@
 import React from 'react';
-import { Calendar, momentLocalizer, Views } from 'react-big-calendar'
+import {Calendar, momentLocalizer, Views} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 // import { getMeasurements, getTrainings, getGoals } from '../redux/actions/trainingActions';
 // import ModalDisplayTraining from './ModalDisplayTraining';
 import 'moment/locale/pl';
 import {getGoals, getMeasurements, getTrainings} from "../../redux/actions/trainingActions";
+
 require('moment/locale/pl.js')
-let allViews = Object.keys(Views).map(k => Views[k])
-const Scheduler = (props) =>{
-  const localizer = momentLocalizer(moment)
-  let events = []
-  console.log("props.trainings")
-  console.log(props.trainings)
+const allViews = Object.keys(Views).map(k => Views[k])
+const Scheduler = (props) => {
+    const localizer = momentLocalizer(moment)
+    let events = []
+    props.trainings.map(el => {
+        events.push({
+            'id': el.id,
+            'title': el.name,
+            'date': el.date,
+            'start': moment(Date.parse(el.date)).toDate(),
+            'end': moment(Date.parse(el.date)).toDate()
+        })
+    })
+    const handleSelect = (e) => {
+        console.log(e)
+        console.log("handleSelect")
+    }
     return (
-      <>
-        <h1>Scheduler</h1>
-        <div className="schedule">
-          <Calendar culture='pl-PL' views={allViews} selectable={true}
-            events={events}
-            // onSelectEvent={this.handleSelectEvent}
-            localizer={localizer} style={{ height: 900, width: '95%' }} />
-          {/*{modalopen && <ModalDisplayTraining back={this.handleBacktoSchedule} allprops={this.props} open={this.state.modalopen} training={this.state.training} date={this.state.date} time={this.state.time} description={this.state.description} title={this.state.title} alldata={this.state.alldata} />}*/}
+        <>
+            <h1>Scheduler</h1>
+            <div className="schedule">
+                <Calendar culture='pl-PL' views={allViews} selectable={true}
+                          events={events}
+                          onSelectEvent={handleSelect}
+                          localizer={localizer} style={{height: 900, width: '95%'}}/>
+                {/*{modalopen && <ModalDisplayTraining back={this.handleBacktoSchedule} allprops={this.props} open={this.state.modalopen} training={this.state.training} date={this.state.date} time={this.state.time} description={this.state.description} title={this.state.title} alldata={this.state.alldata} />}*/}
 
-        </div>
+            </div>
 
-      </>
+        </>
     )
 }
 
@@ -92,9 +104,9 @@ const Scheduler = (props) =>{
 //   }
 // }
 const mapStateToProps = (state) => {
-  return {
-    trainings: state.training.trainings.data,
-    loadedtrainings: state.training.loadedtrainings,
-  }
+    return {
+        trainings: state.training.trainings.data,
+        loadedtrainings: state.training.loadedtrainings,
+    }
 }
-export default connect(mapStateToProps, { getMeasurements, getTrainings, getGoals })(Scheduler);
+export default connect(mapStateToProps, {getMeasurements, getTrainings, getGoals})(Scheduler);
