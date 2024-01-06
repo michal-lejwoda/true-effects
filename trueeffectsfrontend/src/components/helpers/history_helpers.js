@@ -26,6 +26,10 @@ export const handleMoveToScheduler = (history) =>{
     history.push("/scheduler");
 }
 
+export const handleMoveToTraining = (history) => {
+    history.push("/training")
+}
+
 export const handleMovetoSettings = (history) =>{
     history.push("/settings")
 }

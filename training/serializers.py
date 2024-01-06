@@ -151,6 +151,13 @@ class MultiSeriesSerializer(serializers.ModelSerializer):
         return multi_series_obj
 
 
+class SimpleTrainingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Training
+        fields = ['id', 'date', 'name']
+
+
+
 class TrainingSerializer(serializers.ModelSerializer):
     multi_series = MultiSeriesSerializer(many=True, required=False, allow_null=True)
 
@@ -180,7 +187,6 @@ class TrainingSerializer(serializers.ModelSerializer):
                 multi_series_obj.single_series.set(single_series_list)
             training.multi_series.set(multi_series_list)
         return training
-
     # def create(self, validated_data):
     #     singleseries_list = validated_data.pop('multi_series')
     #     training = Training.objects.create(**validated_data)

@@ -21,7 +21,7 @@ import {
     PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSIONS_FOR_CREATE,
-    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS, GET_SINGLE_TRAINING_SUCCESS,
 } from './types';
 import axios from 'axios';
 
@@ -285,7 +285,7 @@ export const postTraining = (data) => (dispatch, getState) => {
 export const getTrainings = () => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get(`${TRUEEFFECTS_URL}/api/v1/training/`)
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/trainings/`)
         .then(res => dispatch({
             type: GET_TRAININGS_SUCCESS,
             payload: res,
@@ -359,4 +359,15 @@ export const getDimensionConfigurationForCompare = () => (dispatch, getState) =>
             console.log(err.response)
         })
 
+}
+
+
+export const getSingleTraining = (id) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/get_training_by_id/`)
+        .then(res => dispatch({
+            type: GET_SINGLE_TRAINING_SUCCESS,
+            payload: res.data
+        }))
 }
