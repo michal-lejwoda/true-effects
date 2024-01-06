@@ -1,8 +1,10 @@
 import React from 'react';
-import {Field, Formik} from "formik";
+import {Field, FieldArray, Formik} from "formik";
 import {connect} from "react-redux";
 
 const ModifyTrainingv2 = (props) => {
+    console.log("props.training")
+    console.log(props.training)
     return (
         <div>
             <Formik
@@ -46,9 +48,12 @@ const ModifyTrainingv2 = (props) => {
                             <Field value={values.date} type="text"/>
                             <label htmlFor="">Opis Treningu</label>
                             <Field value={values.description} type="text"/>
+
                             {values.multi_series.map(multiseries => {
                                 return (
+
                                     <div>
+                                        <Field name="multi_series[0].user"/>
                                         <h1>sdadasasd</h1>
                                     </div>
 
@@ -62,9 +67,10 @@ const ModifyTrainingv2 = (props) => {
                                     <button type="submit">Submit</button>
                                 </div>
                                 <div className="modify_training__container__multiseries">
-                                    {values.multi_series.map(multiseries => {
+                                    {values.multi_series.map((multiseries, index) => {
                                         return (
                                             <div className="modify_training__container__multiseries__element">
+
                                                 <div
                                                     className="modify_training__container__multiseries__element_container">
                                                     <div
@@ -75,7 +81,7 @@ const ModifyTrainingv2 = (props) => {
                                                 </div>
                                                 <div
                                                     className="modify_training__container__multiseries__element__singleseries">
-                                                    {multiseries.single_series.map(singleseries => {
+                                                    {multiseries.single_series.map((singleseries, indexv2) => {
                                                         return (
                                                             <div>
                                                                 <div
@@ -88,7 +94,7 @@ const ModifyTrainingv2 = (props) => {
                                                                         className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
                                                                         <p>Faza koncentryczna:</p>
                                                                         <Field onChange={handleChange}
-                                                                               name={`values.multi_series[${multiseries}].single_series[${singleseries}].concentricphase`}
+                                                                               name={`multi_series[${index}].single_series[${indexv2}].concentricphase`}
                                                                                value={singleseries.concentricphase}
                                                                                type="text"/>
                                                                         {/*<Field name="test" value={singleseries.concentricphase}/>*/}
