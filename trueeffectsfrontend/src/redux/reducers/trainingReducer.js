@@ -1,12 +1,12 @@
 import {
-    END_TRAINING_SUCCESS,
+    END_TRAINING_SUCCESS, GET_CURRENT_TRAINING_SUCCESS,
     GET_EXERCISES,
     GET_EXERCISES_SUCCESS,
     GET_GOALS,
     GET_GOALS_SUCCESS,
     GET_MEASUREMENTS,
     GET_MEASUREMENTS_SUCCESS,
-    GET_OWN_EXERCISES_SUCCESS,
+    GET_OWN_EXERCISES_SUCCESS, GET_SINGLE_TRAINING_SUCCESS,
     GET_TRAININGS,
     GET_TRAININGS_SUCCESS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
@@ -45,7 +45,9 @@ const initialState = {
     userDimensions: [],
     userDimensionConfiguration: [],
     userDimensionConfigurationForCompare: [],
-    userDimensionsForCreate: {}
+    userDimensionsForCreate: {},
+    trainingForModal: null,
+    training: null
 
 };
 export default function trainreducer(state = initialState, action) {
@@ -167,7 +169,17 @@ export default function trainreducer(state = initialState, action) {
                 ...state,
                 userDimensionConfigurationForCompare: action.payload
             }
-
+        case GET_SINGLE_TRAINING_SUCCESS:
+            return {
+                ...state,
+                trainingForModal: action.payload,
+                training: action.payload
+            }
+        case GET_CURRENT_TRAINING_SUCCESS:
+            return {
+                ...state,
+                training: action.payload
+            }
         default:
             return state;
     }

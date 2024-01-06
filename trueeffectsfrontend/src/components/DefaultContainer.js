@@ -29,6 +29,7 @@ import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
 import {useAuth} from "./hooks";
 import Scheduler from "./main_components/Scheduler";
+import Trainingv2 from "./main_components/Trainingv2";
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.token ,props.loadToken, props.postLogoutAuth, props.history)
@@ -52,7 +53,7 @@ const DefaultContainer = (props) => {
                 <UpperNavbar/>
                 <SideNavbar/>
                 <Route exact path="/" component={Homepage}/>
-                <Route path="/training" component={Training}/>
+                {/*<Route path="/training" component={Training}/>*/}
                 <Route path="/schedule" component={Schedule}/>
                 <Route path="/addmeasurements" component={AddMeasurements}/>
                 <Route path="/displaymeasurements" component={DisplayMeasurements}/>
@@ -62,6 +63,7 @@ const DefaultContainer = (props) => {
                 <Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>
                 <Route path="/settings" component={Settings}/>
                 <Route path="/scheduler" component={Scheduler}/>
+                <Route path="/training" component={Trainingv2}/>
             </>
             {/*// : <BoxLoading />}*/}
         </div>

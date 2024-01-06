@@ -8,7 +8,7 @@ from django.utils import timezone
 from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
     MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
-    UserDimensionSerializerForCreate, UserDimensionSerializerConfigurationForCompare
+    UserDimensionSerializerForCreate, UserDimensionSerializerConfigurationForCompare, SimpleTrainingSerializer
 
 
 class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -95,15 +95,20 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+
+class SingleTrainingViewSet(ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TrainingSerializer
 
-    def get_queryset(self):
-        return Training.objects.filter(user=self.request.user).order_by('date')
-
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
+
+    @action(detail=True, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_training_by_id(self, request, pk=None):
+        training = Training.objects.get(id=pk)
+        serializer = self.get_serializer(instance=training)
+        return Response(serializer.data)
+
 
     @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
     def update_multi_series(self, request):
@@ -132,6 +137,16 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             #     saved_object = serializer.save()
             #     training_obj.multi_series.set(saved_object)
         return Response(training_obj)
+
+
+class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SimpleTrainingSerializer
+
+    def get_queryset(self):
+        return Training.objects.filter(user=self.request.user).order_by('date')
+
+
 
 
 class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):

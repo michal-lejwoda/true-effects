@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 
 from authorization.views import RegistrationViewSet, CustomAuthToken, LogoutViewSet
 from training.views import ExerciseViewSet, UserDimensionViewSet, UserGoalViewSet, TrainingViewSet, \
-    UserDimensionConfigurationViewSet
+    UserDimensionConfigurationViewSet, SingleTrainingViewSet
 
 router = DefaultRouter()
 
@@ -12,5 +12,6 @@ router.register(r'logout', LogoutViewSet, basename='logout')
 router.register(r'exercise', ExerciseViewSet, basename='exercise')
 router.register(r'user_dimension', UserDimensionViewSet, basename='personal_dimensions')
 router.register(r'user_goal', UserGoalViewSet, basename='personal_goals')
-router.register(r'training', TrainingViewSet, basename='training')
+router.register(r'trainings', TrainingViewSet, basename='trainings')
+router.register(r'single_training',SingleTrainingViewSet, basename='single_training')
 router.register(r'user_dimension_configuration', UserDimensionConfigurationViewSet, basename='user_dimension_configuration')
