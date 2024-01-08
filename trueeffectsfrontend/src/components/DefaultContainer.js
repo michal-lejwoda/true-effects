@@ -12,7 +12,7 @@ import {
     getDimensions,
     getExercises,
     getGoals,
-    getMeasurements,
+    getMeasurements, getSingleTraining,
     getTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
@@ -30,11 +30,14 @@ import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions"
 import {useAuth} from "./hooks";
 import Scheduler from "./main_components/Scheduler";
 import Trainingv2 from "./main_components/Trainingv2";
+import ModifyTraining from "./main_components/ModifyTraining";
+import { FormikProvider} from 'formik'
+import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
 
 const DefaultContainer = (props) => {
-    const {} = useAuth(props.token ,props.loadToken, props.postLogoutAuth, props.history)
+    const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
     useEffect(() => {
-        if (props.token == null){
+        if (props.token == null) {
             props.history.push('/login')
         }
         if (props.token) {
@@ -43,6 +46,7 @@ const DefaultContainer = (props) => {
             props.getUserDimensionsForCreate();
             props.getDimensionConfigurationForCompare();
             props.getTrainings();
+            props.getSingleTraining(1);
         }
     }, [props.token])
 
@@ -64,6 +68,7 @@ const DefaultContainer = (props) => {
                 <Route path="/settings" component={Settings}/>
                 <Route path="/scheduler" component={Scheduler}/>
                 <Route path="/training" component={Trainingv2}/>
+                <Route path="/modify_training" component={ModifyTrainingv2}/>
             </>
             {/*// : <BoxLoading />}*/}
         </div>
@@ -84,6 +89,7 @@ export default connect(mapStateToProps, {
     getDimensions,
     getUserDimensionsForCreate,
     getDimensionConfigurationForCompare,
+    getSingleTraining,
     getMeasurements,
     getTrainings,
     getGoals,

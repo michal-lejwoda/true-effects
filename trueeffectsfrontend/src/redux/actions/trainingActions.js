@@ -21,7 +21,10 @@ import {
     PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSIONS_FOR_CREATE,
-    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS, GET_SINGLE_TRAINING_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
+    GET_SINGLE_TRAINING_SUCCESS,
+    UPDATE_SINGLE_TRAINING_SUCCESS,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
 } from './types';
 import axios from 'axios';
 
@@ -368,6 +371,42 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/get_training_by_id/`)
         .then(res => dispatch({
             type: GET_SINGLE_TRAINING_SUCCESS,
+            payload: res.data
+        }))
+}
+
+export const updateTraining = (data) => (dispatch, getState) =>{
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    console.log("updateTraining")
+    console.log(data)
+    return axios.put(`${TRUEEFFECTS_URL}/api/v1/single_training/${data.id}/update_training/`, data)
+        .then(res => dispatch({
+            type: UPDATE_SINGLE_TRAINING_SUCCESS,
+            payload: res.data
+        }))
+}
+
+export const createTraining = (data) => (dispatch, getState) =>{
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    console.log("createTraining")
+    console.log(data)
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/single_training/`, data)
+        .then(res => dispatch({
+            type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+            payload: res.data
+        }))
+}
+
+export const deleteCurrentTraining = (id) => (dispatch, getState) =>{
+        let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    console.log("deleteTraining")
+    console.log(id)
+    return axios.delete(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/`)
+        .then(res => dispatch({
+            type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
             payload: res.data
         }))
 }

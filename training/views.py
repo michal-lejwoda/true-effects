@@ -1,11 +1,13 @@
 from rest_framework import status
 from rest_framework.decorators import action
-from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
+from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, \
+    DestroyModelMixin
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 from django.utils import timezone
-from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration
+from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration, SingleSeries, \
+    MultiSeries
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
     MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
     UserDimensionSerializerForCreate, UserDimensionSerializerConfigurationForCompare, SimpleTrainingSerializer
@@ -96,12 +98,58 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         return Response(serializer.data)
 
 
-class SingleTrainingViewSet(ListModelMixin, GenericViewSet):
+class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin, UpdateModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = TrainingSerializer
 
+    def get_queryset(self):
+        return Training.objects.filter(user=self.request.user).order_by('date')
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
+
+    @action(detail=True, methods=['PUT'], permission_classes=[IsAuthenticated])
+    def update_training(self, request, pk):
+        data = request.data
+        instance = self.get_object()
+        for multi_series in data.pop('multi_series'):
+            # multi_series_object = MultiSeries.objects.get(id=i['id'])
+            # multi_series_serializer = MultiSeriesSerializer(instance=multi_series_object, data=i)
+            # if multi_series_serializer.is_valid():
+            #     multi_series_serializer.save()
+            for single_series in multi_series.pop('single_series'):
+                single_series_object = SingleSeries.objects.get(id=single_series['id'])
+                single_series_serializer = SingleSeriesSerializer(instance=single_series_object, data=single_series)
+                if single_series_serializer.is_valid():
+                    single_series_serializer.save()
+        training_serializer = TrainingSerializer(instance=instance, data=data)
+        if training_serializer.is_valid():
+            training_serializer.save()
+            return Response(training_serializer.data, status=status.HTTP_200_OK)
+
+    @action(detail=True, methods=['POST'], permission_classes=[IsAuthenticated])
+    def move_training(self, request, pk):
+        pass
+
+
+
+
+
+        # print("data")
+        # print(data)
+        # instance = self.get_object()
+        # for multiseries_index, i in enumerate(instance.multi_series.all()):
+        #     print(i.exercise.name)
+        #     print("multiseries_index")
+        #     print(multiseries_index)
+        #     for single_series_index, j in enumerate(i.single_series.all()):
+        #         single_series_object = SingleSeries.objects.get(id=j.id)
+        #         print("single_series_index")
+        #         print(single_series_index)
+        #         # single_series_serializer = SingleSeriesSerializer()
+        #         # if single_series_serializer.is_valid():
+        #         #     single_series_serializer.save()
+
+        return Response("Working", status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_training_by_id(self, request, pk=None):

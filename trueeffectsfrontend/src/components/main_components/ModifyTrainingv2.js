@@ -1,37 +1,49 @@
 import React from 'react';
 import {Field, FieldArray, Formik} from "formik";
 import {connect} from "react-redux";
+import {createTraining, deleteCurrentTraining, updateTraining} from "../../redux/actions/trainingActions";
+import DatePicker from "react-datepicker";
+import {useDate} from "../hooks";
+import {convertDate} from "../helpers/function_helpers";
 
 const ModifyTrainingv2 = (props) => {
     console.log("props.training")
     console.log(props.training)
+    // const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
+    const handleModifyTraining = async (data) => {
+        console.log("handleModifyTraining")
+        console.log(data)
+        console.log("data")
+        await props.updateTraining(data)
+    }
+    const handleCopyTrainingToAnotherDate = async (data) => {
+        await props.createTraining(data)
+    }
+
+    const handleDeleteTraining = async (id) => {
+        await props.deleteCurrentTraining(id)
+    }
+    const handleDate = (date, values) =>{
+        console.log("date")
+        console.log(date)
+        console.log("values")
+        console.log(values)
+        values.date = date
+
+    }
+
+
     return (
         <div>
             <Formik
                 initialValues={props.training}
-                // initialValues={{email: '', password: ''}}
-                // validate={values => {
-                //     const errors = {};
-                //     if (!values.email) {
-                //         errors.email = 'Required';
-                //     } else if (
-                //         !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-                //     ) {
-                //         errors.email = 'Invalid email address';
-                //     }
-                //     return errors;
-                // }}
                 onSubmit={(values, {setSubmitting}) => {
-                    console.log("values")
-                    console.log(values)
-                    // setTimeout(() => {
-                    //     alert(JSON.stringify(values, null, 2));
-                    //     setSubmitting(false);
-                    // }, 400);
+                    console.log("submit")
                 }}
             >
                 {({
                       values,
+                    setFieldValue,
                       errors,
                       touched,
                       handleChange,
@@ -43,28 +55,32 @@ const ModifyTrainingv2 = (props) => {
                     <form onSubmit={handleSubmit}>
                         <div>
                             <label htmlFor="">Nazwa Treningu</label>
-                            <Field value={values.name} type="text"/>
+                            <Field onChange={handleChange} name="name" value={values.name} type="text"/>
                             <label htmlFor="">Data Treningu</label>
-                            <Field value={values.date} type="text"/>
+                            <DatePicker locale='pl'
+                                        name="date"
+                                        value={values.date}
+                                        placeholderText={"Wybierz date"}
+                                        // dateFormat='dd/MM/yyyy'
+                                        dateFormat='yyyy-MM-dd'
+                                        // selected={values.date}
+                                        onChange = {(date)=>setFieldValue('date', convertDate(date))
+                                        // onChange={(date) => handleDate(date, setFieldValue)
+                            }
+                            />
+                            {/*<Field onChange={handleChange} name="date" value={values.date} type="text"/>*/}
                             <label htmlFor="">Opis Treningu</label>
-                            <Field value={values.description} type="text"/>
+                            <Field onChange={handleChange} name="description" value={values.description} type="text"/>
 
-                            {values.multi_series.map(multiseries => {
-                                return (
-
-                                    <div>
-                                        <Field name="multi_series[0].user"/>
-                                        <h1>sdadasasd</h1>
-                                    </div>
-
-                                )
-                            })}
                             <div className="modify_training__container">
                                 <div className="modify_training__container__buttons">
                                     <button>Trenuj -></button>
-                                    <button>Usuń trening -</button>
-                                    <button>Dodaj trening do innego dnia +</button>
+                                    <button onClick={()=>handleDeleteTraining(values.id)}>Usuń trening -</button>
+                                    <button onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
+                                        innego dnia +
+                                    </button>
                                     <button type="submit">Submit</button>
+
                                 </div>
                                 <div className="modify_training__container__multiseries">
                                     {values.multi_series.map((multiseries, index) => {
@@ -103,6 +119,7 @@ const ModifyTrainingv2 = (props) => {
                                                                         className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
                                                                         <p>Pauza po fazie koncentrycznej:</p> <Field
                                                                         onChange={handleChange}
+                                                                        name={`multi_series[${index}].single_series[${indexv2}].pause_after_concentric_phase`}
                                                                         value={singleseries.pause_after_concentric_phase}
                                                                         type="text"/>
                                                                     </div>
@@ -110,11 +127,13 @@ const ModifyTrainingv2 = (props) => {
                                                                         className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
                                                                         <p>Faza ekscentryczna:</p> <Field
                                                                         value={singleseries.eccentricphase}
+                                                                        name={`multi_series[${index}].single_series[${indexv2}].eccentricphase`}
                                                                         onChange={handleChange} type="text"/>
                                                                     </div>
                                                                     <div
                                                                         className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
                                                                         <p>Pauza po fazie ekscentrycznej:</p> <Field
+                                                                        name={`multi_series[${index}].single_series[${indexv2}].pause_after_eccentric_phase`}
                                                                         value={singleseries.pause_after_eccentric_phase}
                                                                         onChange={handleChange} type="text"/>
                                                                     </div>
@@ -128,7 +147,9 @@ const ModifyTrainingv2 = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" disabled={isSubmitting}>
+                        <button
+                            onClick={() => handleModifyTraining(values)}
+                        >
                             Submit
                         </button>
                     </form>
@@ -143,4 +164,4 @@ const mapStateToProps = (state) => {
         training: state.training.training,
     }
 }
-export default connect(mapStateToProps, null)(ModifyTrainingv2);
+export default connect(mapStateToProps, {updateTraining, createTraining, deleteCurrentTraining})(ModifyTrainingv2);
