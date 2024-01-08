@@ -1,4 +1,5 @@
 import {
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
     END_TRAINING_SUCCESS, GET_CURRENT_TRAINING_SUCCESS,
     GET_EXERCISES,
     GET_EXERCISES_SUCCESS,
@@ -19,7 +20,7 @@ import {
     POST_MEASUREMENT,
     POST_TIME,
     POST_TRAINING,
-    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, UPDATE_SINGLE_TRAINING_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -47,7 +48,8 @@ const initialState = {
     userDimensionConfigurationForCompare: [],
     userDimensionsForCreate: {},
     trainingForModal: null,
-    training: null
+    training: null,
+    created_training: null
 
 };
 export default function trainreducer(state = initialState, action) {
@@ -180,6 +182,17 @@ export default function trainreducer(state = initialState, action) {
                 ...state,
                 training: action.payload
             }
+        case UPDATE_SINGLE_TRAINING_SUCCESS:
+            return {
+                ...state,
+                training: action.payload
+            }
+        case CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS:
+            return {
+                ...state,
+                created_training: action.payload
+            }
+
         default:
             return state;
     }

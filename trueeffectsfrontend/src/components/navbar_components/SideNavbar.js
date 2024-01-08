@@ -9,7 +9,7 @@ import {
     handleMovetoAllMeasurements,
     handleMovetoCreator, handleMovetoGoalsAndDimensions,
     handleMovetoHome,
-    handleMovetoMeasurements, handleMoveToScheduler,
+    handleMovetoMeasurements, handleMoveToModifyTraining, handleMoveToScheduler,
     handleMovetoScheduler, handleMovetoSettings
 } from "../helpers/history_helpers";
 const SideNavbar = () => {
@@ -89,7 +89,18 @@ const SideNavbar = () => {
                     <NavText>
                         Ustawienia
                     </NavText>
+
                 </NavItem>
+                <NavItem onClick={()=>handleMoveToModifyTraining(history)} eventKey="settings">
+                    <NavIcon>
+                        <FontAwesomeIcon icon={faWeight}/>
+                    </NavIcon>
+                    <NavText>
+                        Modyfikuj Trening
+                    </NavText>
+
+                </NavItem>
+
             </SideNav.Nav>
         </SideNav>
     );

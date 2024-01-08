@@ -129,6 +129,17 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
         single_series_obj = SingleSeries.objects.create(**validated_data)
         return single_series_obj
 
+    def update(self, instance, validated_data):
+        instance.extra_weight = validated_data.pop('extra_weight')
+        instance.rest = validated_data.pop('rest')
+        instance.concentric_phase = validated_data.pop('concentric_phase')
+        instance.eccentric_phase = validated_data.pop('eccentric_phase')
+        instance.pause_after_concentric_phase = validated_data.pop('pause_after_concentric_phase')
+        instance.pause_after_eccentric_phase = validated_data.pop('pause_after_eccentric_phase')
+        instance.reps = validated_data.pop('reps')
+        instance.series_num = validated_data.pop('series_num')
+        instance.save()
+        return instance
     class Meta:
         model = SingleSeries
         fields = '__all__'

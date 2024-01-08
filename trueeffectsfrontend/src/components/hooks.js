@@ -15,8 +15,10 @@ export const useAuth = (token, loadToken, postLogoutAuth, history) => {
 }
 
 export const useDate = () => {
-    const [date, setDate] = useState(null)
-    const [jsDate, setJsDate] = useState(null)
+    const today = new Date()
+    const converted_date = convertDate(today)
+    const [date, setDate] = useState(converted_date)
+    const [jsDate, setJsDate] = useState(today)
     const [dateError, setDateError] = useState(null)
     const handleDateForDimensions = (date) => {
         const convertedDate = convertDate(date)
