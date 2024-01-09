@@ -378,8 +378,6 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
 export const updateTraining = (data) => (dispatch, getState) =>{
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    console.log("updateTraining")
-    console.log(data)
     return axios.put(`${TRUEEFFECTS_URL}/api/v1/single_training/${data.id}/update_training/`, data)
         .then(res => dispatch({
             type: UPDATE_SINGLE_TRAINING_SUCCESS,

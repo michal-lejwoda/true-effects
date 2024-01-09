@@ -5,8 +5,11 @@ import {createTraining, deleteCurrentTraining, updateTraining} from "../../redux
 import DatePicker from "react-datepicker";
 import {useDate} from "../hooks";
 import {convertDate} from "../helpers/function_helpers";
+import {useHistory} from "react-router-dom";
+import {handleMoveToTraining} from "../helpers/history_helpers";
 
 const ModifyTrainingv2 = (props) => {
+    const history = useHistory()
     console.log("props.training")
     console.log(props.training)
     // const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
@@ -74,7 +77,7 @@ const ModifyTrainingv2 = (props) => {
 
                             <div className="modify_training__container">
                                 <div className="modify_training__container__buttons">
-                                    <button>Trenuj -></button>
+                                    <button onClick={()=>handleMoveToTraining(history)}>Trenuj -></button>
                                     <button onClick={()=>handleDeleteTraining(values.id)}>Usuń trening -</button>
                                     <button onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
                                         innego dnia +
