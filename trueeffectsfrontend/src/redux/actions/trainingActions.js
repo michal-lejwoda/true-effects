@@ -46,22 +46,7 @@ export const getMeasurements = () => (dispatch, getState) => {
             payload: res,
         }));
 }
-export const getExercises = () => (dispatch, getState) => {
-    let token = getState().authentication.token
-    dispatch({type: GET_EXERCISES})
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    axios.get(`${TRUEEFFECTS_URL}/api/display_own_exercise/`)
-        .then(res => dispatch({
-            type: GET_OWN_EXERCISES_SUCCESS,
-            payload: res.data
-        }))
-        .then(
-            axios.get(`${TRUEEFFECTS_URL}/api/display_exercises/`)
-                .then(res => dispatch({
-                    type: GET_EXERCISES_SUCCESS,
-                    payload: res,
-                })));
-}
+
 // export const postTraining = (data) => async(dispatch,getState) => {
 //     let token = window.localStorage.getItem('token')
 //     if (token === null){
@@ -407,4 +392,24 @@ export const deleteCurrentTraining = (id) => (dispatch, getState) =>{
             type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
             payload: res.data
         }))
+}
+
+export const getExercises = (param) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    console.log("token")
+    console.log(token)
+    // dispatch({type: GET_EXERCISES})
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/exercise/?name=${param}`)
+        .then(res=>{
+            return res.data
+        })
+        .catch(err=>{
+            console.log(err)
+            return err
+        })
+        // .then(res => dispatch({
+        //     type: GET_EXERCISES_SUCCESS,
+        //     payload: res.data
+        // }))
 }

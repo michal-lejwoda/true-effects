@@ -37,3 +37,7 @@ export const handleMovetoSettings = (history) =>{
 export const handleMoveToModifyTraining = (history) =>{
     history.push("/modify_training")
 }
+
+export const handleMoveToCreateTraining = (history) =>{
+    history.push("/create_training")
+}

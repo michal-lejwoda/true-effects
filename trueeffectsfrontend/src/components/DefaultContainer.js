@@ -33,6 +33,7 @@ import Trainingv2 from "./main_components/Trainingv2";
 import ModifyTraining from "./main_components/ModifyTraining";
 import { FormikProvider} from 'formik'
 import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
+import CreateTrainingv2 from "./main_components/CreateTrainingv2";
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
@@ -47,6 +48,7 @@ const DefaultContainer = (props) => {
             props.getDimensionConfigurationForCompare();
             props.getTrainings();
             props.getSingleTraining(1);
+
         }
     }, [props.token])
 
@@ -69,6 +71,7 @@ const DefaultContainer = (props) => {
                 <Route path="/scheduler" component={Scheduler}/>
                 <Route path="/training" component={Trainingv2}/>
                 <Route path="/modify_training" component={ModifyTrainingv2}/>
+                <Route path="/create_training" component={CreateTrainingv2}/>
             </>
             {/*// : <BoxLoading />}*/}
         </div>
@@ -96,4 +99,5 @@ export default connect(mapStateToProps, {
     getExercises,
     postLogoutAuth,
     loadToken,
+
 })(DefaultContainer);

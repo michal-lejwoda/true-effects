@@ -6,7 +6,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faClipboardList, faClock, faGavel, faHome, faWeight} from '@fortawesome/fontawesome-free-solid';
 import {
     handleMovetoAddGoals,
-    handleMovetoAllMeasurements,
+    handleMovetoAllMeasurements, handleMoveToCreateTraining,
     handleMovetoCreator, handleMovetoGoalsAndDimensions,
     handleMovetoHome,
     handleMovetoMeasurements, handleMoveToModifyTraining, handleMoveToScheduler,
@@ -97,6 +97,15 @@ const SideNavbar = () => {
                     </NavIcon>
                     <NavText>
                         Modyfikuj Trening
+                    </NavText>
+
+                </NavItem>
+                <NavItem onClick={()=>handleMoveToCreateTraining(history)} eventKey="settings">
+                    <NavIcon>
+                        <FontAwesomeIcon icon={faWeight}/>
+                    </NavIcon>
+                    <NavText>
+                        Create Training
                     </NavText>
 
                 </NavItem>

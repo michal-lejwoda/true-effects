@@ -108,10 +108,12 @@ class UserDimensionConfigurationSerializer(serializers.ModelSerializer):
 
 class ExerciseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
+    label = serializers.ReadOnlyField(source='name')
+    value = serializers.ReadOnlyField(source='name')
 
     class Meta:
         model = Exercise
-        fields = ['id', 'user', 'name', 'public']
+        fields = ['id', 'user', 'name', 'public', 'label', 'value']
         extra_kwargs = {
             'public': {"write_only": True},
             'user': {'write_only': True}
