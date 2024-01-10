@@ -16,6 +16,7 @@ const Scheduler = (props) => {
     const history = useHistory()
     const localizer = momentLocalizer(moment)
     const [showModal, setShowModal] = useState(false)
+    console.log(props.trainings)
     let events = []
     props.trainings.map(el => {
         events.push({

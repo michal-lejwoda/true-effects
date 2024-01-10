@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, \
@@ -18,8 +19,9 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     serializer_class = ExerciseSerializer
 
     def get_queryset(self):
-        #TODO CACHE
-        return Exercise.objects.filter(public=True)
+        param = self.request.GET.get('name', None)
+        query = Q(public=True) | Q(user=self.request.user)
+        return Exercise.objects.filter(query, name__istartswith=param)
 
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
