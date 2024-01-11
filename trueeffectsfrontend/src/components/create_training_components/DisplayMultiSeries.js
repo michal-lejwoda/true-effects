@@ -1,19 +1,32 @@
 import React from 'react';
 
 const DisplayMultiSeries = (props) => {
-    console.log(props.multiSeries)
+    const handleRemoveSingleSeries = (multiIndex, singleIndex) => {
+        const updatedMultiSeries = [...props.multiSeries];
+        updatedMultiSeries[multiIndex].single_series.splice(singleIndex, 1);
+        props.setMultiSeries(updatedMultiSeries);
+    }
+
+    const handleRemoveMultiSeries = (multiIndex) =>{
+        const updatedMultiSeries = [...props.multiSeries];
+        updatedMultiSeries.splice(multiIndex, 1);
+        props.setMultiSeries(updatedMultiSeries);
+    }
+
     return (
         <div>
-            {props.multiSeries.map(el => {
-                console.log("Eer")
-                console.log(el)
+            {props.multiSeries.map((el, multiIndex) => {
                 return (
                     <div key={el.exercise.name}>
-                        <h1>{el.exercise.name}</h1>
-                        {el.single_series.map(element => {
-                            console.log(element)
+                        <div onClick={()=>handleRemoveMultiSeries(multiIndex)} key={multiIndex}>
+                            <h1>{el.exercise.name}</h1>
+                        </div>
+                        {el.single_series.map((element, singleIndex) => {
                             return (
-                                <h1 key={element}>{element.exercise.name}</h1>
+                                <div key={`${multiIndex}-${singleIndex}`}>
+                                    <h3>{element.exercise.name}</h3>
+                                    <div onClick={()=>handleRemoveSingleSeries(multiIndex, singleIndex)}>Usuń</div>
+                                </div>
                             );
                         })}
                     </div>

@@ -77,8 +77,7 @@ export const useCreateMultiSeries = (props, values, setFieldValue, setErrors) =>
         }
     }
 
-    const validateSingleSeries = (e) => {
-        e.preventDefault()
+    const validateSingleSeries = () => {
         try {
             createSingleSeriesValidation.validateSync(values, {abortEarly: false});
             return true
@@ -124,7 +123,8 @@ export const useCreateMultiSeries = (props, values, setFieldValue, setErrors) =>
     };
 
 
-    const addToSingleSeries = () => {
+    const addToSingleSeries = (e) => {
+        e.preventDefault()
         if (validateSingleSeries() === true) {
             const newSingleSeries = {...values};
 
