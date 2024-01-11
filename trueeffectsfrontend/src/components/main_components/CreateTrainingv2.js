@@ -7,6 +7,7 @@ import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
 import {postLogin} from "../../redux/actions/authenticationActions";
 import {getExercises, getGoals, getMeasurements, getTrainings} from "../../redux/actions/trainingActions";
+import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 
 const CreateTrainingv2 = (props) => {
     const [multiSeries, setMultiSeries] = useState([])
@@ -25,9 +26,11 @@ const CreateTrainingv2 = (props) => {
             // handleSendGoals(values)
         },
     });
-    console.log("values")
-    console.log(values)
-    console.log(props.exercises)
+    console.log("multiSeries")
+    console.log(multiSeries)
+    // console.log("values")
+    // console.log(values)
+    // console.log(props.exercises)
     return (
         <div>
             <div className="createtraining__top">
@@ -56,6 +59,8 @@ const CreateTrainingv2 = (props) => {
             <CreateMultiSeries setMultiSeries={setMultiSeries} multiSeries={multiSeries} singleSeries={singleSeries}
                                setSingleSeries={setSingleSeries} multiSeriesIndex={multiSeriesIndex}
                                setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}/>
+
+            <DisplayMultiSeries multiSeries={multiSeries}/>
 
         </div>);
 };
