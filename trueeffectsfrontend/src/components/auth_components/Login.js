@@ -9,22 +9,10 @@ import {loadUser, postLogin} from "../../redux/actions/authenticationActions";
 import {getExercises, getGoals, getMeasurements, getTrainings, postTraining} from "../../redux/actions/trainingActions";
 import {useCookies} from "react-cookie";
 
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         '& .MuiTextField-root': {
-//             width: '60ch',
-//             '& .MuiInputBase-input': {
-//                 fontWeight: '700'
-//             }
-//         },
-//     },
-// }));
-
 const Login = (props) => {
 
     const [cookies, setCookie] = useCookies(['true_effects_token']);
-    console.log(cookies)
+
     if (props.token !== null) {
         props.history.push('/')
     }
@@ -40,7 +28,6 @@ const Login = (props) => {
     }
     const [login, setLogin] = useState("test")
     const [password, setPassword] = useState("test")
-    // const classes = useStyles();
     const handleLogin = async (e) => {
         e.preventDefault();
         let data = {
