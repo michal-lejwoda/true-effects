@@ -8,9 +8,6 @@ const CreateMultiSeries = (props) => {
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
             exercise: null,
-            // name: "",
-            // date: "",
-            // description: "",
             extra_weight: 0,
             rest: 0,
             reps: 10,
