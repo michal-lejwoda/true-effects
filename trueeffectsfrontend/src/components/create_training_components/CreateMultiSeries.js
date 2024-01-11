@@ -6,9 +6,9 @@ import {getExercises} from "../../redux/actions/trainingActions";
 // import AsyncSelect from "react-select/async";
 // import Select from 'react-select'
 const CreateMultiSeries = (props) => {
-
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
+            exercise: null,
             name: "",
             date: "",
             description: "",
@@ -30,23 +30,75 @@ const CreateMultiSeries = (props) => {
             // addMultiSeries()
         },
     });
-    console.log(props.singleSeries)
-    console.log(props.multiSeries)
-    const addMultiSingleSeries = () => {
-        console.log("addMultiSeries")
-        console.log(values)
-        const singleSeriesArray = Array.from({length: values.series_count}, ()=>values)
-        props.setSingleSeries(prevState => [...prevState, ...singleSeriesArray])
-        // props.setMultiSeries(prevState =>[...prevState, {"single_series": singleSeries}])
+    const handleChangeExercise = (exerciseObject) => {
+        setFieldValue('exercise', exerciseObject)
+    }
 
+
+    const addMultiSingleSeries = () => {
+        const singleSeriesArray = Array.from({length: values.series_count}, () => values)
+        if (props.multiSeries.length == 0) {
+            props.setMultiSeries(prevState => [...prevState, {
+                "single_series": [...singleSeriesArray],
+                "exercise": values.exercise
+            }])
+        } else if (props.multiSeries[props.multiSeries.length - 1].exercise.id !== values.exercise.id) {
+            props.setMultiSeries(prevState => [...prevState, {
+                "single_series": [...singleSeriesArray],
+                "exercise": values.exercise
+            }])
+        } else {
+            props.setMultiSeries(prevState => {
+                const updatedMultiSeries = [...prevState];
+                const element = updatedMultiSeries[props.multiSeries.length - 1];
+                const updatedSingleSeries = [
+                    ...element.single_series, ...singleSeriesArray
+                ];
+                updatedMultiSeries[props.multiSeries.length - 1] = {
+                    ...element,
+                    single_series: updatedSingleSeries
+                };
+                return updatedMultiSeries;
+            })
+        }
     }
-    const addToSingleSeries = () =>{
-        console.log("addSingleSeries")
-        console.log(values)
-        props.setSingleSeries(prevState => [...prevState, values])
+
+    const addToSingleSeries = () => {
+        if (props.multiSeries.length == 0) {
+            props.setMultiSeries(prevState => [...prevState, {
+                "single_series": [{...values}],
+                "exercise": values.exercise
+            }])
+        } else if (props.multiSeries[props.multiSeries.length - 1].exercise.id !== values.exercise.id) {
+            props.setMultiSeries(prevState => [...prevState, {
+                "single_series": [{...values}],
+                "exercise": values.exercise
+            }])
+        } else {
+            props.setMultiSeries(prevState => {
+                const updatedMultiSeries = [...prevState];
+                const element = updatedMultiSeries[props.multiSeries.length - 1];
+                const updatedSingleSeries = [
+                    ...element.single_series, {...values}
+                ];
+                updatedMultiSeries[props.multiSeries.length - 1] = {
+                    ...element,
+                    single_series: updatedSingleSeries
+                };
+                return updatedMultiSeries;
+            })
+        }
     }
-    const loadExercises = async(param) =>{
-        return  await props.getExercises(param)
+
+
+    // const addToSingleSeries = () => {
+    //     console.log("addSingleSeries")
+    //     console.log(values)
+    //     // props.setSingleSeries(prevState => [...prevState, values])
+    //     props.setMultiSeries(prevState => [...prevState, {"single_series": [values], "exercise": values.exercise}])
+    // }
+    const loadExercises = async (param) => {
+        return await props.getExercises(param)
 
     }
     return (
@@ -57,7 +109,8 @@ const CreateMultiSeries = (props) => {
                     <form>
                         <div className="createtraining__bottom__leftcontainer__fields__element">
                             <label htmlFor="">Wybierz ćwiczenie</label>
-                            <AsyncSelect loadOptions={loadExercises} defaultOptions/>
+                            <AsyncSelect name="exercise" onChange={handleChangeExercise} loadOptions={loadExercises}
+                                         defaultOptions/>
                         </div>
                         <div className="createtraining__bottom__leftcontainer__fields__element">
                             <label htmlFor="">Dodatkowa waga</label>
