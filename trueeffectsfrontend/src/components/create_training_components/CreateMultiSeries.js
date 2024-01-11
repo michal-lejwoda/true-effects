@@ -1,17 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useFormik} from "formik";
-import {
-    createGoalValidation,
-    createMultiSeriesValidation,
-    createSingleSeriesValidation,
-    createTrainingValidation
-} from "../validation/validation";
 import AsyncSelect from "react-select/async";
-import {getExercises} from "../../redux/actions/trainingActions";
-// import AsyncSelect from "react-select/async";
-// import Select from 'react-select'
-const CreateMultiSeries = (props) => {
+import {useCreateMultiSeries} from "../hooks";
 
+const CreateMultiSeries = (props) => {
 
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
@@ -32,107 +24,8 @@ const CreateMultiSeries = (props) => {
         validateOnChange: false,
         validationOnBlue: false,
     });
+    const [loadExercises, addToSingleSeries, addMultiSingleSeries, handleChangeExercise] = useCreateMultiSeries(props, values, setFieldValue, setErrors)
 
-    const {multiSeries, setMultiSeries} = props;
-    const {exercise, series_count} = values;
-
-    const handleChangeExercise = (exerciseObject) => {
-        setFieldValue('exercise', exerciseObject)
-    }
-
-    const validateMultiSeries = () => {
-        console.log("values123")
-        console.log(values)
-        try {
-            createMultiSeriesValidation.validateSync(values, {abortEarly: false});
-            return true
-        } catch (error) {
-            const formattedErrors = error.inner.reduce((acc, validationError) => {
-                acc[validationError.path] = validationError.message;
-                return acc;
-            }, {});
-            setErrors(formattedErrors);
-            return false
-        }
-    }
-
-    const validateSingleSeries = (e) => {
-        e.preventDefault()
-        try {
-            createSingleSeriesValidation.validateSync(values, {abortEarly: false});
-            return true
-        } catch (error) {
-            const formattedErrors = error.inner.reduce((acc, validationError) => {
-                acc[validationError.path] = validationError.message;
-                return acc;
-            }, {});
-
-            setErrors(formattedErrors);
-            return false
-        }
-    }
-
-
-    const addMultiSingleSeries = (e) => {
-        e.preventDefault()
-        if (validateMultiSeries() === true) {
-            const singleSeriesArray = Array.from({length: series_count}, () => values);
-
-            if (multiSeries.length === 0 || multiSeries[multiSeries.length - 1].exercise.id !== exercise.id) {
-                setMultiSeries(prevState => [...prevState, {
-                    "single_series": [...singleSeriesArray],
-                    "exercise": exercise
-                }]);
-            } else {
-                setMultiSeries(prevState => {
-                    const updatedMultiSeries = [...prevState];
-                    const element = updatedMultiSeries[multiSeries.length - 1];
-                    const updatedSingleSeries = [
-                        ...element.single_series, ...singleSeriesArray
-                    ];
-                    updatedMultiSeries[multiSeries.length - 1] = {
-                        ...element,
-                        single_series: updatedSingleSeries
-                    };
-                    return updatedMultiSeries;
-                });
-            }
-        } else {
-            return
-        }
-    };
-
-
-    const addToSingleSeries = () => {
-        if (validateSingleSeries() === true) {
-            const newSingleSeries = {...values};
-
-            if (multiSeries.length === 0 || multiSeries[multiSeries.length - 1].exercise.id !== exercise.id) {
-                setMultiSeries(prevState => [...prevState, {
-                    "single_series": [newSingleSeries],
-                    "exercise": exercise
-                }]);
-            } else {
-                setMultiSeries(prevState => {
-                    const updatedMultiSeries = [...prevState];
-                    const element = updatedMultiSeries[multiSeries.length - 1];
-
-                    updatedMultiSeries[multiSeries.length - 1] = {
-                        ...element,
-                        single_series: [...element.single_series, newSingleSeries]
-                    };
-                    return updatedMultiSeries;
-                });
-            }
-        } else {
-            return
-        }
-    };
-
-    const loadExercises = async (param) => {
-        return await props.getExercises(param)
-
-    }
     return (
         <div className="createtraining__bottom">
             <form onSubmit={handleSubmit}>
