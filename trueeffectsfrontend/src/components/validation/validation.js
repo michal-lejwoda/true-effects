@@ -32,13 +32,31 @@ export const createDimensionValidation = yup.object().shape({
 })
 
 export const createMultiSeriesValidation = yup.object().shape({
-    name: yup.string().min(2, "Nazwa jest za krótka").max(100, "Nazwa jest za długa wykorzystaj opis").required('Pole jest wymagane'),
-    description: yup.string().max(5000, "Opis jest za długi"),
-    extra_weight: yup.number().max(10000, "Nie no tyle to nie. Tutaj wstaw tego mema. :)").required("Musisz uzupełnić wage"),
-    rest: yup.number().typeError("Odpoczynek musi być liczbą"),
-    reps: yup.number().typeError("Liczba powtórzeń musi być liczbą"),
+    exercise: yup.object().nonNullable("Wybierz ćwiczenie").required("Wybierz ćwiczenie"),
+    extra_weight: yup.number().max(10000, "Nie no tyle to nie. Tutaj wstaw tego mema. :)").required("Musisz uzupełnić wage").typeError("Dodatkowa waga musi być liczbą"),
+    rest: yup.number().required("Musisz uzupełnić czas przerwy").typeError("Odpoczynek musi być liczbą"),
+    reps: yup.number().required("Musisz uzupełnić liczbe powtórzeń").typeError("Liczba powtórzeń musi być liczbą"),
     concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
     pause_after_concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
     eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
     pause_after_eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+    series_count: yup.number().min(1, "Liczba jest za mała").max(100, "Liczba serii jest za duża").typeError("Liczba serii musi być liczbą całkowitą od 0 od 100"),
+})
+
+export const createSingleSeriesValidation = yup.object().shape({
+    exercise: yup.object().nullable(false).required("To pole jest wymagane"),
+    extra_weight: yup.number().max(10000, "Nie no tyle to nie. Tutaj wstaw tego mema. :)").required("Musisz uzupełnić wage").typeError("Dodatkowa waga musi być liczbą"),
+    rest: yup.number().required("Musisz uzupełnić czas przerwy").typeError("Odpoczynek musi być liczbą"),
+    reps: yup.number().required("Musisz uzupełnić liczbe powtórzeń").typeError("Liczba powtórzeń musi być liczbą"),
+    concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+    pause_after_concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+    eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+    pause_after_eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+})
+
+
+export const createTrainingValidation = yup.object().shape({
+    name: yup.string().min(2, "Nazwa jest za krótka").max(100, "Nazwa jest za długa wykorzystaj opis").required('Pole jest wymagane'),
+    description: yup.string().max(5000, "Opis jest za długi"),
+
 })
