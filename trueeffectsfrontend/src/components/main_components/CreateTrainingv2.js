@@ -60,7 +60,7 @@ const CreateTrainingv2 = (props) => {
                                setSingleSeries={setSingleSeries} multiSeriesIndex={multiSeriesIndex}
                                setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}/>
 
-            <DisplayMultiSeries multiSeries={multiSeries}/>
+            <DisplayMultiSeries multiSeries={multiSeries} setMultiSeries={setMultiSeries}/>
 
         </div>);
 };
