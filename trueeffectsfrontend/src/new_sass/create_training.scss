@@ -1,0 +1,39 @@
+@import 'settings.scss';
+
+.create-training{
+  &__top{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width:100%;
+    &__elements{
+      width:50%;
+      display: flex;
+      flex-direction: column;
+      background-color: $main_color;
+      margin: 20px;
+      padding: 40px;
+    }
+
+}
+  &__bottom{
+    display:flex;
+    &__leftcontainer{
+      display:flex;
+      flex-direction: column;
+      background-color: $main_color;
+      padding: 40px;
+    }
+  }
+
+  &__title{
+    text-align: center;
+  }
+  &__input{
+      padding: 8px;
+    }
+}
+//.create-training__input{
+//  padding: 8px;
+//}
