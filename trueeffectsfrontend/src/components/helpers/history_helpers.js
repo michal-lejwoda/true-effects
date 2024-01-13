@@ -26,12 +26,28 @@ export const handleMoveToScheduler = (history) =>{
     history.push("/scheduler");
 }
 
+export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/scheduler");
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+
 export const handleMoveToTraining = (history) => {
     history.push("/training")
 }
 
+export const handleMoveToMobileTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/training");
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+
+
 export const handleMovetoSettings = (history) =>{
     history.push("/settings")
+}
+
+export const handleMoveToMobileSettings = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/settings");
+    setIsMobileNavOpen(!isMobileNavOpen)
 }
 
 export const handleMoveToModifyTraining = (history) =>{
@@ -40,4 +56,9 @@ export const handleMoveToModifyTraining = (history) =>{
 
 export const handleMoveToCreateTraining = (history) =>{
     history.push("/create_training")
+}
+
+export const handleMoveToMobileCreateTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/create_training");
+    setIsMobileNavOpen(!isMobileNavOpen)
 }

@@ -15,9 +15,7 @@ const CreateTrainingv2 = (props) => {
     const [singleSeries, setSingleSeries] = useState([])
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
-            name: "",
-            date: "",
-            description: "",
+            name: "", date: "", description: "",
         },
         validationSchema: createGoalValidation,
         validateOnChange: false,
@@ -32,6 +30,11 @@ const CreateTrainingv2 = (props) => {
             <div className="create-training__top">
                 <div className="create-training__top__elements">
                     <h1 className="create-training__title">Stwórz Trening</h1>
+                    <div className="inputBox">
+                        <input type="text" required="required"/>
+                        <span>First name</span>
+                    </div>
+                    <input className="effect-21" placeholder="Placeholder Text" type="text"/>
                     <label className="create-training__label">Nazwa Treningu</label>
                     <input name="name" className="create-training__input" onChange={handleChange} value={values.name}
                            type="text"/>
@@ -68,8 +71,7 @@ const CreateTrainingv2 = (props) => {
                 </div>
             </div>
 
-        </div>
-    );
+        </div>);
 };
 
 const mapStateToProps = (state) => {
