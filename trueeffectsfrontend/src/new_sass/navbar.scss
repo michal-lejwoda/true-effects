@@ -44,6 +44,7 @@
     position: absolute;
     background-color: $main_color;
     width: 100%;
+    z-index: 40;
 
     &__element {
       margin-bottom: 10px;

@@ -58,10 +58,10 @@ const DefaultContainer = (props) => {
             <Navbar />
             {/*<UpperNavbar/>*/}
             {/*<SideNavbar/>*/}
-            <div className="container_default">
+            {/*<div className="container_default">*/}
                 {/*{props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? */}
                 <Route exact path="/" component={Homepage}/>
-                <Route path="/schedule" component={Schedule}/>
+                {/*<Route path="/schedule" component={Schedule}/>*/}
                 <Route path="/addmeasurements" component={AddMeasurements}/>
                 <Route path="/displaymeasurements" component={DisplayMeasurements}/>
                 <Route path="/createtraining" component={CreateTraining}/>
@@ -75,7 +75,8 @@ const DefaultContainer = (props) => {
                 <Route path="/create_training" component={CreateTrainingv2}/>
 
                 {/*// : <BoxLoading />}*/}
-            </div>
+            {/*</div>*/}
+
         </>
     )
 }
