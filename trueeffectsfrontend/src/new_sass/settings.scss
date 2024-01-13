@@ -19,14 +19,93 @@
     }}
 
 
-//.MuiFormLabel-root{
-//  color: white !important;
-//}
-
-//$maincolor: #1D3557;
-//$secondcolor: #457B9D;
-//$pink: #E90B33;
-//$pink1: #FF5A5A;
 $main_color: #001233;
 $colar_pink: #FF595A;
 $beige: #CAC0B3;
+
+.animatedInput{
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.animatedInput input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  font-size: 1em;
+}
+.animatedInput textarea{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  font-size: 1em;
+}
+
+.animatedInput span{
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: grey;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.animatedInput input:valid ~span,
+.animatedInput input:focus ~span
+{
+  color: #1b6d85;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: $main_color;
+  letter-spacing: 0.2em;
+}
+
+//.animatedInput textarea:valid ~span,
+.animatedInput textarea:focus ~span
+{
+  color: #1b6d85;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: $main_color;
+  letter-spacing: 0.2em;
+}
+
+
+.animated-datepicker{
+  background: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+.react-datepicker-wrapper{
+  margin-bottom: 1.4rem;
+}
+
+.select-input{
+  background: transparent;
+  color:black;
+  margin-bottom: 1.5rem;
+}
+
+.standard-button{
+  background: transparent;
+  border: 2px solid $colar_pink;
+  color: white;
+  padding: 10px;
+  border-radius: 60px;
+  &__hover{
+    cursor: pointer;
+  }
+}

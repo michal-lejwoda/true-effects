@@ -1,76 +1,145 @@
 @import 'settings.scss';
 
-.create-training{
-  &__top{
+.create-training {
+  padding: 0 10px 0 10px;
+  &__accept-training{
+    margin-top: 1rem;
     display:flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: end;
+  }
+
+  &__display-multiseries {
+    display:flex;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
     flex-direction: column;
-    width:100%;
-    &__elements{
-      width:50%;
+    //:hover {
+    //      cursor: pointer;
+    //    }
+    &__title{
+      font-size:1.4rem;
+      font-weight: 600;
+    }
+    &__buttons{
+      display:flex;
+      justify-content: flex-end;
+      //gap:10;
+    }
+    &__button{
+      background: transparent;
+      border: 2px solid $colar_pink;
+      color: white;
+      padding: 5px 20px 5px;
+      border-radius: 10px;
+      margin-right: 10px;
+    }
+  }
+
+  &__display-singleseries {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-right: 1rem;
+    border-radius: 10px;
+    padding: 7px;
+    border: 1px solid white;
+
+    &__element {
+      font-size: 0.9rem;
+
+      &__button {
+        background: transparent;
+        border: 2px solid $colar_pink;
+        color: white;
+        padding: 5px 20px 5px;
+        border-radius: 10px;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+
+      &__title {
+        color: $colar_pink;
+        font-weight: 600;
+      }
+    }
+
+    &__elements {
+      &__top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__bottom {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+
+  }
+
+  &__button {
+    display: flex;
+    justify-content: end;
+    padding-bottom: 2rem;
+  }
+
+  &__data {
+    &__elements {
       display: flex;
       flex-direction: column;
-      background-color: $main_color;
-      margin: 20px;
-      padding: 40px;
-    }
-
-}
-  &__bottom{
-    display:flex;
-    &__leftcontainer{
-      display:flex;
-      flex-direction: column;
-      background-color: $main_color;
-      padding: 40px;
+      align-items: center;
     }
   }
 
-  &__title{
+  &__textarea {
+    background: transparent;
+    width: 100%;
+  }
+
+  &__title {
     text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: $colar_pink;
   }
-  &__input{
-      padding: 8px;
-    }
-}
-.label-effect-input{
-  background-color: transparent;
+
+  //  &__top{
+  //    display:flex;
+  //    justify-content: center;
+  //    align-items: center;
+  //    flex-direction: column;
+  //    width:100%;
+  //    &__elements{
+  //      width:50%;
+  //      display: flex;
+  //      flex-direction: column;
+  //      background-color: $main_color;
+  //      margin: 20px;
+  //      padding: 40px;
+  //    }
+  //
+  //}
+  //  &__bottom{
+  //    display:flex;
+  //    &__leftcontainer{
+  //      display:flex;
+  //      flex-direction: column;
+  //      background-color: $main_color;
+  //      padding: 40px;
+  //    }
+  //  }
+
+  //&__title{
+  //  text-align: center;
+  //}
+  //&__input{
+  //    padding: 8px;
+  //  }
 }
 
-.inputBox{
-  position: relative;
-  width: 200px;
-}
-.inputBox input{
-  width: 100%;
-  padding: 10px;
-  border: 1px solid $beige;
-  background-color: transparent;
-  border-radius: 5px;
-  outline: none;
-  color: white;
-  font-size: 1em;
-}
-
-.inputBox span{
-  position: absolute;
-  left: 0;
-  padding: 10px;
-  pointer-events: none;
-  font-size: 1em;
-  color: grey;
-  text-transform: uppercase;
-  transition: 0.5s;
-}
-
-.inputBox input:valid ~span,
-.inputBox input:focus ~span
-{
-  color: #1b6d85;
-  transform: translateX(10px) translateY(-7px);
-  font-size: 0.65em;
-  padding: 0 10px;
-  background: $main_color;
-  letter-spacing: 0.2em;
-}
