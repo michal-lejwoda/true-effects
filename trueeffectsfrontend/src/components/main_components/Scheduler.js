@@ -6,12 +6,15 @@ import {connect} from 'react-redux';
 // import { getMeasurements, getTrainings, getGoals } from '../redux/actions/trainingActions';
 // import ModalDisplayTraining from './ModalDisplayTraining';
 import 'moment/locale/pl';
+import "../../new_sass/scheduler.scss"
 import {getGoals, getMeasurements, getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
 import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
 
 require('moment/locale/pl.js')
-const allViews = Object.keys(Views).map(k => Views[k])
+// const allViews = Object.keys(Views).map(k => Views[k])
+// console.log("allViews")
+// console.log(allViews)
 const Scheduler = (props) => {
     const history = useHistory()
     const localizer = momentLocalizer(moment)
@@ -30,24 +33,30 @@ const Scheduler = (props) => {
     const handleCloseModal = () => {
         setShowModal(true)
     }
-    const handleSelect = async(e) => {
+    const handleSelect = async (e) => {
         await props.getSingleTraining(e.id)
         await setShowModal(true)
     }
     return (
-        <>
-            <h1>Scheduler</h1>
+        <div className="scheduler">
+            <div className="scheduler__title">
+                Kalendarz treningu
+            </div>
             <div className="schedule">
-                <Calendar culture='pl-PL' views={allViews} selectable={true}
+                <Calendar culture='pl-PL' views={['month']} selectable={true}
                           events={events}
                           onSelectEvent={handleSelect}
-                          localizer={localizer} style={{height: 900, width: '95%'}}/>
-                {props.trainingForModal && <DisplayTrainingOnSchedulerModal history={history} trainingForModal={props.trainingForModal} show={showModal} handleClose={handleCloseModal} getSingleTraining={getSingleTraining} trainingForModal={props.trainingForModal}/>}
+                          localizer={localizer} style={{height: 900, width: '100%'}}/>
+                {props.trainingForModal &&
+                    <DisplayTrainingOnSchedulerModal history={history} trainingForModal={props.trainingForModal}
+                                                     show={showModal} handleClose={handleCloseModal}
+                                                     getSingleTraining={getSingleTraining}
+                                                     trainingForModal={props.trainingForModal}/>}
                 {/*{modalopen && <ModalDisplayTraining back={this.handleBacktoSchedule} allprops={this.props} open={this.state.modalopen} training={this.state.training} date={this.state.date} time={this.state.time} description={this.state.description} title={this.state.title} alldata={this.state.alldata} />}*/}
 
             </div>
 
-        </>
+        </div>
     )
 }
 
