@@ -34,6 +34,43 @@
       padding: 8px;
     }
 }
-//.create-training__input{
-//  padding: 8px;
-//}
+.label-effect-input{
+  background-color: transparent;
+}
+
+.inputBox{
+  position: relative;
+  width: 200px;
+}
+.inputBox input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  font-size: 1em;
+}
+
+.inputBox span{
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: grey;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+
+.inputBox input:valid ~span,
+.inputBox input:focus ~span
+{
+  color: #1b6d85;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: $main_color;
+  letter-spacing: 0.2em;
+}
