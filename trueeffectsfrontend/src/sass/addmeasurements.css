@@ -277,32 +277,32 @@
   }
 }
 
-.react-datepicker-wrapper {
-  width: 200px;
-}
+/*.react-datepicker-wrapper {*/
+/*  width: 200px;*/
+/*}*/
 
-.react-datepicker-wrapper:hover {
-  cursor: pointer;
-}
+/*.react-datepicker-wrapper:hover {*/
+/*  cursor: pointer;*/
+/*}*/
 
-.react-datepicker__input-container {
-  width: 100%;
-  margin: auto;
-}
-.react-datepicker__input-container input {
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-@media screen and (max-width: 500px) {
-  .react-datepicker__input-container input {
-    width: 200px;
-  }
-}
-.react-datepicker__input-container input:hover {
-  cursor: pointer;
-}
+/*.react-datepicker__input-container {*/
+/*  width: 100%;*/
+/*  margin: auto;*/
+/*}*/
+/*.react-datepicker__input-container input {*/
+/*  width: 100%;*/
+/*  text-align: center;*/
+/*  color: white;*/
+/*  font-size: 0.9rem;*/
+/*  font-weight: 600;*/
+/*}*/
+/*@media screen and (max-width: 500px) {*/
+/*  .react-datepicker__input-container input {*/
+/*    width: 200px;*/
+/*  }*/
+/*}*/
+/*.react-datepicker__input-container input:hover {*/
+/*  cursor: pointer;*/
+/*}*/
 
 /*# sourceMappingURL=addmeasurements.css.map */

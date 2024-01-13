@@ -27,21 +27,14 @@ const CreateTrainingv2 = (props) => {
 
     return (
         <div className="create-training">
-            <div className="create-training__top">
-                <div className="create-training__top__elements">
+            <div className="create-training__data">
+                <div className="create-training__data__elements">
                     <h1 className="create-training__title">Stwórz Trening</h1>
-                    <div className="inputBox">
-                        <input type="text" required="required"/>
-                        <span>First name</span>
-                    </div>
-                    <input className="effect-21" placeholder="Placeholder Text" type="text"/>
-                    <label className="create-training__label">Nazwa Treningu</label>
-                    <input name="name" className="create-training__input" onChange={handleChange} value={values.name}
-                           type="text"/>
-                    <label className="create-training__label">Data Treningu</label>
+
                     <DatePicker locale='pl'
                                 name="date"
-                                className="create-training__datepicker"
+                        // className="animatedInput"
+                                className="create-training__datepicker animated-datepicker"
                         // name="date"
                         // value={values.date}
                         // placeholderText={"Wybierz date"}
@@ -51,25 +44,52 @@ const CreateTrainingv2 = (props) => {
                         // onChange = {(date)=>setFieldValue('date', convertDate(date))
                         // // onChange={(date) => handleDate(date, setFieldValue)
                     />
-                    <label className="create-training__label">Opis Treningu</label>
-                    <textarea className="create-training__textarea" name="description" onChange={handleChange}
-                              value={values.description} id="" cols="30"
-                              rows="5">
 
-                </textarea>
+
+                    <div className="animatedInput">
+                        <input name="name" type="text" required="required"/>
+                        <span>Nazwa treningu</span>
+                    </div>
+                    {/*<label className="create-training__label">Nazwa Treningu</label>*/}
+                    {/*<input name="name" className="create-training__input" onChange={handleChange} value={values.name}*/}
+                    {/*       type="text"/>*/}
+                    {/*<label className="create-training__label">Data Treningu</label>*/}
+                    {/*<DatePicker locale='pl'*/}
+                    {/*            name="date"*/}
+                    {/*            className="animatedInput"*/}
+                    {/*            // className="create-training__datepicker"*/}
+                    {/*    // name="date"*/}
+                    {/*    // value={values.date}*/}
+                    {/*    // placeholderText={"Wybierz date"}*/}
+                    {/*    // // dateFormat='dd/MM/yyyy'*/}
+                    {/*    // dateFormat='yyyy-MM-dd'*/}
+                    {/*    // // selected={values.date}*/}
+                    {/*    // onChange = {(date)=>setFieldValue('date', convertDate(date))*/}
+                    {/*    // // onChange={(date) => handleDate(date, setFieldValue)*/}
+                    {/*/>*/}
+                    {/*<label className="create-training__label">Opis Treningu</label>*/}
+                    <div className="animatedInput">
+                    <textarea className="create-training__textarea" name="description" onChange={handleChange}
+                              value={values.description} id=""
+                        // cols="30"
+                              rows="5">
+                    </textarea>
+                        <span>Opis treningu</span>
+                    </div>
+
                 </div>
             </div>
-            <div className="create-training__bottom">
-                <div className="create-training__bottom__leftcontainer">
-                    <CreateMultiSeries setMultiSeries={setMultiSeries} multiSeries={multiSeries}
-                                       singleSeries={singleSeries}
-                                       setSingleSeries={setSingleSeries} multiSeriesIndex={multiSeriesIndex}
-                                       setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}/>
-                </div>
-                <div className="create-training__rightcontainer">
-                    <DisplayMultiSeries multiSeries={multiSeries} setMultiSeries={setMultiSeries}/>
-                </div>
+            <div className="create-training__display-series">
+                <DisplayMultiSeries multiSeries={multiSeries} setMultiSeries={setMultiSeries}/>
             </div>
+
+            <div className="create-training__create-series">
+                <CreateMultiSeries setMultiSeries={setMultiSeries} multiSeries={multiSeries}
+                                   singleSeries={singleSeries}
+                                   setSingleSeries={setSingleSeries} multiSeriesIndex={multiSeriesIndex}
+                                   setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}/>
+            </div>
+
 
         </div>);
 };
