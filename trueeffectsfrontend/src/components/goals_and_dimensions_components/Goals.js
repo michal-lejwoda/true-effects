@@ -56,27 +56,37 @@ const Goals = (props) => {
                         postGoals={(data) => props.postGoal(data)}
             />
 
-            <div className="goals__displaycontainers">
-                <div className="goals__displaycontainers__unrealized">
-                    <h1 className="create-training__title">Niezrealizowane</h1>
+            <div className="goals">
+                <div className="goals--unrealized">
+
+                    <h1 className="create-training__title">Do zrealizowania</h1>
+                    <div className="goals__button">
+                        <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
+                    </div>
                     {props.userGoalsToAchieve.map(goal_obj => {
                         return (
-                            <div>
-                                <h1>{goal_obj.finish_date}</h1>
-                                <h1>{goal_obj.goal}</h1>
-
+                            <div className="goals__element">
+                                <div className="goals__date">{goal_obj.finish_date}</div>
+                                <div className="goals__name">{goal_obj.goal}</div>
+                                <div className="goals__check">
+                                    <button className="standard-button">Sprawdź</button>
+                                </div>
                             </div>
                         )
                     })}
-                    <button onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
+
                 </div>
-                <div className="goals__displaycontainers__realized"><h1
+                <hr/>
+                <div className="goals--realized"><h1
                     className="create-training__title">Zrealizowane</h1>
                     {props.userGoalsCompleted.map(goal_obj => {
                         return (
-                            <div>
-                                <h1>{goal_obj.finish_date}</h1>
-                                <h1>{goal_obj.goal}</h1>
+                            <div className="goals__element">
+                                <div className="goals__date">{goal_obj.finish_date}</div>
+                                <div className="goals__name">{goal_obj.goal}</div>
+                                <div className="goals__check">
+                                    <button className="standard-button">Sprawdź</button>
+                                </div>
                             </div>
                         )
                     })}

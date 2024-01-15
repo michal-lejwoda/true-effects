@@ -56,6 +56,7 @@ const SettingsDimensionItems = (props) => {
             <h2 className="settings__title">Ustawienia pomiarów</h2>
             <Form.Check
                 type="switch"
+                className="settings__dimensions__element"
                 id="custom-switch"
                 name="weight"
                 onChange={handleChange}
@@ -64,6 +65,7 @@ const SettingsDimensionItems = (props) => {
             />
             <Form.Check
                 type="switch"
+                className="settings__dimensions__element"
                 id="custom-switch"
                 name="growth"
                 onChange={handleChange}
@@ -72,6 +74,7 @@ const SettingsDimensionItems = (props) => {
             />
             <Form.Check
                 type="switch"
+                className="settings__dimensions__element"
                 id="custom-switch"
                 name="left_biceps"
                 onChange={handleChange}
@@ -80,6 +83,7 @@ const SettingsDimensionItems = (props) => {
             />
             <Form.Check
                 type="switch"
+                className="settings__dimensions__element"
                 id="custom-switch"
                 name="right_biceps"
                 onChange={handleChange}
@@ -88,6 +92,7 @@ const SettingsDimensionItems = (props) => {
             />
             <Form.Check
                 type="switch"
+                className="settings__dimensions__element"
                 id="custom-switch"
                 name="left_forearm"
                 onChange={handleChange}
@@ -95,6 +100,7 @@ const SettingsDimensionItems = (props) => {
                 label="Wyświetlaj lewe przedramię"
             /><Form.Check
             type="switch"
+            className="settings__dimensions__element"
             id="custom-switch"
             name="right_forearm"
             onChange={handleChange}
@@ -102,6 +108,7 @@ const SettingsDimensionItems = (props) => {
             label="Wyświetlaj prawe przedramię"
         /><Form.Check // prettier-ignore
             type="switch"
+            className="settings__dimensions__element"
             id="custom-switch"
             name="left_leg"
             onChange={handleChange}
@@ -109,6 +116,7 @@ const SettingsDimensionItems = (props) => {
             label="Wyświetlaj lewą nogę"
         /><Form.Check
             type="switch"
+            className="settings__dimensions__element"
             id="custom-switch"
             name="right_leg"
             onChange={handleChange}
@@ -116,6 +124,7 @@ const SettingsDimensionItems = (props) => {
             label="Wyświetlaj prawą nogę"
         /><Form.Check
             type="switch"
+            className="settings__dimensions__element"
             id="custom-switch"
             name="bodyfat"
             onChange={handleChange}
