@@ -59,7 +59,7 @@ $beige: #CAC0B3;
   text-transform: uppercase;
   transition: 0.5s;
 }
-
+.animatedInput input:disabled ~span,
 .animatedInput input:valid ~span,
 .animatedInput input:focus ~span
 {

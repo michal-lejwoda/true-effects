@@ -199,7 +199,7 @@ export const getCompletedGoals = () => (dispatch, getState) => {
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_goal/completed/`)
         .then(res => dispatch({
             type: GET_USER_COMPLETED_GOALS_SUCCESS,
-            payload: res,
+            payload: res.data,
         }));
 }
 
@@ -207,10 +207,12 @@ export const getCompletedGoals = () => (dispatch, getState) => {
 export const getGoalsToAchieve = () => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    console.log("token")
+    console.log(token)
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_goal/`)
         .then(res => dispatch({
             type: GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
-            payload: res,
+            payload: res.data,
         }));
 }
 

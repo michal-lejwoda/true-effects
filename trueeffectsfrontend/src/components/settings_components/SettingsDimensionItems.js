@@ -35,8 +35,6 @@ const SettingsDimensionItems = (props) => {
     });
 
     const handlePutSettingsDimensions = async (values) => {
-        console.log("handleValues")
-        console.log(values)
         const data = {
             "id": values.id,
             "weight": values.weight,
@@ -55,7 +53,7 @@ const SettingsDimensionItems = (props) => {
     return (
         <form onSubmit={handleSubmit}>
             {/*<Form onSubmit={handleSubmit}>*/}
-            <h2>Ustawienia pomiarów</h2>
+            <h2 className="settings__title">Ustawienia pomiarów</h2>
             <Form.Check
                 type="switch"
                 id="custom-switch"
@@ -124,8 +122,9 @@ const SettingsDimensionItems = (props) => {
             checked={values.bodyfat}
             label="Wyświetlaj bodyfat"
         />
-
-            <button type="submit">Zapisz</button>
+            <div className="settings__accept-button">
+                <button className="standard-button" type="submit">Zapisz ustawienia</button>
+            </div>
             {/*</Form>*/}
         </form>
     );

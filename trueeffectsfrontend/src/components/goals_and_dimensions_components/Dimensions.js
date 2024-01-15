@@ -3,6 +3,8 @@ import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension"
 import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
 import {connect} from "react-redux";
 import {getDimensions, getGoals, postDimension, postGoal} from "../../redux/actions/trainingActions";
+import "../../new_sass/main.scss"
+import "../../new_sass/dimensions.scss"
 
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
@@ -14,10 +16,34 @@ const Dimensions = (props) => {
 
 
     return (
-        <div>
-            <h1>Dimensions</h1>
-            <button onClick={handleShowCreateDimension}>+ Dodaj nowy pomiar</button>
-            <button onClick={handleShowCompareDimensions}>+ Porównaj Pomiary</button>
+        <div className="dimensions">
+            <h1 className="create-training__title">Pomiary</h1>
+            <div className="dimensions__buttons">
+                <button className="standard-button dimensions__buttons__create" onClick={handleShowCreateDimension}>+
+                    Dodaj nowy pomiar
+                </button>
+                <button className="standard-button dimensions__buttons__compare" onClick={handleShowCompareDimensions}>+
+                    Porównaj Pomiary
+                </button>
+            </div>
+            <h1 className="create-training__title">Ostatni pomiar</h1>
+            {props.userDimensions.length > 0 &&
+                <div className="dimensions__date">
+                    <input disabled={true} value={props.userDimensions[0].date} type="text"/>
+                </div>}
+            {props.userDimensions.length > 0 ?
+                Object.keys(props.userDimensionConfigurationForCompare).map(element => {
+                    return (
+                        <div key={element}>
+                            <div className="animatedInput">
+                                <input
+                                    defaultValue={props.userDimensions[0][element]}
+                                    type="text" disabled="true"/>
+                                <span>{props.userDimensionConfigurationForCompare[element]}</span>
+                            </div>
+                        </div>
+                    )
+                }): <p>Nie masz jeszcze żadnych pomiarów</p>}
             <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                              handleShow={handleShowCreateDimension}
                              getDimensions={props.getDimensions}

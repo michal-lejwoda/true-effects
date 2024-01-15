@@ -18,6 +18,16 @@ export const handleMovetoAllMeasurements = (history) => {
 export const handleMovetoGoalsAndDimensions = (history) =>{
     history.push("/goals_and_dimensions")
 }
+
+export const handleMovetoDimensions = (history) =>{
+    history.push("/dimensions")
+}
+
+export const handleMovetoMobileDimensions = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/dimensions")
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+
 export const handleMovetoAddGoals = (history) => {
     history.push("/addgoals");
 }
@@ -49,6 +59,16 @@ export const handleMoveToMobileSettings = (history, isMobileNavOpen, setIsMobile
     history.push("/settings");
     setIsMobileNavOpen(!isMobileNavOpen)
 }
+
+export const handleMovetoGoals = (history) =>{
+    history.push("/goals")
+}
+
+export const handleMoveToMobileGoals = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/goals");
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+
 
 export const handleMoveToModifyTraining = (history) =>{
     history.push("/modify_training")
