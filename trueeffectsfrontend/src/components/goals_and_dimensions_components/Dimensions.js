@@ -17,7 +17,16 @@ const Dimensions = (props) => {
 
     return (
         <div className="dimensions">
-            <h1 className="create-training__title">Pomiary</h1>
+            {/*<h1 className="create-training__title">Pomiary</h1>*/}
+            {/*<div className="dimensions__buttons">*/}
+            {/*    <button className="standard-button dimensions__buttons__create" onClick={handleShowCreateDimension}>+*/}
+            {/*        Dodaj nowy pomiar*/}
+            {/*    </button>*/}
+            {/*    <button className="standard-button dimensions__buttons__compare" onClick={handleShowCompareDimensions}>+*/}
+            {/*        Porównaj Pomiary*/}
+            {/*    </button>*/}
+            {/*</div>*/}
+            <h1 className="create-training__title">Ostatni pomiar</h1>
             <div className="dimensions__buttons">
                 <button className="standard-button dimensions__buttons__create" onClick={handleShowCreateDimension}>+
                     Dodaj nowy pomiar
@@ -26,11 +35,11 @@ const Dimensions = (props) => {
                     Porównaj Pomiary
                 </button>
             </div>
-            <h1 className="create-training__title">Ostatni pomiar</h1>
             {props.userDimensions.length > 0 &&
                 <div className="dimensions__date">
                     <input disabled={true} value={props.userDimensions[0].date} type="text"/>
                 </div>}
+
             {props.userDimensions.length > 0 ?
                 Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                     return (
@@ -43,7 +52,7 @@ const Dimensions = (props) => {
                             </div>
                         </div>
                     )
-                }): <p>Nie masz jeszcze żadnych pomiarów</p>}
+                }) : <p>Nie masz jeszcze żadnych pomiarów</p>}
             <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                              handleShow={handleShowCreateDimension}
                              getDimensions={props.getDimensions}
