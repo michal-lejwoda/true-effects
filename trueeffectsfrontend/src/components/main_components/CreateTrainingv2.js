@@ -28,7 +28,7 @@ const CreateTrainingv2 = (props) => {
         <div className="create-training">
             <div className="create-training__data">
                 <div className="create-training__data__elements">
-                    <h1 className="create-training__title">Stwórz Trening</h1>
+                    <h1 className="title">Stwórz Trening</h1>
 
                     <DatePicker locale='pl'
                                 name="date"

@@ -11,7 +11,7 @@ const Settings = () => {
     const [activeState, setActiveState] = useState('DIMENSIONS')
     return (
         <div className="settings">
-            <h1 className="settings__title create-training__title">Ustawienia</h1>
+            <h1 className="title settings__title">Ustawienia</h1>
             <div className="settings__container">
                 <div className="settings__container__menu">
                     <div className="settings__container__menu-dimensions settings__container__menu__element" onClick={()=>setActiveState("DIMENSIONS")}><FontAwesomeIcon size="2x" icon={faWeight}/></div>

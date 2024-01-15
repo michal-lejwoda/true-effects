@@ -59,7 +59,7 @@ const Goals = (props) => {
             <div className="goals">
                 <div className="goals--unrealized">
 
-                    <h1 className="create-training__title">Do zrealizowania</h1>
+                    <h1 className="title goals__title">Do zrealizowania</h1>
                     <div className="goals__button">
                         <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
                     </div>
@@ -78,7 +78,7 @@ const Goals = (props) => {
                 </div>
                 <hr/>
                 <div className="goals--realized"><h1
-                    className="create-training__title">Zrealizowane</h1>
+                    className="title goals__title">Zrealizowane</h1>
                     {props.userGoalsCompleted.map(goal_obj => {
                         return (
                             <div className="goals__element">
