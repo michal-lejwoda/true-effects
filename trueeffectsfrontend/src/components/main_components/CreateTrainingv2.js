@@ -7,7 +7,6 @@ import {connect} from "react-redux";
 import {getExercises} from "../../redux/actions/trainingActions";
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 import '../../new_sass/create_training.scss'
-import TextField from "@material-ui/core/TextField";
 
 const CreateTrainingv2 = (props) => {
     const [multiSeries, setMultiSeries] = useState([])
@@ -50,24 +49,6 @@ const CreateTrainingv2 = (props) => {
                         <input name="name" type="text" required="required"/>
                         <span>Nazwa treningu</span>
                     </div>
-                    {/*<label className="create-training__label">Nazwa Treningu</label>*/}
-                    {/*<input name="name" className="create-training__input" onChange={handleChange} value={values.name}*/}
-                    {/*       type="text"/>*/}
-                    {/*<label className="create-training__label">Data Treningu</label>*/}
-                    {/*<DatePicker locale='pl'*/}
-                    {/*            name="date"*/}
-                    {/*            className="animatedInput"*/}
-                    {/*            // className="create-training__datepicker"*/}
-                    {/*    // name="date"*/}
-                    {/*    // value={values.date}*/}
-                    {/*    // placeholderText={"Wybierz date"}*/}
-                    {/*    // // dateFormat='dd/MM/yyyy'*/}
-                    {/*    // dateFormat='yyyy-MM-dd'*/}
-                    {/*    // // selected={values.date}*/}
-                    {/*    // onChange = {(date)=>setFieldValue('date', convertDate(date))*/}
-                    {/*    // // onChange={(date) => handleDate(date, setFieldValue)*/}
-                    {/*/>*/}
-                    {/*<label className="create-training__label">Opis Treningu</label>*/}
                     <div className="animatedInput">
                     <textarea className="create-training__textarea" name="description" onChange={handleChange}
                               value={values.description} id=""

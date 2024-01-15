@@ -28,7 +28,6 @@ const CreateMultiSeries = (props) => {
             <h1 className="create-training__title">Stwórz Trening</h1>
             <div className="createtraining__bottom__leftcontainer__fields__elements">
                 <div className="createtraining__bottom__leftcontainer__fields__element">
-                    {/*<label htmlFor="">Wybierz ćwiczenie</label>*/}
                     <AsyncSelect placeholder="Wybierz ćwiczenie" name="exercise" onChange={handleChangeExercise}
                                  loadOptions={loadExercises}
                                  className="select-input"
@@ -87,58 +86,8 @@ const CreateMultiSeries = (props) => {
                 <div className="create-training__button">
                     <button className="standard-button" onClick={addMultiSingleSeries}>Dodaj kilka serii</button>
                 </div>
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Dodatkowa waga</label>*/}
-                {/*    <input name="extra_weight" onChange={handleChange} value={values.extra_weight} type="text"/>*/}
-                {/*    {errors.extra_weight && <p>{errors.extra_weight}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Czas przerwy</label>*/}
-                {/*    <input name="rest" onChange={handleChange} value={values.rest} type="number"/>*/}
-                {/*    {errors.rest && <p>{errors.rest}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Liczba powtórzeń</label>*/}
-                {/*    <input name="reps" onChange={handleChange} value={values.reps} type="number"/>*/}
-                {/*    {errors.reps && <p>{errors.reps}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Faza koncentryczna</label>*/}
-                {/*    <input name='concentric_phase' onChange={handleChange} value={values.concentric_phase}*/}
-                {/*           type="number"/>*/}
-                {/*    {errors.concentric_phase && <p>{errors.concentric_phase}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Pauza po fazie koncentrycznej</label>*/}
-                {/*    <input name="pause_after_concentric_phase" onChange={handleChange}*/}
-                {/*           value={values.pause_after_concentric_phase} type="number"/>*/}
-                {/*    {errors.pause_after_concentric_phase && <p>{errors.pause_after_concentric_phase}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Faza ekscentryczna</label>*/}
-                {/*    <input name="eccentric_phase" onChange={handleChange} value={values.eccentric_phase}*/}
-                {/*           type="number"/>*/}
-                {/*    {errors.eccentric_phase && <p>{errors.eccentric_phase}</p>}*/}
-                {/*</div>*/}
-                {/*<div className="createtraining__bottom__leftcontainer__fields__element">*/}
-                {/*    <label htmlFor="">Pauza po fazie ekscentrycznej</label>*/}
-                {/*    <input name="pause_after_eccentric_phase" onChange={handleChange}*/}
-                {/*           value={values.pause_after_eccentric_phase} type="number"/>*/}
-                {/*    {errors.pause_after_eccentric_phase && <p>{errors.pause_after_eccentric_phase}</p>}*/}
-                {/*</div>*/}
-
             </div>
-            <div className="createtraining__bottom__leftcontainer__buttons">
-                {/*<label htmlFor="">Liczba serii</label>*/}
-                {/*<input name="series_count" onChange={handleChange} value={values.series_count} type="text"/>*/}
-                {/*    {errors.series_count && <p>{errors.series_count}</p>}*/}
-                {/*    <button onClick={addMultiSingleSeries} type="submit">Dodaj kilka serii</button>*/}
-                {/*    <button onClick={addToSingleSeries}>Dodaj pojedyńczą serie</button>*/}
-
-                </div>
-
-
-
+            <div className="createtraining__bottom__leftcontainer__buttons"></div>
         </form>
     );
 };

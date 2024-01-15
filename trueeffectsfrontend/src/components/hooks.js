@@ -177,8 +177,6 @@ export const useTraining = (props) => {
 
     const [extraWeight, setExtraWeight] = useState(extra_weight)
     const [actualReps, setActualReps] = useState(reps)
-    console.log("current training")
-    console.log(currentTraining)
     const modifyMultiSeries = () => {
         const updatedCurrentTraining = {...currentTraining}
         updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight = extraWeight
@@ -236,4 +234,32 @@ export const useTraining = (props) => {
 
     return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries,
         handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining]
+}
+
+
+export const useDisplayMultiSeries = (props) =>{
+    const [visibleElements, setVisibleElements] = useState([]);
+    const toggleVisibility = (elementId) => {
+        setVisibleElements((prevVisibleElements) => {
+            if (prevVisibleElements.includes(elementId)) {
+                return prevVisibleElements.filter((id) => id !== elementId);
+            } else {
+                return [...prevVisibleElements, elementId];
+            }
+        });
+    };
+    const handleRemoveSingleSeries = (multiIndex, singleIndex) => {
+
+        const updatedMultiSeries = [...props.multiSeries];
+        updatedMultiSeries[multiIndex].single_series.splice(singleIndex, 1);
+        props.setMultiSeries(updatedMultiSeries);
+    }
+
+    const handleRemoveMultiSeries = (multiIndex) => {
+        toggleVisibility(multiIndex)
+        const updatedMultiSeries = [...props.multiSeries];
+        updatedMultiSeries.splice(multiIndex, 1);
+        props.setMultiSeries(updatedMultiSeries);
+    }
+    return [visibleElements, handleRemoveSingleSeries, handleRemoveMultiSeries, toggleVisibility]
 }
