@@ -25,8 +25,8 @@ const DisplayTrainingOnSchedulerModal = (props) => {
                     Data: {trainingForModal.date}
                     Czas: {trainingForModal.time}
                     Opis: {trainingForModal.description}
-                    Serie: {trainingForModal.multi_series.map((el)=>
-                    <p>{el.series_num}</p>
+                    Serie: {trainingForModal.multi_series.map((el, index)=>
+                    <p key={index}>{el.series_num}</p>
                     )}
                     <button>Usuń trening</button>
                     <button>Dodaj trening do innego dnia</button>
