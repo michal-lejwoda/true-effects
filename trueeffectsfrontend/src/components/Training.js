@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import MyStopwatch from './MyStopwatch';
+import MyStopwatch from './main_components/MyStopwatch';
 import '../sass/training.scss';
 import logo from '../images/logo.png';
 import { makeStyles } from '@material-ui/core/styles';

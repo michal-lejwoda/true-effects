@@ -77,7 +77,6 @@ const Goals = (props) => {
                             <div>
                                 <h1>{goal_obj.finish_date}</h1>
                                 <h1>{goal_obj.goal}</h1>
-
                             </div>
                         )
                     })}
