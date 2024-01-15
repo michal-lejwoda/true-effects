@@ -52,6 +52,11 @@ main{
     background-color: $main_color !important;
     color:white !important;
 }
-//.react-datepicker-wrapper{
-//    width: 100%;
-//}
+
+.square-buttons{
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 10px 20px 10px;
+    border-radius: 15px;
+    color: white;
+}
