@@ -5,10 +5,12 @@ import Button from "react-bootstrap/Button";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTimes} from "@fortawesome/fontawesome-free-solid";
 import ModalDisplayTrainingItem from "../modaldisplaytraining/ModalDisplayTrainingItem";
-import {handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
+import {useHistory} from "react-router-dom";
 
 const DisplayTrainingOnSchedulerModal = (props) => {
     const {trainingForModal} = props
+    const history = useHistory()
 
     const goToTraining = () => {
         handleMoveToTraining(props.history)
@@ -28,15 +30,14 @@ const DisplayTrainingOnSchedulerModal = (props) => {
                     Serie: {trainingForModal.multi_series.map((el, index)=>
                     <p key={index}>{el.series_num}</p>
                     )}
-                    <button>Usuń trening</button>
-                    <button>Dodaj trening do innego dnia</button>
-                    <button onClick={goToTraining}>Ćwicz</button>
+
                 </Modal.Body>
                 <Modal.Footer>
-                    <button type="submit">Save</button>
-                    <Button variant="primary" type="submit">
-                        Save Changes
-                    </Button>
+                    {/*<button className="standard-button" type="submit">Save</button>*/}
+                    <button className="standard-button">Usuń trening</button>
+                    <button className="standard-button">Dodaj trening do innego dnia</button>
+                    <button className="standard-button" onClick={goToTraining}>Ćwicz</button>
+                    <button className="standard-button" onClick={() => handleMoveToModifyTraining(history)}>Modyfikuj trening</button>
                 </Modal.Footer>
             </Modal>
         </>

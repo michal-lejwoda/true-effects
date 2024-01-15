@@ -28,6 +28,9 @@ const DisplayMultiSeries = (props) => {
     return (
         <div className="create-training__container">
             <h1 className="create-training__title">Serie</h1>
+            {props.multiSeries.length == 0 &&
+                <p className="create-training__no-data">Nie została jeszcze stworzona żadna seria przejdź do sekcji Stwórz Serie i ją utwórz</p>
+            }
             {props.multiSeries.map((el, multiIndex) => {
                 return (
                     <div key={`${multiIndex}-${el.exercise.name}`}>
