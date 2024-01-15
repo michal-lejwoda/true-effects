@@ -35,10 +35,7 @@ const ModifyTrainingv2 = (props) => {
         <div className="modify-training">
             <Formik
                 initialValues={props.training}
-                onSubmit={(values, {setSubmitting}) => {
-                    console.log("submit")
-                }}
-            >
+                onSubmit={(values, {setSubmitting}) => {console.log("submit")}}>
                 {({
                       values,
                       setFieldValue,
@@ -47,20 +44,21 @@ const ModifyTrainingv2 = (props) => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                         <div>
+                            <h1 className="title modify-training__title">Modyfikuj Trening</h1>
+                            <DatePicker locale='pl'
+                                        name="date"
+                                        value={values.date}
+                                        className="create-training__datepicker animated-datepicker"
+                                        placeholderText={"Wybierz date treningu"}
+                                        dateFormat='yyyy-MM-dd'
+                                        onChange={(date) => setFieldValue('date', convertDate(date))
+                                        }
+                            />
                             <div className="animatedInput">
                                 <Field onChange={handleChange} name="name" value={values.name} type="text"/>
                                 <span>Nazwa Treningu</span>
                             </div>
 
-                            <label htmlFor="">Data Treningu</label>
-                            <DatePicker locale='pl'
-                                        name="date"
-                                        value={values.date}
-                                        placeholderText={"Wybierz date"}
-                                        dateFormat='yyyy-MM-dd'
-                                        onChange={(date) => setFieldValue('date', convertDate(date))
-                                        }
-                            />
                             <div className="animatedInput">
                                 <Field onChange={handleChange} name="description" value={values.description}
                                        type="text"/>
@@ -68,19 +66,18 @@ const ModifyTrainingv2 = (props) => {
                             </div>
                             <div className="modify_training__container">
                                 <div className="modify_training__container__buttons">
-                                    <button onClick={() => handleMoveToTraining(history)}>Trenuj -></button>
-                                    <button onClick={() => handleDeleteTraining(values.id)}>Usuń trening -</button>
-                                    <button onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
+                                    <button className="standard-button" onClick={() => handleMoveToTraining(history)}>Trenuj -></button>
+                                    <button className="standard-button" onClick={() => handleDeleteTraining(values.id)}>Usuń trening -</button>
+                                    <button className="standard-button" onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
                                         innego dnia +
                                     </button>
-                                    <button type="submit">Submit</button>
+                                    <button className="standard-button" type="submit">Modyfikuj trening</button>
 
                                 </div>
                                 <div className="modify_training__container__multiseries">
                                     {values.multi_series.map((multiseries, index) => {
                                         return (
                                             <div className="modify_training__container__multiseries__element">
-
                                                 <div
                                                     className="modify_training__container__multiseries__element_container">
                                                     <div
@@ -106,7 +103,6 @@ const ModifyTrainingv2 = (props) => {
                                                                                value={singleseries.concentric_phase}
                                                                                type="text"/>
                                                                         <span>Faza koncentryczna</span>
-                                                                        {/*<Field name="test" value={singleseries.concentricphase}/>*/}
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field
@@ -114,7 +110,7 @@ const ModifyTrainingv2 = (props) => {
                                                                             name={`multi_series[${index}].single_series[${indexv2}].pause_after_concentric_phase`}
                                                                             value={singleseries.pause_after_concentric_phase}
                                                                             type="text"/>
-                                                                        <span>Pauza po fazie koncentrycznej:</span>
+                                                                        <span>Pauza po fazie koncentrycznej</span>
                                                                     </div>
                                                                     <div
                                                                         className="animatedInput">
@@ -122,7 +118,7 @@ const ModifyTrainingv2 = (props) => {
                                                                             value={singleseries.eccentric_phase}
                                                                             name={`multi_series[${index}].single_series[${indexv2}].eccentricphase`}
                                                                             onChange={handleChange} type="text"/>
-                                                                        <span>Faza ekscentryczna:</span>
+                                                                        <span>Faza ekscentryczna</span>
                                                                     </div>
                                                                     <div
                                                                         className="animatedInput">
@@ -130,7 +126,7 @@ const ModifyTrainingv2 = (props) => {
                                                                             name={`multi_series[${index}].single_series[${indexv2}].pause_after_eccentric_phase`}
                                                                             value={singleseries.pause_after_eccentric_phase}
                                                                             onChange={handleChange} type="text"/>
-                                                                        <span>Pauza po fazie ekscentrycznej:</span>
+                                                                        <span>Pauza po fazie ekscentrycznej</span>
                                                                     </div>
                                                                 </div>
                                                             </div>)
@@ -142,9 +138,7 @@ const ModifyTrainingv2 = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <button
-                            onClick={() => handleModifyTraining(values)}
-                        >
+                        <button onClick={() => handleModifyTraining(values)}>
                             Submit
                         </button>
                     </form>
