@@ -1,18 +1,15 @@
 import React from 'react';
-import {Field, FieldArray, Formik} from "formik";
+import {Field, Formik} from "formik";
 import {connect} from "react-redux";
 import {createTraining, deleteCurrentTraining, updateTraining} from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
-import {useDate} from "../hooks";
 import {convertDate} from "../helpers/function_helpers";
 import {useHistory} from "react-router-dom";
 import {handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
+
 const ModifyTrainingv2 = (props) => {
     const history = useHistory()
-    console.log("props.training")
-    console.log(props.training)
-    // const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
     const handleModifyTraining = async (data) => {
         console.log("handleModifyTraining")
         console.log(data)
@@ -34,8 +31,6 @@ const ModifyTrainingv2 = (props) => {
         values.date = date
 
     }
-
-
     return (
         <div className="modify-training">
             <Formik
@@ -47,13 +42,8 @@ const ModifyTrainingv2 = (props) => {
                 {({
                       values,
                       setFieldValue,
-                      errors,
-                      touched,
                       handleChange,
-                      handleBlur,
                       handleSubmit,
-                      isSubmitting,
-                      /* and other goodies */
                   }) => (
                     <form onSubmit={handleSubmit}>
                         <div>
@@ -67,16 +57,10 @@ const ModifyTrainingv2 = (props) => {
                                         name="date"
                                         value={values.date}
                                         placeholderText={"Wybierz date"}
-                                // dateFormat='dd/MM/yyyy'
                                         dateFormat='yyyy-MM-dd'
-                                // selected={values.date}
                                         onChange={(date) => setFieldValue('date', convertDate(date))
-                                            // onChange={(date) => handleDate(date, setFieldValue)
                                         }
                             />
-                            {/*<Field onChange={handleChange} name="date" value={values.date} type="text"/>*/}
-                            {/*<label htmlFor="">Opis Treningu</label>*/}
-                            {/*<Field onChange={handleChange} name="description" value={values.description} type="text"/>*/}
                             <div className="animatedInput">
                                 <Field onChange={handleChange} name="description" value={values.description}
                                        type="text"/>
