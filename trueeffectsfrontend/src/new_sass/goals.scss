@@ -1,3 +1,30 @@
 .goals{
   min-height: 100vh;
+  padding: 0 10px 0 10px;
+  &__button{
+    display: flex;
+    justify-content: end;
+  }
+  &__date{
+    display:flex;
+    justify-content: end;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+  &__name{
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  &__element{
+    display:flex;
+    flex-direction: column;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  &__check{
+    display:flex;
+    justify-content: end;
+    margin-bottom: 1rem;
+    margin-top: 1rem
+  }
 }

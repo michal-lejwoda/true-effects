@@ -4,7 +4,7 @@
   &__title{
     margin-top: 1rem;
     margin-bottom: 2rem;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   &__container{
@@ -31,5 +31,12 @@
     justify-content: end;
     margin-top: 1rem;
     margin-right: 1rem;
+  }
+  &__dimensions{
+    &__element{
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
   }
 }
