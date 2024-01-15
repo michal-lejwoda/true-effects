@@ -8,17 +8,18 @@ import {useFormik} from "formik";
 import {connect} from "react-redux";
 import {getGoals, postGoal, postGoals} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
+import "../../new_sass/goals.scss"
 import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
 import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension";
 
 
 const Goals = (props) => {
+    console.log(props.userGoalsCompleted)
+    console.log(props.userGoalsToAchieve)
     const [showCreateGoal, setShowCreateGoal] = useState(false);
-
     const handleCloseCreateGoal = () => setShowCreateGoal(false);
 
     const handleShowCreateGoal = () => setShowCreateGoal(true);
-
 
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
@@ -40,7 +41,6 @@ const Goals = (props) => {
         setFieldValue("finishJsDate", date)
     }
     const handleSendGoals = async () => {
-        console.log("sendGoals")
         const data = {
             "finish_date": values.finishDate,
             "goal": values.goal,
@@ -53,17 +53,45 @@ const Goals = (props) => {
     return (
         <div className="goals">
             <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
-                postGoals={(data)=>props.postGoal(data)}
+                        postGoals={(data) => props.postGoal(data)}
             />
-            <button onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
+
             <div className="goals__displaycontainers">
-                <div className="goals__displaycontainers__unrealized">Niezrealizowane
-                    <button onClick={handleShowCreateGoal}></button>
+                <div className="goals__displaycontainers__unrealized">
+                    <h1 className="create-training__title">Niezrealizowane</h1>
+                    {props.userGoalsToAchieve.map(goal_obj => {
+                        return (
+                            <div>
+                                <h1>{goal_obj.finish_date}</h1>
+                                <h1>{goal_obj.goal}</h1>
+
+                            </div>
+                        )
+                    })}
+                    <button onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
                 </div>
-                <div className="goals__displaycontainers__realized">Zrealizowane</div>
+                <div className="goals__displaycontainers__realized"><h1
+                    className="create-training__title">Zrealizowane</h1>
+                    {props.userGoalsCompleted.map(goal_obj => {
+                        return (
+                            <div>
+                                <h1>{goal_obj.finish_date}</h1>
+                                <h1>{goal_obj.goal}</h1>
+
+                            </div>
+                        )
+                    })}
+
+                </div>
             </div>
         </div>
     );
 };
+const mapStateToProps = (state) => {
+    return {
+        userGoalsCompleted: state.training.userGoalsCompleted,
+        userGoalsToAchieve: state.training.userGoalsToAchieve
 
-export default connect(null, {postGoal, getGoals})(Goals);
+    }
+}
+export default connect(mapStateToProps, {postGoal, getGoals})(Goals);

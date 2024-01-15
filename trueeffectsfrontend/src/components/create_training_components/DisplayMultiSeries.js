@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 const DisplayMultiSeries = (props) => {
     const [visibleElements, setVisibleElements] = useState([]);
     const toggleVisibility = (elementId) => {
-        console.log("toggle")
         setVisibleElements((prevVisibleElements) => {
             if (prevVisibleElements.includes(elementId)) {
                 return prevVisibleElements.filter((id) => id !== elementId);

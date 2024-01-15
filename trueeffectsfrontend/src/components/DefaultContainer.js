@@ -7,11 +7,12 @@ import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
 
 import {
+    getCompletedGoals,
     getDimensionConfiguration,
     getDimensionConfigurationForCompare,
     getDimensions,
     getExercises,
-    getGoals,
+    getGoals, getGoalsToAchieve,
     getMeasurements, getSingleTraining,
     getTrainings,
     getUserDimensionsForCreate
@@ -35,6 +36,8 @@ import {FormikProvider} from 'formik'
 import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
 import CreateTrainingv2 from "./main_components/CreateTrainingv2";
 import Navbar from "./navbar_components/Navbar";
+import Dimensions from "./goals_and_dimensions_components/Dimensions";
+import Goals from "./goals_and_dimensions_components/Goals";
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
@@ -49,6 +52,8 @@ const DefaultContainer = (props) => {
             props.getDimensionConfigurationForCompare();
             props.getTrainings();
             props.getSingleTraining(1);
+            props.getGoalsToAchieve();
+            props.getCompletedGoals();
 
         }
     }, [props.token])
@@ -67,7 +72,9 @@ const DefaultContainer = (props) => {
                 <Route path="/createtraining" component={CreateTraining}/>
                 <Route path="/measurementsummary" component={AddMeasurementsSummary}/>
                 <Route path="/addgoals" component={AddGoals}/>
-                <Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>
+                {/*<Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>*/}
+                <Route path="/goals" component={Goals}/>
+                <Route path="/dimensions" component={Dimensions} />
                 <Route path="/settings" component={Settings}/>
                 <Route path="/scheduler" component={Scheduler}/>
                 <Route path="/training" component={Trainingv2}/>
@@ -93,6 +100,8 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
     getDimensionConfiguration,
     getDimensions,
+    getGoalsToAchieve,
+    getCompletedGoals,
     getUserDimensionsForCreate,
     getDimensionConfigurationForCompare,
     getSingleTraining,
