@@ -7,7 +7,7 @@ import {useDate} from "../hooks";
 import {convertDate} from "../helpers/function_helpers";
 import {useHistory} from "react-router-dom";
 import {handleMoveToTraining} from "../helpers/history_helpers";
-
+import "../../new_sass/modify_training.scss"
 const ModifyTrainingv2 = (props) => {
     const history = useHistory()
     console.log("props.training")
@@ -26,7 +26,7 @@ const ModifyTrainingv2 = (props) => {
     const handleDeleteTraining = async (id) => {
         await props.deleteCurrentTraining(id)
     }
-    const handleDate = (date, values) =>{
+    const handleDate = (date, values) => {
         console.log("date")
         console.log(date)
         console.log("values")
@@ -37,7 +37,7 @@ const ModifyTrainingv2 = (props) => {
 
 
     return (
-        <div>
+        <div className="modify-training">
             <Formik
                 initialValues={props.training}
                 onSubmit={(values, {setSubmitting}) => {
@@ -46,7 +46,7 @@ const ModifyTrainingv2 = (props) => {
             >
                 {({
                       values,
-                    setFieldValue,
+                      setFieldValue,
                       errors,
                       touched,
                       handleChange,
@@ -57,28 +57,35 @@ const ModifyTrainingv2 = (props) => {
                   }) => (
                     <form onSubmit={handleSubmit}>
                         <div>
-                            <label htmlFor="">Nazwa Treningu</label>
-                            <Field onChange={handleChange} name="name" value={values.name} type="text"/>
+                            <div className="animatedInput">
+                                <Field onChange={handleChange} name="name" value={values.name} type="text"/>
+                                <span>Nazwa Treningu</span>
+                            </div>
+
                             <label htmlFor="">Data Treningu</label>
                             <DatePicker locale='pl'
                                         name="date"
                                         value={values.date}
                                         placeholderText={"Wybierz date"}
-                                        // dateFormat='dd/MM/yyyy'
+                                // dateFormat='dd/MM/yyyy'
                                         dateFormat='yyyy-MM-dd'
-                                        // selected={values.date}
-                                        onChange = {(date)=>setFieldValue('date', convertDate(date))
-                                        // onChange={(date) => handleDate(date, setFieldValue)
-                            }
+                                // selected={values.date}
+                                        onChange={(date) => setFieldValue('date', convertDate(date))
+                                            // onChange={(date) => handleDate(date, setFieldValue)
+                                        }
                             />
                             {/*<Field onChange={handleChange} name="date" value={values.date} type="text"/>*/}
-                            <label htmlFor="">Opis Treningu</label>
-                            <Field onChange={handleChange} name="description" value={values.description} type="text"/>
-
+                            {/*<label htmlFor="">Opis Treningu</label>*/}
+                            {/*<Field onChange={handleChange} name="description" value={values.description} type="text"/>*/}
+                            <div className="animatedInput">
+                                <Field onChange={handleChange} name="description" value={values.description}
+                                       type="text"/>
+                                <span>Opis treningu</span>
+                            </div>
                             <div className="modify_training__container">
                                 <div className="modify_training__container__buttons">
-                                    <button onClick={()=>handleMoveToTraining(history)}>Trenuj -></button>
-                                    <button onClick={()=>handleDeleteTraining(values.id)}>Usuń trening -</button>
+                                    <button onClick={() => handleMoveToTraining(history)}>Trenuj -></button>
+                                    <button onClick={() => handleDeleteTraining(values.id)}>Usuń trening -</button>
                                     <button onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
                                         innego dnia +
                                     </button>
@@ -109,36 +116,37 @@ const ModifyTrainingv2 = (props) => {
                                                                 </div>
                                                                 <div
                                                                     className="modify_training__container__multiseries__element__singleseries__element__expanded">
-                                                                    <div
-                                                                        className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
-                                                                        <p>Faza koncentryczna:</p>
+                                                                    <div className="animatedInput">
                                                                         <Field onChange={handleChange}
                                                                                name={`multi_series[${index}].single_series[${indexv2}].concentricphase`}
-                                                                               value={singleseries.concentricphase}
+                                                                               value={singleseries.concentric_phase}
                                                                                type="text"/>
+                                                                        <span>Faza koncentryczna</span>
                                                                         {/*<Field name="test" value={singleseries.concentricphase}/>*/}
                                                                     </div>
-                                                                    <div
-                                                                        className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
-                                                                        <p>Pauza po fazie koncentrycznej:</p> <Field
-                                                                        onChange={handleChange}
-                                                                        name={`multi_series[${index}].single_series[${indexv2}].pause_after_concentric_phase`}
-                                                                        value={singleseries.pause_after_concentric_phase}
-                                                                        type="text"/>
+                                                                    <div className="animatedInput">
+                                                                        <Field
+                                                                            onChange={handleChange}
+                                                                            name={`multi_series[${index}].single_series[${indexv2}].pause_after_concentric_phase`}
+                                                                            value={singleseries.pause_after_concentric_phase}
+                                                                            type="text"/>
+                                                                        <span>Pauza po fazie koncentrycznej:</span>
                                                                     </div>
                                                                     <div
-                                                                        className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
-                                                                        <p>Faza ekscentryczna:</p> <Field
-                                                                        value={singleseries.eccentricphase}
-                                                                        name={`multi_series[${index}].single_series[${indexv2}].eccentricphase`}
-                                                                        onChange={handleChange} type="text"/>
+                                                                        className="animatedInput">
+                                                                        <Field
+                                                                            value={singleseries.eccentric_phase}
+                                                                            name={`multi_series[${index}].single_series[${indexv2}].eccentricphase`}
+                                                                            onChange={handleChange} type="text"/>
+                                                                        <span>Faza ekscentryczna:</span>
                                                                     </div>
                                                                     <div
-                                                                        className="modify_training__container__multiseries__element__singleseries__element__expanded__element">
-                                                                        <p>Pauza po fazie ekscentrycznej:</p> <Field
-                                                                        name={`multi_series[${index}].single_series[${indexv2}].pause_after_eccentric_phase`}
-                                                                        value={singleseries.pause_after_eccentric_phase}
-                                                                        onChange={handleChange} type="text"/>
+                                                                        className="animatedInput">
+                                                                        <Field
+                                                                            name={`multi_series[${index}].single_series[${indexv2}].pause_after_eccentric_phase`}
+                                                                            value={singleseries.pause_after_eccentric_phase}
+                                                                            onChange={handleChange} type="text"/>
+                                                                        <span>Pauza po fazie ekscentrycznej:</span>
                                                                     </div>
                                                                 </div>
                                                             </div>)
