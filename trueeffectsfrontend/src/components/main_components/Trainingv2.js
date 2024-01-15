@@ -1,84 +1,86 @@
-import React, {useState} from 'react';
-import {useHistory} from "react-router-dom";
+import React from 'react';
 import MyStopwatch from "./MyStopwatch";
 import {connect} from "react-redux";
 import {updateTraining} from "../../redux/actions/trainingActions";
-import {handleMoveToScheduler} from "../helpers/history_helpers";
 import "../../new_sass/training.scss";
+import {useTraining} from "../hooks";
 
 const Trainingv2 = (props) => {
-        const history = useHistory()
-        const {training} = props
-        const [currentTraining, setCurrentTraining] = useState(training)
-        const [actualMultiSeries, setActualMultiSeries] = useState(0)
-        const [actualSingleSeries, setActualSingleSeries] = useState(0)
-        const [trainingFinished, setTrainingFinished] = useState(false)
-        const {multi_series} = currentTraining
-        const {
-            concentric_phase,
-            pause_after_concentric_phase,
-            eccentric_phase,
-            pause_after_eccentric_phase,
-            extra_weight,
-            reps
-        } = multi_series[actualMultiSeries].single_series[actualSingleSeries]
 
-        const [extraWeight, setExtraWeight] = useState(extra_weight)
-        const [actualReps, setActualReps] = useState(reps)
-
-        const modifyMultiSeries = () => {
-            const updatedCurrentTraining = {...currentTraining}
-            updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight = extraWeight
-            updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps = reps
-            setCurrentTraining(updatedCurrentTraining)
-        }
-
-
-        const handleFinishTraining = async () => {
-            await props.updateTraining(currentTraining)
-            await handleMoveToScheduler(history)
-        }
-        const handleExtraWeight = (e) => {
-            setExtraWeight(e.target.value)
-        }
-        const handleReps = (e) => {
-            setActualReps(e.target.value)
-        }
-        const setAnotherSeries = () => {
-            setActualSingleSeries(actualSingleSeries + 1)
-            setExtraWeight(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].extra_weight)
-            setActualReps(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].reps)
-        }
-        const setAnotherMultiSeries = () => {
-            setActualSingleSeries(0)
-            setActualMultiSeries(actualMultiSeries + 1)
-            setExtraWeight(multi_series[actualMultiSeries + 1].single_series[0].extra_weight)
-            setActualReps(multi_series[actualMultiSeries + 1].single_series[0].reps)
-        }
-
-
-        const handleMovetoAnotherSeries = () => {
-            if (trainingFinished) {
-                return
-            }
-            if (actualSingleSeries < multi_series[actualMultiSeries].single_series.length - 1) {
-                modifyMultiSeries()
-                setAnotherSeries()
-            } else {
-
-                if (actualMultiSeries < multi_series.length - 1) {
-                    modifyMultiSeries()
-                    setAnotherMultiSeries()
-                } else {
-                    if (trainingFinished === false) {
-                        modifyMultiSeries()
-                        setTrainingFinished(true)
-                        alert("Zakończono trening")
-                        handleFinishTraining()
-                    }
-                }
-            }
-        }
+        const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight,
+            reps, extraWeight, actualReps, multi_series, actualMultiSeries,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining] = useTraining(props)
+        // const {training} = props
+        // const [currentTraining, setCurrentTraining] = useState(training)
+        // const [actualMultiSeries, setActualMultiSeries] = useState(0)
+        // const [actualSingleSeries, setActualSingleSeries] = useState(0)
+        // const [trainingFinished, setTrainingFinished] = useState(false)
+        // const {multi_series} = currentTraining
+        // const {
+        //     concentric_phase,
+        //     pause_after_concentric_phase,
+        //     eccentric_phase,
+        //     pause_after_eccentric_phase,
+        //     extra_weight,
+        //     reps
+        // } = multi_series[actualMultiSeries].single_series[actualSingleSeries]
+        //
+        // const [extraWeight, setExtraWeight] = useState(extra_weight)
+        // const [actualReps, setActualReps] = useState(reps)
+        //
+        // const modifyMultiSeries = () => {
+        //     const updatedCurrentTraining = {...currentTraining}
+        //     updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight = extraWeight
+        //     updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps = reps
+        //     setCurrentTraining(updatedCurrentTraining)
+        // }
+        //
+        //
+        // const handleFinishTraining = async () => {
+        //     await props.updateTraining(currentTraining)
+        //     await handleMoveToScheduler(history)
+        // }
+        // const handleExtraWeight = (e) => {
+        //     setExtraWeight(e.target.value)
+        // }
+        // const handleReps = (e) => {
+        //     setActualReps(e.target.value)
+        // }
+        // const setAnotherSeries = () => {
+        //     setActualSingleSeries(actualSingleSeries + 1)
+        //     setExtraWeight(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].extra_weight)
+        //     setActualReps(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].reps)
+        // }
+        // const setAnotherMultiSeries = () => {
+        //     setActualSingleSeries(0)
+        //     setActualMultiSeries(actualMultiSeries + 1)
+        //     setExtraWeight(multi_series[actualMultiSeries + 1].single_series[0].extra_weight)
+        //     setActualReps(multi_series[actualMultiSeries + 1].single_series[0].reps)
+        // }
+        //
+        //
+        // const handleMovetoAnotherSeries = () => {
+        //     if (trainingFinished) {
+        //         return
+        //     }
+        //     if (actualSingleSeries < multi_series[actualMultiSeries].single_series.length - 1) {
+        //         modifyMultiSeries()
+        //         setAnotherSeries()
+        //     } else {
+        //
+        //         if (actualMultiSeries < multi_series.length - 1) {
+        //             modifyMultiSeries()
+        //             setAnotherMultiSeries()
+        //         } else {
+        //             if (trainingFinished === false) {
+        //                 modifyMultiSeries()
+        //                 setTrainingFinished(true)
+        //                 alert("Zakończono trening")
+        //                 handleFinishTraining()
+        //             }
+        //         }
+        //     }
+        // }
         return (
             <div className="training">
                 <div className="training__header">
