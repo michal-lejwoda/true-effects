@@ -24,66 +24,66 @@ const CreateMultiSeries = (props) => {
     const [loadExercises, addToSingleSeries, addMultiSingleSeries, handleChangeExercise] = useCreateMultiSeries(props, values, setFieldValue, setErrors)
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1 className="create-training__title">Stwórz Trening</h1>
-            <div className="createtraining__bottom__leftcontainer__fields__elements">
-                <div className="createtraining__bottom__leftcontainer__fields__element">
+        <form className="create-series create-training__create-series" onSubmit={handleSubmit}>
+            <h1 className="create-series__title">Stwórz Serie</h1>
+            <div className="inputs create-series__inputs">
+                <div className="inputs__select">
                     <AsyncSelect placeholder="Wybierz ćwiczenie" name="exercise" onChange={handleChangeExercise}
                                  loadOptions={loadExercises}
                                  className="select-input"
                                  defaultOptions/>
                     {errors.exercise && <p>{errors.exercise}</p>}
                 </div>
-                <div className="animatedInput">
+                <div className="inputs__weight animatedInput">
                     <input name="extra_weight" onChange={handleChange} value={values.extra_weight} required="required"
                            type="number"/>
                     <span>Dodatkowa waga</span>
                 </div>
                 {errors.extra_weight && <p>{errors.extra_weight}</p>}
-                <div className="animatedInput">
+                <div className="inputs__rest animatedInput">
                     <input name="rest" onChange={handleChange} value={values.rest} required="required" type="number"/>
                     <span>Czas przerwy</span>
                 </div>
                 {errors.rest && <p>{errors.rest}</p>}
-                <div className="animatedInput">
+                <div className="inputs__reps animatedInput">
                     <input name="reps" onChange={handleChange} value={values.reps} required="required" type="number"/>
                     <span>Liczba powtórzeń</span>
                 </div>
                 {errors.reps && <p>{errors.reps}</p>}
-                <div className="animatedInput">
+                <div className="inputs__concentric_phase animatedInput">
                     <input name="concentric_phase" onChange={handleChange} value={values.concentric_phase}
                            required="required" type="number"/>
                     <span>Faza koncentryczna</span>
                 </div>
                 {errors.concentric_phase && <p>{errors.concentric_phase}</p>}
-                <div className="animatedInput">
+                <div className="inputs__pause_after_concentric_phase animatedInput">
                     <input name="pause_after_concentric_phase" onChange={handleChange}
                            value={values.pause_after_concentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie koncentrycznej</span>
                 </div>
                 {errors.pause_after_concentric_phase && <p>{errors.pause_after_concentric_phase}</p>}
-                <div className="animatedInput">
+                <div className="inputs__eccentric_phase animatedInput">
                     <input name="eccentric_phase" onChange={handleChange} value={values.eccentric_phase}
                            required="required" type="number"/>
                     <span>Faza ekscentryczna</span>
                 </div>
                 {errors.eccentric_phase && <p>{errors.eccentric_phase}</p>}
-                <div className="animatedInput">
+                <div className="inputs__pause_after_eccentric_phase animatedInput">
                     <input name="pause_after_eccentric_phase" onChange={handleChange}
                            value={values.pause_after_eccentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie ekscentrycznej</span>
                 </div>
                 {errors.pause_after_eccentric_phase && <p>{errors.pause_after_eccentric_phase}</p>}
-                <div className="create-training__button">
+                <div className="inputs__button">
                     <button className="standard-button" onClick={addToSingleSeries}>Dodaj pojedyńczą serie</button>
                 </div>
-                <div className="animatedInput">
+                <div className="inputs__series_count animatedInput">
                     <input name="series_count" onChange={handleChange}
                            value={values.series_count} required="required" type="number"/>
                     <span>Liczba serii</span>
                 </div>
                 {errors.series_count && <p>{errors.series_count}</p>}
-                <div className="create-training__button">
+                <div className="inputs__button">
                     <button className="standard-button" onClick={addMultiSingleSeries}>Dodaj kilka serii</button>
                 </div>
             </div>
