@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {postRegister} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
+import {useLogin, useRegister} from "../hooks";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,47 +21,49 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 const Register = (props) => {
+    const [handleMoveToLogin, handleMovetoBack, handleChange, handleSubmit, errors] = useRegister(props)
     if (props.token !== null) {
         props.history.push('/')
     }
-    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
-    const [username, setUsername] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [password2, setPassword2] = useState('')
-    const [emailerror, setEmailError] = useState(false)
 
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
-
-    const handleSetToken = (token) => {
-        setCookie("true_effects_token", token)
-    }
-
-    const handleMoveToLogin = () => {
-        props.history.push('/login')
-    }
-    const handleMovetoBack = () => {
-        props.history.goBack()
-    }
-    const handleRegister = async (e) => {
-        e.preventDefault()
-        if (validateEmail(email) !== false) {
-            let data = {
-                "username": username,
-                "email": email,
-                "password": password,
-                "password2": password2
-            }
-            await props.postRegister(data, handleSetToken)
-        } else {
-            setEmailError(true)
-        }
-
-    }
-    const classes = useStyles();
+    // const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    // const [username, setUsername] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+    // const [password2, setPassword2] = useState('')
+    // const [emailerror, setEmailError] = useState(false)
+    //
+    // function validateEmail(email) {
+    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     return re.test(String(email).toLowerCase());
+    // }
+    //
+    // const handleSetToken = (token) => {
+    //     setCookie("true_effects_token", token)
+    // }
+    //
+    // const handleMoveToLogin = () => {
+    //     props.history.push('/login')
+    // }
+    // const handleMovetoBack = () => {
+    //     props.history.goBack()
+    // }
+    // const handleRegister = async (e) => {
+    //     e.preventDefault()
+    //     if (validateEmail(email) !== false) {
+    //         let data = {
+    //             "username": username,
+    //             "email": email,
+    //             "password": password,
+    //             "password2": password2
+    //         }
+    //         await props.postRegister(data, handleSetToken)
+    //     } else {
+    //         setEmailError(true)
+    //     }
+    //
+    // }
+    // const classes = useStyles();
     return (
         <div className="containerlogin">
             <div className="register">
