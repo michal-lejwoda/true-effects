@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import '../sass/register.scss';
 import TextField from '@material-ui/core/TextField';
-import {makeStyles} from '@material-ui/core/styles';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from './AuthenticateLogo';
@@ -9,16 +8,7 @@ import {postRegister} from '../redux/actions/authenticationActions';
 import {connect} from 'react-redux';
 import {useCookies} from "react-cookie";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& .MuiTextField-root': {
-            width: '60ch',
-            '& .MuiInputBase-input': {
-                fontWeight: '700'
-            }
-        },
-    },
-}));
+
 const Register = (props) => {
     if (props.token !== null) {
         props.history.push('/')
@@ -56,7 +46,6 @@ const Register = (props) => {
         }
 
     }
-    const classes = useStyles();
     return (
         <div className="register">
             <AuthenticateLogo/>
@@ -74,7 +63,8 @@ const Register = (props) => {
                     </div>
                 </div>
                 <div className="register__secondcontainer__form">
-                    <form className={classes.root} noValidate autoComplete="off">
+                    <form
+                          noValidate autoComplete="off">
                         <div className="register__secondcontainer__form__title">Zarejestruj się</div>
                         <div className="register__secondcontainer__form__secondtitle">Zarejestruj się aby kontynuować
                         </div>

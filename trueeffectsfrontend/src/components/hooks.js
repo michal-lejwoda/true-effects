@@ -1,7 +1,12 @@
 import {useEffect, useState} from "react";
 import {convertDate} from "./helpers/function_helpers";
 import {useCookies} from "react-cookie";
-import {createMultiSeriesValidation, createSingleSeriesValidation, loginUserValidation} from "./validation/validation";
+import {
+    createMultiSeriesValidation,
+    createSingleSeriesValidation,
+    loginUserValidation,
+    registerUserValidation
+} from "./validation/validation";
 import {handleMoveToScheduler} from "./helpers/history_helpers";
 import {useHistory} from "react-router-dom";
 import {useFormik} from "formik";
@@ -12,9 +17,9 @@ export const useAuth = (token, loadToken, postLogoutAuth, history) => {
     useEffect(() => {
         if (cookies.true_effects_token !== undefined) {
             return loadToken(cookies.true_effects_token)
-        }else if(token !== null){
+        } else if (token !== null) {
             return setCookie('true_effects_token', token)
-        }else if (token === null){
+        } else if (token === null) {
             history.push('/login')
         }
 
@@ -307,6 +312,53 @@ export const useLogin = (props) => {
     return [handleMoveToRegister, handleMovetoBack, handleChange, handleSubmit, errors]
 }
 
-export const useRegister = () => {
+export const useRegister = (props) => {
+    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    // const [username, setUsername] = useState('')
+    // const [email, setEmail] = useState('')
+    // const [password, setPassword] = useState('')
+    // const [password2, setPassword2] = useState('')
+    // const [emailerror, setEmailError] = useState(false)
+    //
+    // function validateEmail(email) {
+    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    //     return re.test(String(email).toLowerCase());
+    // }
 
+    const handleSetToken = (token) => {
+        setCookie("true_effects_token", token)
+    }
+
+    const handleMoveToLogin = () => {
+        props.history.push('/login')
+    }
+    const handleMovetoBack = () => {
+        props.history.goBack()
+    }
+    const handleRegister = async () => {
+        let data = {
+            "username": values.username,
+            "email": values.email,
+            "password": values.password,
+            "password2": values.password2
+        }
+        await props.postRegister(data, handleSetToken)
+    }
+
+
+    const {values, handleChange, handleSubmit, errors} = useFormik({
+        initialValues: {
+            username: "",
+            email: "",
+            password: "",
+            password2: ""
+        },
+        validationSchema: registerUserValidation,
+        validateOnChange: false,
+        validationOnBlue: false,
+        onSubmit: values => {
+            handleRegister()
+        },
+    });
+    return [handleMoveToLogin, handleMovetoBack, handleChange, handleSubmit, errors]
 }
