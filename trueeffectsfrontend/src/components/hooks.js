@@ -1,18 +1,27 @@
 import {useEffect, useState} from "react";
 import {convertDate} from "./helpers/function_helpers";
 import {useCookies} from "react-cookie";
-import {createMultiSeriesValidation, createSingleSeriesValidation} from "./validation/validation";
+import {createMultiSeriesValidation, createSingleSeriesValidation, loginUserValidation} from "./validation/validation";
 import {handleMoveToScheduler} from "./helpers/history_helpers";
 import {useHistory} from "react-router-dom";
+import {useFormik} from "formik";
 
 export const useAuth = (token, loadToken, postLogoutAuth, history) => {
     const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+
     useEffect(() => {
         if (cookies.true_effects_token !== undefined) {
-            loadToken(cookies.true_effects_token)
-        } else {
+            return loadToken(cookies.true_effects_token)
+        }else if(token !== null){
+            return setCookie('true_effects_token', token)
+        }else if (token === null){
             history.push('/login')
         }
+
+
+        // else {
+        //     history.push('/login')
+        // }
     }, [token])
     return {cookies, setCookie, removeCookie}
 }
@@ -237,7 +246,7 @@ export const useTraining = (props) => {
 }
 
 
-export const useDisplayMultiSeries = (props) =>{
+export const useDisplayMultiSeries = (props) => {
     const [visibleElements, setVisibleElements] = useState([]);
     const toggleVisibility = (elementId) => {
         setVisibleElements((prevVisibleElements) => {
@@ -262,4 +271,42 @@ export const useDisplayMultiSeries = (props) =>{
         props.setMultiSeries(updatedMultiSeries);
     }
     return [visibleElements, handleRemoveSingleSeries, handleRemoveMultiSeries, toggleVisibility]
+}
+
+
+export const useLogin = (props) => {
+    const [cookies, setCookie] = useCookies(['true_effects_token']);
+    const handleSetToken = (token) => {
+        setCookie("true_effects_token", token)
+    }
+    const handleMoveToRegister = () => {
+        props.history.push('/register')
+    }
+    const handleMovetoBack = () => {
+        props.history.goBack()
+    }
+    const handleLogin = async () => {
+        let data = {
+            "username": values.username,
+            "password": values.password
+        }
+        return await props.loadUser(data, handleSetToken)
+    }
+
+    const {values, handleChange, handleSubmit, errors} = useFormik({
+        initialValues: {
+            username: "", password: "",
+        },
+        validationSchema: loginUserValidation,
+        validateOnChange: false,
+        validationOnBlue: false,
+        onSubmit: values => {
+            handleLogin()
+        },
+    });
+    return [handleMoveToRegister, handleMovetoBack, handleChange, handleSubmit, errors]
+}
+
+export const useRegister = () => {
+
 }

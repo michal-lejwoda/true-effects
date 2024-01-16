@@ -60,3 +60,8 @@ export const createTrainingValidation = yup.object().shape({
     description: yup.string().max(5000, "Opis jest za długi"),
 
 })
+
+export const loginUserValidation = yup.object().shape({
+    username:  yup.string().min(2, "Nazwa użytkownika jest za krótka").max(100, "Nazwa użytkownika jest za długa ").required('Pole username jest wymagane'),
+    password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+})

@@ -58,14 +58,14 @@ export const postLogoutAuth = (removeCookie) => dispatch => {
         type: POST_LOGOUT_AUTH
     })
 }
-export const loadUser = (data, handleSetToken) => (dispatch, getState) => {
+export const loadUser = (data, handleSetToken) => (dispatch) => {
     dispatch({type: USER_LOADING});
     delete axios.defaults.headers.common["Authorization"];
     axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
-        .then(res =>{
-            handleSetToken(res.data.token)
-            return res
-        })
+        // .then(res =>{
+        //     handleSetToken(res.data.token)
+        //     return res
+        // })
         .then(res => {
             dispatch({
                 type: USER_LOADED,
