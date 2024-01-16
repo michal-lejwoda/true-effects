@@ -1,0 +1,22 @@
+.login {
+  &__form {
+    display: flex;
+    width: 50%;
+    flex: 1 1;
+    flex-direction: column;
+    padding: 2rem;
+    &__top{
+      display:flex;
+      justify-content: space-between;
+    }
+  }
+  .form{
+    &__header{
+      display:flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 1.2rem;
+    }
+  }
+
+}

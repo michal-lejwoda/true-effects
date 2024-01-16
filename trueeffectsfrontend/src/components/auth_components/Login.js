@@ -8,6 +8,7 @@ import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser, postLogin} from "../../redux/actions/authenticationActions";
 import {getExercises, getGoals, getMeasurements, getTrainings, postTraining} from "../../redux/actions/trainingActions";
 import {useCookies} from "react-cookie";
+import '../../new_sass/login.scss';
 
 const Login = (props) => {
 
@@ -38,51 +39,48 @@ const Login = (props) => {
     }
 
     return (
-
-            <div className="login">
+        <div className="login">
+            <div className="authenticate-logo login__authentication-logo">
                 <AuthenticateLogo/>
-                <div className="login__secondcontainer">
-                    <div className="login__secondcontainer__top">
-                        <div className="login__secondcontainer__top__back" onClick={handleMovetoBack}>
-                            <div className="login__secondcontainer__top__back-icon"><FontAwesomeIcon
-                                icon={faArrowLeft}/></div>
-                            <div className="login__secondcontainer__top__back-title">Cofnij</div>
-                        </div>
-                        <div className="login__secondcontainer__top__forward" onClick={handleMoveToRegister}>
-                            <div className="login__secondcontainer__top__forward-title">Zarejestruj się</div>
-                            <div className="login__secondcontainer__top__forward-icon"><FontAwesomeIcon
-                                icon={faArrowRight}/></div>
-                        </div>
+            </div>
+            <div className="form login__form">
+                <div className="header form__header">
+                    <div className="header__element" onClick={handleMovetoBack}>
+                        <FontAwesomeIcon icon={faArrowLeft}/> Cofnij
                     </div>
-                    <div className="login__secondcontainer__form">
-                        <form
-                            // className={classes.root}
-                              noValidate autoComplete="off">
-                            <div className="login__secondcontainer__form__title">Zaloguj się</div>
-                            <div className="login__secondcontainer__form__secondtitle">Zaloguj się aby kontynuować</div>
-                            <div className="login__secondcontainer__form__username-input">
-                                <TextField defaultValue="test" onChange={(e) => setLogin(e.target.value)}
-                                           id="standard-password-input" label="Nazwa użytkownika" type="text"
-                                           autoComplete="current-password"/>
-                            </div>
-                            <div className="login__secondcontainer__form__username-password">
-                                <TextField defaultValue="test" onChange={(e) => setPassword(e.target.value)}
-                                           id="standard-password-input" label="Hasło" type="password"
-                                           autoComplete="current-password"/>
-                            </div>
-                            {/*{props.error !== '' && <p style={{ color: 'red' }}>{props.error}</p>}*/}
-                            {props.login_error && <p style={{color: 'red'}}>{props.login_error.non_field_errors[0]}</p>}
-                            <div className="login__secondcontainer__form__button">
-                                <button className="login__secondcontainer__form__button-login"
-                                        onClick={handleLogin}>Zaloguj się
-                                </button>
-                                <p className="login__secondcontainer__form__button-forget">Zapomniałem hasła</p>
-                            </div>
-                        </form>
+                    <div className="header__element" onClick={handleMoveToRegister}>
+                        Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
-
+                <div className="content form__content">
+                    <form
+                        noValidate autoComplete="off">
+                        <div className="content__title">Zaloguj się</div>
+                        <div className="content__secondtitle">Zaloguj się aby kontynuować</div>
+                        <div className="content__username">
+                            <TextField defaultValue="test" onChange={(e) => setLogin(e.target.value)}
+                                       id="standard-password-input" label="Nazwa użytkownika" type="text"
+                                       autoComplete="current-password"/>
+                        </div>
+                        <div className="content__password">
+                            <TextField defaultValue="test" onChange={(e) => setPassword(e.target.value)}
+                                       id="standard-password-input" label="Hasło" type="password"
+                                       autoComplete="current-password"/>
+                        </div>
+                        <div className="errors content__errors">
+                            {props.login_error && <p style={{color: 'red'}}>{props.login_error.non_field_errors[0]}</p>}
+                        </div>
+                        <div className="button content__button">
+                            <button className="button__login"
+                                    onClick={handleLogin}>Zaloguj się
+                            </button>
+                            <p className="button__forgot-password">Zapomniałem hasła</p>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+        </div>
     );
 };
 const mapStateToProps = (state) => {

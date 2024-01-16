@@ -11,16 +11,18 @@
     @else if $point == desktop{
       @media screen  and (max-width:1200px){@content;}
     }
-    @else if $point == desktopsmall{
-        @media screen and (max-width:1400px){@content;}
-    }
     @else if $point == LGdesktop{
-      @media screen and (min-width:1401px){@content;}
+      @media screen and (max-width:1401px){@content;}
     }}
 
 
 $main_color: #001233;
 $colar_pink: #FF595A;
+$logo_circle1: #FF534A;
+$logo_circle2: #001233;
+$logo_circle3: #CAC0B3;
+
+
 $beige: #CAC0B3;
 
 .animatedInput{
