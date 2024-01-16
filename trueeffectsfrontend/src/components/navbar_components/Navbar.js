@@ -17,7 +17,6 @@ import {useHistory} from "react-router-dom";
 const Navbar = () =>{
     const history = useHistory()
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-    console.log(isMobileNavOpen)
 
     return (
         <nav className="nav_bar">

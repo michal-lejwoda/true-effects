@@ -1,21 +1,22 @@
 @import 'settings.scss';
 
 .authenticate-logo {
-  display: flex;
-  width: 50%;
-  background-color: $main_color;
+  display: none;
   @include breakpoint(desktop) {
-    display: none;
+    display: flex;
+    width: 50%;
+    background-color: $main_color;
   }
 
   .block {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+    display: none;
     @include breakpoint(desktop) {
-      display: none;
+      display: flex;
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      border-right: 2px solid white;
     }
 
     &__circle1 {
