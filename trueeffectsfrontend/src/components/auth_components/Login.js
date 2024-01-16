@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../sass/login.scss';
+// import '../../sass/login.scss';
 import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';

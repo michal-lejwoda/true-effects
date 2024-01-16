@@ -66,7 +66,7 @@ export const loginUserValidation = yup.object().shape({
     password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
 })
 
-export const registerUserValidation = yup.object.shape({
+export const registerUserValidation = yup.object().shape({
     username: yup.string().min(2, "Nazwa użytkownika jest za krótka").max(100, "Nazwa użytkownika jest za długa ").required('Pole username jest wymagane'),
     email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
     password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
