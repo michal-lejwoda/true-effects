@@ -38,7 +38,7 @@ const Login = (props) => {
     }
 
     return (
-        <div className="containerlogin">
+
             <div className="login">
                 <AuthenticateLogo/>
                 <div className="login__secondcontainer">
@@ -83,7 +83,6 @@ const Login = (props) => {
                 </div>
 
             </div>
-        </div>
     );
 };
 const mapStateToProps = (state) => {
