@@ -1,0 +1,69 @@
+@import 'settings.scss';
+
+.authenticate-logo {
+  display: flex;
+  width: 50%;
+  background-color: $main_color;
+  @include breakpoint(desktop) {
+    display: none;
+  }
+
+  .block {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    @include breakpoint(desktop) {
+      display: none;
+    }
+
+    &__circle1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      min-width: 500px;
+      min-height: 500px;
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      background-color: $logo_circle1;
+    }
+
+    &__circle2 {
+
+      width: 80%;
+      height: 80%;
+
+      border-radius: 50%;
+      background-color: $logo_circle2;
+    }
+
+    &__circle3 {
+      position: absolute;
+      width: 60%;
+      height: 60%;
+      border-radius: 50%;
+      background-color: $logo_circle3;
+    }
+
+    &__circle4 {
+      position: absolute;
+      width: 40%;
+      height: 40%;
+      border-radius: 50%;
+      background-color: $beige;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &--logo {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+}
