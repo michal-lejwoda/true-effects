@@ -362,8 +362,6 @@ export const useCreateTraining = () => {
         let data = values
         data["multi_series"] = multiSeries
         if (validateTraining(data) === true) {
-            // let data = values
-            // data["multi_series"] = multiSeries
             console.log(data)
         }else{
             return null;
