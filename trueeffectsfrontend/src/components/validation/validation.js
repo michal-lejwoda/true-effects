@@ -76,3 +76,8 @@ export const registerUserValidation = yup.object().shape({
         .oneOf([yup.ref('password'), null], 'Hasła muszą być identyczne.')
         .required('Potwierdzenie hasła jest wymagane.'),
 })
+
+export const createExerciseModalValidation = yup.object().shape({
+    name: yup.string()
+        // .min(2, "Nazwa ćwiczenia jest za krótka")
+})

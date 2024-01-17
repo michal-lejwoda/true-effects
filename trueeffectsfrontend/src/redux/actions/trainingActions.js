@@ -403,9 +403,6 @@ export const deleteCurrentTraining = (id) => (dispatch, getState) => {
 
 export const getExercises = (param) => (dispatch, getState) => {
     let token = getState().authentication.token
-    console.log("token")
-    console.log(token)
-    // dispatch({type: GET_EXERCISES})
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/exercise/?name=${param}`)
         .then(res => {
@@ -415,8 +412,26 @@ export const getExercises = (param) => (dispatch, getState) => {
             console.log(err)
             return err
         })
+}
+export const createUserExercise = (data) => (dispatch, getState) =>{
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/exercise/post_user_exercise/`, data)
+        .then(res =>{
+            return res
+        })
+        .catch(err=>{
+            // return err.response.data
+            throw err
+        })
     // .then(res => dispatch({
-    //     type: GET_EXERCISES_SUCCESS,
-    //     payload: res.data
-    // }))
+        //     type: CREATE_USER_EXERCISE_SUCCESS,
+        //     payload: res.data
+        // }))
+        // .catch(err => {
+        //     dispatch({
+        //         type: CREATE_USER_EXERCISE_ERROR,
+        //         payload: err.response.data
+        //     })
+        // })
 }

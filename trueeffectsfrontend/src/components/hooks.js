@@ -405,6 +405,11 @@ export const useCreateTraining = (createTraining) => {
         }
     }
     return [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
-        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal]
+        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal, setShowCreatedTrainingModal,
+        setShowExerciseModal]
+
+}
+
+export const useCreateExerciseModal = () => {
 
 }

@@ -4,7 +4,6 @@ import AsyncSelect from "react-select/async";
 import {useCreateMultiSeries} from "../hooks";
 
 const CreateMultiSeries = (props) => {
-
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
             exercise: null,
@@ -22,7 +21,8 @@ const CreateMultiSeries = (props) => {
         validationOnBlue: false,
     });
     const [loadExercises, addToSingleSeries, addMultiSingleSeries, handleChangeExercise] = useCreateMultiSeries(props, values, setFieldValue, setErrors)
-
+    console.log("props.defaultExercises")
+    console.log(props.defaultExercises)
     return (
         <form className="create-series create-training__create-series" onSubmit={handleSubmit}>
             <h1 className="create-series__title">Stwórz Serie</h1>
@@ -31,9 +31,12 @@ const CreateMultiSeries = (props) => {
                     <AsyncSelect placeholder="Wybierz ćwiczenie" name="exercise" onChange={handleChangeExercise}
                                  loadOptions={loadExercises}
                                  className="select-input"
-                                 defaultOptions/>
+                                 defaultOptions={props.defaultExercises}/>
                 </div>
                 {errors.exercise && <p className="inputs__errors">{errors.exercise}</p>}
+                <div className="inputs__button">
+                    <button className="standard-button" onClick={()=>props.setShowExerciseModal(true)}>Stwórz ćwiczenie</button>
+                </div>
                 <div className="inputs__weight animatedInput">
                     <input name="extra_weight" onChange={handleChange} value={values.extra_weight} required="required"
                            type="number"/>
@@ -61,7 +64,8 @@ const CreateMultiSeries = (props) => {
                            value={values.pause_after_concentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie koncentrycznej</span>
                 </div>
-                {errors.pause_after_concentric_phase && <p className="inputs__errors">{errors.pause_after_concentric_phase}</p>}
+                {errors.pause_after_concentric_phase &&
+                    <p className="inputs__errors">{errors.pause_after_concentric_phase}</p>}
                 <div className="inputs__eccentric_phase animatedInput">
                     <input name="eccentric_phase" onChange={handleChange} value={values.eccentric_phase}
                            required="required" type="number"/>
@@ -73,7 +77,8 @@ const CreateMultiSeries = (props) => {
                            value={values.pause_after_eccentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie ekscentrycznej</span>
                 </div>
-                {errors.pause_after_eccentric_phase && <p className="inputs__errors">{errors.pause_after_eccentric_phase}</p>}
+                {errors.pause_after_eccentric_phase &&
+                    <p className="inputs__errors">{errors.pause_after_eccentric_phase}</p>}
                 <div className="inputs__button">
                     <button className="standard-button" onClick={addToSingleSeries}>Dodaj pojedyńczą serie</button>
                 </div>
@@ -87,7 +92,6 @@ const CreateMultiSeries = (props) => {
                     <button className="standard-button" onClick={addMultiSingleSeries}>Dodaj kilka serii</button>
                 </div>
             </div>
-            <div className="createtraining__bottom__leftcontainer__buttons"></div>
         </form>
     );
 };
