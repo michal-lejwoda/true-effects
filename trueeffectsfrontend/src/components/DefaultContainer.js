@@ -36,8 +36,6 @@ import Goals from "./goals_and_dimensions_components/Goals";
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
-    console.log("props")
-    console.log(props)
     useEffect(() => {
         // if (props.token == null) {
         //     props.history.push('/login')
