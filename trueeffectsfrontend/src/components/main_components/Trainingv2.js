@@ -4,12 +4,29 @@ import {connect} from "react-redux";
 import {updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
 import {useTraining} from "../hooks";
+import {useStopwatch} from "react-timer-hook";
+import CustomStopwatch from "../training_components/CustomStopwatch";
+import {handleMoveToScheduler} from "../helpers/history_helpers";
+import {timeToString} from "../helpers/function_helpers";
 
 const Trainingv2 = (props) => {
-
+        const {
+            seconds, minutes, hours, start, pause, reset,
+        } = useStopwatch({autoStart: false});
+        console.log(props.training)
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight,
             reps, extraWeight, actualReps, multi_series, actualMultiSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining] = useTraining(props)
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries] = useTraining(props)
+
+        const handleFinishTraining = async () => {
+            const string_time = timeToString(hours, minutes, seconds)
+            let training_obj = Object.assign({}, props.training)
+            training_obj.multi_series = multi_series
+            training_obj.time = string_time
+            await props.updateTraining(training_obj)
+            //Display finish modal
+            // await handleMoveToScheduler(history)
+        }
         return (
             <div className="training">
                 <div className="header training__header">
@@ -45,12 +62,8 @@ const Trainingv2 = (props) => {
                         {multi_series[actualMultiSeries].exercise.name}
                     </div>
                     <div className="stoper__stopwatch">
-                        <MyStopwatch
-                            // ref={childRef}
-                            // send={props.endTraining}
-                            // get={props.getTrainings}
-                            // id={props.location.training.id}
-                            // training={props.location.training}
+                        <CustomStopwatch
+                            seconds={seconds} minutes={minutes} hours={hours} start={start} pause={pause} reset={reset}
                         />
                     </div>
 
@@ -81,7 +94,8 @@ const Trainingv2 = (props) => {
                 <div className="content training__content">
                     <div className="row content__row">
                         <div className="row__label">Fazy</div>
-                        <div className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
+                        <div
+                            className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
                     </div>
                     <div className="row content__row">
                         <div className="row__label">Ciężar dodatkowy</div>
@@ -115,8 +129,8 @@ const Trainingv2 = (props) => {
                     <div className="buttons content__buttons">
                         <button
                             // id="endtraining"
-                                onClick={handleFinishTraining}
-                                className="buttons__finish standard-button"
+                            onClick={handleFinishTraining}
+                            className="buttons__finish standard-button"
                             // ref={endbuttonRef}
                             // onClick={handleEndTraining}
                         >Zakończ trening X
