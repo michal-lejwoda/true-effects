@@ -113,7 +113,8 @@ const Trainingv2 = (props) => {
                         </div>
                     </div>
                     <div className="buttons content__buttons">
-                        <button id="endtraining"
+                        <button
+                            // id="endtraining"
                                 onClick={handleFinishTraining}
                                 className="buttons__finish standard-button"
                             // ref={endbuttonRef}
