@@ -3,7 +3,7 @@ import {convertDate} from "./helpers/function_helpers";
 import {useCookies} from "react-cookie";
 import {
     createMultiSeriesValidation,
-    createSingleSeriesValidation,
+    createSingleSeriesValidation, createTrainingValidation,
     loginUserValidation,
     registerUserValidation
 } from "./validation/validation";
@@ -314,16 +314,6 @@ export const useLogin = (props) => {
 
 export const useRegister = (props) => {
     const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
-    // const [username, setUsername] = useState('')
-    // const [email, setEmail] = useState('')
-    // const [password, setPassword] = useState('')
-    // const [password2, setPassword2] = useState('')
-    // const [emailerror, setEmailError] = useState(false)
-    //
-    // function validateEmail(email) {
-    //     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    //     return re.test(String(email).toLowerCase());
-    // }
 
     const handleSetToken = (token) => {
         setCookie("true_effects_token", token)
@@ -361,4 +351,46 @@ export const useRegister = (props) => {
         },
     });
     return [handleMoveToLogin, handleMovetoBack, handleChange, handleSubmit, errors]
+}
+
+
+export const useCreateTraining = () => {
+    const [multiSeries, setMultiSeries] = useState([])
+    const [multiSeriesIndex, setMultiSeriesIndex] = useState(0)
+    const [singleSeries, setSingleSeries] = useState([])
+    const handleSubmit = () => {
+        if (validateTraining() === true) {
+            let data = values
+            data["multiSeries"] = multiSeries
+            console.log(data)
+        }else{
+            return null;
+        }
+    }
+    const {values, setFieldValue, handleChange, setErrors, errors} = useFormik({
+        initialValues: {
+            name: "", date: convertDate(new Date()), description: "",
+        },
+        validationSchema: createTrainingValidation,
+        validateOnChange: false,
+        validationOnBlue: false,
+    });
+
+    const validateTraining = () => {
+        try {
+            createTrainingValidation.validateSync(values, {abortEarly: false});
+            return true
+        } catch (error) {
+            const formattedErrors = error.inner.reduce((acc, validationError) => {
+                acc[validationError.path] = validationError.message;
+                return acc;
+            }, {});
+
+            setErrors(formattedErrors);
+            return false
+        }
+    }
+    return [multiSeries, multiSeriesIndex, singleSeries, values, errors, setMultiSeries, setMultiSeriesIndex,
+        setSingleSeries, setFieldValue, handleChange, handleSubmit]
+
 }

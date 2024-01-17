@@ -55,7 +55,7 @@ const DisplayMultiSeries = (props) => {
             </div>
             {props.multiSeries.length !== 0 &&
                 <div className="create-training__accept-training">
-                    <button className="standard-button" type="submit">Zaakceptuj trening</button>
+                    <button className="standard-button" onClick={props.handleSubmit}>Zaakceptuj trening</button>
                 </div>
             }
         </div>

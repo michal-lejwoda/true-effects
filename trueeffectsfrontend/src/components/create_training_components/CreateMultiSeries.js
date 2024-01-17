@@ -32,8 +32,8 @@ const CreateMultiSeries = (props) => {
                                  loadOptions={loadExercises}
                                  className="select-input"
                                  defaultOptions/>
-                    {errors.exercise && <p>{errors.exercise}</p>}
                 </div>
+                {errors.exercise && <p className="inputs__errors">{errors.exercise}</p>}
                 <div className="inputs__weight animatedInput">
                     <input name="extra_weight" onChange={handleChange} value={values.extra_weight} required="required"
                            type="number"/>
@@ -44,36 +44,36 @@ const CreateMultiSeries = (props) => {
                     <input name="rest" onChange={handleChange} value={values.rest} required="required" type="number"/>
                     <span>Czas przerwy</span>
                 </div>
-                {errors.rest && <p>{errors.rest}</p>}
+                {errors.rest && <p className="inputs__errors">{errors.rest}</p>}
                 <div className="inputs__reps animatedInput">
                     <input name="reps" onChange={handleChange} value={values.reps} required="required" type="number"/>
                     <span>Liczba powtórzeń</span>
                 </div>
-                {errors.reps && <p>{errors.reps}</p>}
+                {errors.reps && <p className="inputs__errors">{errors.reps}</p>}
                 <div className="inputs__concentric_phase animatedInput">
                     <input name="concentric_phase" onChange={handleChange} value={values.concentric_phase}
                            required="required" type="number"/>
                     <span>Faza koncentryczna</span>
                 </div>
-                {errors.concentric_phase && <p>{errors.concentric_phase}</p>}
+                {errors.concentric_phase && <p className="inputs__errors">{errors.concentric_phase}</p>}
                 <div className="inputs__pause_after_concentric_phase animatedInput">
                     <input name="pause_after_concentric_phase" onChange={handleChange}
                            value={values.pause_after_concentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie koncentrycznej</span>
                 </div>
-                {errors.pause_after_concentric_phase && <p>{errors.pause_after_concentric_phase}</p>}
+                {errors.pause_after_concentric_phase && <p className="inputs__errors">{errors.pause_after_concentric_phase}</p>}
                 <div className="inputs__eccentric_phase animatedInput">
                     <input name="eccentric_phase" onChange={handleChange} value={values.eccentric_phase}
                            required="required" type="number"/>
                     <span>Faza ekscentryczna</span>
                 </div>
-                {errors.eccentric_phase && <p>{errors.eccentric_phase}</p>}
+                {errors.eccentric_phase && <p className="inputs__errors">{errors.eccentric_phase}</p>}
                 <div className="inputs__pause_after_eccentric_phase animatedInput">
                     <input name="pause_after_eccentric_phase" onChange={handleChange}
                            value={values.pause_after_eccentric_phase} required="required" type="number"/>
                     <span>Pauza po fazie ekscentrycznej</span>
                 </div>
-                {errors.pause_after_eccentric_phase && <p>{errors.pause_after_eccentric_phase}</p>}
+                {errors.pause_after_eccentric_phase && <p className="inputs__errors">{errors.pause_after_eccentric_phase}</p>}
                 <div className="inputs__button">
                     <button className="standard-button" onClick={addToSingleSeries}>Dodaj pojedyńczą serie</button>
                 </div>
@@ -82,7 +82,7 @@ const CreateMultiSeries = (props) => {
                            value={values.series_count} required="required" type="number"/>
                     <span>Liczba serii</span>
                 </div>
-                {errors.series_count && <p>{errors.series_count}</p>}
+                {errors.series_count && <p className="inputs__errors">{errors.series_count}</p>}
                 <div className="inputs__button">
                     <button className="standard-button" onClick={addMultiSingleSeries}>Dodaj kilka serii</button>
                 </div>
