@@ -355,7 +355,7 @@ export const useRegister = (props) => {
 }
 
 
-export const useCreateTraining = (createTraining) => {
+export const useCreateTraining = (createTraining, getTrainings) => {
     const [showCreatedTrainingModal, setShowCreatedTrainingModal] = useState(false)
     const [showCreateExerciseModal, setShowExerciseModal] = useState(false)
     const [multiSeries, setMultiSeries] = useState([])
@@ -375,6 +375,7 @@ export const useCreateTraining = (createTraining) => {
         data["multi_series"] = multiSeries
         if (validateTraining(data) === true) {
             await createTraining(data)
+            await getTrainings()
             await setShowCreatedTrainingModal(true)
         } else {
             return null;
@@ -405,7 +406,7 @@ export const useCreateTraining = (createTraining) => {
         }
     }
     return [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
-        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal, setShowCreatedTrainingModal,
+        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
         setShowExerciseModal]
 
 }

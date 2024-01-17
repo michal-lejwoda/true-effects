@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import DatePicker from "react-datepicker";
 import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
-import {createTraining, createUserExercise, getExercises} from "../../redux/actions/trainingActions";
+import {createTraining, createUserExercise, getExercises, getTrainings} from "../../redux/actions/trainingActions";
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 import '../../new_sass/create_training.scss'
 import {convertDate} from "../helpers/function_helpers";
@@ -13,9 +13,9 @@ import CreateExerciseModal from "../create_training_components/modals/CreateExer
 
 const CreateTrainingv2 = (props) => {
     const history = useHistory()
-    const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
-        setSingleSeries, setFieldValue, handleChange, handleSubmit,
-        handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal, setShowCreatedTrainingModal, setShowExerciseModal] = useCreateTraining(props.createTraining)
+    const [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
+        setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings)
 
     const [defaultExercises, setDefaultExercises] = useState()
     useEffect(()=>{
@@ -89,4 +89,4 @@ const mapStateToProps = (state) => {
         create_single_training_error_message: state.training.create_single_training_error_message,
     }
 }
-export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise})(CreateTrainingv2);
+export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise, getTrainings})(CreateTrainingv2);
