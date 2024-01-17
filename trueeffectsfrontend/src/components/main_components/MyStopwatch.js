@@ -62,9 +62,9 @@ const MyStopwatch = forwardRef((props, ref) => {
         <span >{hours < 10 && 0}{hours}</span>:<span ref={props.refminutes}>{minutes < 10 && 0}{minutes}</span>:<span ref={props.refseconds}>{seconds < 10 && 0}{seconds}</span>
       </div>
       <div className="stopwatch__buttons">
-        <button className="square-buttons" ref={ref} id="start" onClick={handleStart}>Start</button>
-        <button className="square-buttons" id="pause" onClick={pause}>Pauza</button>
-        <button className="square-buttons" id="reset" onClick={reset}>Reset</button>
+        <button className="stopwatch__button square-buttons" id="start" onClick={handleStart}>Start</button>
+        <button className="stopwatch__button square-buttons" id="pause" onClick={pause}>Pauza</button>
+        <button className="stopwatch__button square-buttons" id="reset" onClick={reset}>Reset</button>
       </div>
     </div>
   );
