@@ -63,6 +63,7 @@ $beige: #CAC0B3;
 }
 .animatedInput input:disabled ~span,
 .animatedInput input:valid ~span,
+.animatedInput input:invalid ~span,
 .animatedInput input:focus ~span
 {
   color: #1b6d85;
@@ -73,7 +74,8 @@ $beige: #CAC0B3;
   letter-spacing: 0.2em;
 }
 
-//.animatedInput textarea:valid ~span,
+.animatedInput textarea:valid ~span,
+//.animatedInput textarea:focus ~span
 .animatedInput textarea:focus ~span
 {
   color: #1b6d85;
