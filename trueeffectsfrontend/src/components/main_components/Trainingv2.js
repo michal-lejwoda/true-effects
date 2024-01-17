@@ -10,86 +10,13 @@ const Trainingv2 = (props) => {
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight,
             reps, extraWeight, actualReps, multi_series, actualMultiSeries,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining] = useTraining(props)
-        // const {training} = props
-        // const [currentTraining, setCurrentTraining] = useState(training)
-        // const [actualMultiSeries, setActualMultiSeries] = useState(0)
-        // const [actualSingleSeries, setActualSingleSeries] = useState(0)
-        // const [trainingFinished, setTrainingFinished] = useState(false)
-        // const {multi_series} = currentTraining
-        // const {
-        //     concentric_phase,
-        //     pause_after_concentric_phase,
-        //     eccentric_phase,
-        //     pause_after_eccentric_phase,
-        //     extra_weight,
-        //     reps
-        // } = multi_series[actualMultiSeries].single_series[actualSingleSeries]
-        //
-        // const [extraWeight, setExtraWeight] = useState(extra_weight)
-        // const [actualReps, setActualReps] = useState(reps)
-        //
-        // const modifyMultiSeries = () => {
-        //     const updatedCurrentTraining = {...currentTraining}
-        //     updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight = extraWeight
-        //     updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps = reps
-        //     setCurrentTraining(updatedCurrentTraining)
-        // }
-        //
-        //
-        // const handleFinishTraining = async () => {
-        //     await props.updateTraining(currentTraining)
-        //     await handleMoveToScheduler(history)
-        // }
-        // const handleExtraWeight = (e) => {
-        //     setExtraWeight(e.target.value)
-        // }
-        // const handleReps = (e) => {
-        //     setActualReps(e.target.value)
-        // }
-        // const setAnotherSeries = () => {
-        //     setActualSingleSeries(actualSingleSeries + 1)
-        //     setExtraWeight(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].extra_weight)
-        //     setActualReps(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].reps)
-        // }
-        // const setAnotherMultiSeries = () => {
-        //     setActualSingleSeries(0)
-        //     setActualMultiSeries(actualMultiSeries + 1)
-        //     setExtraWeight(multi_series[actualMultiSeries + 1].single_series[0].extra_weight)
-        //     setActualReps(multi_series[actualMultiSeries + 1].single_series[0].reps)
-        // }
-        //
-        //
-        // const handleMovetoAnotherSeries = () => {
-        //     if (trainingFinished) {
-        //         return
-        //     }
-        //     if (actualSingleSeries < multi_series[actualMultiSeries].single_series.length - 1) {
-        //         modifyMultiSeries()
-        //         setAnotherSeries()
-        //     } else {
-        //
-        //         if (actualMultiSeries < multi_series.length - 1) {
-        //             modifyMultiSeries()
-        //             setAnotherMultiSeries()
-        //         } else {
-        //             if (trainingFinished === false) {
-        //                 modifyMultiSeries()
-        //                 setTrainingFinished(true)
-        //                 alert("Zakończono trening")
-        //                 handleFinishTraining()
-        //             }
-        //         }
-        //     }
-        // }
         return (
             <div className="training">
                 <div className="training__header">
-                    {/*{typeof multi_series[actualMultiSeries - 1] !== "undefined" &&*/}
                     <div className="training__header--previousexercise">
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries - 1] !== "undefined" ? 'visible' : 'hidden'}}
                             className="training__header__label">
-                            {/*<FontAwesomeIcon icon={faArrowLeft}/> */}
                             Poprzednie ćwiczenie
                         </div>
                         <div
@@ -98,8 +25,6 @@ const Trainingv2 = (props) => {
                             {typeof multi_series[actualMultiSeries - 1] !== "undefined" && multi_series[actualMultiSeries - 1].exercise.name}
                         </div>
                     </div>
-                    {/*}*/}
-                    {/*{typeof multi_series[actualMultiSeries + 1] !== "undefined" &&*/}
                     <div className="training__header--nextexercise">
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries + 1] !== "undefined" ? 'visible' : 'hidden'}}
@@ -112,18 +37,13 @@ const Trainingv2 = (props) => {
                             {typeof multi_series[actualMultiSeries + 1] !== "undefined" && multi_series[actualMultiSeries + 1].exercise.name}
                         </div>
                     </div>
-                    {/*}*/}
                 </div>
                 <div className="training__stoper">
                     <div className="training__stoper__label">Aktualne Ćwiczenie</div>
                     <div
                         className="training__stoper__name">
                         {multi_series[actualMultiSeries].exercise.name}
-                        {/*{training.training[series].exercise !== null ? training.training[series].exercise.name : training.training[series].ownexercise.name}*/}
                     </div>
-                    {/*<div className="">*/}
-                    {/*    <img src={logo} alt="logo"/>*/}
-                    {/*</div>*/}
                     <div className="training__stoper__stopwatch">
                         <MyStopwatch
                             // ref={childRef}

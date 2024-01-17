@@ -11,7 +11,7 @@ import CreatedTrainingModal from "../create_training_components/modals/CreatedTr
 import {useHistory} from "react-router-dom";
 import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
 
-const CreateTrainingv2 = (props) => {
+const CreateTraining = (props) => {
     const history = useHistory()
     const [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
@@ -89,4 +89,4 @@ const mapStateToProps = (state) => {
         create_single_training_error_message: state.training.create_single_training_error_message,
     }
 }
-export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise, getTrainings})(CreateTrainingv2);
+export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise, getTrainings})(CreateTraining);

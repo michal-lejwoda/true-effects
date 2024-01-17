@@ -3,7 +3,19 @@ import React, {useEffect} from 'react';
 import Homepage from './Homepage';
 import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
-
+import DisplayMeasurements from './DisplayMeasurements'
+import AddMeasurements from './AddMeasurements';
+import AddMeasurementsSummary from './AddMeasurementsSummary';
+import Settings from "./main_components/Settings";
+import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
+import {useAuth} from "./hooks";
+import Scheduler from "./main_components/Scheduler";
+import Trainingv2 from "./main_components/Trainingv2";
+import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
+import Navbar from "./navbar_components/Navbar";
+import Dimensions from "./goals_and_dimensions_components/Dimensions";
+import Goals from "./goals_and_dimensions_components/Goals";
+import CreateTraining from "./main_components/CreateTraining";
 import {
     getCompletedGoals,
     getDimensionConfiguration,
@@ -17,22 +29,9 @@ import {
     getTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
-// import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
-import DisplayMeasurements from './DisplayMeasurements'
-import AddMeasurements from './AddMeasurements';
-import CreateTraining from './CreateTraining';
 import '../sass/defaultcontainer.scss';
-import AddMeasurementsSummary from './AddMeasurementsSummary';
-import Settings from "./main_components/Settings";
-import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
-import {useAuth} from "./hooks";
-import Scheduler from "./main_components/Scheduler";
-import Trainingv2 from "./main_components/Trainingv2";
-import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
-import CreateTrainingv2 from "./main_components/CreateTrainingv2";
-import Navbar from "./navbar_components/Navbar";
-import Dimensions from "./goals_and_dimensions_components/Dimensions";
-import Goals from "./goals_and_dimensions_components/Goals";
+// import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
+
 
 const DefaultContainer = (props) => {
     const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
@@ -61,10 +60,8 @@ const DefaultContainer = (props) => {
             {/*<div className="container_default">*/}
             {/*{props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? */}
             <Route exact path="/" component={Homepage}/>
-            {/*<Route path="/schedule" component={Schedule}/>*/}
             <Route path="/addmeasurements" component={AddMeasurements}/>
             <Route path="/displaymeasurements" component={DisplayMeasurements}/>
-            <Route path="/createtraining" component={CreateTraining}/>
             <Route path="/measurementsummary" component={AddMeasurementsSummary}/>
             <Route path="/addgoals" component={AddGoals}/>
             {/*<Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>*/}
@@ -74,7 +71,7 @@ const DefaultContainer = (props) => {
             <Route path="/scheduler" component={Scheduler}/>
             <Route path="/training" component={Trainingv2}/>
             <Route path="/modify_training" component={ModifyTrainingv2}/>
-            <Route path="/create_training" component={CreateTrainingv2}/>
+            <Route path="/create_training" component={CreateTraining}/>
 
             {/*// : <BoxLoading />}*/}
             {/*</div>*/}
