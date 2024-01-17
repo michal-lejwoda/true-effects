@@ -45,9 +45,11 @@
       font-size: 1.4rem;
       font-weight: 500;
     }
-    &__element{
+
+    &__element {
       margin-bottom: 1rem;
     }
+
     &__input {
       text-align: center;
       background: transparent;
@@ -57,16 +59,80 @@
       outline: none;
       width: 50px;
     }
-    &__modify-data{
-      display:flex;
+
+    &__modify-data {
+      display: flex;
       justify-content: center;
       text-align: center;
       font-size: 1.4rem;
     }
-    &__buttons{
-      display:flex;
+
+    &__buttons {
+      display: flex;
       justify-content: space-around;
       margin-top: 1rem;
     }
   }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1.2rem 1rem 1.2rem;
+}
+
+.stoper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  &__label {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  &__name {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.row {
+  &__label {
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  &__name {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+  }
+}
+
+.modify-data {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.4rem;
+  &__input {
+      text-align: center;
+      background: transparent;
+      color: white;
+      border: none;
+      border-bottom: 2px solid white;
+      outline: none;
+      width: 50px;
+    }
+
 }
