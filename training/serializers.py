@@ -107,6 +107,19 @@ class UserDimensionConfigurationSerializer(serializers.ModelSerializer):
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
+    # id = serializers.IntegerField(required=True)
+    label = serializers.ReadOnlyField(source='name')
+    value = serializers.ReadOnlyField(source='name')
+
+    class Meta:
+        model = Exercise
+        fields = ['id', 'user', 'name', 'public', 'label', 'value']
+        extra_kwargs = {
+            'public': {"write_only": True},
+            'user': {'write_only': True}
+        }
+
+class TrainingExerciseSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(required=True)
     label = serializers.ReadOnlyField(source='name')
     value = serializers.ReadOnlyField(source='name')
@@ -119,9 +132,8 @@ class ExerciseSerializer(serializers.ModelSerializer):
             'user': {'write_only': True}
         }
 
-
 class SingleSeriesSerializer(serializers.ModelSerializer):
-    exercise = ExerciseSerializer(required=False, allow_null=True)
+    exercise = TrainingExerciseSerializer(required=False, allow_null=True)
 
     def create(self, validated_data):
         user_id = validated_data.pop('user')
@@ -148,7 +160,7 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
 
 
 class MultiSeriesSerializer(serializers.ModelSerializer):
-    exercise = ExerciseSerializer(required=False, allow_null=True)
+    exercise = TrainingExerciseSerializer(required=False, allow_null=True)
     single_series = SingleSeriesSerializer(required=False, allow_null=True, many=True)
 
     class Meta:
@@ -200,60 +212,3 @@ class TrainingSerializer(serializers.ModelSerializer):
                 multi_series_obj.single_series.set(single_series_list)
             training.multi_series.set(multi_series_list)
         return training
-    # def create(self, validated_data):
-    #     singleseries_list = validated_data.pop('multi_series')
-    #     training = Training.objects.create(**validated_data)
-    #
-    #     for singleseries_data in singleseries_list:
-    #         if 'exercise' in singleseries_data:
-    #             exercise = Exercise.objects.get(id=singleseries_data['exercise']['id'])
-    #             singleseries_data['exercise'] = exercise
-    #         singleseries = SingleSeries.objects.create(**singleseries_data)
-    #         training.training.add(singleseries)
-    #     return training
-
-    # def create(self, validated_data):
-    #     singleseries = SingleSeries.objects.create(**validated_data)
-    #     return singleseries
-
-# class TrainingSerializer(serializers.ModelSerializer):
-#     training = SingleSeriesForTrainingSerializer(many=True)
-#     class Meta:
-#         model = Training
-#         fields = '__all__'
-#     def update(self, instance, validated_data):
-#         training = validated_data.pop('training')
-#         for training_element in range(len(instance.training.all())):
-#             singleseries = SingleSeries.objects.get(id = instance.training.all()[training_element].id)
-#             singleseries.reps = training[training_element]['reps']
-#             singleseries.save(update_fields=['reps'])
-#         return instance
-#
-#
-#     def create(self, validated_data):
-#         singleseries_list = validated_data.pop('training')
-#         training = Training.objects.create(**validated_data)
-#
-#         for singleseries_data in singleseries_list:
-#             if 'exercise' in singleseries_data:
-#                 exercise = Exercise.objects.get(id=singleseries_data['exercise']['id'])
-#                 singleseries_data['exercise'] = exercise
-#             singleseries = SingleSeries.objects.create(**singleseries_data)
-#             training.training.add(singleseries)
-#         return training
-
-# def create(self,validated_data):
-#     singleseries_data = validated_data.pop('training')
-#     training = Training.objects.create(**validated_data)
-#     for singleseries_dat in singleseries_data:
-#         if 'exercise' in singleseries_dat:
-#
-#             exercise = Exercise.objects.get(name = singleseries_dat['exercise']['name'])
-#             singleseries_dat['exercise'] = exercise
-#         else:
-#
-#             ownexercise = OwnExercise.objects.get(name = singleseries_dat['ownexercise']['name'])
-#             singleseries_dat['ownexercise'] = ownexercise
-#         singleseries = SingleSeries.objects.create(**singleseries_dat)
-#         training.training.add(singleseries)
-#     return training

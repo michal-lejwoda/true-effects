@@ -1,25 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DatePicker from "react-datepicker";
 import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
-import {getExercises, createTraining, getSingleTraining} from "../../redux/actions/trainingActions";
+import {createTraining, createUserExercise, getExercises} from "../../redux/actions/trainingActions";
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 import '../../new_sass/create_training.scss'
 import {convertDate} from "../helpers/function_helpers";
 import {useCreateTraining} from "../hooks";
-import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import CreatedTrainingModal from "../create_training_components/modals/CreatedTrainingModal";
 import {useHistory} from "react-router-dom";
+import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
 
 const CreateTrainingv2 = (props) => {
     const history = useHistory()
-    const [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
-        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal] = useCreateTraining(props.createTraining)
+    const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+        setSingleSeries, setFieldValue, handleChange, handleSubmit,
+        handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal, setShowCreatedTrainingModal, setShowExerciseModal] = useCreateTraining(props.createTraining)
 
-
-    console.log(props.created_training)
-    console.log(props.create_single_training_error)
-    console.log(props.create_single_training_error_message)
+    const [defaultExercises, setDefaultExercises] = useState()
+    useEffect(()=>{
+        props.getExercises("")
+            .then(response=>{
+                setDefaultExercises(response)
+            })
+    },[])
 
     return (
         <div className="create-training">
@@ -56,14 +60,22 @@ const CreateTrainingv2 = (props) => {
             <CreateMultiSeries setMultiSeries={setMultiSeries} multiSeries={multiSeries}
                                singleSeries={singleSeries}
                                setSingleSeries={setSingleSeries} multiSeriesIndex={multiSeriesIndex}
-                               setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}/>
+                               setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}
+                               setShowExerciseModal={setShowExerciseModal}
+                               defaultExercises={defaultExercises}
+
+            />
             <CreatedTrainingModal history={history}
                                   showCreatedTrainingModal={showCreatedTrainingModal}
                                   handleCloseCreatedTrainingModal={handleCloseCreatedTrainingModal}
             />
-            <CreatedExerciseModal history={history}
-                                  showCreateExerciseModal={showCreateExerciseModal}
-                                  handleCloseCreateExerciseModal={handleCloseCreateExerciseModal}
+            <CreateExerciseModal history={history}
+                                 showCreateExerciseModal={showCreateExerciseModal}
+                                 handleCloseCreateExerciseModal={handleCloseCreateExerciseModal}
+                                 createUserExercise={props.createUserExercise}
+                                 getExercises={props.getExercises}
+                                 setDefaultExercises={setDefaultExercises}
+
             />
 
         </div>);
@@ -77,4 +89,4 @@ const mapStateToProps = (state) => {
         create_single_training_error_message: state.training.create_single_training_error_message,
     }
 }
-export default connect(mapStateToProps, {getExercises, createTraining})(CreateTrainingv2);
+export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise})(CreateTrainingv2);

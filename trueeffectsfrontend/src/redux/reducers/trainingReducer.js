@@ -1,13 +1,18 @@
 import {
-    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS, CREATE_SINGLE_TRAINING_ERROR,
-    END_TRAINING_SUCCESS, GET_CURRENT_TRAINING_SUCCESS,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    CREATE_SINGLE_TRAINING_ERROR, CREATE_USER_EXERCISE_ERROR,
+    CREATE_USER_EXERCISE_SUCCESS,
+    END_TRAINING_SUCCESS,
+    GET_CURRENT_TRAINING_SUCCESS,
     GET_EXERCISES,
     GET_EXERCISES_SUCCESS,
     GET_GOALS,
     GET_GOALS_SUCCESS,
     GET_MEASUREMENTS,
     GET_MEASUREMENTS_SUCCESS,
-    GET_OWN_EXERCISES_SUCCESS, GET_SINGLE_TRAINING_SUCCESS,
+    GET_OWN_EXERCISES_SUCCESS,
+    GET_SINGLE_TRAINING_SUCCESS,
     GET_TRAININGS,
     GET_TRAININGS_SUCCESS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
@@ -20,7 +25,8 @@ import {
     POST_MEASUREMENT,
     POST_TIME,
     POST_TRAINING,
-    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS, UPDATE_SINGLE_TRAINING_SUCCESS
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    UPDATE_SINGLE_TRAINING_SUCCESS
 } from '../actions/types';
 
 const initialState = {
@@ -52,6 +58,7 @@ const initialState = {
     created_training: null,
     create_single_training_error: null,
     create_single_training_error_message: null,
+    createUserExerciseError: null,
 
 
 };
@@ -202,6 +209,15 @@ export default function trainreducer(state = initialState, action) {
                 ...state,
                 create_single_training_error: action.payload,
                 create_single_training_error_message: "Nie udało się utworzyć treningu"
+            }
+        case CREATE_USER_EXERCISE_SUCCESS:
+            return {
+                ...state
+            }
+        case CREATE_USER_EXERCISE_ERROR:
+            return {
+                ...state,
+                createUserExerciseError: "Nie udało się utworzyć ćwiczenia"
             }
 
         default:
