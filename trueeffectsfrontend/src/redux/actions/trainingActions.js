@@ -24,7 +24,10 @@ import {
     GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
     GET_SINGLE_TRAINING_SUCCESS,
     UPDATE_SINGLE_TRAINING_SUCCESS,
-    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    LOGIN_ERROR,
+    CREATE_SINGLE_TRAINING_ERROR,
 } from './types';
 import axios from 'axios';
 
@@ -362,7 +365,7 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
         }))
 }
 
-export const updateTraining = (data) => (dispatch, getState) =>{
+export const updateTraining = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.put(`${TRUEEFFECTS_URL}/api/v1/single_training/${data.id}/update_training/`, data)
@@ -372,23 +375,25 @@ export const updateTraining = (data) => (dispatch, getState) =>{
         }))
 }
 
-export const createTraining = (data) => (dispatch, getState) =>{
+export const createTraining = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    console.log("createTraining")
-    console.log(data)
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/single_training/`, data)
         .then(res => dispatch({
             type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
             payload: res.data
         }))
+        .catch(err => {
+            dispatch({
+                type: CREATE_SINGLE_TRAINING_ERROR,
+                payload: err.response.data
+            })
+        })
 }
 
-export const deleteCurrentTraining = (id) => (dispatch, getState) =>{
-        let token = getState().authentication.token
+export const deleteCurrentTraining = (id) => (dispatch, getState) => {
+    let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    console.log("deleteTraining")
-    console.log(id)
     return axios.delete(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/`)
         .then(res => dispatch({
             type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
@@ -403,15 +408,15 @@ export const getExercises = (param) => (dispatch, getState) => {
     // dispatch({type: GET_EXERCISES})
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/exercise/?name=${param}`)
-        .then(res=>{
+        .then(res => {
             return res.data
         })
-        .catch(err=>{
+        .catch(err => {
             console.log(err)
             return err
         })
-        // .then(res => dispatch({
-        //     type: GET_EXERCISES_SUCCESS,
-        //     payload: res.data
-        // }))
+    // .then(res => dispatch({
+    //     type: GET_EXERCISES_SUCCESS,
+    //     payload: res.data
+    // }))
 }

@@ -25,7 +25,7 @@ class SingleSeries(models.Model):
     pause_after_concentric_phase = models.IntegerField(default=0)
     pause_after_eccentric_phase = models.IntegerField(default=0)
     reps = models.IntegerField()
-    series_num = models.IntegerField()
+    series_num = models.IntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Single Series"
@@ -51,7 +51,7 @@ class Training(models.Model):
     name = models.CharField(max_length=100)
     multi_series = models.ManyToManyField(MultiSeries, blank=True)
     date = models.DateField(null=True)
-    description = models.TextField(null=True)
+    description = models.TextField(null=True, blank=True)
     time = models.TimeField(auto_now=False, auto_now_add=False, null=True, default='00:00:00')
 
     def __str__(self):
