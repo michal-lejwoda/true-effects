@@ -3,7 +3,8 @@ import {convertDate} from "./helpers/function_helpers";
 import {useCookies} from "react-cookie";
 import {
     createMultiSeriesValidation,
-    createSingleSeriesValidation, createTrainingValidation,
+    createSingleSeriesValidation,
+    createTrainingValidation,
     loginUserValidation,
     registerUserValidation
 } from "./validation/validation";
@@ -354,16 +355,28 @@ export const useRegister = (props) => {
 }
 
 
-export const useCreateTraining = () => {
+export const useCreateTraining = (createTraining) => {
+    const [showCreatedTrainingModal, setShowCreatedTrainingModal] = useState(false)
+    const [showCreateExerciseModal, setShowExerciseModal] = useState(false)
     const [multiSeries, setMultiSeries] = useState([])
     const [multiSeriesIndex, setMultiSeriesIndex] = useState(0)
     const [singleSeries, setSingleSeries] = useState([])
-    const handleSubmit = () => {
+
+    const handleCloseCreatedTrainingModal = () =>{
+        setShowCreatedTrainingModal(false);
+    }
+
+    const handleCloseCreateExerciseModal = () =>{
+        setShowExerciseModal(false)
+    }
+
+    const handleSubmit = async () => {
         let data = values
         data["multi_series"] = multiSeries
         if (validateTraining(data) === true) {
-            console.log(data)
-        }else{
+            await createTraining(data)
+            await setShowCreatedTrainingModal(true)
+        } else {
             return null;
         }
     }
@@ -391,7 +404,7 @@ export const useCreateTraining = () => {
             return false
         }
     }
-    return [multiSeries, multiSeriesIndex, singleSeries, values, errors, setMultiSeries, setMultiSeriesIndex,
-        setSingleSeries, setFieldValue, handleChange, handleSubmit]
+    return [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+        setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal]
 
 }

@@ -1,5 +1,5 @@
 import {
-    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD, CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS, CREATE_SINGLE_TRAINING_ERROR,
     END_TRAINING_SUCCESS, GET_CURRENT_TRAINING_SUCCESS,
     GET_EXERCISES,
     GET_EXERCISES_SUCCESS,
@@ -49,7 +49,10 @@ const initialState = {
     userDimensionsForCreate: {},
     trainingForModal: null,
     training: null,
-    created_training: null
+    created_training: null,
+    create_single_training_error: null,
+    create_single_training_error_message: null,
+
 
 };
 export default function trainreducer(state = initialState, action) {
@@ -190,7 +193,15 @@ export default function trainreducer(state = initialState, action) {
         case CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS:
             return {
                 ...state,
-                created_training: action.payload
+                created_training: action.payload,
+                create_single_training_error: null,
+                create_single_training_error_message: null
+            }
+        case CREATE_SINGLE_TRAINING_ERROR:
+            return {
+                ...state,
+                create_single_training_error: action.payload,
+                create_single_training_error_message: "Nie udało się utworzyć treningu"
             }
 
         default:
