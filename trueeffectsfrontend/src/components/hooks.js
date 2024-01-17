@@ -11,6 +11,7 @@ import {
 import {handleMoveToScheduler} from "./helpers/history_helpers";
 import {useHistory} from "react-router-dom";
 import {useFormik} from "formik";
+import {useStopwatch} from "react-timer-hook";
 
 export const useAuth = (token, loadToken, postLogoutAuth, history) => {
     const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
@@ -201,10 +202,7 @@ export const useTraining = (props) => {
     }
 
 
-    const handleFinishTraining = async () => {
-        await props.updateTraining(currentTraining)
-        await handleMoveToScheduler(history)
-    }
+
     const handleExtraWeight = (e) => {
         setExtraWeight(e.target.value)
     }
@@ -241,14 +239,14 @@ export const useTraining = (props) => {
                     modifyMultiSeries()
                     setTrainingFinished(true)
                     alert("Zakończono trening")
-                    handleFinishTraining()
+                    // handleFinishTraining()
                 }
             }
         }
     }
 
     return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries,
-        handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining]
+        handleExtraWeight, handleReps, handleMovetoAnotherSeries]
 }
 
 
@@ -414,3 +412,5 @@ export const useCreateTraining = (createTraining, getTrainings) => {
 export const useCreateExerciseModal = () => {
 
 }
+
+
