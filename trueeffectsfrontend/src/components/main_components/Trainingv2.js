@@ -12,39 +12,39 @@ const Trainingv2 = (props) => {
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, handleFinishTraining] = useTraining(props)
         return (
             <div className="training">
-                <div className="training__header">
-                    <div className="training__header--previousexercise">
+                <div className="header training__header">
+                    <div className="header--previousexercise">
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries - 1] !== "undefined" ? 'visible' : 'hidden'}}
-                            className="training__header__label">
+                            className="header__label">
                             Poprzednie ćwiczenie
                         </div>
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries - 1] !== "undefined" ? 'visible' : 'hidden'}}
-                            className="training__header__name">
+                            className="header__name">
                             {typeof multi_series[actualMultiSeries - 1] !== "undefined" && multi_series[actualMultiSeries - 1].exercise.name}
                         </div>
                     </div>
-                    <div className="training__header--nextexercise">
+                    <div className="header--nextexercise">
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries + 1] !== "undefined" ? 'visible' : 'hidden'}}
-                            className="training__header__label">Następne ćwiczenie
+                            className="header__label">Następne ćwiczenie
                             {/*<FontAwesomeIcon icon={faArrowRight}/>*/}
                         </div>
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries + 1] !== "undefined" ? 'visible' : 'hidden'}}
-                            className="training__header__name">
+                            className="header__name">
                             {typeof multi_series[actualMultiSeries + 1] !== "undefined" && multi_series[actualMultiSeries + 1].exercise.name}
                         </div>
                     </div>
                 </div>
-                <div className="training__stoper">
-                    <div className="training__stoper__label">Aktualne Ćwiczenie</div>
+                <div className="stoper training__stoper">
+                    <div className="stoper__label">Aktualne Ćwiczenie</div>
                     <div
-                        className="training__stoper__name">
+                        className="stoper__name">
                         {multi_series[actualMultiSeries].exercise.name}
                     </div>
-                    <div className="training__stoper__stopwatch">
+                    <div className="stoper__stopwatch">
                         <MyStopwatch
                             // ref={childRef}
                             // send={props.endTraining}
@@ -54,82 +54,75 @@ const Trainingv2 = (props) => {
                         />
                     </div>
 
-                    <div className="">
-                        <div className=""
-                            // style={{visibility: endtraining ? 'hidden' : 'visible'}}
-                        >
-                            {/*{training.training[`${series}`].reps.map(function (item, index) {*/}
-                            {/*        if (index < singleSeries + 1) {*/}
-                            {/*            return (*/}
-                            {/*                <Checkbox checked={true}/>*/}
-                            {/*            )*/}
-                            {/*        } else {*/}
-                            {/*            return (*/}
-                            {/*                <Checkbox disabled checked={false}/>*/}
-                            {/*            )*/}
-                            {/*        }*/}
-                            {/*    }*/}
-                            {/*)}*/}
-                        </div>
-                        <div className=""
-                            // style={{visibility: endtraining ? 'hidden' : 'visible'}}
-                        >
-                            {/*Seria {singleSeries + 1}/{training.training[`${series}`].reps.length}*/}
-                        </div>
-                    </div>
+                    {/*<div className="">*/}
+                    {/*    <div className=""*/}
+                    {/*        // style={{visibility: endtraining ? 'hidden' : 'visible'}}*/}
+                    {/*    >*/}
+                    {/*        /!*{training.training[`${series}`].reps.map(function (item, index) {*!/*/}
+                    {/*        /!*        if (index < singleSeries + 1) {*!/*/}
+                    {/*        /!*            return (*!/*/}
+                    {/*        /!*                <Checkbox checked={true}/>*!/*/}
+                    {/*        /!*            )*!/*/}
+                    {/*        /!*        } else {*!/*/}
+                    {/*        /!*            return (*!/*/}
+                    {/*        /!*                <Checkbox disabled checked={false}/>*!/*/}
+                    {/*        /!*            )*!/*/}
+                    {/*        /!*        }*!/*/}
+                    {/*        /!*    }*!/*/}
+                    {/*        /!*)}*!/*/}
+                    {/*    </div>*/}
+                    {/*    <div className=""*/}
+                    {/*        // style={{visibility: endtraining ? 'hidden' : 'visible'}}*/}
+                    {/*    >*/}
+                    {/*        /!*Seria {singleSeries + 1}/{training.training[`${series}`].reps.length}*!/*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
-                <div className="training__content">
-                    <div className="training__content__element"
-                        // style={{visibility: endtraining ? 'hidden' : 'visible'}}
-                    >
-
-                        <div className="training__content__label">Fazy</div>
-                        <div
-                            className="training__content__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
+                <div className="content training__content">
+                    <div className="row content__row">
+                        <div className="row__label">Fazy</div>
+                        <div className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
                     </div>
-                    <div className="training__content__element">
-                        <div className="training__content__label">Ciężar dodatkowy</div>
-                        <div className="training__content__modify-data">
+                    <div className="row content__row">
+                        <div className="row__label">Ciężar dodatkowy</div>
+                        <div className="modify-data row__modify-data">
                             <input
-                                className="training__content__input"
+                                className="modify-data__input"
                                 // ref={weightRef}
                                 onChange={handleExtraWeight}
                                 placeholder={extra_weight}
                                 value={extraWeight}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="">/ {extra_weight} kg</div>
-
+                            <div className="modify-data__display-old">/ {extra_weight} kg</div>
                         </div>
-
                     </div>
-                    <div className="training__content__element">
+                    <div className="row content__row">
 
-                        <div className="training__content__label">Powtórzenia</div>
-                        <div className="training__content__modify-data">
+                        <div className="row__label">Powtórzenia</div>
+                        <div className="modify-data row__modify-data">
                             <input
-                                className="training__content__input"
+                                className="modify-data__input"
                                 // ref={repsRef}
                                 placeholder={reps}
                                 value={actualReps}
                                 onChange={handleReps}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="">/ {reps} </div>
+                            <div className="modify-data__display-old">/ {reps} </div>
                         </div>
                     </div>
-
-                    <div className="training__content__buttons">
+                    <div className="buttons content__buttons">
                         <button id="endtraining"
                                 onClick={handleFinishTraining}
-                                className="standard-button"
+                                className="buttons__finish standard-button"
                             // ref={endbuttonRef}
                             // onClick={handleEndTraining}
                         >Zakończ trening X
                         </button>
                         <button
                             onClick={handleMovetoAnotherSeries}
-                            className="standard-button"
+                            className="buttons__next standard-button"
                             // ref={buttonRef} style={{visibility: endtraining ? 'hidden' : 'visible'}} onClick={goNext}
                             id="nextexercise"
                         >Przejdź dalej
