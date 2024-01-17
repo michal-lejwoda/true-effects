@@ -359,9 +359,11 @@ export const useCreateTraining = () => {
     const [multiSeriesIndex, setMultiSeriesIndex] = useState(0)
     const [singleSeries, setSingleSeries] = useState([])
     const handleSubmit = () => {
-        if (validateTraining() === true) {
-            let data = values
-            data["multiSeries"] = multiSeries
+        let data = values
+        data["multi_series"] = multiSeries
+        if (validateTraining(data) === true) {
+            // let data = values
+            // data["multi_series"] = multiSeries
             console.log(data)
         }else{
             return null;
@@ -376,9 +378,10 @@ export const useCreateTraining = () => {
         validationOnBlue: false,
     });
 
-    const validateTraining = () => {
+    const validateTraining = (data) => {
         try {
-            createTrainingValidation.validateSync(values, {abortEarly: false});
+            createTrainingValidation.validateSync(data, {abortEarly: false});
+            setErrors({})
             return true
         } catch (error) {
             const formattedErrors = error.inner.reduce((acc, validationError) => {
