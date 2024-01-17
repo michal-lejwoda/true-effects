@@ -75,7 +75,7 @@ $beige: #CAC0B3;
 }
 
 .animatedInput textarea:valid ~span,
-//.animatedInput textarea:focus ~span
+.animatedInput textarea:invalid ~span,
 .animatedInput textarea:focus ~span
 {
   color: #1b6d85;

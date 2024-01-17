@@ -1,7 +1,5 @@
-import React, {useState} from 'react';
+import React from 'react';
 import DatePicker from "react-datepicker";
-import {useFormik} from "formik";
-import {createSingleSeriesValidation, createTrainingValidation} from "../validation/validation";
 import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
 import {getExercises} from "../../redux/actions/trainingActions";
@@ -13,42 +11,6 @@ import {useCreateTraining} from "../hooks";
 const CreateTrainingv2 = (props) => {
     const [multiSeries, multiSeriesIndex, singleSeries, values, errors, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit] = useCreateTraining()
-
-    // const [multiSeries, setMultiSeries] = useState([])
-    // const [multiSeriesIndex, setMultiSeriesIndex] = useState(0)
-    // const [singleSeries, setSingleSeries] = useState([])
-    // const handleSubmit = () => {
-    //     if (validateTraining() === true) {
-    //         let data = values
-    //         data["multiSeries"] = multiSeries
-    //         console.log(data)
-    //     }else{
-    //         return null;
-    //     }
-    // }
-    // const {values, setFieldValue, handleChange, setErrors, errors} = useFormik({
-    //     initialValues: {
-    //         name: "", date: convertDate(new Date()), description: "",
-    //     },
-    //     validationSchema: createTrainingValidation,
-    //     validateOnChange: false,
-    //     validationOnBlue: false,
-    // });
-    //
-    // const validateTraining = () => {
-    //     try {
-    //         createTrainingValidation.validateSync(values, {abortEarly: false});
-    //         return true
-    //     } catch (error) {
-    //         const formattedErrors = error.inner.reduce((acc, validationError) => {
-    //             acc[validationError.path] = validationError.message;
-    //             return acc;
-    //         }, {});
-    //
-    //         setErrors(formattedErrors);
-    //         return false
-    //     }
-    // }
 
     return (
         <div className="create-training">
@@ -63,20 +25,21 @@ const CreateTrainingv2 = (props) => {
                             onChange={(date) => setFieldValue('date', convertDate(date))}
                 />
                 {errors.date && <p className="header__errors">{errors.date}</p>}
-
                 <div className="name header__name animatedInput">
-                    <input name="name" type="text" required="required"/>
+                    <input name="name" type="text" required={true} onChange={handleChange}/>
                     <span>Nazwa treningu</span>
                 </div>
                 {errors.name && <p className="header__errors">{errors.name}</p>}
                 <div className="description header__description animatedInput">
-                    <textarea className="description__textarea" name="description" onChange={handleChange}
+                    <textarea className="description__textarea" required={true} name="description"
+                              onChange={handleChange}
                               value={values.description}
                               rows="5">
                     </textarea>
                     <span className="description__placeholder">Opis treningu</span>
                 </div>
                 {errors.description && <p className="header__errors">{errors.description}</p>}
+                {errors.multi_series && <p className="header__errors">{errors.multi_series}</p>}
             </div>
             <DisplayMultiSeries multiSeries={multiSeries} setMultiSeries={setMultiSeries} handleSubmit={handleSubmit}/>
             <CreateMultiSeries setMultiSeries={setMultiSeries} multiSeries={multiSeries}
@@ -86,13 +49,14 @@ const CreateTrainingv2 = (props) => {
         </div>);
 };
 
-const mapStateToProps = (state) => {
-    return {
-        trainings: state.training.trainings.data,
-        loadedtrainings: state.training.loadedtrainings,
-        measurements: state.training.measurements.data,
-        goals: state.training.goals.data,
-        exercises: state.training.exercises
-    }
-}
-export default connect(mapStateToProps, {getExercises})(CreateTrainingv2);
+
+// const mapStateToProps = (state) => {
+//     return {
+//         trainings: state.training.trainings.data,
+//         loadedtrainings: state.training.loadedtrainings,
+//         measurements: state.training.measurements.data,
+//         goals: state.training.goals.data,
+//         exercises: state.training.exercises
+//     }
+// }
+export default connect(null, {getExercises})(CreateTrainingv2);

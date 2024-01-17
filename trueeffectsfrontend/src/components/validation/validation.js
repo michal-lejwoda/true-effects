@@ -59,6 +59,7 @@ export const createTrainingValidation = yup.object().shape({
     name: yup.string().min(2, "Nazwa jest za krótka").max(100, "Nazwa jest za długa wykorzystaj opis").required('Pole nazwa jest wymagane'),
     date: yup.string().min(2, "Musisz wybrać date").required("Pole data jest wymagane"),
     description: yup.string().max(5000, "Opis jest za długi"),
+    multi_series: yup.array().min(1, 'Przynajmniej jedna seria jest wymagana')
 
 })
 
