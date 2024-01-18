@@ -90,7 +90,7 @@ class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         return UserGoal.objects.filter(user=user, completed=False).order_by('finish_date')
 
     def perform_create(self, serializer):
-        serializer.save(user_id=self.request.user.id, created_date=timezone.now().date())
+        serializer.save(user_id=self.request.user.id)
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def completed(self, request):

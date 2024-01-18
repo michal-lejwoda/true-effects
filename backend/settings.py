@@ -16,10 +16,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
-
 ALLOWED_HOSTS = ['*']
-CORS_ALLOW_ALL_ORIGINS=True
-AUTH_USER_MODEL="authorization.CustomUser"
+CORS_ALLOW_ALL_ORIGINS = True
+AUTH_USER_MODEL = "authorization.CustomUser"
 # Application definition
 
 INSTALLED_APPS = [
@@ -35,6 +34,8 @@ INSTALLED_APPS = [
     'app',
     'authorization',
     'training',
+    'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR,'build'),
+            os.path.join(BASE_DIR, 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -71,15 +72,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
-
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config(default=config('DATABASE_URL'))
-DATABASES['default']['ENGINE']='django.db.backends.postgresql_psycopg2'
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 REST_FRAMEWORK = {
-    
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',        
+        'rest_framework.authentication.TokenAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
@@ -92,8 +92,8 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.JSONParser',
-     )
-    
+    )
+
 }
 
 # Password validation
@@ -114,7 +114,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -128,12 +127,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT =  os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
