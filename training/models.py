@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
+from django_extensions.db.models import TimeStampedModel
 from authorization.models import CustomUser
 
 
@@ -58,16 +58,16 @@ class Training(models.Model):
         return f"{self.user.username} {self.name} {self.date}"
 
 
-class UserGoal(models.Model):
+class UserGoal(TimeStampedModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    created_date = models.DateField(null=True)
+    # created_date = models.DateField(null=True)
     goal = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     finish_date = models.DateField(null=False)
     completed = models.BooleanField(default=False)
 
 
-class UserDimension(models.Model):
+class UserDimension(TimeStampedModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
     date = models.DateField(null=False)
     weight = models.FloatField(null=True, blank=True)

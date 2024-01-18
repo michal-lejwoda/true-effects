@@ -4,8 +4,9 @@ import Modal from 'react-bootstrap/Modal';
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createGoalValidation} from "../validation/validation";
-import {handleDateForGoals} from "../helpers/function_helpers";
+import {convertDate, handleDateForGoals} from "../helpers/function_helpers";
 import {postGoals} from "../../redux/actions/trainingActions";
+import {CloseButton} from "react-bootstrap";
 
 export function CreateGoal(props) {
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
@@ -22,79 +23,54 @@ export function CreateGoal(props) {
             handleSendGoals(values)
         },
     });
-    // const handleDate = (date) => {
-    //     const convertedDate = convertDate(date)
-    //     setFieldValue("finishDate", convertedDate)
-    //     setFieldValue("finishJsDate", date)
-    // }
+
     const handleSendGoals = async () => {
-        console.log("sendGoals")
         const data = {
             "finish_date": values.finishDate,
             "goal": values.goal,
             "description": values.description,
+            "completed": false,
         }
-        console.log(data)
         await props.postGoals(data)
     }
     return (
         <>
-            <Modal show={props.show} onHide={props.handleClose} size="lg">
-                <Modal.Header closeButton>
-                    <Modal.Title>Stwórz cel</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <div className="goals__createcontainer">
-                        <form onSubmit={handleSubmit}>
-                            <div className="goals__createcontainer__datepicker-label">Termin w jakim planujesz
-                                zrealizować swój
-                                cel
-                            </div>
-                            <div className="goals__createcontainer__datepicker-input"><DatePicker locale='pl'
-                                                                                                  placeholderText={"Wybierz date"}
-                                                                                                  dateFormat='dd/MM/yyyy'
-                                                                                                  selected={values.finishJsDate}
-                                                                                                  onChange={date => handleDateForGoals(date, setFieldValue)}
+            <Modal className="create-goal goals__create-goal" show={props.show} onHide={props.handleClose} size="lg">
+                <form className="create-goal__form" onSubmit={handleSubmit}>
+                    <Modal.Header className="header create-goal__header">
+                        <Modal.Title>Stwórz cel</Modal.Title>
+                        <CloseButton onClick={props.handleClose} variant="white"/>
+                    </Modal.Header>
+                    <Modal.Body className="content create-goal__content">
+                        <div className="inputs content__inputs">
+                            <div className="inputs__datepicker "><DatePicker locale='pl'
+                                                                             className="animated-datepicker"
+                                                                             placeholderText={"Data realizacji"}
+                                                                             dateFormat='dd/MM/yyyy'
+                                                                             selected={values.finishJsDate}
+                                                                             onChange={date => handleDateForGoals(date, setFieldValue)}
                             />
                             </div>
-                            {errors.finishDate && <p>{errors.finishDate}</p>}
-                            <div className="goals__createcontainer__goalcontainer">
-                                <div className="goals__createcontainer__goalcontainer-label">
-                                    Stwórz cel treningowy
-                                </div>
-                                <div className="goals__createcontainer__goalcontainer-input">
-                                    <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
-                                </div>
-                                {errors.goal && <p>{errors.goal}</p>}
+                            {errors.finishDate && <p className="inputs__error">{errors.finishDate}</p>}
+                            <div className="inputs__goal-name animatedInput">
+                                <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
+                                <span>Nazwa celu treningowego</span>
                             </div>
+                            {errors.goal && <p className="inputs__error">{errors.goal}</p>}
+                            <div className="inputs__goal-description animatedInput">
 
-                            <div className="goals__createcontainer__descriptioncontainer">
-                                <div className="goals__createcontainer__descriptioncontainer-label">
-                                    Opis celu
-                                </div>
-                                <div className="goals__createcontainer__descriptioncontainer-input">
-                        <textarea name="description" cols="50" rows="10" value={values.description}
-                                  onChange={handleChange}></textarea>
-                                    {errors.description && <p>{errors.description}</p>}
-                                </div>
+                                <textarea name="description" cols="50" rows="10" value={values.description}
+                                          onChange={handleChange}></textarea>
+                                <span>Opis celu</span>
                             </div>
-
-                            <div className="goals__createcontainer__buttoncontainer">
-                                <button className="goals__createcontainer__buttoncontainer-button"
-                                        onClick={handleSendGoals}>Wyślij
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={props.handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={props.handleClose}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
+                            {errors.description && <p className="inputs__error">{errors.description}</p>}
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer className="footer create-goal__footer">
+                        <button className="footer__button standard-button" type="submit" >Zapisz cel treningowy
+                        </button>
+                    </Modal.Footer>
+                </form>
             </Modal>
         </>
     );

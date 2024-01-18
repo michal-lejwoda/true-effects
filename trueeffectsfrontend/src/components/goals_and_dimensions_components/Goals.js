@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import DatePicker from "react-datepicker";
-import '../../sass/addgoals.css';
+// import '../../sass/addgoals.css';
 import "react-datepicker/dist/react-datepicker.css";
 import {convertDate} from "../helpers/function_helpers";
 import {createGoalValidation} from "../validation/validation";
@@ -9,8 +8,6 @@ import {connect} from "react-redux";
 import {getGoals, postGoal, postGoals} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import "../../new_sass/goals.scss"
-import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
-import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension";
 
 
 const Goals = (props) => {
@@ -47,53 +44,54 @@ const Goals = (props) => {
             "description": values.description,
         }
         await postGoals(data)
+        await getGoals()
         // await getGoals()
         // history.push("/")
     }
     return (
         <div className="goals">
-            <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
-                        postGoals={(data) => props.postGoal(data)}
-            />
-
-            <div className="goals">
-                <div className="goals--unrealized">
-
-                    <h1 className="title goals__title">Do zrealizowania</h1>
-                    <div className="goals__button">
-                        <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
-                    </div>
-                    {props.userGoalsToAchieve.map(goal_obj => {
-                        return (
-                            <div className="goals__element">
-                                <div className="goals__date">{goal_obj.finish_date}</div>
-                                <div className="goals__name">{goal_obj.goal}</div>
-                                <div className="goals__check">
-                                    <button className="standard-button">Sprawdź</button>
-                                </div>
-                            </div>
-                        )
-                    })}
-
+            <div className="goals--unrealized">
+                <h1 className="title goals__title">Do zrealizowania</h1>
+                <div className="goals__button">
+                    <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
                 </div>
-                <hr/>
-                <div className="goals--realized"><h1
-                    className="title goals__title">Zrealizowane</h1>
-                    {props.userGoalsCompleted.map(goal_obj => {
-                        return (
-                            <div className="goals__element">
-                                <div className="goals__date">{goal_obj.finish_date}</div>
-                                <div className="goals__name">{goal_obj.goal}</div>
-                                <div className="goals__check">
-                                    <button className="standard-button">Sprawdź</button>
-                                </div>
+                {props.userGoalsToAchieve.length == 0 && <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk Dodaj nowy cel aby dodać cel</p>}
+                {props.userGoalsToAchieve.map(goal_obj => {
+                    return (
+                        <div className="goals__element">
+                            <div className="goals__date">{goal_obj.finish_date}</div>
+                            <div className="goals__name">{goal_obj.goal}</div>
+                            <div className="goals__check">
+                                <button className="standard-button">Sprawdź</button>
                             </div>
-                        )
-                    })}
+                        </div>
+                    )
+                })}
 
-                </div>
             </div>
+            <hr className="goals--hr"/>
+            <div className="goals--realized"><h1
+                className="title goals__title">Zrealizowane</h1>
+                {props.userGoalsCompleted.length == 0 && <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk Dodaj nowy cel aby dodać cel</p>}
+                {props.userGoalsCompleted.map(goal_obj => {
+                    return (
+                        <div className="goals__element">
+                            <div className="goals__date">{goal_obj.finish_date}</div>
+                            <div className="goals__name">{goal_obj.goal}</div>
+                            <div className="goals__check">
+                                <button className="standard-button">Sprawdź</button>
+                            </div>
+                        </div>
+                    )
+                })}
+
+            </div>
+            <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
+                        postGoals={props.postGoal}
+            />
+            {/*<CheckGoal />*/}
         </div>
+
     );
 };
 const mapStateToProps = (state) => {
