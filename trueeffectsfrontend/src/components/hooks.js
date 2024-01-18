@@ -175,7 +175,6 @@ export const useCreateMultiSeries = (props, values, setFieldValue, setErrors) =>
 
 
 export const useTraining = (props) => {
-    const history = useHistory()
     const {training} = props
     const [currentTraining, setCurrentTraining] = useState(training)
     const [actualMultiSeries, setActualMultiSeries] = useState(0)
@@ -245,8 +244,9 @@ export const useTraining = (props) => {
         }
     }
 
-    return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries,
-        handleExtraWeight, handleReps, handleMovetoAnotherSeries]
+    return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
+        extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
+        handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
 }
 
 
