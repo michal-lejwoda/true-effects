@@ -1,5 +1,4 @@
-import React from 'react';
-import MyStopwatch from "./MyStopwatch";
+import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
@@ -8,24 +7,31 @@ import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
 import {handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
+import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
+import {useHistory} from "react-router-dom";
 
 const Trainingv2 = (props) => {
+        const history = useHistory()
+        const [showFinishTraining, setShowFinishTraining] = useState(false)
         const {
             seconds, minutes, hours, start, pause, reset,
         } = useStopwatch({autoStart: false});
-        console.log(props.training)
+
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight,
-            reps, extraWeight, actualReps, multi_series, actualMultiSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries] = useTraining(props)
+            reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining(props)
+
+        console.log("multi_series")
+        console.log(multi_series)
 
         const handleFinishTraining = async () => {
+            modifyMultiSeries()
             const string_time = timeToString(hours, minutes, seconds)
             let training_obj = Object.assign({}, props.training)
             training_obj.multi_series = multi_series
             training_obj.time = string_time
             await props.updateTraining(training_obj)
-            //Display finish modal
-            // await handleMoveToScheduler(history)
+            await handleMoveToScheduler(history)
         }
         return (
             <div className="training">
@@ -102,7 +108,6 @@ const Trainingv2 = (props) => {
                         <div className="modify-data row__modify-data">
                             <input
                                 className="modify-data__input"
-                                // ref={weightRef}
                                 onChange={handleExtraWeight}
                                 placeholder={extra_weight}
                                 value={extraWeight}
@@ -117,7 +122,6 @@ const Trainingv2 = (props) => {
                         <div className="modify-data row__modify-data">
                             <input
                                 className="modify-data__input"
-                                // ref={repsRef}
                                 placeholder={reps}
                                 value={actualReps}
                                 onChange={handleReps}
@@ -128,23 +132,31 @@ const Trainingv2 = (props) => {
                     </div>
                     <div className="buttons content__buttons">
                         <button
-                            // id="endtraining"
-                            onClick={handleFinishTraining}
+                            onClick={() => setShowFinishTraining(true)}
                             className="buttons__finish standard-button"
-                            // ref={endbuttonRef}
-                            // onClick={handleEndTraining}
                         >Zakończ trening X
                         </button>
                         <button
                             onClick={handleMovetoAnotherSeries}
                             className="buttons__next standard-button"
-                            // ref={buttonRef} style={{visibility: endtraining ? 'hidden' : 'visible'}} onClick={goNext}
+                            style={{
+                                visibility:
+                                    actualMultiSeries === multi_series.length - 1 &&
+                                    actualSingleSeries ===
+                                    multi_series[multi_series.length - 1].single_series.length - 1
+                                        ? 'hidden'
+                                        : 'visible'
+                            }}
+                            // style={{visibility: actualMultiSeries===multi_series.length && actualSingleSeries === multi_series[multi_series.length-1].single_series.length -1 ? 'hidden' : 'visible'}}
+                            // onClick={goNext}
                             id="nextexercise"
                         >Przejdź dalej
                         </button>
 
                     </div>
                 </div>
+                <FinishTrainingModal showFinishTraining={showFinishTraining} setShowFinishTraining={setShowFinishTraining}
+                                     handleFinishTraining={handleFinishTraining}/>
 
             </div>
         );
