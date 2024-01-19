@@ -40,7 +40,7 @@ export function CreateDimension(props) {
             <form onSubmit={handleSubmit}>
                 <Modal.Header>
                     <Modal.Title>Stwórz pomiar</Modal.Title>
-                    <CloseButton variant="white"/>
+                    <CloseButton onClick={props.handleClose} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="createdimension__elements">
