@@ -62,7 +62,7 @@ export function CompareDimensions(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="standard-button" type="submit">Zamknij okno</button>
+                    <button className="standard-button" onClick={props.handleClose}>Zamknij okno</button>
                 </Modal.Footer>
             </Modal>
         </>

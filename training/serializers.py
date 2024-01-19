@@ -46,31 +46,31 @@ class UserDimensionSerializerConfigurationForCompare(serializers.ModelSerializer
     bodyfat = serializers.SerializerMethodField()
 
     def get_weight(self, obj):
-        return "Waga"
+        return "Waga(kg)"
 
     def get_growth(self, obj):
-        return "Wzrost"
+        return "Wzrost(cm)"
 
     def get_left_biceps(self, obj):
-        return "Lewy Biceps"
+        return "Lewy Biceps(cm)"
 
     def get_right_biceps(self, obj):
-        return "Prawy Biceps"
+        return "Prawy Biceps(cm)"
 
     def get_left_forearm(self, obj):
-        return "Lewe Ramię"
+        return "Lewe Ramię(cm)"
 
     def get_right_forearm(self, obj):
-        return "Prawe Ramię"
+        return "Prawe Ramię(cm)"
 
     def get_left_leg(self, obj):
-        return "Lewa Noga"
+        return "Lewa Noga(cm)"
 
     def get_right_leg(self, obj):
-        return "Prawa Noga"
+        return "Prawa Noga(cm)"
 
     def get_bodyfat(self, obj):
-        return "Tkanka tłuszczowa"
+        return "Tkanka tłuszczowa(%)"
 
     def __init__(self, instance=None, data=empty, **kwargs):
 
