@@ -12,15 +12,20 @@ const Settings = () => {
     return (
         <div className="settings">
             <h1 className="title settings__title">Ustawienia</h1>
-            <div className="settings__container">
-                <div className="settings__container__menu">
-                    <div className="settings__container__menu-dimensions settings__container__menu__element" onClick={()=>setActiveState("DIMENSIONS")}><FontAwesomeIcon size="2x" icon={faWeight}/></div>
-                    <div className="settings__container__menu-password settings__container__menu__element" onClick={()=>setActiveState("PASSWORD")}><FontAwesomeIcon size="2x" icon={faLock}/></div>
-                </div>
-                <div className="settings__container__options">
-                    {activeState === 'DIMENSIONS' && <SettingsDimensionItems />}
-                    {activeState === 'PASSWORD' && <SettingsPasswordItems />}
+            <div className="menu settings__menu">
+                <div className="menu__elements">
+                    <div className="choices menu__choices">
+                        <div className="choices__element"
+                             onClick={() => setActiveState("DIMENSIONS")}><FontAwesomeIcon size="2x" icon={faWeight}/>
+                        </div>
+                        <div className="choices__element"
+                             onClick={() => setActiveState("PASSWORD")}><FontAwesomeIcon size="2x" icon={faLock}/></div>
+                    </div>
+                    <div className="menu__options">
+                        {activeState === 'DIMENSIONS' && <SettingsDimensionItems/>}
+                        {activeState === 'PASSWORD' && <SettingsPasswordItems/>}
 
+                    </div>
                 </div>
             </div>
         </div>
