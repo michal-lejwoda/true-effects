@@ -1,6 +1,9 @@
 .settings{
   min-height: 100vh;
   padding: 0 10px 0 10px;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
   &__title{
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -9,6 +12,7 @@
 
   &__container{
     display:flex;
+
     &__menu{
       width: 100px;
       text-align: center;
@@ -38,5 +42,32 @@
       padding-bottom: 0.3rem;
       font-size: 1.1rem;
     }
+  }
+}
+
+.menu{
+  display:flex;
+  justify-content: center;
+  &__options{
+    padding-left: 1rem;
+  }
+  &__elements{
+    display:flex;
+  }
+  &__choices{
+    border-right: 2px solid white;
+
+  }
+}
+.choices{
+  &__element{
+    padding: 1rem 1rem 1.4rem;
+    //padding-bottom: 1.4rem;
+    //padding-right: 1rem;
+    //padding-top: 1rem;
+    //padding-left: 1rem;
+    border-bottom: 1px solid white;
+    text-align: center;
+
   }
 }
