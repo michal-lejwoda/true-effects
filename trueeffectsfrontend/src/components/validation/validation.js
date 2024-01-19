@@ -6,6 +6,14 @@ export const createGoalValidation = yup.object().shape({
     description: yup.string(),
 });
 
+export const updateGoalValidation = yup.object().shape({
+    finishDate: yup.string().min(8, "Wprowadź poprawną date").required('Wybierz date'),
+    goal: yup.string().min(2, "Cel jest za krótki").max(100, "Cel jest za długi wykorzystaj opis").required('Pole jest wymagane'),
+    description: yup.string(),
+    completed: yup.boolean().required()
+});
+
+
 export const settingsDimensionValidation = yup.object().shape({
     id: yup.number().required(),
     weight: yup.boolean().required(),

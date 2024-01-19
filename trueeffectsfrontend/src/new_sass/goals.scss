@@ -67,3 +67,9 @@
     border-bottom: 1px solid $beige;
   }
 }
+.inputs{
+  &__goal-completed{
+    padding-left: 1rem;
+    text-align: start;
+  }
+}
