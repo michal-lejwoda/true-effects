@@ -81,7 +81,7 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
 
 # TODO Fix this
-class UserGoalViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+class UserGoalViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserGoalSerializer
 

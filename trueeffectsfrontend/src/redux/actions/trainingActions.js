@@ -1,33 +1,27 @@
 import {
-    GET_TIME,
-    GET_TIME_SUCCESS,
-    GET_MEASUREMENTS_SUCCESS,
-    GET_MEASUREMENTS,
-    GET_TRAININGS,
-    GET_TRAININGS_SUCCESS,
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    CREATE_SINGLE_TRAINING_ERROR,
+    DELETE_MEASUREMENT_SUCCESS,
+    END_TRAINING_SUCCESS,
     GET_GOALS,
     GET_GOALS_SUCCESS,
-    POST_MEASUREMENT,
-    POST_MEASUREMENT_SUCCESS,
-    GET_EXERCISES,
-    DELETE_MEASUREMENT_SUCCESS,
-    GET_EXERCISES_SUCCESS,
-    GET_OWN_EXERCISES_SUCCESS,
-    END_TRAINING_SUCCESS,
-    POST_TIME,
+    GET_MEASUREMENTS,
+    GET_MEASUREMENTS_SUCCESS,
+    GET_SINGLE_TRAINING_SUCCESS,
+    GET_TIME,
+    GET_TIME_SUCCESS,
+    GET_TRAININGS_SUCCESS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
-    GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
-    GET_USER_DIMENSIONS_SUCCESS,
-    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSIONS_FOR_CREATE,
-    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
-    GET_SINGLE_TRAINING_SUCCESS,
+    GET_USER_DIMENSIONS_SUCCESS,
+    GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
+    POST_MEASUREMENT,
+    POST_MEASUREMENT_SUCCESS,
+    POST_TIME,
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
     UPDATE_SINGLE_TRAINING_SUCCESS,
-    CREATE_SINGLE_TRAINING_BASED_ON_OLD,
-    CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
-    LOGIN_ERROR,
-    CREATE_SINGLE_TRAINING_ERROR,
 } from './types';
 import axios from 'axios';
 
@@ -219,14 +213,19 @@ export const getGoalsToAchieve = () => (dispatch, getState) => {
         }));
 }
 
-export const putGoal = (data) => (dispatch, getState) => {
+export const putGoal = (data, id) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_goal/`, data)
-        .then(
-            alert("Pomiar został zaaktualizowany")
-        )
+    return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_goal/${id}/`, data)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+            console.log(err)
+            return err
+        })
 }
+
 
 export const postDimension = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
@@ -413,25 +412,25 @@ export const getExercises = (param) => (dispatch, getState) => {
             return err
         })
 }
-export const createUserExercise = (data) => (dispatch, getState) =>{
+export const createUserExercise = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/exercise/post_user_exercise/`, data)
-        .then(res =>{
+        .then(res => {
             return res
         })
-        .catch(err=>{
+        .catch(err => {
             // return err.response.data
             throw err
         })
     // .then(res => dispatch({
-        //     type: CREATE_USER_EXERCISE_SUCCESS,
-        //     payload: res.data
-        // }))
-        // .catch(err => {
-        //     dispatch({
-        //         type: CREATE_USER_EXERCISE_ERROR,
-        //         payload: err.response.data
-        //     })
-        // })
+    //     type: CREATE_USER_EXERCISE_SUCCESS,
+    //     payload: res.data
+    // }))
+    // .catch(err => {
+    //     dispatch({
+    //         type: CREATE_USER_EXERCISE_ERROR,
+    //         payload: err.response.data
+    //     })
+    // })
 }

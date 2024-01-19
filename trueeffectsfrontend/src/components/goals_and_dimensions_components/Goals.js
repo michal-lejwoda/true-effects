@@ -4,7 +4,14 @@ import {convertDate} from "../helpers/function_helpers";
 import {createGoalValidation} from "../validation/validation";
 import {useFormik} from "formik";
 import {connect} from "react-redux";
-import {getGoals, postGoal, postGoals} from "../../redux/actions/trainingActions";
+import {
+    getCompletedGoals,
+    getGoals,
+    getGoalsToAchieve,
+    postGoal,
+    postGoals,
+    putGoal
+} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import "../../new_sass/goals.scss"
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
@@ -94,12 +101,11 @@ const Goals = (props) => {
                         </div>
                     )
                 })}
-
             </div>
             <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
                         postGoals={props.postGoal}
             />
-            {selectedGoal && <CheckGoal selectedGoal={selectedGoal} showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}/>}
+            {selectedGoal && <CheckGoal putGoal={props.putGoal} getCompletedGoals={props.getCompletedGoals} getGoalsToAchieve={props.getGoalsToAchieve} selectedGoal={selectedGoal} showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}/>}
         </div>
 
     );
@@ -111,4 +117,4 @@ const mapStateToProps = (state) => {
 
     }
 }
-export default connect(mapStateToProps, {postGoal, getGoals})(Goals);
+export default connect(mapStateToProps, {postGoal, getGoals, putGoal, getCompletedGoals, getGoalsToAchieve})(Goals);

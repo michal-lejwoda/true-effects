@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal';
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
@@ -9,8 +9,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import {FormControlLabel} from "@material-ui/core";
 
 export function CheckGoal(props) {
-    const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
+    const {values, setFieldValue, handleSubmit, handleChange, errors, setErrors} = useFormik({
         initialValues: {
+            id: props.selectedGoal.id,
             goal: props.selectedGoal.goal,
             description: props.selectedGoal.description,
             completed: props.selectedGoal.completed,
@@ -21,23 +22,33 @@ export function CheckGoal(props) {
         validateOnChange: false,
         validationOnBlue: false,
         onSubmit: values => {
-            console.log("zmień")
-            console.log(values)
-            // handleSendGoals(values)
+            const data = {
+                "finish_date": values.finishDate,
+                "goal": values.goal,
+                "description": values.description,
+                "completed": values.completed,
+            }
+            props.putGoal(data, values.id)
+                .then(()=>{
+                    props.getGoalsToAchieve()
+                    props.getCompletedGoals()
+                    props.setShowCheckGoal(false)
+                })
+                .catch(error => {
+                    setErrors(error.response.data)
+                })
         },
     });
-
-    const handleSendGoals = async () => {
-        const data = {
-            "finish_date": values.finishDate,
-            "goal": values.goal,
-            "description": values.description,
-            "completed": false,
+    useEffect(() => {
+        if (props.selectedGoal !== null) {
+            setFieldValue("id", props.selectedGoal.id)
+            setFieldValue("goal", props.selectedGoal.goal)
+            setFieldValue("description", props.selectedGoal.description)
+            setFieldValue("completed", props.selectedGoal.completed)
+            setFieldValue("finishDate", props.selectedGoal.finish_date)
+            setFieldValue("finishJsDate", new Date(props.selectedGoal.finish_date))
         }
-        console.log("data")
-        console.log(data)
-        await props.postGoals(data)
-    }
+    }, [props.selectedGoal])
 
     return (
         <>
