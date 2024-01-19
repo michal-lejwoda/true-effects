@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// import '../../sass/addgoals.css';
 import "react-datepicker/dist/react-datepicker.css";
 import {convertDate} from "../helpers/function_helpers";
 import {createGoalValidation} from "../validation/validation";
@@ -8,12 +7,17 @@ import {connect} from "react-redux";
 import {getGoals, postGoal, postGoals} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import "../../new_sass/goals.scss"
+import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 
 
 const Goals = (props) => {
     console.log(props.userGoalsCompleted)
     console.log(props.userGoalsToAchieve)
     const [showCreateGoal, setShowCreateGoal] = useState(false);
+    const [showCheckGoal, setShowCheckGoal] = useState(false)
+    const [selectedGoal, setSelectedGoal] = useState(null)
+    console.log("selectedGoal")
+    console.log(selectedGoal)
     const handleCloseCreateGoal = () => setShowCreateGoal(false);
 
     const handleShowCreateGoal = () => setShowCreateGoal(true);
@@ -48,6 +52,12 @@ const Goals = (props) => {
         // await getGoals()
         // history.push("/")
     }
+    const handleCheckGoal = async (goal_obj) => {
+        await setSelectedGoal(goal_obj)
+        await setShowCheckGoal(true)
+
+    }
+
     return (
         <div className="goals">
             <div className="goals--unrealized">
@@ -62,7 +72,7 @@ const Goals = (props) => {
                             <div className="goals__date">{goal_obj.finish_date}</div>
                             <div className="goals__name">{goal_obj.goal}</div>
                             <div className="goals__check">
-                                <button className="standard-button">Sprawdź</button>
+                                <button className="standard-button" onClick={()=>handleCheckGoal(goal_obj)}>Sprawdź</button>
                             </div>
                         </div>
                     )
@@ -79,7 +89,7 @@ const Goals = (props) => {
                             <div className="goals__date">{goal_obj.finish_date}</div>
                             <div className="goals__name">{goal_obj.goal}</div>
                             <div className="goals__check">
-                                <button className="standard-button">Sprawdź</button>
+                                <button className="standard-button" onClick={()=>handleCheckGoal(goal_obj)}>Sprawdź</button>
                             </div>
                         </div>
                     )
@@ -89,7 +99,7 @@ const Goals = (props) => {
             <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
                         postGoals={props.postGoal}
             />
-            {/*<CheckGoal />*/}
+            {selectedGoal && <CheckGoal selectedGoal={selectedGoal} showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}/>}
         </div>
 
     );
