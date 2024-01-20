@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.validators import validate_email
 from rest_framework import serializers
 
@@ -54,3 +55,17 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
         fields = ('id',)
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password1 = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate(self, data):
+        form = PasswordChangeForm(self.context['request'].user, data)
+
+        if form.is_valid():
+            return data
+        else:
+            raise serializers.ValidationError(form.errors)

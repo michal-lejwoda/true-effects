@@ -196,6 +196,21 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def get_queryset(self):
         return Training.objects.filter(user=self.request.user).order_by('date')
 
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_last_completed_trainings(self, request):
+        current_timezone = timezone.now().date()
+        last_three_records = Training.objects.filter(user=self.request.user, date__lt=current_timezone).order_by('date')[:3]
+        serializer = self.get_serializer(last_three_records, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def get_upcoming_trainings(self, request):
+        current_timezone = timezone.now().date()
+        last_three_records = Training.objects.filter(user=self.request.user, date__gte=current_timezone).order_by(
+            'date')[:3]
+        serializer = self.get_serializer(last_three_records, many=True)
+        return Response(serializer.data)
+
 
 
 

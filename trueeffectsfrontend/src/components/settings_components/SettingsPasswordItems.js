@@ -1,47 +1,56 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {createGoalValidation} from "../validation/validation";
+import {changePasswordValidation, createGoalValidation} from "../validation/validation";
+import {postLogoutAuth} from "../../redux/actions/authenticationActions";
 
 
-export const SettingsPasswordItems = () => {
-    const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
+export const SettingsPasswordItems = (props) => {
+    console.log("props")
+    console.log(props)
+    const {values, handleSubmit, handleChange, setErrors, errors} = useFormik({
         initialValues: {
-            old_password: "", new_password: "", repeat_password: "",
+            old_password: "", new_password1: "", new_password2: "",
         },
-        // validationSchema: createGoalValidation,
+        validationSchema: changePasswordValidation,
         validateOnChange: false,
         validationOnBlue: false,
         onSubmit: values => {
-            // handleSendGoals(values)
+            console.log("values")
+            console.log(values)
+            props.changePassword(values)
+                .then(()=>{
+                    console.log("wtf")
+                    // props.postLogoutAuth()
+                })
+                .catch((err)=>{
+                    console.log(err.response.data)
+                    setErrors(err.response.data)
+                })
         },
     });
+    console.log("errors")
+    console.log(errors)
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <h2 className="settings__title">Zmiana hasła</h2>
-            {/*<label htmlFor="">Stare hasło</label>*/}
-            {/*<input type="text"/>*/}
             <div className="animatedInput">
-                <input name="old_password" onChange={handleChange} value={values.old_password} required="required"
-                       type="number"/>
+                <input name="old_password" onChange={handleChange} value={values.old_password} required={true}
+                       type="password"/>
                 <span>Stare hasło</span>
             </div>
-            {errors.new_password&& <p>{errors.new_password}</p>}
+            {errors.old_password && <p className="settings__errors">{errors.old_password}</p>}
             <div className="animatedInput">
-                <input name="old_password" onChange={handleChange} value={values.new_password} required="required"
-                       type="number"/>
+                <input name="new_password1" onChange={handleChange} value={values.new_password1} required={true}
+                       type="password"/>
                 <span>Nowe hasło</span>
             </div>
-            {errors.new_password && <p>{errors.new_password}</p>}
+            {errors.new_password1 && <p className="settings__errors">{errors.new_password1}</p>}
             <div className="animatedInput">
-                <input name="repeat_password" onChange={handleChange} value={values.repeat_password} required="required"
-                       type="number"/>
+                <input name="new_password2" onChange={handleChange} value={values.new_password2} required={true}
+                       type="password"/>
                 <span>Powtórz nowe hasło</span>
             </div>
-            {errors.repeat_password && <p>{errors.repeat_password}</p>}
-            {/*<label htmlFor="">Nowe hasło</label>*/}
-            {/*<input type="text"/>*/}
-            {/*<label htmlFor="">Powtórz nowe hasło</label>*/}
-            {/*<input type="text"/>*/}
+            {errors.new_password2 && <p className="settings__errors">{errors.new_password2}</p>}
             <div className="settings__accept-button">
                 <button className="standard-button" type="submit">Zapisz ustawienia</button>
             </div>

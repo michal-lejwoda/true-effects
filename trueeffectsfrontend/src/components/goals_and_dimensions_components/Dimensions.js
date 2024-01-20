@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension";
 import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
 import {connect} from "react-redux";
-import {getDimensions, getGoals, postDimension, postGoal} from "../../redux/actions/trainingActions";
+import {getDimensions, postDimension} from "../../redux/actions/trainingActions";
 import "../../new_sass/main.scss"
 import "../../new_sass/dimensions.scss"
 

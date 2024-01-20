@@ -23,13 +23,14 @@ import {
     getDimensions,
     getExercises,
     getGoals,
-    getGoalsToAchieve,
+    getGoalsToAchieve, getLastCompletedTrainings,
     getMeasurements,
     getSingleTraining,
-    getTrainings,
+    getTrainings, getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import '../sass/defaultcontainer.scss';
+import Dashboard from "./main_components/Dashboard";
 // import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
 
 
@@ -48,6 +49,8 @@ const DefaultContainer = (props) => {
             props.getSingleTraining(1);
             props.getGoalsToAchieve();
             props.getCompletedGoals();
+            props.getUpcomingTrainings();
+            props.getLastCompletedTrainings()
 
         }
     }, [props.token])
@@ -59,7 +62,7 @@ const DefaultContainer = (props) => {
             {/*<SideNavbar/>*/}
             {/*<div className="container_default">*/}
             {/*{props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? */}
-            <Route exact path="/" component={Homepage}/>
+            <Route exact path="/" component={Dashboard}/>
             <Route path="/addmeasurements" component={AddMeasurements}/>
             <Route path="/displaymeasurements" component={DisplayMeasurements}/>
             <Route path="/measurementsummary" component={AddMeasurementsSummary}/>
@@ -103,5 +106,7 @@ export default connect(mapStateToProps, {
     getExercises,
     postLogoutAuth,
     loadToken,
+    getLastCompletedTrainings,
+    getUpcomingTrainings
 
 })(DefaultContainer);
