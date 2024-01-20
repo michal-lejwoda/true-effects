@@ -9,10 +9,15 @@ import {handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
+import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 
 const ModifyTrainingv2 = (props) => {
+
     const history = useHistory()
     const [visibleElements, setVisibleElements] = useState([]);
+    const [removeTrainingModal, setRemoveTrainingModal] = useState(false);
+    const [differentDayModal, setDifferentDayModal] = useState(false);
     const handleModifyTraining = async (data) => {
         await props.updateTraining(data)
     }
@@ -41,10 +46,13 @@ const ModifyTrainingv2 = (props) => {
 
     return (
         <div className="modify-training">
+            <RemoveTrainingModal id={props.training.id} show={removeTrainingModal} handleClose={setRemoveTrainingModal} handleDeleteTraining={handleDeleteTraining}/>
+            <AddTrainingToDifferentDayModal show={differentDayModal} handleClose={setDifferentDayModal} />
             <Formik
                 initialValues={props.training}
                 onSubmit={(values, {setSubmitting}) => {
                     console.log("submit")
+                    handleModifyTraining(values)
                 }}>
                 {({
                       values,
@@ -64,6 +72,20 @@ const ModifyTrainingv2 = (props) => {
                                         onChange={(date) => setFieldValue('date', convertDate(date))
                                         }
                             />
+                            <div className="mt-data__buttons">
+                                <button className="standard-button"
+                                        onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
+                                </button>
+                                <button className="standard-button"
+                                        onClick={() => handleMoveToTraining(history)}>Trenuj ->
+                                </button>
+                                <button className="standard-button"
+                                        onClick={() => setDifferentDayModal(true)}>Dodaj trening do
+                                    innego dnia +
+                                </button>
+                                {/*<button className="standard-button" type="submit">Modyfikuj trening</button>*/}
+
+                            </div>
                             <div className="animatedInput">
                                 <Field onChange={handleChange} name="name" value={values.name} type="text"/>
                                 <span>Nazwa Treningu</span>
@@ -76,16 +98,16 @@ const ModifyTrainingv2 = (props) => {
                             </div>
                             <div className="mt-data--list">
                                 <div className="mt-data__buttons">
-                                    <button className="standard-button"
-                                            onClick={() => handleMoveToTraining(history)}>Trenuj ->
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => handleDeleteTraining(values.id)}>Usuń trening -
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do
-                                        innego dnia +
-                                    </button>
+                                    {/*<button className="standard-button"*/}
+                                    {/*        onClick={() => handleMoveToTraining(history)}>Trenuj ->*/}
+                                    {/*</button>*/}
+                                    {/*<button className="standard-button"*/}
+                                    {/*        onClick={() => handleDeleteTraining(values.id)}>Usuń trening -*/}
+                                    {/*</button>*/}
+                                    {/*<button className="standard-button"*/}
+                                    {/*        onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do*/}
+                                    {/*    innego dnia +*/}
+                                    {/*</button>*/}
                                     <button className="standard-button" type="submit">Modyfikuj trening</button>
 
                                 </div>
@@ -93,11 +115,12 @@ const ModifyTrainingv2 = (props) => {
                                     {values.multi_series.map((multiseries, index) => {
                                         return (
                                             <div className="multi-element multiseries__multi-element--collapse">
-                                                <div className="multi-element__container">
+                                                <div className="multi-element__container"
+                                                     onClick={() => toggleVisibility(multiseries)}>
                                                     <div
                                                         className="multi-element__name">{multiseries.exercise.name}</div>
                                                     <span className="buttons__button multi-element__button"
-                                                          onClick={() => toggleVisibility(multiseries)}>
+                                                    >
                                                         <FontAwesomeIcon icon={faPlus}/>
                                                     </span>
                                                 </div>
@@ -162,9 +185,9 @@ const ModifyTrainingv2 = (props) => {
                                     })}
                                 </div>
                             </div>
-                            <button onClick={() => handleModifyTraining(values)}>
-                                Modyfikuj
-                            </button>
+                            {/*<button onClick={() => handleModifyTraining(values)}>*/}
+                            {/*    Modyfikuj*/}
+                            {/*</button>*/}
                         </div>
                     </form>
                 )}
