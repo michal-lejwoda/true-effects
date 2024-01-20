@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createGoalValidation} from "../validation/validation";
-import {convertDate, handleDateForGoals} from "../helpers/function_helpers";
-import {postGoals} from "../../redux/actions/trainingActions";
+import {handleDateForGoals} from "../helpers/function_helpers";
 import {CloseButton} from "react-bootstrap";
 
 export function CreateGoal(props) {
@@ -70,7 +68,7 @@ export function CreateGoal(props) {
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">
-                        <button className="footer__button standard-button" type="submit" >Zapisz cel treningowy
+                        <button className="footer__button standard-button" type="submit">Zapisz cel treningowy
                         </button>
                     </Modal.Footer>
                 </form>

@@ -1,5 +1,5 @@
 import React from 'react';
-import {handleMovetoDimensions, handleMovetoGoals} from "../helpers/history_helpers";
+import {handleMovetoDimensions} from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
 
 const DashboardLastDimension = (props) => {

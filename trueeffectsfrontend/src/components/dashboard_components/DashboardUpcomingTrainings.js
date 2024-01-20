@@ -8,7 +8,8 @@ const DashboardUpcomingTrainings = (props) => {
         <div className="upcoming-trainings">
             <div className="completed-trainings__title dashboard__title">Zbliżające się treningi</div>
             <div className="upcoming-trainings__list">
-                {props.upcomingTrainings.length==0 && <p className="dashboard__error-message">Nie masz jeszcze zaplanowanych żadnych treningów</p>}
+                {props.upcomingTrainings.length == 0 &&
+                    <p className="dashboard__error-message">Nie masz jeszcze zaplanowanych żadnych treningów</p>}
                 {props.upcomingTrainings.map(upcoming_training => {
                     return (
                         <div className="upcoming_training__item" key={upcoming_training.id}>

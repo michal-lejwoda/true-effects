@@ -20,8 +20,6 @@ const SettingsDimensionItems = (props) => {
             left_leg: props.userDimensionConfiguration.left_leg,
             right_leg: props.userDimensionConfiguration.right_leg,
             bodyfat: props.userDimensionConfiguration.bodyfat
-
-
         },
         validationSchema: settingsDimensionValidation,
         validateOnChange: false,
