@@ -57,7 +57,7 @@ const SettingsDimensionItems = (props) => {
             <Form.Check
                 type="switch"
                 className="settings__dimensions__element"
-                id="custom-switch"
+                id="weight"
                 name="weight"
                 onChange={handleChange}
                 checked={values.weight}
@@ -66,7 +66,7 @@ const SettingsDimensionItems = (props) => {
             <Form.Check
                 type="switch"
                 className="settings__dimensions__element"
-                id="custom-switch"
+                id="growth"
                 name="growth"
                 onChange={handleChange}
                 checked={values.growth}
@@ -75,7 +75,7 @@ const SettingsDimensionItems = (props) => {
             <Form.Check
                 type="switch"
                 className="settings__dimensions__element"
-                id="custom-switch"
+                id="left_biceps"
                 name="left_biceps"
                 onChange={handleChange}
                 checked={values.left_biceps}
@@ -84,7 +84,7 @@ const SettingsDimensionItems = (props) => {
             <Form.Check
                 type="switch"
                 className="settings__dimensions__element"
-                id="custom-switch"
+                id="right_biceps"
                 name="right_biceps"
                 onChange={handleChange}
                 checked={values.right_biceps}
@@ -93,48 +93,51 @@ const SettingsDimensionItems = (props) => {
             <Form.Check
                 type="switch"
                 className="settings__dimensions__element"
-                id="custom-switch"
+                id="left_forearm"
                 name="left_forearm"
                 onChange={handleChange}
                 checked={values.left_forearm}
                 label="Wyświetlaj lewe przedramię"
-            /><Form.Check
-            type="switch"
-            className="settings__dimensions__element"
-            id="custom-switch"
-            name="right_forearm"
-            onChange={handleChange}
-            checked={values.right_forearm}
-            label="Wyświetlaj prawe przedramię"
-        /><Form.Check // prettier-ignore
-            type="switch"
-            className="settings__dimensions__element"
-            id="custom-switch"
-            name="left_leg"
-            onChange={handleChange}
-            checked={values.left_leg}
-            label="Wyświetlaj lewą nogę"
-        /><Form.Check
-            type="switch"
-            className="settings__dimensions__element"
-            id="custom-switch"
-            name="right_leg"
-            onChange={handleChange}
-            checked={values.right_leg}
-            label="Wyświetlaj prawą nogę"
-        /><Form.Check
-            type="switch"
-            className="settings__dimensions__element"
-            id="custom-switch"
-            name="bodyfat"
-            onChange={handleChange}
-            checked={values.bodyfat}
-            label="Wyświetlaj bodyfat"
-        />
+            />
+            <Form.Check
+                type="switch"
+                className="settings__dimensions__element"
+                id="right_forearm"
+                name="right_forearm"
+                onChange={handleChange}
+                checked={values.right_forearm}
+                label="Wyświetlaj prawe przedramię"
+            />
+            <Form.Check
+                type="switch"
+                className="settings__dimensions__element"
+                id="left_leg"
+                name="left_leg"
+                onChange={handleChange}
+                checked={values.left_leg}
+                label="Wyświetlaj lewą nogę"
+            />
+            <Form.Check
+                type="switch"
+                className="settings__dimensions__element"
+                id="right_leg"
+                name="right_leg"
+                onChange={handleChange}
+                checked={values.right_leg}
+                label="Wyświetlaj prawą nogę"
+            />
+            <Form.Check
+                type="switch"
+                className="settings__dimensions__element"
+                id="bodyfat"
+                name="bodyfat"
+                onChange={handleChange}
+                checked={values.bodyfat}
+                label="Wyświetlaj bodyfat"
+            />
             <div className="settings__accept-button">
                 <button className="standard-button" type="submit">Zapisz ustawienia</button>
             </div>
-            {/*</Form>*/}
         </form>
     );
 };
