@@ -6,10 +6,11 @@ const DashboardUpcomingTrainings = (props) => {
     }
     return (
         <div className="upcoming-trainings">
+            <div className="completed-trainings__title">Zbliżające się treningi</div>
             <div className="upcoming-trainings__list">
                 {props.upcomingTrainings.map(upcoming_training => {
                     return (
-                        <div className="upcoming_training__item">
+                        <div className="upcoming_training__item" key={upcoming_training.id}>
                             <p className="upcoming_training__date">{upcoming_training.date}</p>
                             <p className="upcoming_training__name">{upcoming_training.name}</p>
                             <button onClick={()=>handleGoToTraining(upcoming_training.id)} className="upcoming_training__button">Trenuj teraz</button>

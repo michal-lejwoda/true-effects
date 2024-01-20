@@ -3,11 +3,12 @@ import {connect} from "react-redux";
 import DashboardCompletedTrainings from "../dashboard_components/DashboardCompletedTrainings";
 import DashboardLastDimension from "../dashboard_components/DashboardLastDimension";
 import DashboardUpcomingTrainings from "../dashboard_components/DashboardUpcomingTrainings";
+import "../../new_sass/dashboard.scss";
 
 const Dashboard = props => {
     return (
         <div className="dashboard">
-            <h1 className="dashboard__title">Dashboard</h1>
+            <h1 className="title dashboard__title">Strona domowa</h1>
             <div className="main-information dashboard__main-information">
                 <div className="main-information__upcoming-trainings"><DashboardUpcomingTrainings
                     upcomingTrainings={props.upcomingTrainings}/></div>

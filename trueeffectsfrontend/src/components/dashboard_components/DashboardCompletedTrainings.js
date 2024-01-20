@@ -6,13 +6,14 @@ const DashboardCompletedTrainings = (props) => {
     }
     return (
         <div className="completed-trainings">
+            <div className="completed-trainings__title">Treninigi już zrealizowane</div>
             <div className="completed-trainingss__list">
-                {props.lastCompletedTrainings.map(upcoming_training => {
+                {props.lastCompletedTrainings.map(completed_training => {
                     return (
-                        <div className="completed-trainings__item">
-                            <p className="completed-trainings__date">{upcoming_training.date}</p>
-                            <p className="completed-trainings__name">{upcoming_training.name}</p>
-                            <button onClick={() => handleGoToTraining(upcoming_training.id)}
+                        <div className="completed-trainings__item" key={completed_training.id}>
+                            <p className="completed-trainings__date">{completed_training.date}</p>
+                            <p className="completed-trainings__name">{completed_training.name}</p>
+                            <button onClick={() => handleGoToTraining(completed_training.id)}
                                     className="completed-trainings__button">Trenuj teraz
                             </button>
                         </div>
