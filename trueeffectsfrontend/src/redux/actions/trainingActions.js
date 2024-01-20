@@ -4,13 +4,13 @@ import {
     DELETE_MEASUREMENT_SUCCESS,
     END_TRAINING_SUCCESS,
     GET_GOALS,
-    GET_GOALS_SUCCESS,
+    GET_GOALS_SUCCESS, GET_LAST_COMPLETED_TRAININGS,
     GET_MEASUREMENTS,
     GET_MEASUREMENTS_SUCCESS,
     GET_SINGLE_TRAINING_SUCCESS,
     GET_TIME,
     GET_TIME_SUCCESS,
-    GET_TRAININGS_SUCCESS,
+    GET_TRAININGS_SUCCESS, GET_UPCOMING_TRAININGS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
@@ -221,7 +221,6 @@ export const putGoal = (data, id) => (dispatch, getState) => {
             return res.data
         })
         .catch(err => {
-            console.log(err)
             return err
         })
 }
@@ -423,14 +422,30 @@ export const createUserExercise = (data) => (dispatch, getState) => {
             // return err.response.data
             throw err
         })
-    // .then(res => dispatch({
-    //     type: CREATE_USER_EXERCISE_SUCCESS,
-    //     payload: res.data
-    // }))
-    // .catch(err => {
-    //     dispatch({
-    //         type: CREATE_USER_EXERCISE_ERROR,
-    //         payload: err.response.data
-    //     })
-    // })
+}
+
+export const getLastCompletedTrainings = (data) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/trainings/get_last_completed_trainings/`)
+        .then(res => dispatch({
+            type: GET_LAST_COMPLETED_TRAININGS,
+            payload: res.data
+        }))
+        .catch(err => {
+            throw err
+        })
+}
+
+export const getUpcomingTrainings = (data) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/trainings/get_upcoming_trainings/`)
+        .then(res => dispatch({
+            type: GET_UPCOMING_TRAININGS,
+            payload: res.data
+        }))
+        .catch(err => {
+            throw err
+        })
 }

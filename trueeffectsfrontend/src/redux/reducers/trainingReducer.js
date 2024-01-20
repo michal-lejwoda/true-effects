@@ -8,13 +8,13 @@ import {
     GET_EXERCISES,
     GET_EXERCISES_SUCCESS,
     GET_GOALS,
-    GET_GOALS_SUCCESS,
+    GET_GOALS_SUCCESS, GET_LAST_COMPLETED_TRAININGS,
     GET_MEASUREMENTS,
     GET_MEASUREMENTS_SUCCESS,
     GET_OWN_EXERCISES_SUCCESS,
     GET_SINGLE_TRAINING_SUCCESS,
     GET_TRAININGS,
-    GET_TRAININGS_SUCCESS,
+    GET_TRAININGS_SUCCESS, GET_UPCOMING_TRAININGS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
@@ -59,6 +59,8 @@ const initialState = {
     create_single_training_error: null,
     create_single_training_error_message: null,
     createUserExerciseError: null,
+    upcomingTrainings: [],
+    lastCompletedTrainings: [],
 
 
 };
@@ -218,6 +220,16 @@ export default function trainreducer(state = initialState, action) {
             return {
                 ...state,
                 createUserExerciseError: "Nie udało się utworzyć ćwiczenia"
+            }
+        case GET_LAST_COMPLETED_TRAININGS:
+            return {
+                ...state,
+                lastCompletedTrainings: action.payload
+            }
+        case GET_UPCOMING_TRAININGS:
+            return {
+                ...state,
+                upcomingTrainings: action.payload
             }
 
         default:

@@ -15,6 +15,18 @@ import {useCookies} from "react-cookie";
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
 
 
+export const changePassword = (data) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/change_password/`, data)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+                throw err
+            }
+        )
+}
 export const postLogin = (data) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
     axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
@@ -23,10 +35,10 @@ export const postLogin = (data) => dispatch => {
             window.localStorage.getItem('name', res.data.name)
         })
         .then(res => dispatch({
-            type: POST_LOGIN,
-            payload: res,
+                type: POST_LOGIN,
+                payload: res,
 
-        })
+            })
         )
         .catch(res => dispatch({
             type: LOGIN_ERROR,
@@ -38,7 +50,7 @@ export const postRegister = (data, handleSetToken) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
 
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
-        .then(res =>{
+        .then(res => {
             handleSetToken(res.data.token)
             return res
         })
@@ -92,9 +104,6 @@ export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
         .then(res => dispatch({
             type: AUTH_ERROR
         }))
-        // .then(res => dispatch({
-        //     type: POST_LOGOUT,
-        // }))
 
 }
 

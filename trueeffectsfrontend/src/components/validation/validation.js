@@ -86,6 +86,15 @@ export const registerUserValidation = yup.object().shape({
 })
 
 export const createExerciseModalValidation = yup.object().shape({
-    name: yup.string()
+    name: yup.string().required('Stare hasło jest wymagane'),
+    password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
         // .min(2, "Nazwa ćwiczenia jest za krótka")
+})
+
+export const changePasswordValidation = yup.object().shape({
+    old_password: yup.string().required('Pole stare hasło jest wymagane'),
+    new_password1: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    new_password2: yup.string()
+        .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
+        .required('Potwierdzenie hasła jest wymagane.'),
 })
