@@ -56,8 +56,7 @@ const Goals = (props) => {
         }
         await postGoals(data)
         await getGoals()
-        // await getGoals()
-        // history.push("/")
+
     }
     const handleCheckGoal = async (goal_obj) => {
         await setSelectedGoal(goal_obj)
@@ -103,7 +102,7 @@ const Goals = (props) => {
                 })}
             </div>
             <CreateGoal show={showCreateGoal} handleClose={handleCloseCreateGoal} handleShow={handleShowCreateGoal}
-                        postGoals={props.postGoal}
+                        postGoals={props.postGoal} getCompletedGoals={props.getCompletedGoals} getGoalsToAchieve={props.getGoalsToAchieve}
             />
             {selectedGoal && <CheckGoal putGoal={props.putGoal} getCompletedGoals={props.getCompletedGoals} getGoalsToAchieve={props.getGoalsToAchieve} selectedGoal={selectedGoal} showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}/>}
         </div>
