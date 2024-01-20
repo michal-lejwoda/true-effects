@@ -5,8 +5,6 @@ import {postLogoutAuth} from "../../redux/actions/authenticationActions";
 
 
 export const SettingsPasswordItems = (props) => {
-    console.log("props")
-    console.log(props)
     const {values, handleSubmit, handleChange, setErrors, errors} = useFormik({
         initialValues: {
             old_password: "", new_password1: "", new_password2: "",
@@ -15,21 +13,14 @@ export const SettingsPasswordItems = (props) => {
         validateOnChange: false,
         validationOnBlue: false,
         onSubmit: values => {
-            console.log("values")
-            console.log(values)
             props.changePassword(values)
-                .then(()=>{
-                    console.log("wtf")
-                    // props.postLogoutAuth()
-                })
                 .catch((err)=>{
-                    console.log(err.response.data)
+
                     setErrors(err.response.data)
                 })
         },
     });
-    console.log("errors")
-    console.log(errors)
+
     return (
         <form onSubmit={handleSubmit}>
             <h2 className="settings__title">Zmiana hasła</h2>
