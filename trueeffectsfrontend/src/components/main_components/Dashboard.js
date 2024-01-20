@@ -8,7 +8,7 @@ import "../../new_sass/dashboard.scss";
 const Dashboard = props => {
     return (
         <div className="dashboard">
-            <h1 className="title dashboard__title">Strona domowa</h1>
+            <h1 className="title">Strona domowa</h1>
             <div className="main-information dashboard__main-information">
                 <div className="main-information__upcoming-trainings"><DashboardUpcomingTrainings
                     upcomingTrainings={props.upcomingTrainings}/></div>

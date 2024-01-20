@@ -3,6 +3,7 @@ import React from 'react';
 const DashboardLastDimension = (props) => {
     return (
         <div className="last-dimension">
+            <div className="last-dimension__title dashboard__title">Ostatni pomiar</div>
             {props.userDimensions.length > 0 ?
                 Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                     return (
@@ -15,7 +16,7 @@ const DashboardLastDimension = (props) => {
                             </div>
                         </div>
                     )
-                }) : <p>Nie masz jeszcze żadnych pomiarów</p>}
+                }) : <p className="dashboard__error-message">Nie masz jeszcze żadnych pomiarów</p>}
         </div>
     );
 };
