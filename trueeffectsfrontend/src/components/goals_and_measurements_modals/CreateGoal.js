@@ -32,6 +32,9 @@ export function CreateGoal(props) {
             "completed": false,
         }
         await props.postGoals(data)
+        await props.getCompletedGoals()
+        await props.getGoalsToAchieve()
+        await props.handleClose()
     }
     return (
         <>
