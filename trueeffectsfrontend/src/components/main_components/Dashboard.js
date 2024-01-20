@@ -10,12 +10,18 @@ const Dashboard = props => {
         <div className="dashboard">
             <h1 className="title">Strona domowa</h1>
             <div className="main-information dashboard__main-information">
-                <div className="main-information__upcoming-trainings"><DashboardUpcomingTrainings
-                    upcomingTrainings={props.upcomingTrainings}/></div>
-                <div className="main-information__completed-trainings"><DashboardCompletedTrainings
-                    lastCompletedTrainings={props.lastCompletedTrainings}/></div>
-                <div className="main-information__last-dimension"><DashboardLastDimension
-                    userDimensions={props.userDimensions}/></div>
+                <div className="main-information__upcoming-trainings">
+                    <DashboardUpcomingTrainings
+                        upcomingTrainings={props.upcomingTrainings}/>
+                </div>
+                <div className="main-information__completed-trainings">
+                    <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings}/>
+                </div>
+                <div className="main-information__last-dimension">
+                    <DashboardLastDimension userDimensions={props.userDimensions}
+                                            userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                    />
+                </div>
             </div>
         </div>
     );
@@ -25,9 +31,9 @@ const mapStateToProps = (state) => {
     return {
         upcomingTrainings: state.training.upcomingTrainings,
         lastCompletedTrainings: state.training.lastCompletedTrainings,
-        userDimensionConfiguration: state.training.userDimensionConfiguration,
+        userDimensionConfigurationForCompare: state.training.userDimensionConfigurationForCompare,
         userDimensions: state.training.userDimensions,
-        userDimensionsForCreate: state.training.userDimensionsForCreate,
+        // userDimensionsForCreate: state.training.userDimensionsForCreate,
 
     }
 }

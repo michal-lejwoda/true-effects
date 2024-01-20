@@ -1,9 +1,17 @@
 import React from 'react';
+import {handleMovetoDimensions, handleMovetoGoals} from "../helpers/history_helpers";
+import {useHistory} from "react-router-dom";
 
 const DashboardLastDimension = (props) => {
+    const history = useHistory()
     return (
         <div className="last-dimension">
             <div className="last-dimension__title dashboard__title">Ostatni pomiar</div>
+            <div className="last-dimension__button dashboard__buttons">
+                <button onClick={() => handleMovetoDimensions(history)}
+                        className="upcoming_training__button dashboard__button">Przejdź do pomiarów
+                </button>
+            </div>
             {props.userDimensions.length > 0 ?
                 Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                     return (
