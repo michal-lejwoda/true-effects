@@ -24,7 +24,7 @@ import {
     getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
-import {useAuth} from "./hooks/useAuth";
+import {useAuth} from "./hooks/auth/useAuth";
 
 
 
