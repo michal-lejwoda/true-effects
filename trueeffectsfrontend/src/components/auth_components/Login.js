@@ -5,7 +5,7 @@ import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
-import {useLogin} from "../hooks";
+import {useLogin} from "../hooks/auth/useLogin";
 
 const Login = (props) => {
     const [handleMoveToRegister, handleMovetoBack, handleChange, handleSubmit, errors] = useLogin(props)

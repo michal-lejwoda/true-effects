@@ -1,12 +1,11 @@
 import React from 'react';
-// import '../../sass/register.scss';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import {connect} from 'react-redux';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {postRegister} from "../../redux/actions/authenticationActions";
-import {useRegister} from "../hooks";
 import "../../new_sass/register.scss";
+import {useRegister} from "../hooks/auth/useRegister";
 
 const Register = (props) => {
     const [handleMoveToLogin, handleMovetoBack, handleChange, handleSubmit, errors] = useRegister(props)

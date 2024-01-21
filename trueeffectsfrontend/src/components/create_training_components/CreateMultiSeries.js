@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from "formik";
 import AsyncSelect from "react-select/async";
-import {useCreateMultiSeries} from "../hooks";
+import {useCreateMultiSeries} from "../hooks/useCreateMultiSeries";
 
 const CreateMultiSeries = (props) => {
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
@@ -21,8 +21,6 @@ const CreateMultiSeries = (props) => {
         validationOnBlue: false,
     });
     const [loadExercises, addToSingleSeries, addMultiSingleSeries, handleChangeExercise] = useCreateMultiSeries(props, values, setFieldValue, setErrors)
-    console.log("props.defaultExercises")
-    console.log(props.defaultExercises)
     return (
         <form className="create-series create-training__create-series" onSubmit={handleSubmit}>
             <h1 className="create-series__title">Stwórz Serie</h1>

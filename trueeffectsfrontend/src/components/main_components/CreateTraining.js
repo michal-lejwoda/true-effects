@@ -4,12 +4,12 @@ import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
 import {createTraining, createUserExercise, getExercises, getTrainings} from "../../redux/actions/trainingActions";
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
-import '../../new_sass/create_training.scss'
 import {convertDate} from "../helpers/function_helpers";
-import {useCreateTraining} from "../hooks";
 import CreatedTrainingModal from "../create_training_components/modals/CreatedTrainingModal";
 import {useHistory} from "react-router-dom";
 import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
+import {useCreateTraining} from "../hooks/training/useCreateTraining";
+import '../../new_sass/create_training.scss'
 
 const CreateTraining = (props) => {
     const history = useHistory()
@@ -77,7 +77,6 @@ const CreateTraining = (props) => {
                                  setDefaultExercises={setDefaultExercises}
 
             />
-
         </div>);
 };
 
