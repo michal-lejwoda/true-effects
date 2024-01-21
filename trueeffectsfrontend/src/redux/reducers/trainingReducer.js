@@ -13,29 +13,13 @@ import {
     GET_USER_DIMENSIONS_FOR_CREATE,
     GET_USER_DIMENSIONS_SUCCESS,
     GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
-    POST_LOGOUT,
     PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
     UPDATE_SINGLE_TRAINING_SUCCESS
 } from '../actions/types';
 
 const initialState = {
-    measurements: [],
     trainings: [],
-    goals: [],
-    defaultexercises: [],
-    loadingtrainings: false,
     loadedtrainings: false,
-    loadingmeasurements: false,
-    loadedmeasurements: false,
-    loadinggoals: false,
-    loadedgoals: false,
-    loadingexercises: false,
-    loadedexercises: false,
-    loadedtime: false,
-    ownexercises: [],
-    seconds: '',
-    minutes: '',
-    hours: '',
     userGoalsToAchieve: null,
     userGoalsCompleted: null,
     userDimensions: [],
@@ -59,16 +43,6 @@ export default function trainreducer(state = initialState, action) {
             return {
                 ...state,
                 trainings: action.payload,
-            }
-        case POST_LOGOUT:
-            return {
-                ...state,
-                measurements: [],
-                trainings: [],
-                goals: [],
-                loadedtrainings: false,
-                loadedgoals: false,
-                loadedmeasurements: false
             }
         case GET_USER_COMPLETED_GOALS_SUCCESS:
             return {

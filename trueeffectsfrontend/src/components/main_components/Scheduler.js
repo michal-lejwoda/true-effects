@@ -3,14 +3,11 @@ import {Calendar, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import {connect} from 'react-redux';
-// import { getMeasurements, getTrainings, getGoals } from '../redux/actions/trainingActions';
-// import ModalDisplayTraining from './ModalDisplayTraining';
 import 'moment/locale/pl';
 import "../../new_sass/scheduler.scss"
 import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
 import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
-
 require('moment/locale/pl.js')
 
 const Scheduler = (props) => {
@@ -49,8 +46,6 @@ const Scheduler = (props) => {
                                                      show={showModal} handleClose={handleCloseModal}
                                                      getSingleTraining={getSingleTraining}
                                                      trainingForModal={props.trainingForModal}/>}
-                {/*{modalopen && <ModalDisplayTraining back={this.handleBacktoSchedule} allprops={this.props} open={this.state.modalopen} training={this.state.training} date={this.state.date} time={this.state.time} description={this.state.description} title={this.state.title} alldata={this.state.alldata} />}*/}
-
             </div>
 
         </div>
@@ -59,7 +54,6 @@ const Scheduler = (props) => {
 const mapStateToProps = (state) => {
     return {
         trainings: state.training.trainings.data,
-        loadedtrainings: state.training.loadedtrainings,
         trainingForModal: state.training.trainingForModal
     }
 }
