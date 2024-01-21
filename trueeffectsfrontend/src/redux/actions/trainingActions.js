@@ -324,8 +324,6 @@ export const putDimensionConfiguration = (data) => (dispatch, getState) => {
 
 export const getDimensionConfiguration = () => (dispatch, getState) => {
     let token = getState().authentication.token
-    console.log("tokenget")
-    console.log(token)
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_dimension_configuration/get_user_dimension_config/`)
         .then(res => dispatch({
@@ -377,16 +375,24 @@ export const createTraining = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/single_training/`, data)
-        .then(res => dispatch({
-            type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
-            payload: res.data
-        }))
-        .catch(err => {
-            dispatch({
-                type: CREATE_SINGLE_TRAINING_ERROR,
-                payload: err.response.data
-            })
+        .then(res => {
+            return res.data
         })
+        .catch(err => {
+            // return err.response.data
+            throw err
+        })
+    // .then(res => dispatch({
+    //     type: CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    //     payload: res.data
+    // }))
+    // .catch(err => {
+    //     dispatch({
+    //         type: CREATE_SINGLE_TRAINING_ERROR,
+    //         payload: err.response.data
+    //     })
+    // })
+
 }
 
 export const deleteCurrentTraining = (id) => (dispatch, getState) => {

@@ -1,3 +1,5 @@
+import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
+
 const yup = require("yup");
 
 export const createGoalValidation = yup.object().shape({
@@ -97,4 +99,9 @@ export const changePasswordValidation = yup.object().shape({
     new_password2: yup.string()
         .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
         .required('Potwierdzenie hasła jest wymagane.'),
+})
+
+export const addTrainingToDifferentDayValidation = yup.object().shape({
+    name: yup.string().min(2, "Nazwa treningu jest za krótka").required("Pole name nie może być puste"),
+    date: yup.string().min(8, "Data się nie zgadza").required("Pole data nie może być puste")
 })

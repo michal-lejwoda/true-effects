@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Field, Formik} from "formik";
 import {connect} from "react-redux";
-import {createTraining, deleteCurrentTraining, updateTraining} from "../../redux/actions/trainingActions";
+import {createTraining, deleteCurrentTraining, getTrainings, updateTraining} from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
 import {convertDate} from "../helpers/function_helpers";
 import {useHistory} from "react-router-dom";
-import {handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -43,11 +43,18 @@ const ModifyTrainingv2 = (props) => {
             }
         });
     };
-
+    console.log("visible elmenets")
+    console.log(visibleElements)
     return (
         <div className="modify-training">
-            <RemoveTrainingModal id={props.training.id} show={removeTrainingModal} handleClose={setRemoveTrainingModal} handleDeleteTraining={handleDeleteTraining}/>
-            <AddTrainingToDifferentDayModal show={differentDayModal} handleClose={setDifferentDayModal} />
+            <RemoveTrainingModal id={props.training.id} show={removeTrainingModal} handleClose={setRemoveTrainingModal}
+                                 getTrainings={props.getTrainings} handleDeleteTraining={handleDeleteTraining}
+                                 handleMoveToScheduler={handleMoveToScheduler} history={props.history}/>
+            <AddTrainingToDifferentDayModal show={differentDayModal} handleClose={setDifferentDayModal}
+                                            training={props.training} createTraining={props.createTraining}
+                                            getTrainings={props.getTrainings} handleMoveToScheduler={handleMoveToScheduler}
+                                            history={props.history}
+            />
             <Formik
                 initialValues={props.training}
                 onSubmit={(values, {setSubmitting}) => {
@@ -83,7 +90,6 @@ const ModifyTrainingv2 = (props) => {
                                         onClick={() => setDifferentDayModal(true)}>Dodaj trening do
                                     innego dnia +
                                 </button>
-                                {/*<button className="standard-button" type="submit">Modyfikuj trening</button>*/}
 
                             </div>
                             <div className="animatedInput">
@@ -116,7 +122,7 @@ const ModifyTrainingv2 = (props) => {
                                         return (
                                             <div className="multi-element multiseries__multi-element--collapse">
                                                 <div className="multi-element__container"
-                                                     onClick={() => toggleVisibility(multiseries)}>
+                                                     onClick={() => toggleVisibility(index)}>
                                                     <div
                                                         className="multi-element__name">{multiseries.exercise.name}</div>
                                                     <span className="buttons__button multi-element__button"
@@ -126,7 +132,7 @@ const ModifyTrainingv2 = (props) => {
                                                 </div>
                                                 <div
                                                     className="single-series multi-element__single-series--expanded">
-                                                    {visibleElements.includes(multiseries) && multiseries.single_series.map((singleseries, indexv2) => {
+                                                    {visibleElements.includes(index) && multiseries.single_series.map((singleseries, indexv2) => {
                                                         return (
                                                             <div className="single-series__element">
                                                                 <p className="single-series__series-num">Seria {indexv2 + 1}</p>
@@ -146,7 +152,7 @@ const ModifyTrainingv2 = (props) => {
                                                                 </div>
                                                                 <div className="animatedInput">
                                                                     <Field onChange={handleChange}
-                                                                           name={`multi_series[${index}].single_series[${indexv2}].concentricphase`}
+                                                                           name={`multi_series[${index}].single_series[${indexv2}].concentric_phase`}
                                                                            value={singleseries.concentric_phase}
                                                                            type="text"/>
                                                                     <span>Faza koncentryczna</span>
@@ -163,7 +169,7 @@ const ModifyTrainingv2 = (props) => {
                                                                     className="animatedInput">
                                                                     <Field
                                                                         value={singleseries.eccentric_phase}
-                                                                        name={`multi_series[${index}].single_series[${indexv2}].eccentricphase`}
+                                                                        name={`multi_series[${index}].single_series[${indexv2}].eccentric_phase`}
                                                                         onChange={handleChange} type="text"/>
                                                                     <span>Faza ekscentryczna</span>
                                                                 </div>
@@ -185,9 +191,6 @@ const ModifyTrainingv2 = (props) => {
                                     })}
                                 </div>
                             </div>
-                            {/*<button onClick={() => handleModifyTraining(values)}>*/}
-                            {/*    Modyfikuj*/}
-                            {/*</button>*/}
                         </div>
                     </form>
                 )}
@@ -201,4 +204,9 @@ const mapStateToProps = (state) => {
         training: state.training.training,
     }
 }
-export default connect(mapStateToProps, {updateTraining, createTraining, deleteCurrentTraining})(ModifyTrainingv2);
+export default connect(mapStateToProps, {
+    updateTraining,
+    createTraining,
+    deleteCurrentTraining,
+    getTrainings
+})(ModifyTrainingv2);
