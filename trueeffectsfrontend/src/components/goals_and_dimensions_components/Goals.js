@@ -4,27 +4,17 @@ import {convertDate} from "../helpers/function_helpers";
 import {createGoalValidation} from "../validation/validation";
 import {useFormik} from "formik";
 import {connect} from "react-redux";
-import {
-    getCompletedGoals,
-    getGoals,
-    getGoalsToAchieve,
-    postGoal,
-    postGoals,
-    putGoal
-} from "../../redux/actions/trainingActions";
+import {getCompletedGoals, getGoalsToAchieve, postGoal, putGoal} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
-import "../../new_sass/goals.scss"
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
+import "../../new_sass/goals.scss"
+
 
 
 const Goals = (props) => {
-    console.log(props.userGoalsCompleted)
-    console.log(props.userGoalsToAchieve)
     const [showCreateGoal, setShowCreateGoal] = useState(false);
     const [showCheckGoal, setShowCheckGoal] = useState(false)
     const [selectedGoal, setSelectedGoal] = useState(null)
-    console.log("selectedGoal")
-    console.log(selectedGoal)
     const handleCloseCreateGoal = () => setShowCreateGoal(false);
 
     const handleShowCreateGoal = () => setShowCreateGoal(true);
@@ -54,9 +44,9 @@ const Goals = (props) => {
             "goal": values.goal,
             "description": values.description,
         }
-        await postGoals(data)
-        await getGoals()
-
+        await postGoal(data)
+        getCompletedGoals()
+        getGoalsToAchieve()
     }
     const handleCheckGoal = async (goal_obj) => {
         await setSelectedGoal(goal_obj)
@@ -125,4 +115,4 @@ const mapStateToProps = (state) => {
 
     }
 }
-export default connect(mapStateToProps, {postGoal, getGoals, putGoal, getCompletedGoals, getGoalsToAchieve})(Goals);
+export default connect(mapStateToProps, {postGoal, putGoal, getCompletedGoals, getGoalsToAchieve})(Goals);
