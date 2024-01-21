@@ -1,11 +1,9 @@
 import React from 'react';
-// import '../../sass/login.scss';
 import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from "../AuthenticateLogo";
-import {loadUser, postLogin} from "../../redux/actions/authenticationActions";
-import {getExercises, getGoals, getMeasurements, getTrainings, postTraining} from "../../redux/actions/trainingActions";
+import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks";
 
@@ -81,12 +79,4 @@ const mapStateToProps = (state) => {
         tokenloaded: state.authentication.tokenloaded
     }
 }
-export default connect(mapStateToProps, {
-    postLogin,
-    getMeasurements,
-    postTraining,
-    getTrainings,
-    getGoals,
-    getExercises,
-    loadUser
-})(Login);
+export default connect(mapStateToProps, {loadUser})(Login);

@@ -26,23 +26,23 @@ import {
 import axios from 'axios';
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
-export const getTime = (time) => (dispatch) => {
-    dispatch({type: GET_TIME})
-    dispatch({
-        type: GET_TIME_SUCCESS,
-        payload: time
-    })
-}
-export const getMeasurements = () => (dispatch, getState) => {
-    dispatch({type: GET_MEASUREMENTS})
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get(`${TRUEEFFECTS_URL}/api/display_personal_dimensions/`)
-        .then(res => dispatch({
-            type: GET_MEASUREMENTS_SUCCESS,
-            payload: res,
-        }));
-}
+// export const getTime = (time) => (dispatch) => {
+//     dispatch({type: GET_TIME})
+//     dispatch({
+//         type: GET_TIME_SUCCESS,
+//         payload: time
+//     })
+// }
+// export const getMeasurements = () => (dispatch, getState) => {
+//     dispatch({type: GET_MEASUREMENTS})
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.get(`${TRUEEFFECTS_URL}/api/display_personal_dimensions/`)
+//         .then(res => dispatch({
+//             type: GET_MEASUREMENTS_SUCCESS,
+//             payload: res,
+//         }));
+// }
 
 // export const postTraining = (data) => async(dispatch,getState) => {
 //     let token = window.localStorage.getItem('token')
@@ -69,117 +69,117 @@ export const getMeasurements = () => (dispatch, getState) => {
 //         payload: res,
 //     }));
 // }
-export const getGoals = () => (dispatch, getState) => {
-    dispatch({type: GET_GOALS})
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.get(`${TRUEEFFECTS_URL}/api/display_description_goals/`)
-        .then(res => dispatch({
-            type: GET_GOALS_SUCCESS,
-            payload: res,
-        }));
-}
-export const postGoals = (data) => (dispatch, getState) => {
-    console.log("data post Goals")
-    console.log(data)
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`${TRUEEFFECTS_URL}/api/create_description_goals/`, data)
-        .then(res => {
-            alert("Dodano cel")
-        })
-        .catch(err => {
-            console.log(err.response)
-        })
+// export const getGoals = () => (dispatch, getState) => {
+//     dispatch({type: GET_GOALS})
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.get(`${TRUEEFFECTS_URL}/api/display_description_goals/`)
+//         .then(res => dispatch({
+//             type: GET_GOALS_SUCCESS,
+//             payload: res,
+//         }));
+// }
+// export const postGoals = (data) => (dispatch, getState) => {
+//     console.log("data post Goals")
+//     console.log(data)
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.post(`${TRUEEFFECTS_URL}/api/create_description_goals/`, data)
+//         .then(res => {
+//             alert("Dodano cel")
+//         })
+//         .catch(err => {
+//             console.log(err.response)
+//         })
+//
+// }
+// export const postMeasurement = (data) => (dispatch, getState) => {
+//     dispatch({type: POST_MEASUREMENT})
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.post(`${TRUEEFFECTS_URL}/api/create_personal_dimensions/`, data)
+//         .then(res => dispatch({
+//             type: POST_MEASUREMENT_SUCCESS,
+//         }))
+//         .catch(err => {
+//             console.log(err.response)
+//         })
+//
+// }
 
-}
-export const postMeasurement = (data) => (dispatch, getState) => {
-    dispatch({type: POST_MEASUREMENT})
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`${TRUEEFFECTS_URL}/api/create_personal_dimensions/`, data)
-        .then(res => dispatch({
-            type: POST_MEASUREMENT_SUCCESS,
-        }))
-        .catch(err => {
-            console.log(err.response)
-        })
+// export const postOwnExercise = (data) => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     let dictdata = {"name": data}
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.post(`${TRUEEFFECTS_URL}/api/create_own_exercise/`, dictdata)
+//         .catch(err => {
+//             alert("Wystąpił błąd")
+//         })
+// }
+// export const deleteTraining = pk => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.delete(`${TRUEEFFECTS_URL}/api/delete_training/${pk}`)
+//         .then(res => {
+//             alert("Trening został usunięty")
+//         })
+//         .catch("Wystąpił problem z usunięciem treningu")
+//
+// }
+// export const deleteMeasurement = pk => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.delete(`${TRUEEFFECTS_URL}/api/delete_measurement/${pk}`)
+//         .then(res => dispatch({
+//             type: DELETE_MEASUREMENT_SUCCESS,
+//         }))
+//         .then(res => {
+//             alert("Trening został usunięty")
+//         })
+//         .catch("Wystąpił problem z usunięciem treningu")
+// }
 
-}
-
-export const postOwnExercise = (data) => (dispatch, getState) => {
-    let token = getState().authentication.token
-    let dictdata = {"name": data}
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`${TRUEEFFECTS_URL}/api/create_own_exercise/`, dictdata)
-        .catch(err => {
-            alert("Wystąpił błąd")
-        })
-}
-export const deleteTraining = pk => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_training/${pk}`)
-        .then(res => {
-            alert("Trening został usunięty")
-        })
-        .catch("Wystąpił problem z usunięciem treningu")
-
-}
-export const deleteMeasurement = pk => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_measurement/${pk}`)
-        .then(res => dispatch({
-            type: DELETE_MEASUREMENT_SUCCESS,
-        }))
-        .then(res => {
-            alert("Trening został usunięty")
-        })
-        .catch("Wystąpił problem z usunięciem treningu")
-}
-
-export const deleteGoals = pk => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.delete(`${TRUEEFFECTS_URL}/api/delete_goals/${pk}`)
-        .then(res => {
-            alert("Trening został usunięty")
-        })
-}
-export const updateDateTraining = (pk, data) => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    console.log(data)
-    return axios.post(`${TRUEEFFECTS_URL}/api/update_training_date/${pk}`, data)
-        .then(res => {
-            alert("Data treningu została zaktualizowana")
-        })
-        .catch(err => {
-            alert("Wystąpił błąd. Spróbuj później")
-        })
-}
-export const endTraining = (pk, data) => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`${TRUEEFFECTS_URL}/api/update_training_after_end/${pk}`, data)
-        .then(res => dispatch({
-            type: END_TRAINING_SUCCESS,
-        }))
-        .then(res => {
-            alert("Trenining został zakończony")
-        })
-}
+// export const deleteGoals = pk => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.delete(`${TRUEEFFECTS_URL}/api/delete_goals/${pk}`)
+//         .then(res => {
+//             alert("Trening został usunięty")
+//         })
+// }
+// export const updateDateTraining = (pk, data) => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     console.log(data)
+//     return axios.post(`${TRUEEFFECTS_URL}/api/update_training_date/${pk}`, data)
+//         .then(res => {
+//             alert("Data treningu została zaktualizowana")
+//         })
+//         .catch(err => {
+//             alert("Wystąpił błąd. Spróbuj później")
+//         })
+// }
+// export const endTraining = (pk, data) => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     return axios.post(`${TRUEEFFECTS_URL}/api/update_training_after_end/${pk}`, data)
+//         .then(res => dispatch({
+//             type: END_TRAINING_SUCCESS,
+//         }))
+//         .then(res => {
+//             alert("Trenining został zakończony")
+//         })
+// }
 
 
-export const postTime = (sec, min, hour) => (dispatch) => {
-    dispatch({
-        type: POST_TIME,
-        second: sec,
-        minute: min,
-        hour: hour
-    })
-}
+// export const postTime = (sec, min, hour) => (dispatch) => {
+//     dispatch({
+//         type: POST_TIME,
+//         second: sec,
+//         minute: min,
+//         hour: hour
+//     })
+// }
 //////////////////////////////////////////////////////////////////
 export const postGoal = (data) => (dispatch, getState) => {
     let token = getState().authentication.token

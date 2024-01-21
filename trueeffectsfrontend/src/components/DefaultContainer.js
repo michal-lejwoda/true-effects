@@ -12,22 +12,22 @@ import Navbar from "./navbar_components/Navbar";
 import Dimensions from "./goals_and_dimensions_components/Dimensions";
 import Goals from "./goals_and_dimensions_components/Goals";
 import CreateTraining from "./main_components/CreateTraining";
+import Dashboard from "./main_components/Dashboard";
 import {
     getCompletedGoals,
     getDimensionConfiguration,
     getDimensionConfigurationForCompare,
     getDimensions,
     getExercises,
-    getGoals,
-    getGoalsToAchieve, getLastCompletedTrainings,
-    getMeasurements,
+    getGoalsToAchieve,
+    getLastCompletedTrainings,
     getSingleTraining,
-    getTrainings, getUpcomingTrainings,
+    getTrainings,
+    getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import '../sass/defaultcontainer.scss';
-import Dashboard from "./main_components/Dashboard";
-// import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
+
 
 
 const DefaultContainer = (props) => {
@@ -88,9 +88,7 @@ export default connect(mapStateToProps, {
     getUserDimensionsForCreate,
     getDimensionConfigurationForCompare,
     getSingleTraining,
-    getMeasurements,
     getTrainings,
-    getGoals,
     getExercises,
     postLogoutAuth,
     loadToken,
