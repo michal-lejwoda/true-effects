@@ -1,16 +1,14 @@
 import {
-    POST_LOGIN,
-    POST_LOGOUT,
-    POST_LOGOUT_AUTH,
+    AUTH_ERROR,
     LOGIN_ERROR,
+    POST_LOGOUT_AUTH,
     POST_REGISTER,
     REGISTER_ERROR,
-    USER_LOADING,
+    TOKEN_LOADED,
     USER_LOADED,
-    AUTH_ERROR, TOKEN_LOADED
+    USER_LOADING
 } from './types';
 import axios from 'axios';
-import {useCookies} from "react-cookie";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
 
@@ -26,29 +24,10 @@ export const changePassword = (data) => (dispatch, getState) => {
                 throw err
             }
         )
-}
-export const postLogin = (data) => dispatch => {
-    delete axios.defaults.headers.common["Authorization"];
-    axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
-        .then(res => {
-            window.localStorage.setItem('token', res.data.token)
-            window.localStorage.getItem('name', res.data.name)
-        })
-        .then(res => dispatch({
-                type: POST_LOGIN,
-                payload: res,
-
-            })
-        )
-        .catch(res => dispatch({
-            type: LOGIN_ERROR,
-            payload: "Dane logowania są niepoprawne",
-        }))
 
 }
 export const postRegister = (data, handleSetToken) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
-
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
         .then(res => {
             handleSetToken(res.data.token)
