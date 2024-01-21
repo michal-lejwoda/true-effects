@@ -1,0 +1,86 @@
+@import "settings.scss";
+.settings {
+  min-height: 100vh;
+  padding: 0 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+  //justify-content: center;
+  &__title {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+  }
+
+  &__container {
+    display: flex;
+
+    &__menu {
+      width: 100px;
+      text-align: center;
+      border-right: 2px solid white;
+
+      &__element {
+        padding: 15px 5px 15px;
+        border-bottom: 2px solid white;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &__options {
+      width: 100%;
+      padding-left: 10px;
+    }
+  }
+
+  &__accept-button {
+    display: flex;
+    justify-content: end;
+    margin-top: 1rem;
+    margin-right: 1rem;
+  }
+
+  &__dimensions {
+    &__element {
+      padding-top: 0.3rem;
+      padding-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  justify-content: center;
+
+  &__options {
+    padding-left: 1rem;
+    @include breakpoint(bigmobile) {
+      min-width: 400px;
+    }
+  }
+
+  &__elements {
+    display: flex;
+  }
+
+  &__choices {
+    border-right: 2px solid white;
+
+  }
+}
+
+.choices {
+  &__element {
+    padding: 1rem 1rem 1.4rem;
+    //padding-bottom: 1.4rem;
+    //padding-right: 1rem;
+    //padding-top: 1rem;
+    //padding-left: 1rem;
+    border-bottom: 1px solid white;
+    text-align: center;
+
+  }
+}

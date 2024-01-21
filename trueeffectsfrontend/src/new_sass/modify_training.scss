@@ -1,0 +1,47 @@
+.modify-training{
+  padding: 0 10px 0 10px;
+  text-align: center;
+  min-height: 100vh;
+  &__form{
+    display:flex;
+    justify-content: center;
+  }
+}
+.mt-data{
+  max-width: 900px;
+}
+
+.multiseries{
+
+}
+
+.multi-element{
+  margin-top: 1rem;
+  border: 1px solid white;
+  border-radius: 30px;
+  &__name{
+    padding-left: 20px;
+    //padding-bottom: 0.5rem;
+  }
+  &__button{
+    padding-right: 1rem;
+    &:hover{
+      cursor: pointer;
+    }
+  }
+  &__container{
+    display:flex;
+    padding: 10px 10px 10px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    justify-content: space-between;
+  }
+}
+.single-series{
+  padding-left: 20px;
+  padding-right: 10px;
+  &__series-num{
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}

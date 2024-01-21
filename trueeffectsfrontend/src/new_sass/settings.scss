@@ -1,0 +1,125 @@
+@mixin breakpoint($point){
+    @if $point == mobilebig{
+      @media screen  and (min-width:500px){@content;}
+    }
+    @else if $point == tablet{
+        @media screen  and (min-width:700px){@content;}
+    }
+    @else if $point == laptop{
+      @media screen  and (min-width:900px){@content;}
+    }
+    @else if $point == desktop{
+      @media screen  and (min-width:1200px){@content;}
+    }
+    @else if $point == LGdesktop{
+      @media screen and (min-width:1401px){@content;}
+    }}
+
+
+$main_color: #001233;
+$light_main_color: #002466;
+$colar_pink: #FF595A;
+$logo_circle1: #FF534A;
+$logo_circle2: #001233;
+$logo_circle3: #CAC0B3;
+
+
+$beige: #CAC0B3;
+
+.animatedInput{
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+.animatedInput input{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  font-size: 1em;
+}
+.animatedInput textarea{
+  width: 100%;
+  padding: 10px;
+  border: 1px solid $beige;
+  background-color: transparent;
+  border-radius: 5px;
+  outline: none;
+  color: white;
+  font-size: 1em;
+}
+
+.animatedInput span{
+  position: absolute;
+  left: 0;
+  padding: 10px;
+  pointer-events: none;
+  font-size: 1em;
+  color: grey;
+  text-transform: uppercase;
+  transition: 0.5s;
+}
+.animatedInput input:disabled ~span,
+.animatedInput input:valid ~span,
+.animatedInput input:invalid ~span,
+.animatedInput input:focus ~span
+{
+  color: #1b6d85;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: $main_color;
+  letter-spacing: 0.2em;
+}
+
+.animatedInput textarea:valid ~span,
+.animatedInput textarea:invalid ~span,
+.animatedInput textarea:focus ~span
+{
+  color: #1b6d85;
+  transform: translateX(10px) translateY(-7px);
+  font-size: 0.65em;
+  padding: 0 10px;
+  background: $main_color;
+  letter-spacing: 0.2em;
+}
+
+
+.animated-datepicker{
+  background: transparent;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  color:white;
+  text-align: center;
+  font-size: 1.2rem;
+}
+.react-datepicker-wrapper{
+  margin-bottom: 1.4rem;
+}
+
+.select-input{
+  background: transparent;
+  color:black;
+  margin-bottom: 1.5rem;
+}
+
+.standard-button{
+  background: transparent;
+  border: 2px solid $colar_pink;
+  color: white;
+  padding: 10px;
+  border-radius: 60px;
+  &__hover{
+    cursor: pointer;
+  }
+}
+.MuiIconButton-label{
+  color:white;
+}
+.rbc-off-range-bg{
+  background: $light_main_color;
+}

@@ -1,0 +1,82 @@
+@import 'settings.scss';
+
+.login {
+  display: flex;
+  min-height: 100vh;
+
+  &__container {
+    display: flex;
+    width: 50%;
+    flex: 1 1;
+    flex-direction: column;
+    padding: 2rem;
+
+    &__top {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .container {
+    display: flex;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      justify-content: center;
+    }
+
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      font-size: 1.2rem;
+      max-height: 70px;
+      @include breakpoint(mobilebig) {
+        font-size: 1.6rem;
+        margin: 0px 20px 0px;
+      }
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      flex-grow: 1;
+      max-width: 500px;
+
+      &__errors {
+        color: red;
+        font-weight: 600;
+        text-align: start;
+        margin-bottom: 0.5rem;
+      }
+
+      &__username {
+        color: white;
+        margin-bottom: 2rem;
+      }
+
+      &__title {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+      }
+
+      .button {
+        &__login {
+          margin-bottom: 1.3rem;
+        }
+
+        &__forgot-password {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+
+}

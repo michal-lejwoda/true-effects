@@ -1,0 +1,36 @@
+@import "settings.scss";
+.scheduler{
+  padding:10px;
+  &__title{
+    text-align: center;
+    padding-bottom:20px;
+    font-size: 1.8rem;
+    color: $colar_pink;
+  }
+}
+.rbc-event{
+  background-color: $colar_pink;
+}
+.rbc-toolbar{
+  button{
+    color: $beige;
+  }
+}
+
+.rbc-toolbar-label{
+  width: 100%;
+  margin-top: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.rbc-today{
+  background-color: transparent;
+}
+
+.rbc-now{
+  .rbc-button-link{
+    color: $colar_pink;
+    background-color: transparent;
+  }
+}
