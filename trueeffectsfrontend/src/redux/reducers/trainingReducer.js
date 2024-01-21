@@ -19,7 +19,6 @@ import {
 
 const initialState = {
     trainings: [],
-    loadedtrainings: false,
     userGoalsToAchieve: null,
     userGoalsCompleted: null,
     userDimensions: [],
