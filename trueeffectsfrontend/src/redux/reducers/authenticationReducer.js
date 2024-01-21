@@ -1,15 +1,26 @@
-import {POST_LOGIN,USER_LOADED,AUTH_ERROR,LOGIN_ERROR,POST_REGISTER, REGISTER_ERROR,POST_LOGOUT_AUTH, USER_LOADING} from '../actions/types';
+import {
+    POST_LOGIN,
+    USER_LOADED,
+    AUTH_ERROR,
+    LOGIN_ERROR,
+    POST_REGISTER,
+    REGISTER_ERROR,
+    POST_LOGOUT_AUTH,
+    USER_LOADING, TOKEN_LOADED,
+} from '../actions/types';
 const initialState = {
     token: null,
     name: null,
     isAuthenticated: null,
+    login_error: null,
     error: '',
     error_register: [],
     tokenloaded: false,
     error_register_name: '',
     seconds: '',
     minutes: '',
-    hours: ''
+    hours: '',
+
 };
 export default function authreducer(state=initialState,action){
     switch(action.type){
@@ -23,7 +34,7 @@ export default function authreducer(state=initialState,action){
         case LOGIN_ERROR:
             return{
                 ...state,
-                error:action.payload
+                login_error: action.payload
             }
         case POST_REGISTER:
             return{
@@ -36,7 +47,7 @@ export default function authreducer(state=initialState,action){
         case REGISTER_ERROR:
             return{
                 ...state,
-                error_register:action.payload
+                error_register: action.payload
             }
         case POST_LOGOUT_AUTH:
             return{
@@ -68,7 +79,11 @@ export default function authreducer(state=initialState,action){
                 isAuthenticated:false,
                 isLoading: false
             }
-        
+        case TOKEN_LOADED:
+            return {
+                ...state,
+                token: action.payload
+            }
 
         default: 
             return state;

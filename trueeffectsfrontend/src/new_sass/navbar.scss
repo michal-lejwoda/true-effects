@@ -1,0 +1,88 @@
+@import 'settings.scss';
+
+.nav_bar {
+  position: static;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $main_color;
+  color: #fff;
+  height: 70px;
+  z-index: 99;
+  border-bottom: 1px solid white;
+  &__logo{
+    margin-left: 20px;
+    @media (max-width: 768px){
+      margin-right: 20px;
+    }
+  }
+
+  &__toggle {
+    display: block;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 20px;
+
+    &:hover {
+      color: #bada55;
+    }
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  &__mobile {
+    display: none;
+    flex-direction: column;
+    margin-top: 280px;
+    //padding: 0;
+    position: absolute;
+    background-color: $main_color;
+    width: 100%;
+    z-index: 40;
+
+    &__element {
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 767px) {
+      display: flex;
+    }
+  }
+
+  &__desktop {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding-right: 20px;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
+    &__element{
+      margin-right:20px;
+    }
+  }
+
+  &__element {
+    list-style: none;
+    //margin: 0 1rem;
+
+    a {
+      color: #fff;
+      text-decoration: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        color: #FF595A !important;
+        cursor: pointer;
+      }
+    }
+  }
+}

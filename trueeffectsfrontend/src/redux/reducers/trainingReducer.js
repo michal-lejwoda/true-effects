@@ -1,114 +1,128 @@
-import {POST_LOGOUT,GET_MEASUREMENTS,GET_MEASUREMENTS_SUCCESS,POST_TRAINING,GET_TRAININGS,GET_TRAININGS_SUCCESS,
-    GET_GOALS,GET_GOALS_SUCCESS,POST_MEASUREMENT,GET_EXERCISES,GET_EXERCISES_SUCCESS,GET_OWN_EXERCISES_SUCCESS,END_TRAINING_SUCCESS,POST_TIME} from '../actions/types';
+import {
+    CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
+    CREATE_SINGLE_TRAINING_ERROR,
+    CREATE_USER_EXERCISE_ERROR,
+    GET_CURRENT_TRAINING_SUCCESS,
+    GET_LAST_COMPLETED_TRAININGS,
+    GET_SINGLE_TRAINING_SUCCESS,
+    GET_TRAININGS_SUCCESS,
+    GET_UPCOMING_TRAININGS,
+    GET_USER_COMPLETED_GOALS_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
+    GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    GET_USER_DIMENSIONS_FOR_CREATE,
+    GET_USER_DIMENSIONS_SUCCESS,
+    GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
+    PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
+    UPDATE_SINGLE_TRAINING_SUCCESS
+} from '../actions/types';
 
 const initialState = {
-    measurements: [],
     trainings: [],
-    goals:[],
-    defaultexercises:[],
-    loadingtrainings: false,
-    loadedtrainings: false,
-    loadingmeasurements: false,
-    loadedmeasurements: false,
-    loadinggoals: false,
-    loadedgoals:false,
-    loadingexercises: false,
-    loadedexercises:false,
-    loadedtime :false,
-    ownexercises:[],
-    seconds: '',
-    minutes: '',
-    hours: ''
-    
-};
-export default function trainreducer(state=initialState,action){
-    switch(action.type){
-        case GET_MEASUREMENTS:
-            return{
-                ...state,
-                loadingmeasurements:true,
-            }
-        case GET_MEASUREMENTS_SUCCESS:
-            return{
-                ...state,
-                measurements:action.payload,
-                loadingmeasurements:false,
-                loadedmeasurements:true
-            }
-        case GET_EXERCISES:
-            return{
-                ...state,
-                loadingexercises:true,
-            }
-            case GET_EXERCISES_SUCCESS:
-                return{
-                    ...state,
-                    exercises: action.payload,
-                    loadedexercises: true,
-                }
-        case GET_TRAININGS:
-            return{
-                ...state,
-                loadingtrainings:true,
-            
-            }
-        case GET_TRAININGS_SUCCESS:
-            return{
-                ...state,
-                trainings:action.payload,
-                loadingtrainings:false,
-                loadedtrainings:true
-            }
-        case GET_GOALS:
-            return{
-                ...state,
-                loadinggoals:true
-            }
-        case GET_GOALS_SUCCESS:
-            return{
-                ...state,
-                goals:action.payload,
-                loadinggoals:false,
-                loadedgoals:true
+    userGoalsToAchieve: null,
+    userGoalsCompleted: null,
+    userDimensions: [],
+    userDimensionConfiguration: [],
+    userDimensionConfigurationForCompare: [],
+    userDimensionsForCreate: {},
+    trainingForModal: null,
+    training: null,
+    created_training: null,
+    create_single_training_error: null,
+    create_single_training_error_message: null,
+    createUserExerciseError: null,
+    upcomingTrainings: [],
+    lastCompletedTrainings: [],
 
-            }
-        case POST_TRAINING:
-            return{
-                ...state
-            }
-        case POST_MEASUREMENT:
-            return{
-                ...state
-            }
-        case POST_LOGOUT:
-            return{
+
+};
+export default function trainreducer(state = initialState, action) {
+    switch (action.type) {
+        case GET_TRAININGS_SUCCESS:
+            return {
                 ...state,
-                measurements: [],
-                trainings: [],
-                goals:[],
-                loadedtrainings: false,
-                loadedgoals: false,
-                loadedmeasurements: false
+                trainings: action.payload,
             }
-        case GET_OWN_EXERCISES_SUCCESS:
-            return{
+        case GET_USER_COMPLETED_GOALS_SUCCESS:
+            return {
                 ...state,
-                ownexercises:action.payload
+                userGoalsCompleted: action.payload,
             }
-        case END_TRAINING_SUCCESS:
-            return{
+        case GET_USER_GOALS_TO_ACHIEVE_SUCCESS:
+            return {
                 ...state,
-                
+                userGoalsToAchieve: action.payload
             }
-        case POST_TIME:
-            return{
+        case GET_USER_DIMENSIONS_SUCCESS:
+            return {
                 ...state,
-                seconds: action.second,
-                minutes: action.minute,
-                hours: action.hour,
+                userDimensions: action.payload,
             }
-        
-        default: 
+        case PUT_USER_DIMENSION_CONFIGURATION_SUCCESS:
+            return {
+                ...state,
+                userDimensionConfiguration: action.payload
+            }
+        case GET_USER_DIMENSION_CONFIGURATION_SUCCESS:
+            return {
+                ...state,
+                userDimensionConfiguration: action.payload
+            }
+        case GET_USER_DIMENSIONS_FOR_CREATE:
+            return {
+                ...state,
+                userDimensionsForCreate: action.payload
+            }
+        case GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS:
+            return {
+                ...state,
+                userDimensionConfigurationForCompare: action.payload
+            }
+        case GET_SINGLE_TRAINING_SUCCESS:
+            return {
+                ...state,
+                trainingForModal: action.payload,
+                training: action.payload
+            }
+        case GET_CURRENT_TRAINING_SUCCESS:
+            return {
+                ...state,
+                training: action.payload
+            }
+        case UPDATE_SINGLE_TRAINING_SUCCESS:
+            return {
+                ...state,
+                training: action.payload
+            }
+        case CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS:
+            return {
+                ...state,
+                created_training: action.payload,
+                create_single_training_error: null,
+                create_single_training_error_message: null
+            }
+        case CREATE_SINGLE_TRAINING_ERROR:
+            return {
+                ...state,
+                create_single_training_error: action.payload,
+                create_single_training_error_message: "Nie udało się utworzyć treningu"
+            }
+        case CREATE_USER_EXERCISE_ERROR:
+            return {
+                ...state,
+                createUserExerciseError: "Nie udało się utworzyć ćwiczenia"
+            }
+        case GET_LAST_COMPLETED_TRAININGS:
+            return {
+                ...state,
+                lastCompletedTrainings: action.payload
+            }
+        case GET_UPCOMING_TRAININGS:
+            return {
+                ...state,
+                upcomingTrainings: action.payload
+            }
+        default:
             return state;
     }
 }

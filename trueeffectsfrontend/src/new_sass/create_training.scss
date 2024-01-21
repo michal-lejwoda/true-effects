@@ -1,0 +1,258 @@
+@import 'settings.scss';
+
+.create-training {
+  padding: 0 10px 0 10px;
+  //min-height: 100vh;
+  @include breakpoint(laptop) {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__accept-training {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: end;
+  }
+
+
+  //&__multiseries {
+  //  display: flex;
+  //  background-color: transparent;
+  //  border: 1px solid white;
+  //  border-radius: 10px;
+  //  padding: 10px;
+  //  justify-content: space-between;
+  //  flex-direction: column;
+  //  //:hover {
+  //  //      cursor: pointer;
+  //  //    }
+  //  &__title {
+  //    font-size: 1.4rem;
+  //    font-weight: 600;
+  //  }
+  //
+  //  &__buttons {
+  //    display: flex;
+  //    justify-content: flex-end;
+  //    //gap:10;
+  //  }
+  //
+  //  &__button {
+  //    background: transparent;
+  //    border: 2px solid $colar_pink;
+  //    color: white;
+  //    padding: 5px 20px 5px;
+  //    border-radius: 10px;
+  //    margin-right: 10px;
+  //  }
+  //}
+
+  &__display-singleseries {
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-right: 1rem;
+    border-radius: 10px;
+    padding: 7px;
+    border: 1px solid white;
+
+    &__element {
+      font-size: 0.9rem;
+
+      &__button {
+        background: transparent;
+        border: 2px solid $colar_pink;
+        color: white;
+        padding: 5px 20px 5px;
+        border-radius: 10px;
+
+        :hover {
+          cursor: pointer;
+        }
+      }
+
+      &__title {
+        color: $colar_pink;
+        font-weight: 600;
+      }
+    }
+
+    &__elements {
+      &__top {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &__bottom {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+
+  }
+
+  &__button {
+    display: flex;
+    justify-content: end;
+    padding-bottom: 2rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+  }
+}
+
+.single-singleseries {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  margin-right: 1rem;
+  border-radius: 10px;
+  padding: 7px;
+  border: 1px solid white;
+  font-size: 0.9rem;
+
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__bottom {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.header {
+  @include breakpoint(laptop) {
+    flex: 1;
+    padding-right: 10px;
+  }
+  padding-top: 1rem;
+
+  &__title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: $colar_pink;
+  }
+
+  &__errors {
+    color: $colar_pink;
+    text-align: start;
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.bottom {
+  &__button {
+    background: transparent;
+    border: 2px solid $colar_pink;
+    color: white;
+    padding: 5px 20px 5px;
+    border-radius: 10px;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.inputs {
+  &__errors {
+    color: $colar_pink;
+    text-align: start;
+    width: 100%;
+    padding-left: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.display-series {
+  @include breakpoint(laptop) {
+    flex: 1;
+    padding: 0px 20px 0px;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+  }
+
+  &__title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: $colar_pink;
+  }
+
+  &__no-data {
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+
+  .single-multiseries {
+    display: flex;
+    background-color: transparent;
+    border: 1px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+    flex-direction: column;
+    //:hover {
+    //      cursor: pointer;
+    //    }
+    &__title {
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    &__buttons {
+      display: flex;
+      justify-content: flex-end;
+      //gap:10;
+    }
+
+    .buttons {
+      &__button {
+        background: transparent;
+        border: 2px solid $colar_pink;
+        color: white;
+        padding: 5px 20px 5px;
+        border-radius: 10px;
+        margin-right: 10px;
+      }
+    }
+
+  }
+}
+
+.create-series {
+  @include breakpoint(laptop) {
+    padding-left: 10px;
+    flex: 1;
+  }
+  &__title {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: $colar_pink;
+  }
+
+  .inputs {
+    &__button {
+      display: flex;
+      justify-content: flex-end;
+      padding-bottom: 2rem;
+    }
+  }
+
+}

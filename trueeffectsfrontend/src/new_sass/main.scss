@@ -1,0 +1,68 @@
+@import 'settings.scss';
+html{
+    width:100%;
+    //min-height:100%;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+body{
+    width:100%;
+    min-height:100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+}
+#root{
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    position: relative;
+    background-color: $main_color;
+    color: white;
+}
+main{
+    margin-left:65px;
+    width: 100%;
+    height: 100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+
+}
+
+.container_default{
+    padding:10px;
+    margin-left: 64px;
+    min-height: 100vh;
+}
+.modal-content{
+    background-color: $main_color !important;
+    color:white !important;
+}
+
+.square-buttons{
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 10px 20px 10px;
+    border-radius: 15px;
+    color: white;
+    &:hover{
+        cursor: pointer;
+    }
+}
+.title{
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    color: $colar_pink;
+}

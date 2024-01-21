@@ -1,0 +1,39 @@
+@import 'settings.scss';
+
+.stopwatch {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__timer {
+    font-size: 70px;
+    @include breakpoint(mobilebig){
+      font-size: 100px;
+    }
+    @include breakpoint(tablet){
+      font-size: 150px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    //align-items: center;
+    //align-content: center;
+  }
+
+  &__button {
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+    font-size: 1rem;
+    @include breakpoint(mobilebig){
+      font-size: 1.4rem;
+      margin-left: 1rem;
+      margin-right: 1rem;
+    }
+
+  }
+}
+
