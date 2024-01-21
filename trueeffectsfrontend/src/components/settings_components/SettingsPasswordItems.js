@@ -1,8 +1,6 @@
 import React from 'react';
 import {useFormik} from "formik";
-import {changePasswordValidation, createGoalValidation} from "../validation/validation";
-import {postLogoutAuth} from "../../redux/actions/authenticationActions";
-
+import {changePasswordValidation} from "../validation/validation";
 
 export const SettingsPasswordItems = (props) => {
     const {values, handleSubmit, handleChange, setErrors, errors} = useFormik({
@@ -14,8 +12,7 @@ export const SettingsPasswordItems = (props) => {
         validationOnBlue: false,
         onSubmit: values => {
             props.changePassword(values)
-                .catch((err)=>{
-
+                .catch((err) => {
                     setErrors(err.response.data)
                 })
         },

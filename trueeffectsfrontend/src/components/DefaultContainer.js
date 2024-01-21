@@ -25,7 +25,6 @@ import {
     getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
-import '../sass/defaultcontainer.scss';
 
 
 
