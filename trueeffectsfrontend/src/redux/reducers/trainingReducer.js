@@ -66,60 +66,10 @@ const initialState = {
 };
 export default function trainreducer(state = initialState, action) {
     switch (action.type) {
-        case GET_MEASUREMENTS:
-            return {
-                ...state,
-                loadingmeasurements: true,
-            }
-        case GET_MEASUREMENTS_SUCCESS:
-            return {
-                ...state,
-                measurements: action.payload,
-                loadingmeasurements: false,
-                loadedmeasurements: true
-            }
-        case GET_EXERCISES:
-            return {
-                ...state,
-                loadingexercises: true,
-            }
-        case GET_EXERCISES_SUCCESS:
-            return {
-                ...state,
-                exercises: action.payload,
-                loadedexercises: true,
-            }
-        case GET_TRAININGS:
-            return {
-                ...state,
-                loadingtrainings: true,
-
-            }
         case GET_TRAININGS_SUCCESS:
             return {
                 ...state,
                 trainings: action.payload,
-            }
-        case GET_GOALS:
-            return {
-                ...state,
-                loadinggoals: true
-            }
-        case GET_GOALS_SUCCESS:
-            return {
-                ...state,
-                goals: action.payload,
-                loadinggoals: false,
-                loadedgoals: true
-
-            }
-        case POST_TRAINING:
-            return {
-                ...state
-            }
-        case POST_MEASUREMENT:
-            return {
-                ...state
             }
         case POST_LOGOUT:
             return {
@@ -130,23 +80,6 @@ export default function trainreducer(state = initialState, action) {
                 loadedtrainings: false,
                 loadedgoals: false,
                 loadedmeasurements: false
-            }
-        case GET_OWN_EXERCISES_SUCCESS:
-            return {
-                ...state,
-                ownexercises: action.payload
-            }
-        case END_TRAINING_SUCCESS:
-            return {
-                ...state,
-
-            }
-        case POST_TIME:
-            return {
-                ...state,
-                seconds: action.second,
-                minutes: action.minute,
-                hours: action.hour,
             }
         case GET_USER_COMPLETED_GOALS_SUCCESS:
             return {
@@ -211,10 +144,6 @@ export default function trainreducer(state = initialState, action) {
                 ...state,
                 create_single_training_error: action.payload,
                 create_single_training_error_message: "Nie udało się utworzyć treningu"
-            }
-        case CREATE_USER_EXERCISE_SUCCESS:
-            return {
-                ...state
             }
         case CREATE_USER_EXERCISE_ERROR:
             return {
