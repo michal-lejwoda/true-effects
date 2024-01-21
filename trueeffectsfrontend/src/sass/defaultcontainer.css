@@ -13,18 +13,7 @@
   border-bottom-style: solid;
   border-bottom-color: white;
   overflow-x: hidden;
-  width: 20ch;
+  width: 100%;
 }
 
-@media (min-width: 576px) {
-  .makeStyles-root-1 {
-    width: 50ch;
-  }
-}
-
-@media (min-width: 576px) {
-  .makeStyles-root-1 {
-    width: 40ch;
-  }
-}
 /*# sourceMappingURL=defaultcontainer.css.map */

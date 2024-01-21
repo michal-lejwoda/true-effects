@@ -1,31 +1,6 @@
-$screen-sm-min: 576px;
-$screen-md-min: 768px;
-$screen-lg-min: 992px;
-$screen-xl-min: 1200px;
-@mixin sm {
-    @media (min-width: #{$screen-sm-min}) {
-        @content;
-    }
- }
- @mixin md {
-    @media (min-width: #{$screen-md-min}) {
-        @content;
-    }
- }
- @mixin lg {
-    @media (min-width: #{$screen-lg-min}) {
-        @content;
-    }
- }
- @mixin xl {
-    @media (min-width: #{$screen-xl-min}) {
-        @content;
-    }
- }
 .containerdefault{
     margin-left: 64px;
     min-height: 100vh;
-    // height: 900px;
 }
 .containerlogin{
     height:100%;
@@ -37,23 +12,5 @@ $screen-xl-min: 1200px;
     border-bottom-color: white;
     overflow-x: hidden;
     width:100%;
-    //@include sm{
-    //    width:50ch;
-    //}
-    //@include sm{
-    //    width:40ch;
-    //}
+
 }
-// .makeStyles-root-2{
-//     border-bottom-width: medium;
-//     border-bottom-style: solid;
-//     border-bottom-color: white;
-//     overflow: hidden;
-//     width:25ch;
-//     @include sm{
-//         width:50ch;
-//     }
-//     @include sm{
-//         width:40ch;
-//     }
-// }

@@ -1,13 +1,12 @@
 import {Route} from 'react-router-dom';
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
-
 import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
 import {useAuth} from "./hooks";
 import Scheduler from "./main_components/Scheduler";
-import Trainingv2 from "./main_components/Trainingv2";
-import ModifyTrainingv2 from "./main_components/ModifyTrainingv2";
+import Training from "./main_components/Training";
+import ModifyTraining from "./main_components/ModifyTraining";
 import Navbar from "./navbar_components/Navbar";
 import Dimensions from "./goals_and_dimensions_components/Dimensions";
 import Goals from "./goals_and_dimensions_components/Goals";
@@ -60,8 +59,8 @@ const DefaultContainer = (props) => {
             <Route path="/dimensions" component={Dimensions}/>
             <Route path="/settings" component={Settings}/>
             <Route path="/scheduler" component={Scheduler}/>
-            <Route path="/training" component={Trainingv2}/>
-            <Route path="/modify_training" component={ModifyTrainingv2}/>
+            <Route path="/training" component={Training}/>
+            <Route path="/modify_training" component={ModifyTraining}/>
             <Route path="/create_training" component={CreateTraining}/>
 
             {/*// : <BoxLoading />}*/}
