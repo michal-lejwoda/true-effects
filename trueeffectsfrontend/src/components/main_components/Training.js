@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
-import {useTraining} from "../hooks";
 import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
 import {handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
+import {useTraining} from "../hooks/useTraining";
 
 const Training = (props) => {
         const history = useHistory()
@@ -21,8 +21,6 @@ const Training = (props) => {
             reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining(props)
 
-        console.log("multi_series")
-        console.log(multi_series)
 
         const handleFinishTraining = async () => {
             modifyMultiSeries()

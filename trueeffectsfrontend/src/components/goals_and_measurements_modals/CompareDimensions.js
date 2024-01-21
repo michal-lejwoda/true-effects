@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import Button from 'react-bootstrap/Button';
+import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {MenuItem, Select} from "@material-ui/core";
-import {useCompareDimensions} from "../hooks";
 import {CloseButton} from "react-bootstrap";
+import {useCompareDimensions} from "../hooks/useCompareDimensions";
 
 export function CompareDimensions(props) {
     const {

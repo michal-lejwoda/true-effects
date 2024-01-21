@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
-import {useAuth} from "./hooks";
 import Scheduler from "./main_components/Scheduler";
 import Training from "./main_components/Training";
 import ModifyTraining from "./main_components/ModifyTraining";
@@ -25,6 +24,7 @@ import {
     getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
+import {useAuth} from "./hooks/useAuth";
 
 
 
