@@ -73,10 +73,6 @@ const DefaultContainer = (props) => {
 const mapStateToProps = (state) => {
     return {
         token: state.authentication.token,
-        // loadedtrainings: state.training.loadedtrainings,
-        // loadedmeasurements: state.training.loadedmeasurements,
-        // loadedgoals: state.training.loadedgoals,
-        // loadedexercises: state.training.loadedexercises
     }
 }
 
