@@ -12,7 +12,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 
-const ModifyTrainingv2 = (props) => {
+const ModifyTraining = (props) => {
 
     const history = useHistory()
     const [visibleElements, setVisibleElements] = useState([]);
@@ -209,4 +209,4 @@ export default connect(mapStateToProps, {
     createTraining,
     deleteCurrentTraining,
     getTrainings
-})(ModifyTrainingv2);
+})(ModifyTraining);

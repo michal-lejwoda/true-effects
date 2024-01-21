@@ -10,7 +10,7 @@ import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
 
-const Trainingv2 = (props) => {
+const Training = (props) => {
         const history = useHistory()
         const [showFinishTraining, setShowFinishTraining] = useState(false)
         const {
@@ -169,4 +169,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {updateTraining})(Trainingv2);
+export default connect(mapStateToProps, {updateTraining})(Training);
