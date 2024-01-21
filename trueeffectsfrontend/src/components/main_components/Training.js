@@ -8,7 +8,7 @@ import {handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
-import {useTraining} from "../hooks/useTraining";
+import {useTraining} from "../hooks/training/useTraining";
 
 const Training = (props) => {
         const history = useHistory()

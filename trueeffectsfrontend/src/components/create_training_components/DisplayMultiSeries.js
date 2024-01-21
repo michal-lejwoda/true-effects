@@ -1,5 +1,5 @@
 import React from 'react';
-import {useDisplayMultiSeries} from "../hooks/useDisplayMultiSeries";
+import {useDisplayMultiSeries} from "../hooks/training/useDisplayMultiSeries";
 
 const DisplayMultiSeries = (props) => {
     const [visibleElements, handleRemoveSingleSeries, handleRemoveMultiSeries, toggleVisibility] = useDisplayMultiSeries(props)

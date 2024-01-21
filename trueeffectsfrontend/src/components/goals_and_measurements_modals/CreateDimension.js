@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
-import {useDate} from "../hooks/useDate";
+import {useDate} from "../hooks/training/useDate";
 
 export function CreateDimension(props) {
     const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()

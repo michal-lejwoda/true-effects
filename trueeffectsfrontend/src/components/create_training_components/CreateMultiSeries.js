@@ -1,7 +1,7 @@
 import React from 'react';
 import {useFormik} from "formik";
 import AsyncSelect from "react-select/async";
-import {useCreateMultiSeries} from "../hooks/useCreateMultiSeries";
+import {useCreateMultiSeries} from "../hooks/training/useCreateMultiSeries";
 
 const CreateMultiSeries = (props) => {
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({

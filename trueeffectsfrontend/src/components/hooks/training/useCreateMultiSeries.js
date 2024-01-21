@@ -1,4 +1,4 @@
-import {createMultiSeriesValidation, createSingleSeriesValidation} from "../validation/validation";
+import {createMultiSeriesValidation, createSingleSeriesValidation} from "../../validation/validation";
 
 export const useCreateMultiSeries = (props, values, setFieldValue, setErrors) => {
     const {multiSeries, setMultiSeries} = props;

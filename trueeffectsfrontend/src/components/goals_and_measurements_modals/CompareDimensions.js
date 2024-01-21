@@ -2,7 +2,7 @@ import React from 'react';
 import Modal from 'react-bootstrap/Modal';
 import {MenuItem, Select} from "@material-ui/core";
 import {CloseButton} from "react-bootstrap";
-import {useCompareDimensions} from "../hooks/useCompareDimensions";
+import {useCompareDimensions} from "../hooks/training/useCompareDimensions";
 
 export function CompareDimensions(props) {
     const {
