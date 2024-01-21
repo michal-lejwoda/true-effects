@@ -1,11 +1,7 @@
 import {Route} from 'react-router-dom';
 import React, {useEffect} from 'react';
-import Homepage from './Homepage';
-import AddGoals from './AddGoals';
 import {connect} from 'react-redux';
-import DisplayMeasurements from './DisplayMeasurements'
-import AddMeasurements from './AddMeasurements';
-import AddMeasurementsSummary from './AddMeasurementsSummary';
+
 import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
 import {useAuth} from "./hooks";
@@ -58,16 +54,8 @@ const DefaultContainer = (props) => {
     return (
         <>
             <Navbar/>
-            {/*<UpperNavbar/>*/}
-            {/*<SideNavbar/>*/}
-            {/*<div className="container_default">*/}
             {/*{props.loadedtrainings && props.loadedgoals && props.loadedmeasurements && props.loadedexercises ? */}
             <Route exact path="/" component={Dashboard}/>
-            <Route path="/addmeasurements" component={AddMeasurements}/>
-            <Route path="/displaymeasurements" component={DisplayMeasurements}/>
-            <Route path="/measurementsummary" component={AddMeasurementsSummary}/>
-            <Route path="/addgoals" component={AddGoals}/>
-            {/*<Route path="/goals_and_dimensions" component={GoalsAndDimensions}/>*/}
             <Route path="/goals" component={Goals}/>
             <Route path="/dimensions" component={Dimensions}/>
             <Route path="/settings" component={Settings}/>
@@ -85,10 +73,10 @@ const DefaultContainer = (props) => {
 const mapStateToProps = (state) => {
     return {
         token: state.authentication.token,
-        loadedtrainings: state.training.loadedtrainings,
-        loadedmeasurements: state.training.loadedmeasurements,
-        loadedgoals: state.training.loadedgoals,
-        loadedexercises: state.training.loadedexercises
+        // loadedtrainings: state.training.loadedtrainings,
+        // loadedmeasurements: state.training.loadedmeasurements,
+        // loadedgoals: state.training.loadedgoals,
+        // loadedexercises: state.training.loadedexercises
     }
 }
 

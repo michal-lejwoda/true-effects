@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Calendar, momentLocalizer, Views} from 'react-big-calendar'
+import {Calendar, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import {connect} from 'react-redux';
@@ -12,14 +12,11 @@ import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrai
 import {useHistory} from "react-router-dom";
 
 require('moment/locale/pl.js')
-// const allViews = Object.keys(Views).map(k => Views[k])
-// console.log("allViews")
-// console.log(allViews)
+
 const Scheduler = (props) => {
     const history = useHistory()
     const localizer = momentLocalizer(moment)
     const [showModal, setShowModal] = useState(false)
-    console.log(props.trainings)
     let events = []
     props.trainings.map(el => {
         events.push({
