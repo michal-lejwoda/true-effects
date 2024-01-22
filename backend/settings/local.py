@@ -1,6 +1,6 @@
 import dj_database_url
 from decouple import config
-from base import *
+from .base import *
 DEBUG = True
 SECRET_KEY = config('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
