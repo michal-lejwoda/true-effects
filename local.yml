@@ -6,12 +6,17 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
-    networks:
-      - backend
     ports:
       - "80:80"
       - "443:443"
+    networks:
+      - backend
     restart: always
+    volumes:
+      - "/app/backend/local-backend-static:/app/backend/local-backend-static"
+    depends_on:
+      - trueeffects_backend
+      - trueeffects_frontend
 
   trueeffects_db:
     container_name: trueeffects_db
@@ -31,8 +36,10 @@ services:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
+#    command: dockerize -wait tcp://db:5432 -timeout 30s python manage.py migrate && python manage.py runserver 0.0.0.0:8000
     volumes:
       - ".:/app"
+      - "/app/backend/local-backend-static:/app/backend/local-backend-static"
     ports:
       - "8000:8000"
     networks:
@@ -57,5 +64,6 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+
 networks:
   backend:

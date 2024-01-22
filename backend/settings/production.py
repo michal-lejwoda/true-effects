@@ -13,10 +13,10 @@ DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 """STATICFILES"""
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+STATIC_URL = '/production-backend-static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'production-backend-static')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
