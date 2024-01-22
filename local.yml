@@ -1,5 +1,18 @@
 version: "3.7"
 services:
+  trueeffects_nginx:
+    image: nginx
+    container_name: trueeffects_nginx
+    build:
+      context: .
+      dockerfile: ./compose/local/nginx/Dockerfile
+    networks:
+      - backend
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: always
+
   trueeffects_db:
     container_name: trueeffects_db
     image: postgres
@@ -7,6 +20,8 @@ services:
       - POSTGRES_DB=postgres5
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    networks:
+      - backend
     ports:
       - "5432:5432"
 
@@ -20,6 +35,8 @@ services:
       - ".:/app"
     ports:
       - "8000:8000"
+    networks:
+      - backend
     depends_on:
       - trueeffects_db
 
@@ -36,5 +53,9 @@ services:
     depends_on:
       - trueeffects_db
       - trueeffects_backend
+    networks:
+      - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+networks:
+  backend:
