@@ -8,6 +8,7 @@ services:
       dockerfile: ./compose/production/nginx/Dockerfile
     volumes:
       - "/app/backend/production-static:/app/backend/production-static"
+      - "./trueeffectsfrontend/build:/build"
     networks:
       - prod_backend
     ports:
@@ -50,8 +51,6 @@ services:
       dockerfile: ./compose/production/trueeffects_frontend/Dockerfile
     volumes:
       - "./trueeffectsfrontend:/frontend"
-    ports:
-      - "3000:3000"
     depends_on:
       - production_trueeffects_db
       - production_trueeffects_backend
