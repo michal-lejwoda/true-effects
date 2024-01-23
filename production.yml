@@ -1,0 +1,64 @@
+version: "3.7"
+services:
+  production_trueeffects_nginx:
+    image: nginx
+    container_name: production_trueeffects_nginx
+    build:
+      context: .
+      dockerfile: ./compose/production/nginx/Dockerfile
+    volumes:
+      - "/app/backend/production-static:/app/backend/production-static"
+    networks:
+      - prod_backend
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - production_trueeffects_backend
+      - production_trueeffects_frontend
+
+  production_trueeffects_db:
+    container_name: production_trueeffects_db
+    image: postgres
+    env_file:
+      - .env_production
+    ports:
+      - "5432:5432"
+    networks:
+      - prod_backend
+
+  production_trueeffects_backend:
+    container_name: production_trueeffects_backend
+    build:
+      context: .
+      dockerfile: ./compose/production/trueeffects_backend/Dockerfile
+    entrypoint: /app/entrypoint.sh
+    volumes:
+      - "/app/backend/production-static:/app/backend/production-static"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - production_trueeffects_db
+    networks:
+      - prod_backend
+
+  production_trueeffects_frontend:
+    stdin_open: true
+    container_name: production_trueeffects_frontend
+    build:
+      context: .
+      dockerfile: ./compose/production/trueeffects_frontend/Dockerfile
+    volumes:
+      - "./trueeffectsfrontend:/frontend"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - production_trueeffects_db
+      - production_trueeffects_backend
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - prod_backend
+
+networks:
+  prod_backend:
