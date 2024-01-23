@@ -6,13 +6,16 @@ services:
     build:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
+    volumes:
+      - "/app/backend/production-static:/app/backend/production-static"
     networks:
-      - backend
+      - prod_backend
     ports:
       - "80:80"
       - "443:443"
-    restart: always
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    depends_on:
+      - production_trueeffects_backend
+      - production_trueeffects_frontend
 
   production_trueeffects_db:
     container_name: production_trueeffects_db
@@ -22,20 +25,22 @@ services:
     ports:
       - "5432:5432"
     networks:
-      - backend
+      - prod_backend
 
   production_trueeffects_backend:
     container_name: production_trueeffects_backend
     build:
       context: .
       dockerfile: ./compose/production/trueeffects_backend/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: /app/entrypoint.sh
     volumes:
-      - ".:/app"
+      - "/app/backend/production-static:/app/backend/production-static"
     ports:
       - "8000:8000"
     depends_on:
       - production_trueeffects_db
+    networks:
+      - prod_backend
 
   production_trueeffects_frontend:
     stdin_open: true
@@ -48,10 +53,12 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - trueeffects_db
-      - trueeffects_backend
+      - production_trueeffects_db
+      - production_trueeffects_backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+    networks:
+      - prod_backend
 
 networks:
-  backend:
+  prod_backend:

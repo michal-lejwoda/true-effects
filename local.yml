@@ -37,7 +37,6 @@ services:
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
     entrypoint: /app/entrypoint.sh
-    #    command: dockerize -wait tcp://db:5432 -timeout 30s python manage.py migrate && python manage.py runserver 0.0.0.0:8000
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
     ports:
