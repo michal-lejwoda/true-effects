@@ -26,9 +26,22 @@ jobs:
           echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" > .env_production
           echo "PRODUCTION_DATABASE_URL=${{ secrets.PRODUCTION_DATABASE_URL }}" > .env_production
           echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" > .env_production
-          
-
 
       - name: Build Docker Images
         run: |
           docker-compose -f production.yml build
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: SSH into Server and Pull Docker Images
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT }}
+          script: |
+            cd true-effects-deploy
+            docker-compose -f production.yml pull
+            docker-compose -f production.yml up -d
