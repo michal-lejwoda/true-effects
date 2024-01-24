@@ -16,6 +16,7 @@ import {
 import axios from 'axios';
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
+
 export const postGoal = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
