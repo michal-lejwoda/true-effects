@@ -9,6 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout Repository
         uses: actions/checkout@v2
 
@@ -41,7 +42,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-#          passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             cd true-effects-deploy
             docker-compose -f production.yml pull
