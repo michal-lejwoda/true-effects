@@ -17,6 +17,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
+      - name: Set up Environment Variables
+        run: |
+          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" > .env_production
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" > .env_production
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" > .env_production
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" > .env_production
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" > .env_production
+          echo "PRODUCTION_DATABASE_URL=${{ secrets.PRODUCTION_DATABASE_URL }}" > .env_production
+          echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" > .env_production
+          
+
+
       - name: Build Docker Images
         run: |
           docker-compose -f production.yml build
