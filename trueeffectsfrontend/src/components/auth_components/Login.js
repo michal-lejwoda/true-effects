@@ -19,9 +19,6 @@ const Login = (props) => {
             </div>
             <div className="container login__container">
                 <div className="header container__header">
-                    <div className="header__element" onClick={handleMovetoBack}>
-                        <FontAwesomeIcon icon={faArrowLeft}/> Cofnij
-                    </div>
                     <div className="header__element" onClick={handleMoveToRegister}>
                         Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
                     </div>
@@ -60,9 +57,9 @@ const Login = (props) => {
                             <button className="button__login square-buttons" type="submit">
                                 Zaloguj się
                             </button>
-                            <p className="button__forgot-password">
-                                Zapomniałem hasła
-                            </p>
+                            {/*<p className="button__forgot-password">*/}
+                            {/*    Zapomniałem hasła*/}
+                            {/*</p>*/}
                         </div>
                     </form>
                 </div>
