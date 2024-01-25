@@ -173,10 +173,16 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/get_training_by_id/`)
-        .then(res => dispatch({
-            type: GET_SINGLE_TRAINING_SUCCESS,
-            payload: res.data
-        }))
+        .then(res=>{
+            return res.data
+        })
+        .catch(err => {
+            throw err
+        })
+        // .then(res => dispatch({
+        //     type: GET_SINGLE_TRAINING_SUCCESS,
+        //     payload: res.data
+        // }))
 }
 
 export const updateTraining = (data) => (dispatch, getState) => {

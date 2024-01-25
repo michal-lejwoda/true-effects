@@ -41,8 +41,8 @@ export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobil
     setIsMobileNavOpen(!isMobileNavOpen)
 }
 
-export const handleMoveToTraining = (history) => {
-    history.push("/training")
+export const handleMoveToTraining = (history,id) => {
+    history.push(`/training/${id}`)
 }
 
 export const handleMoveToMobileTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{

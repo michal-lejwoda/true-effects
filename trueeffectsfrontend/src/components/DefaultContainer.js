@@ -40,7 +40,7 @@ const DefaultContainer = (props) => {
             props.getUserDimensionsForCreate();
             props.getDimensionConfigurationForCompare();
             props.getTrainings();
-            // props.getSingleTraining(1);
+            props.getSingleTraining(2);
             props.getGoalsToAchieve();
             props.getCompletedGoals();
             props.getUpcomingTrainings();
@@ -58,7 +58,8 @@ const DefaultContainer = (props) => {
             <Route path="/dimensions" component={Dimensions}/>
             <Route path="/settings" component={Settings}/>
             <Route path="/scheduler" component={Scheduler}/>
-            <Route path="/training" component={Training}/>
+            {/*<Route path="/training" component={Training}/>*/}
+            <Route path="/training/:trainingId" component={Training} />
             <Route path="/modify_training" component={ModifyTraining}/>
             <Route path="/create_training" component={CreateTraining}/>
 
