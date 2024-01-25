@@ -8,6 +8,43 @@
     justify-content: space-between;
   }
 
+  .header {
+    &__name {
+      margin-top: 1rem;
+    }
+
+    &__description {
+      margin-top: 1rem;
+    }
+
+    &__title {
+      text-align: center;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      color: $colar_pink;
+    }
+
+    &__errors {
+      color: $colar_pink;
+      text-align: start;
+      width: 100%;
+      padding-left: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
+    @include breakpoint(laptop) {
+      //#TODo fix this
+      flex: 1;
+      padding-right: 10px;
+    }
+
+    padding-top: 1rem;
+
+
+  }
+
+  //}
+
   &__accept-training {
     margin-top: 1rem;
     display: flex;
@@ -105,54 +142,38 @@
 
 
   }
-}
 
-.single-singleseries {
-  display: flex;
-  flex-direction: column;
-  background-color: transparent;
-  margin-right: 1rem;
-  border-radius: 10px;
-  padding: 7px;
-  border: 1px solid white;
-  font-size: 0.9rem;
-
-
-  &__header {
+  .single-singleseries {
+    .header{
+      &__title{
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 0;
+      }
+    }
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+    flex-direction: column;
+    background-color: transparent;
+    margin-right: 1rem;
+    border-radius: 10px;
+    padding: 7px;
+    border: 1px solid white;
+    font-size: 0.9rem;
 
-  &__bottom {
-    display: flex;
-    justify-content: space-between;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__bottom {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
-.header {
-  @include breakpoint(laptop) {
-    //#TODo fix this
-    //flex: 1;
-    padding-right: 10px;
-  }
-  padding-top: 1rem;
-
-  &__title {
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-    color: $colar_pink;
-  }
-
-  &__errors {
-    color: $colar_pink;
-    text-align: start;
-    width: 100%;
-    padding-left: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-}
 
 .bottom {
   &__button {
@@ -241,6 +262,7 @@
     padding-left: 10px;
     flex: 1;
   }
+
   &__title {
     text-align: center;
     margin-top: 1rem;

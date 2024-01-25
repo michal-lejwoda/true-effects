@@ -40,7 +40,7 @@ const DefaultContainer = (props) => {
             props.getUserDimensionsForCreate();
             props.getDimensionConfigurationForCompare();
             props.getTrainings();
-            props.getSingleTraining(1);
+            // props.getSingleTraining(1);
             props.getGoalsToAchieve();
             props.getCompletedGoals();
             props.getUpcomingTrainings();
