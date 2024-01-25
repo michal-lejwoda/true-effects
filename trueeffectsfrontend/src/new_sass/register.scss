@@ -23,16 +23,17 @@
       display:flex;
       flex-grow: 1;
       justify-content: center;
+      flex-direction: row;
     }
 
     &__header {
       display: flex;
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: end;
       font-size: 1.2rem;
       @include breakpoint(mobilebig){
         font-size: 1.6rem;
-        margin: 0px 20px 0px;
+        //margin: 0px 20px 0px;
       }
     }
     .form {
