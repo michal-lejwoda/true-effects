@@ -1,8 +1,11 @@
 import React from 'react';
+import {useHistory} from "react-router-dom";
+import {handleMoveToTraining} from "../helpers/history_helpers";
 
 const DashboardUpcomingTrainings = (props) => {
+    const history = useHistory()
     const handleGoToTraining = (id) => {
-        console.log("handleGoToTraining")
+        handleMoveToTraining(history, id)
     }
     return (
         <div className="upcoming-trainings">
