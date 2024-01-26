@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import {loginUserValidation} from "../../validation/validation";
 
 export const useLogin = (props) => {
-    const [cookies, setCookie] = useCookies(['true_effects_token']);
+    const [, setCookie] = useCookies(['true_effects_token']);
     const handleSetToken = (token) => {
         setCookie("true_effects_token", token)
     }
