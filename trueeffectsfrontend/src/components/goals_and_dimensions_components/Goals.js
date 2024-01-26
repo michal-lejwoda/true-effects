@@ -1,8 +1,5 @@
 import React, {useState} from 'react';
 import "react-datepicker/dist/react-datepicker.css";
-import {convertDate} from "../helpers/function_helpers";
-import {createGoalValidation} from "../validation/validation";
-import {useFormik} from "formik";
 import {connect} from "react-redux";
 import {getCompletedGoals, getGoalsToAchieve, postGoal, putGoal} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
@@ -10,48 +7,16 @@ import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 import "../../new_sass/goals.scss"
 
 
-
 const Goals = (props) => {
     const [showCreateGoal, setShowCreateGoal] = useState(false);
     const [showCheckGoal, setShowCheckGoal] = useState(false)
     const [selectedGoal, setSelectedGoal] = useState(null)
     const handleCloseCreateGoal = () => setShowCreateGoal(false);
-
     const handleShowCreateGoal = () => setShowCreateGoal(true);
 
-    const {values, setFieldValue} = useFormik({
-        initialValues: {
-            goal: '',
-            description: '',
-            finishDate: null,
-            finishJsDate: null,
-        },
-        validationSchema: createGoalValidation,
-        validateOnChange: false,
-        validationOnBlue: false,
-        onSubmit: values => {
-            handleSendGoals(values)
-        },
-    });
-    const handleDate = (date) => {
-        const convertedDate = convertDate(date)
-        setFieldValue("finishDate", convertedDate)
-        setFieldValue("finishJsDate", date)
-    }
-    const handleSendGoals = async () => {
-        const data = {
-            "finish_date": values.finishDate,
-            "goal": values.goal,
-            "description": values.description,
-        }
-        await postGoal(data)
-        getCompletedGoals()
-        getGoalsToAchieve()
-    }
     const handleCheckGoal = async (goal_obj) => {
         await setSelectedGoal(goal_obj)
         await setShowCheckGoal(true)
-
     }
 
     return (

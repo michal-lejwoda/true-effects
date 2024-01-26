@@ -29,7 +29,7 @@ import {useAuth} from "./hooks/auth/useAuth";
 
 
 const DefaultContainer = (props) => {
-    const {} = useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
+    useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
     async function fetchAllData() {
         try {
             const promises = [
