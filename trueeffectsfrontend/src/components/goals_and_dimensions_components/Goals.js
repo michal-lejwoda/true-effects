@@ -77,7 +77,6 @@ const mapStateToProps = (state) => {
     return {
         userGoalsCompleted: state.training.userGoalsCompleted,
         userGoalsToAchieve: state.training.userGoalsToAchieve
-
     }
 }
 export default connect(mapStateToProps, {postGoal, putGoal, getCompletedGoals, getGoalsToAchieve})(Goals);

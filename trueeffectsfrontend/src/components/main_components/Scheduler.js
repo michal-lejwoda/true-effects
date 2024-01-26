@@ -23,6 +23,7 @@ const Scheduler = (props) => {
             'start': moment(Date.parse(el.date)).toDate(),
             'end': moment(Date.parse(el.date)).toDate()
         })
+        return events
     })
     const handleCloseModal = () => {
         setShowModal(true)
@@ -45,7 +46,7 @@ const Scheduler = (props) => {
                     <DisplayTrainingOnSchedulerModal history={history} trainingForModal={props.trainingForModal}
                                                      show={showModal} handleClose={handleCloseModal}
                                                      getSingleTraining={getSingleTraining}
-                                                     trainingForModal={props.trainingForModal}/>}
+                                                     />}
             </div>
 
         </div>
