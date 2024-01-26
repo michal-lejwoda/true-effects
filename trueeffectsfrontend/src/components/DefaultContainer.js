@@ -70,7 +70,7 @@ const DefaultContainer = (props) => {
                     <Route path="/scheduler" component={Scheduler}/>
                     {/*<Route path="/training" component={Training}/>*/}
                     <Route path="/training/:trainingId" component={Training}/>
-                    <Route path="/modify_training" component={ModifyTraining}/>
+                    <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
                     <Route path="/create_training" component={CreateTraining}/>
                 </>
                 : <BoxLoading/>

@@ -12,7 +12,6 @@ import {useTraining} from "../hooks/training/useTraining";
 
 const Training = (props) => {
         const history = useHistory()
-        const [loaded, setLoaded] = useState(false)
         const [apiData, setApiData] = useState(null);
         const {trainingId} = props.match.params;
         const [showFinishTraining, setShowFinishTraining] = useState(false)
@@ -24,7 +23,7 @@ const Training = (props) => {
             props.getSingleTraining(trainingId)
                 .then((res) => {
                     setApiData(res);
-                    setLoaded(true)
+
                 })
         }, [trainingId])
 
