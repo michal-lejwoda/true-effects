@@ -7,7 +7,7 @@ const DisplayMultiSeries = (props) => {
     return (
         <div className="display-series create-training__display-series">
             <h1 className="display-series__title">Serie</h1>
-            {props.multiSeries.length == 0 &&
+            {props.multiSeries.length === 0 &&
                 <p className="display-series__no-data">Nie została jeszcze stworzona żadna seria przejdź do sekcji
                     Stwórz Serie i ją utwórz</p>}
             <div className="container display-series__container">

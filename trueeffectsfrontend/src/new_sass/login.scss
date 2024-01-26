@@ -30,7 +30,7 @@
     &__header {
       display: flex;
       flex-direction: row;
-      justify-content: end;
+      justify-content: flex-end;
       font-size: 1.2rem;
       max-height: 70px;
       &:hover{
