@@ -1,14 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Form} from "react-bootstrap";
 import {useFormik} from "formik";
 import {connect} from "react-redux";
 import {putDimensionConfiguration} from "../../redux/actions/trainingActions";
 import {settingsDimensionValidation} from "../validation/validation";
+import {BoxLoading} from "react-loadingg";
 
 const SettingsDimensionItems = (props) => {
-
-
-    const {values, handleSubmit, handleChange} = useFormik({
+    const {values, setFieldValue, handleSubmit, handleChange} = useFormik({
         initialValues: {
             id: props.userDimensionConfiguration.id,
             weight: props.userDimensionConfiguration.weight,
@@ -25,12 +24,17 @@ const SettingsDimensionItems = (props) => {
         validateOnChange: false,
         validationOnBlue: false,
         onSubmit: values => {
-            console.log("onSubmit")
-            console.log(values)
             handlePutSettingsDimensions(values)
         },
 
     });
+    useEffect(() => {
+        const {...dimensionConfig} = props.userDimensionConfiguration;
+
+        Object.keys(dimensionConfig).forEach(key => {
+            setFieldValue(key, dimensionConfig[key]);
+        });
+    }, [props.userDimensionConfiguration]);
 
     const handlePutSettingsDimensions = async (values) => {
         const data = {
@@ -48,7 +52,7 @@ const SettingsDimensionItems = (props) => {
         await props.putDimensionConfiguration(data)
     }
 
-    return (
+    return props.userDimensionConfigurationLoaded ? (
         <form onSubmit={handleSubmit}>
             {/*<Form onSubmit={handleSubmit}>*/}
             <h2 className="settings__title">Ustawienia pomiarów</h2>
@@ -137,11 +141,17 @@ const SettingsDimensionItems = (props) => {
                 <button className="standard-button" type="submit">Zapisz ustawienia</button>
             </div>
         </form>
+    ): props.userDimensionConfigurationLoading && (
+        <div className="box-loading">
+            <BoxLoading/>
+        </div>
     );
 };
 const mapStateToProps = (state) => {
     return {
         userDimensionConfiguration: state.training.userDimensionConfiguration,
+        userDimensionConfigurationLoading: state.training.userDimensionConfigurationLoading,
+        userDimensionConfigurationLoaded: state.training.userDimensionConfigurationLoaded,
     }
 }
 export default connect(mapStateToProps, {putDimensionConfiguration})(SettingsDimensionItems);

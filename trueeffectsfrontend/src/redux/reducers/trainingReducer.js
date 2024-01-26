@@ -40,7 +40,7 @@ const initialState = {
     userDimensions: [],
     userDimensionsLoading: false,
     userDimensionsLoaded: false,
-    userDimensionConfiguration: [],
+    userDimensionConfiguration: {},
     userDimensionConfigurationLoading: false,
     userDimensionConfigurationLoaded: false,
     userDimensionConfigurationForCompare: [],
