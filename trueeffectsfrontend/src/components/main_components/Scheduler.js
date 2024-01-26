@@ -8,6 +8,8 @@ import "../../new_sass/scheduler.scss"
 import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
 import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
+import {BoxLoading} from "react-loadingg";
+
 require('moment/locale/pl.js')
 
 const Scheduler = (props) => {
@@ -15,16 +17,18 @@ const Scheduler = (props) => {
     const localizer = momentLocalizer(moment)
     const [showModal, setShowModal] = useState(false)
     let events = []
-    props.trainings.map(el => {
-        events.push({
-            'id': el.id,
-            'title': el.name,
-            'date': el.date,
-            'start': moment(Date.parse(el.date)).toDate(),
-            'end': moment(Date.parse(el.date)).toDate()
+    if (props.trainings !== undefined) {
+        props.trainings.map(el => {
+            events.push({
+                'id': el.id,
+                'title': el.name,
+                'date': el.date,
+                'start': moment(Date.parse(el.date)).toDate(),
+                'end': moment(Date.parse(el.date)).toDate()
+            })
+            return events
         })
-        return events
-    })
+    }
     const handleCloseModal = () => {
         setShowModal(true)
     }
@@ -32,29 +36,42 @@ const Scheduler = (props) => {
         await props.getSingleTraining(e.id)
         await setShowModal(true)
     }
-    return (
-        <div className="scheduler">
-            <div className="scheduler__title">
-                Kalendarz treningu
-            </div>
-            <div className="schedule">
-                <Calendar culture='pl-PL' views={['month']} selectable={true}
-                          events={events}
-                          onSelectEvent={handleSelect}
-                          localizer={localizer} style={{height: 900, width: '100%'}}/>
-                {props.trainingForModal &&
-                    <DisplayTrainingOnSchedulerModal history={history} trainingForModal={props.trainingForModal}
-                                                     show={showModal} handleClose={handleCloseModal}
-                                                     getSingleTraining={getSingleTraining}
-                                                     />}
-            </div>
-
+    return props.trainingsLoading ? (
+        <div className="box-loading">
+            <BoxLoading/>
         </div>
-    )
+    ) : (
+        <div className="scheduler">
+          <div className="scheduler__title">
+            Kalendarz treningu
+          </div>
+          <div className="schedule">
+            <Calendar
+              culture='pl-PL'
+              views={['month']}
+              selectable={true}
+              events={events}
+              onSelectEvent={handleSelect}
+              localizer={localizer}
+              style={{ height: 900, width: '100%' }}
+            />
+            {props.trainingForModal && (
+              <DisplayTrainingOnSchedulerModal
+                history={history}
+                trainingForModal={props.trainingForModal}
+                show={showModal}
+                handleClose={handleCloseModal}
+                getSingleTraining={getSingleTraining}
+              />
+            )}
+          </div>
+        </div>
+    );
 }
 const mapStateToProps = (state) => {
     return {
         trainings: state.training.trainings.data,
+        trainingsLoading: state.training.trainingsLoading,
         trainingForModal: state.training.trainingForModal
     }
 }

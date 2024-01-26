@@ -5,6 +5,8 @@ import {
     GET_CURRENT_TRAINING_SUCCESS,
     GET_LAST_COMPLETED_TRAININGS,
     GET_SINGLE_TRAINING_SUCCESS,
+    GET_TRAININGS_ERROR,
+    GET_TRAININGS_LOADING,
     GET_TRAININGS_SUCCESS,
     GET_UPCOMING_TRAININGS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
@@ -19,6 +21,7 @@ import {
 
 const initialState = {
     trainings: [],
+    trainingsLoading: false,
     userGoalsToAchieve: null,
     userGoalsCompleted: null,
     userDimensions: [],
@@ -38,10 +41,21 @@ const initialState = {
 };
 export default function trainreducer(state = initialState, action) {
     switch (action.type) {
+        case GET_TRAININGS_LOADING:
+            return {
+                ...state,
+                trainingsLoading: true
+            }
+        case GET_TRAININGS_ERROR:
+            return {
+                ...state,
+                trainingsLoading: false
+            }
         case GET_TRAININGS_SUCCESS:
             return {
                 ...state,
                 trainings: action.payload,
+                trainingsLoading: false
             }
         case GET_USER_COMPLETED_GOALS_SUCCESS:
             return {
