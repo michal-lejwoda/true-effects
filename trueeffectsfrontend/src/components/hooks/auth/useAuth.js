@@ -12,11 +12,6 @@ export const useAuth = (token, loadToken, postLogoutAuth, history) => {
         } else if (token === null) {
             history.push('/login')
         }
-
-
-        // else {
-        //     history.push('/login')
-        // }
     }, [token])
     return {cookies, setCookie, removeCookie}
 }
