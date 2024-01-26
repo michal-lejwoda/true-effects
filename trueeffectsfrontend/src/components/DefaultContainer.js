@@ -46,6 +46,7 @@ const DefaultContainer = (props) => {
             await Promise.all(promises);
 
         } catch (error) {
+            // #TODO Back here
             console.error('Error fetching data:', error);
         }
     }
