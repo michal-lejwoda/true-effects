@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
+import {faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
 
 const Login = (props) => {
-    const [handleMoveToRegister, handleMovetoBack, handleChange, handleSubmit, errors] = useLogin(props)
+    const [handleMoveToRegister, handleChange, handleSubmit, errors] = useLogin(props)
     if (props.token !== null) {
         props.history.push('/')
     }
@@ -50,7 +50,7 @@ const Login = (props) => {
                             {errors.password && <p>{errors.password}</p>}
                         </div>
                         <div className="errors form__errors">
-                            {Object.keys(errors).length == 0 && props.login_error &&
+                            {Object.keys(errors).length === 0 && props.login_error &&
                                 <p>{props.login_error.non_field_errors[0]}</p>}
                         </div>
                         <div className="button form__button">

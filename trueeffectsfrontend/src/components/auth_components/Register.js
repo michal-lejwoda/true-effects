@@ -73,7 +73,7 @@ const Register = (props) => {
                             {errors.password2 && <p>{errors.password2}</p>}
                         </div>
                         <div className="errors form__errors">
-                            {Object.keys(errors).length == 0 && props.register_error &&
+                            {Object.keys(errors).length === 0 && props.register_error &&
                                 <p>{props.register_error.non_field_errors[0]}</p>}
                         </div>
                         <div className="button form__button">

@@ -19,7 +19,7 @@ const Goals = (props) => {
 
     const handleShowCreateGoal = () => setShowCreateGoal(true);
 
-    const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
+    const {values, setFieldValue} = useFormik({
         initialValues: {
             goal: '',
             description: '',
@@ -61,7 +61,7 @@ const Goals = (props) => {
                 <div className="goals__button">
                     <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
                 </div>
-                {props.userGoalsToAchieve.length == 0 &&
+                {props.userGoalsToAchieve.length === 0 &&
                     <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk Dodaj
                         nowy cel aby dodać cel</p>}
                 {props.userGoalsToAchieve.map(goal_obj => {
@@ -81,7 +81,7 @@ const Goals = (props) => {
             <hr className="goals--hr"/>
             <div className="goals--realized"><h1
                 className="title goals__title">Zrealizowane</h1>
-                {props.userGoalsCompleted.length == 0 &&
+                {props.userGoalsCompleted.length === 0 &&
                     <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk Dodaj
                         nowy cel aby dodać cel</p>}
                 {props.userGoalsCompleted.map(goal_obj => {

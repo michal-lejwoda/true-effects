@@ -8,7 +8,7 @@ const DashboardCompletedTrainings = (props) => {
         <div className="completed-trainings">
             <div className="completed-trainings__title dashboard__title">Treningi zrealizowane</div>
             <div className="completed-trainings__list">
-                {props.lastCompletedTrainings.length==0 && <p className="dashboard__error-message">Nie zrealizowałeś jeszcze żadnych treningów</p>}
+                {props.lastCompletedTrainings.length === 0 && <p className="dashboard__error-message">Nie zrealizowałeś jeszcze żadnych treningów</p>}
                 {props.lastCompletedTrainings.map(completed_training => {
                     return (
                         <div className="completed-trainings__item" key={completed_training.id}>
