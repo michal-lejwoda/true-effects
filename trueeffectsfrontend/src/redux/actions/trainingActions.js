@@ -1,7 +1,8 @@
 import {
     CREATE_SINGLE_TRAINING_BASED_ON_OLD_SUCCESS,
     GET_LAST_COMPLETED_TRAININGS,
-    GET_SINGLE_TRAINING_SUCCESS,
+    GET_TRAININGS_ERROR,
+    GET_TRAININGS_LOADING,
     GET_TRAININGS_SUCCESS,
     GET_UPCOMING_TRAININGS,
     GET_USER_COMPLETED_GOALS_SUCCESS,
@@ -101,11 +102,17 @@ export const getUserDimensionsForCreate = () => (dispatch, getState) => {
 export const getTrainings = () => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    dispatch({
+        type: GET_TRAININGS_LOADING
+    })
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/trainings/`)
         .then(res => dispatch({
             type: GET_TRAININGS_SUCCESS,
             payload: res,
-        }));
+        }))
+        .catch(() => dispatch({
+            type: GET_TRAININGS_ERROR
+        }))
 }
 
 // #TODO Think about it
@@ -173,16 +180,16 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/single_training/${id}/get_training_by_id/`)
-        .then(res=>{
+        .then(res => {
             return res.data
         })
         .catch(err => {
             throw err
         })
-        // .then(res => dispatch({
-        //     type: GET_SINGLE_TRAINING_SUCCESS,
-        //     payload: res.data
-        // }))
+    // .then(res => dispatch({
+    //     type: GET_SINGLE_TRAINING_SUCCESS,
+    //     payload: res.data
+    // }))
 }
 
 export const updateTraining = (data) => (dispatch, getState) => {
