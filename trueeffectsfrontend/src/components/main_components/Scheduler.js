@@ -36,11 +36,7 @@ const Scheduler = (props) => {
         await props.getSingleTraining(e.id)
         await setShowModal(true)
     }
-    return props.trainingsLoading ? (
-        <div className="box-loading">
-            <BoxLoading/>
-        </div>
-    ) : (
+    return props.trainingsLoaded ? (
         <div className="scheduler">
           <div className="scheduler__title">
             Kalendarz treningu
@@ -66,12 +62,17 @@ const Scheduler = (props) => {
             )}
           </div>
         </div>
-    );
+    ): props.trainingsLoading && (
+        <div className="box-loading">
+            <BoxLoading/>
+        </div>
+    )
 }
 const mapStateToProps = (state) => {
     return {
         trainings: state.training.trainings.data,
         trainingsLoading: state.training.trainingsLoading,
+        trainingsLoaded: state.training.trainingsLoaded,
         trainingForModal: state.training.trainingForModal
     }
 }
