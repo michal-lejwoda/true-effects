@@ -13,5 +13,4 @@ export const useAuth = (token, loadToken, postLogoutAuth, history) => {
             history.push('/login')
         }
     }, [token])
-    return {cookies, setCookie, removeCookie}
 }
