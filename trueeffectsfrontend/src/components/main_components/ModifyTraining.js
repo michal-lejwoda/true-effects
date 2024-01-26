@@ -11,7 +11,7 @@ import {
 import DatePicker from "react-datepicker";
 import {convertDate} from "../helpers/function_helpers";
 import {useHistory} from "react-router-dom";
-import {handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMovetoHome, handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
@@ -30,6 +30,9 @@ const ModifyTraining = (props) => {
         props.getSingleTraining(trainingId)
             .then((res) => {
                 setApiData(res);
+            })
+            .catch(() => {
+                handleMovetoHome(history)
             })
     }, [trainingId])
 
@@ -123,16 +126,6 @@ const ModifyTraining = (props) => {
                                 </div>
                                 <div className="mt-data--list">
                                     <div className="mt-data__buttons">
-                                        {/*<button className="standard-button"*/}
-                                        {/*        onClick={() => handleMoveToTraining(history)}>Trenuj ->*/}
-                                        {/*</button>*/}
-                                        {/*<button className="standard-button"*/}
-                                        {/*        onClick={() => handleDeleteTraining(values.id)}>Usuń trening -*/}
-                                        {/*</button>*/}
-                                        {/*<button className="standard-button"*/}
-                                        {/*        onClick={() => handleCopyTrainingToAnotherDate(values)}>Dodaj trening do*/}
-                                        {/*    innego dnia +*/}
-                                        {/*</button>*/}
                                         <button className="standard-button" type="submit">Modyfikuj trening</button>
 
                                     </div>

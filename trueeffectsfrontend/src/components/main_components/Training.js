@@ -4,7 +4,7 @@ import {getSingleTraining, updateTraining} from "../../redux/actions/trainingAct
 import "../../new_sass/training.scss";
 import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
-import {handleMoveToScheduler} from "../helpers/history_helpers";
+import {handleMovetoHome, handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
@@ -24,6 +24,9 @@ const Training = (props) => {
                 .then((res) => {
                     setApiData(res);
 
+                })
+                .catch(() => {
+                    handleMovetoHome(history)
                 })
         }, [trainingId])
 
