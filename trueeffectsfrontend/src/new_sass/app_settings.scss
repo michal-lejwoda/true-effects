@@ -4,7 +4,6 @@
   padding: 0 10px 0 10px;
   display: flex;
   flex-direction: column;
-  //justify-content: center;
   &__title {
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -37,7 +36,7 @@
 
   &__accept-button {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-top: 1rem;
     margin-right: 1rem;
   }

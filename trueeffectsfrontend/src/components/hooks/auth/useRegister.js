@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import {registerUserValidation} from "../../validation/validation";
 
 export const useRegister = (props) => {
-    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    const [, setCookie] = useCookies(['true_effects_token']);
 
     const handleSetToken = (token) => {
         setCookie("true_effects_token", token)
@@ -12,9 +12,7 @@ export const useRegister = (props) => {
     const handleMoveToLogin = () => {
         props.history.push('/login')
     }
-    const handleMovetoBack = () => {
-        props.history.goBack()
-    }
+
     const handleRegister = async () => {
         let data = {
             "username": values.username,
@@ -40,5 +38,5 @@ export const useRegister = (props) => {
             handleRegister()
         },
     });
-    return [handleMoveToLogin, handleMovetoBack, handleChange, handleSubmit, errors]
+    return [handleMoveToLogin, handleChange, handleSubmit, errors]
 }

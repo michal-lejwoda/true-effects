@@ -24,7 +24,7 @@ const Settings = (props) => {
                              onClick={() => setActiveState("PASSWORD")}><FontAwesomeIcon size="2x" icon={faLock}/></div>
                     </div>
                     <div className="menu__options">
-                        {activeState === 'DIMENSIONS' && <SettingsDimensionItems/>}
+                        {(activeState === 'DIMENSIONS' && props.userDimensionConfigurationLoaded ) && <SettingsDimensionItems/>}
                         {activeState === 'PASSWORD' && <SettingsPasswordItems changePassword={props.changePassword}
                                                                               postLogoutAuth={props.postLogoutAuth}/>}
                     </div>
@@ -33,5 +33,11 @@ const Settings = (props) => {
         </div>
     );
 };
-
-export default connect(null, {changePassword, postLogoutAuth})(Settings);
+const mapStateToProps = (state) => {
+    return {
+        userDimensionConfiguration: state.training.userDimensionConfiguration,
+        userDimensionConfigurationLoading: state.training.userDimensionConfigurationLoading,
+        userDimensionConfigurationLoaded: state.training.userDimensionConfigurationLoaded,
+    }
+}
+export default connect(mapStateToProps, {changePassword, postLogoutAuth})(Settings);

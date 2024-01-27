@@ -8,7 +8,7 @@ export const useCompareDimensions = (userDimensions) => {
         if (Object.keys(userDimensions).length > 1) {
             setFirstDimension(userDimensions[0])
             setSecondDimension(userDimensions[1])
-        } else if (Object.keys(userDimensions).length == 1) {
+        } else if (Object.keys(userDimensions).length === 1) {
             setFirstDimension(userDimensions[0])
             setSecondDimension(userDimensions[0])
         }

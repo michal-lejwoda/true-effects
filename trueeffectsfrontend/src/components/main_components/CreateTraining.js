@@ -53,7 +53,7 @@ const CreateTraining = (props) => {
                 </div>
                 {errors.description && <p className="header__errors">{errors.description}</p>}
                 {errors.multi_series && <p className="header__errors">{errors.multi_series}</p>}
-                {Object.keys(errors).length == 0 && props.create_single_training_error_message &&
+                {Object.keys(errors).length === 0 && props.create_single_training_error_message &&
                     <p className="header__errors">{props.create_single_training_error_message}</p>}
             </div>
             <DisplayMultiSeries multiSeries={multiSeries} setMultiSeries={setMultiSeries} handleSubmit={handleSubmit}/>

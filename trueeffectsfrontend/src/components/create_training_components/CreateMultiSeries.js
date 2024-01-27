@@ -20,6 +20,31 @@ const CreateMultiSeries = (props) => {
         validateOnChange: false,
         validationOnBlue: false,
     });
+    const customStyles = {
+        control: (provided, state) => ({
+            ...provided,
+            background: 'transparent', // Kolor tła
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            color: 'white',
+            background: '#001233',
+            borderBottom: '1px solid white',
+            '&:hover': {
+                cursor: 'pointer',
+                color: '#FF595A'
+            },
+        }),
+        singleValue: (provided, state) => ({
+            ...provided,
+            color: 'white'
+        }),
+        menu: (provided, state) => ({
+            ...provided,
+            paddingTop: '0',
+            marginTop: '0'
+        })
+    };
     const [loadExercises, addToSingleSeries, addMultiSingleSeries, handleChangeExercise] = useCreateMultiSeries(props, values, setFieldValue, setErrors)
     return (
         <form className="create-series create-training__create-series" onSubmit={handleSubmit}>
@@ -29,11 +54,14 @@ const CreateMultiSeries = (props) => {
                     <AsyncSelect placeholder="Wybierz ćwiczenie" name="exercise" onChange={handleChangeExercise}
                                  loadOptions={loadExercises}
                                  className="select-input"
-                                 defaultOptions={props.defaultExercises}/>
+                                 defaultOptions={props.defaultExercises}
+                                 styles={customStyles}/>
                 </div>
                 {errors.exercise && <p className="inputs__errors">{errors.exercise}</p>}
                 <div className="inputs__button">
-                    <button className="standard-button" onClick={()=>props.setShowExerciseModal(true)}>Stwórz ćwiczenie</button>
+                    <button className="standard-button" onClick={() => props.setShowExerciseModal(true)}>Stwórz
+                        ćwiczenie
+                    </button>
                 </div>
                 <div className="inputs__weight animatedInput">
                     <input name="extra_weight" onChange={handleChange} value={values.extra_weight} required="required"

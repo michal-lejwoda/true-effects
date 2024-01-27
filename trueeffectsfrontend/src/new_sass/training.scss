@@ -5,20 +5,21 @@
   flex-direction: column;
   min-height: 100vh;
   padding: 0 10px 0 10px;
-}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  padding: 1.2rem 1rem 1.2rem;
-  @include breakpoint(mobilebig) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 1.2rem 1rem 1.2rem;
+    @include breakpoint(mobilebig) {
       font-size: 1.4rem;
     }
     @include breakpoint(tablet) {
       font-size: 1.6rem;
     }
+  }
 }
+
 
 .stoper {
   display: flex;
@@ -88,11 +89,11 @@
   text-align: center;
   font-size: 1.4rem;
   @include breakpoint(mobilebig) {
-      font-size: 2rem;
-    }
-    @include breakpoint(tablet) {
-      font-size: 2.3rem;
-    }
+    font-size: 2rem;
+  }
+  @include breakpoint(tablet) {
+    font-size: 2.3rem;
+  }
 
   &__input {
     text-align: center;
@@ -111,9 +112,9 @@
   justify-content: space-around;
   margin-top: 1.5rem;
   @include breakpoint(mobilebig) {
-      font-size: 1.5rem;
-    }
-    @include breakpoint(tablet) {
-      font-size: 1.8rem;
-    }
+    font-size: 1.5rem;
+  }
+  @include breakpoint(tablet) {
+    font-size: 1.8rem;
+  }
 }

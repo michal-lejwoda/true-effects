@@ -14,7 +14,11 @@ export const useDisplayMultiSeries = (props) => {
     const handleRemoveSingleSeries = (multiIndex, singleIndex) => {
 
         const updatedMultiSeries = [...props.multiSeries];
-        updatedMultiSeries[multiIndex].single_series.splice(singleIndex, 1);
+        if (updatedMultiSeries[multiIndex].single_series.length === 1) {
+            updatedMultiSeries.splice(multiIndex, 1)
+        } else {
+            updatedMultiSeries[multiIndex].single_series.splice(singleIndex, 1);
+        }
         props.setMultiSeries(updatedMultiSeries);
     }
 

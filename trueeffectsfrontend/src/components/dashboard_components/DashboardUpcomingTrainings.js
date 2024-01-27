@@ -1,14 +1,17 @@
 import React from 'react';
+import {useHistory} from "react-router-dom";
+import {handleMoveToTraining} from "../helpers/history_helpers";
 
 const DashboardUpcomingTrainings = (props) => {
+    const history = useHistory()
     const handleGoToTraining = (id) => {
-        console.log("handleGoToTraining")
+        handleMoveToTraining(history, id)
     }
     return (
         <div className="upcoming-trainings">
             <div className="completed-trainings__title dashboard__title">Zbliżające się treningi</div>
             <div className="upcoming-trainings__list">
-                {props.upcomingTrainings.length == 0 &&
+                {props.upcomingTrainings.length === 0 &&
                     <p className="dashboard__error-message">Nie masz jeszcze zaplanowanych żadnych treningów</p>}
                 {props.upcomingTrainings.map(upcoming_training => {
                     return (
