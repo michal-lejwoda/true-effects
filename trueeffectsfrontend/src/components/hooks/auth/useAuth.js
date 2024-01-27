@@ -2,7 +2,7 @@ import {useCookies} from "react-cookie";
 import {useEffect} from "react";
 
 export const useAuth = (token, loadToken, postLogoutAuth, history) => {
-    const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
+    const [cookies, setCookie] = useCookies(['true_effects_token']);
 
     useEffect(() => {
         if (cookies.true_effects_token !== undefined) {
@@ -12,11 +12,5 @@ export const useAuth = (token, loadToken, postLogoutAuth, history) => {
         } else if (token === null) {
             history.push('/login')
         }
-
-
-        // else {
-        //     history.push('/login')
-        // }
     }, [token])
-    return {cookies, setCookie, removeCookie}
 }

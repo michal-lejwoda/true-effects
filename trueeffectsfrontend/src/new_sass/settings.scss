@@ -19,8 +19,8 @@
 $main_color: #001233;
 $light_main_color: #002466;
 $colar_pink: #FF595A;
-$logo_circle1: #FF534A;
-$logo_circle2: #001233;
+$logo_circle1: #ff474b;
+$logo_circle2: #FF595A;
 $logo_circle3: #CAC0B3;
 
 
@@ -117,6 +117,11 @@ $beige: #CAC0B3;
     cursor: pointer;
   }
 }
+
+.box-loading{
+  min-height: 100vh;
+}
+
 .MuiIconButton-label{
   color:white;
 }

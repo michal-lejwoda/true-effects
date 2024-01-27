@@ -7,7 +7,7 @@ const DisplayMultiSeries = (props) => {
     return (
         <div className="display-series create-training__display-series">
             <h1 className="display-series__title">Serie</h1>
-            {props.multiSeries.length == 0 &&
+            {props.multiSeries.length === 0 &&
                 <p className="display-series__no-data">Nie została jeszcze stworzona żadna seria przejdź do sekcji
                     Stwórz Serie i ją utwórz</p>}
             <div className="container display-series__container">
@@ -31,7 +31,7 @@ const DisplayMultiSeries = (props) => {
                                 return (
                                     <div className="single-singleseries single-multiseries__single-singleseries"
                                          key={`${multiIndex}-${singleIndex}`}>
-                                        <div className="header single-singleseries__header">
+                                        <div className="single-singleseries__header">
                                             <p className="header__phase">Fazy: {element.concentric_phase}/{element.pause_after_concentric_phase}/{element.eccentric_phase}/{element.pause_after_eccentric_phase}</p>
                                             <p className="header__title">Seria nr {singleIndex + 1}</p>
 

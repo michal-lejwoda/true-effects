@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {updateTraining} from "../../redux/actions/trainingActions";
+import {getSingleTraining, updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
 import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
-import {handleMoveToScheduler} from "../helpers/history_helpers";
+import {handleMovetoHome, handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
@@ -12,15 +12,31 @@ import {useTraining} from "../hooks/training/useTraining";
 
 const Training = (props) => {
         const history = useHistory()
+        const [apiData, setApiData] = useState(null);
+        const {trainingId} = props.match.params;
         const [showFinishTraining, setShowFinishTraining] = useState(false)
         const {
             seconds, minutes, hours, start, pause, reset,
         } = useStopwatch({autoStart: false});
 
-        const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase, extra_weight,
-            reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining(props)
+        useEffect(() => {
+            props.getSingleTraining(trainingId)
+                .then((res) => {
+                    setApiData(res);
 
+                })
+                .catch(() => {
+                    handleMovetoHome(history)
+                })
+        }, [trainingId])
+
+        const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
+            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({training: apiData});
+
+        if (!multi_series) {
+            return null;
+        }
 
         const handleFinishTraining = async () => {
             modifyMultiSeries()
@@ -167,4 +183,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {updateTraining})(Training);
+export default connect(mapStateToProps, {updateTraining, getSingleTraining})(Training);

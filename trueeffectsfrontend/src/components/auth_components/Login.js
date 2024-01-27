@@ -1,14 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faArrowLeft, faArrowRight} from '@fortawesome/fontawesome-free-solid';
+import {faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
 
 const Login = (props) => {
-    const [handleMoveToRegister, handleMovetoBack, handleChange, handleSubmit, errors] = useLogin(props)
+    const [handleMoveToRegister, handleChange, handleSubmit, errors] = useLogin(props)
     if (props.token !== null) {
         props.history.push('/')
     }
@@ -19,9 +19,6 @@ const Login = (props) => {
             </div>
             <div className="container login__container">
                 <div className="header container__header">
-                    <div className="header__element" onClick={handleMovetoBack}>
-                        <FontAwesomeIcon icon={faArrowLeft}/> Cofnij
-                    </div>
                     <div className="header__element" onClick={handleMoveToRegister}>
                         Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
                     </div>
@@ -53,16 +50,16 @@ const Login = (props) => {
                             {errors.password && <p>{errors.password}</p>}
                         </div>
                         <div className="errors form__errors">
-                            {Object.keys(errors).length == 0 && props.login_error &&
+                            {Object.keys(errors).length === 0 && props.login_error &&
                                 <p>{props.login_error.non_field_errors[0]}</p>}
                         </div>
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">
                                 Zaloguj się
                             </button>
-                            <p className="button__forgot-password">
-                                Zapomniałem hasła
-                            </p>
+                            {/*<p className="button__forgot-password">*/}
+                            {/*    Zapomniałem hasła*/}
+                            {/*</p>*/}
                         </div>
                     </form>
                 </div>

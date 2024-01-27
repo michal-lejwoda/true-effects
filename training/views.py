@@ -155,7 +155,10 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
 
     @action(detail=True, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_training_by_id(self, request, pk=None):
-        training = Training.objects.get(id=pk)
+        try:
+            training = Training.objects.get(id=pk, user=self.request.user)
+        except Training.DoesNotExist:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(instance=training)
         return Response(serializer.data)
 

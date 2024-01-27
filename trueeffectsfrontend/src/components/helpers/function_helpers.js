@@ -1,5 +1,4 @@
 export const convertDate = (date) => {
-    {/* Convert date to YYYY-MM-DD Format */}
     date.setHours(12)
     const fullDate = date.toISOString().split('T')[0]
     return fullDate

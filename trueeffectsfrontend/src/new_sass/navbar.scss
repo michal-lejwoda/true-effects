@@ -10,6 +10,14 @@
   height: 70px;
   z-index: 99;
   border-bottom: 1px solid white;
+  &__button{
+    background: transparent;
+    border: none;
+    color: white;
+    &:hover{
+      color: $colar_pink;
+    }
+  }
   &__logo{
     margin-left: 20px;
     @media (max-width: 768px){

@@ -37,13 +37,13 @@
 
   &__button {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 1rem;
   }
 
   &__date {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     font-size: 1.4rem;
     font-weight: 500;
   }
@@ -62,7 +62,7 @@
 
   &__check {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: 1rem;
     margin-top: 1rem;
     padding-bottom: 1rem;
