@@ -29,7 +29,7 @@ export function CheckGoal(props) {
                 "completed": values.completed,
             }
             props.putGoal(data, values.id)
-                .then(()=>{
+                .then(() => {
                     props.getGoalsToAchieve()
                     props.getCompletedGoals()
                     props.setShowCheckGoal(false)
@@ -49,7 +49,8 @@ export function CheckGoal(props) {
             setFieldValue("finishJsDate", new Date(props.selectedGoal.finish_date))
         }
     }, [props.selectedGoal])
-
+    console.log("props.selectedGoal")
+    console.log(props.selectedGoal)
     return (
         <>
             <Modal className="create-goal goals__create-goal" show={props.showCheckGoal}
@@ -84,7 +85,8 @@ export function CheckGoal(props) {
                             </div>
                             {errors.description && <p className="inputs__error">{errors.description}</p>}
                             <div className="inputs__goal-completed">
-                                <FormControlLabel control={<Checkbox onChange={handleChange} name="completed"/>}
+                                <FormControlLabel control={<Checkbox onChange={handleChange} checked={values.completed}
+                                                                     name="completed"/>}
                                                   label="Czy cel został ukończony?"/>
                             </div>
                         </div>
