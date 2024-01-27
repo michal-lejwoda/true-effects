@@ -1,11 +1,21 @@
-user : test
+# True Effects - Application that allows you to manage your training. 
 
-password :test
 
-Aplikacja pozwala na dopasowanie treninigu do swoich potrzeb. Pozwala na tworzenie oraz zarządzanie czasem treningu jak i powtórzeniami wykonanymi podczas treningu.
-W bazie danych możemy zapisywać zarówno treninigi jak i pomiary ciała i oraz cele treningowe.
+## Technology stack
 
-Todo:
+### DevOps
+- Nginx
+- Docker
+### Backend 
+- Django
+### Frontend:
+- React
+- Redux
+- Formik (to handle forms)
 
-Dostosowanie pomiarów pod potrzeny użytkownika zamiast statycznych typów
+## Application technology description
+
+Backend of application is written in django framework. Application contain Login and Registration for user and requires the user to be logged in to use the application. Frontend of aplication is written in react, for easier management of application status was used redux. Forms are validated via Formik library and validated by yup to prevent errors. Application utilizes Docker containers for seamless deployment and execution. Staticfiles are served via nginx. The application is hosted on my vps server and with each approved PR it is built and reloaded automatically thanks to github actions.
+
+
 
