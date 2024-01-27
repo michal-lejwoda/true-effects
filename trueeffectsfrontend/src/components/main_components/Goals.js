@@ -33,7 +33,7 @@ const Goals = (props) => {
                             nowy cel aby dodać cel</p>}
                     {props.userGoalsToAchieve.map(goal_obj => {
                         return (
-                            <div className="goals__element">
+                            <div key={goal_obj.id} className="goals__element">
                                 <div className="goals__date">{goal_obj.finish_date}</div>
                                 <div className="goals__name">{goal_obj.goal}</div>
                                 <div className="goals__check">
@@ -55,9 +55,9 @@ const Goals = (props) => {
                             nowy cel aby dodać cel</p>}
                     {props.userGoalsCompleted.map(goal_obj => {
                         return (
-                            <div className="goals__element">
-                                <div className="goals__date">{goal_obj.finish_date}</div>
-                                <div className="goals__name">{goal_obj.goal}</div>
+                            <div key={goal_obj.id} className="goals__element">
+                                <div className="goals__date">Data realizacji: {goal_obj.finish_date}</div>
+                                <div className="goals__name">Cel: {goal_obj.goal}</div>
                                 <div className="goals__check">
                                     <button className="standard-button"
                                             onClick={() => handleCheckGoal(goal_obj)}>Sprawdź
