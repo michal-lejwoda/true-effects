@@ -15,7 +15,7 @@ const DisplayMultiSeries = (props) => {
                     return (
                         <div className="multiseries container__multiseries" key={`${multiIndex}-${el.exercise.name}`} >
                             <div className="single-multiseries multiseries__single-multiseries">
-                                <p className="single-multiseries__title">{el.exercise.name}</p>
+                                <p className="single-multiseries__title"><span>{el.exercise.name}</span><span className="single-multiseries__title--red">Liczba serii: {el.single_series.length}</span></p>
                                 <div className="single-multiseries__buttons">
                                     <button className="buttons__button"
                                             onClick={() => toggleVisibility(multiIndex)}>
