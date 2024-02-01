@@ -58,6 +58,7 @@ const SettingsDimensionItems = (props) => {
             .then(() => {
                 props.getDimensionConfiguration()
                 props.getDimensionConfigurationForCompare()
+                props.setSuccessModal(true)
             })
     }
 

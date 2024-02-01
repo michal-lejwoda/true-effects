@@ -6,6 +6,12 @@
   display: flex;
   flex-direction: column;
 
+  &__errors{
+    &--red{
+      color: $colar-pink
+    }
+  }
+
   &__title {
     margin-top: 1rem;
     margin-bottom: 2rem;
