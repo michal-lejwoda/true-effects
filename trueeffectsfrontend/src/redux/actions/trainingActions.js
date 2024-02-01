@@ -157,6 +157,13 @@ export const getTrainings = () => (dispatch, getState) => {
         }))
 }
 
+export const updateSingleSeries = (singleSeries) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.put(`${TRUEEFFECTS_URL}/api/v1/single_series/${singleSeries.id}/`, singleSeries)
+}
+
+
 // #TODO Think about it
 export const postSingleSeries = (data) => (dispatch, getState) => {
     let token = getState().authentication.token

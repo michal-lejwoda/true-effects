@@ -70,8 +70,8 @@ export const handleMoveToMobileGoals = (history, isMobileNavOpen, setIsMobileNav
 }
 
 
-export const handleMoveToModifyTraining = (history) =>{
-    history.push("/modify_training")
+export const handleMoveToModifyTraining = (history, id) =>{
+    history.push(`/modify_training/${id}`)
 }
 
 export const handleMoveToCreateTraining = (history) =>{

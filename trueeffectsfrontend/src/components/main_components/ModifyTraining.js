@@ -5,7 +5,7 @@ import {
     createTraining,
     deleteCurrentTraining,
     getSingleTraining,
-    getTrainings,
+    getTrainings, updateSingleSeries,
     updateTraining
 } from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
@@ -48,6 +48,22 @@ const ModifyTraining = (props) => {
     }
     const handleDate = (date, values) => {
         values.date = date
+
+    }
+
+    const handleModifySingleSeries = (e, values, id, multi_series_index, single_series_index, singleseries) => {
+        e.preventDefault()
+        props.updateSingleSeries(singleseries)
+        // console.log("id")
+        // console.log(id)
+        // console.log("multi_series_index")
+        // console.log(multi_series_index)
+        // console.log("single_series_index")
+        // console.log(single_series_index)
+        // console.log("values")
+        // console.log(values)
+        // console.log("singleseries")
+        // console.log(singleseries)
 
     }
 
@@ -193,7 +209,11 @@ const ModifyTraining = (props) => {
                                                                             onChange={handleChange} type="text"/>
                                                                         <span>Pauza po fazie ekscentrycznej</span>
                                                                     </div>
-
+                                                                    <div className="single-series__button">
+                                                                        <button className="standard-button" onClick={(e)=>handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>Modyfikuj
+                                                                            pojedyńczą serie
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             )
                                                         })}
@@ -222,5 +242,6 @@ export default connect(mapStateToProps, {
     createTraining,
     deleteCurrentTraining,
     getTrainings,
-    getSingleTraining
+    getSingleTraining,
+    updateSingleSeries
 })(ModifyTraining);
