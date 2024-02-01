@@ -12,7 +12,11 @@ export const SettingsPasswordItems = (props) => {
         validationOnBlue: false,
         onSubmit: values => {
             props.changePassword(values)
+                .then(()=>{
+                    props.setSuccessModal(true)
+                })
                 .catch((err) => {
+                    console.log(err)
                     setErrors(err.response.data)
                 })
         },
@@ -26,19 +30,19 @@ export const SettingsPasswordItems = (props) => {
                        type="password"/>
                 <span>Stare hasło</span>
             </div>
-            {errors.old_password && <p className="settings__errors">{errors.old_password}</p>}
+            {errors.old_password && <p className="settings__errors--red">{errors.old_password}</p>}
             <div className="animatedInput">
                 <input name="new_password1" onChange={handleChange} value={values.new_password1} required={true}
                        type="password"/>
                 <span>Nowe hasło</span>
             </div>
-            {errors.new_password1 && <p className="settings__errors">{errors.new_password1}</p>}
+            {errors.new_password1 && <p className="settings__errors--red">{errors.new_password1}</p>}
             <div className="animatedInput">
                 <input name="new_password2" onChange={handleChange} value={values.new_password2} required={true}
                        type="password"/>
                 <span>Powtórz nowe hasło</span>
             </div>
-            {errors.new_password2 && <p className="settings__errors">{errors.new_password2}</p>}
+            {errors.new_password2 && <p className="settings__errors--red">{errors.new_password2}</p>}
             <div className="settings__accept-button">
                 <button className="standard-button" type="submit">Zapisz ustawienia</button>
             </div>
