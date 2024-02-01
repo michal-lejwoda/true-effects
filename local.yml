@@ -36,7 +36,7 @@ services:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
     command: python manage.py runserver 0.0.0.0:8000
-#    entrypoint: /app/entrypoint.sh
+    entrypoint: /app/entrypoint.sh
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
     ports:

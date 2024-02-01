@@ -9,6 +9,7 @@ import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActio
 import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
+import {handleMoveToModifyTraining} from "../helpers/history_helpers";
 
 require('moment/locale/pl.js')
 
@@ -33,8 +34,11 @@ const Scheduler = (props) => {
         setShowModal(true)
     }
     const handleSelect = async (e) => {
-        await props.getSingleTraining(e.id)
-        await setShowModal(true)
+        console.log("e")
+        console.log(e)
+        await handleMoveToModifyTraining(history, e.id)
+        // await props.getSingleTraining(e.id)
+        // await setShowModal(true)
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">

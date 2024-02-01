@@ -40,6 +40,11 @@
 .single-series{
   padding-left: 20px;
   padding-right: 10px;
+  &__button{
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+  }
   &__series-num{
     font-size: 1.3rem;
     font-weight: 600;
