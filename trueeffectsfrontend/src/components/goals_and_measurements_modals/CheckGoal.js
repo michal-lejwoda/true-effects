@@ -49,8 +49,20 @@ export function CheckGoal(props) {
             setFieldValue("finishJsDate", new Date(props.selectedGoal.finish_date))
         }
     }, [props.selectedGoal])
-    console.log("props.selectedGoal")
-    console.log(props.selectedGoal)
+
+    const handleDeleteGoal = (e) => {
+        e.preventDefault()
+        props.deleteGoal(values.id)
+            .then(() => {
+                props.getGoalsToAchieve()
+                props.getCompletedGoals()
+                props.setShowCheckGoal(false)
+            })
+            .catch(error => {
+                setErrors(error.response.data)
+            })
+    }
+
     return (
         <>
             <Modal className="create-goal goals__create-goal" show={props.showCheckGoal}
@@ -92,6 +104,8 @@ export function CheckGoal(props) {
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">
+                        <button className="footer__button standard-button" onClick={handleDeleteGoal}>Usuń cel
+                        </button>
                         <button className="footer__button standard-button" type="submit">Zapisz cel treningowy
                         </button>
                     </Modal.Footer>

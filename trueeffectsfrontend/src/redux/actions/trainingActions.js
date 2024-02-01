@@ -34,9 +34,9 @@ export const postGoal = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/user_goal/`, data)
-        .then(res => {
-            alert("Cel został dodany")
-        })
+        // .then(res => {
+        //     alert("Cel został dodany")
+        // })
 }
 
 export const getCompletedGoals = () => (dispatch, getState) => {
@@ -62,7 +62,7 @@ export const getGoalsToAchieve = () => (dispatch, getState) => {
     dispatch({
         type: GET_USER_GOALS_TO_ACHIEVE_LOADING
     })
-    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_goal/`)
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/user_goal/not_completed/`)
         .then(res => dispatch({
             type: GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
             payload: res.data,
@@ -84,6 +84,12 @@ export const putGoal = (data, id) => (dispatch, getState) => {
         })
 }
 
+export const deleteGoal = (id) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.delete(`${TRUEEFFECTS_URL}/api/v1/user_goal/${id}/`)
+}
+
 
 export const postDimension = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
@@ -98,9 +104,9 @@ export const putDimension = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_dimension/`, data)
-        .then(
-            alert("Pomiar został zaaktualizowany")
-        )
+        // .then(
+        //     alert("Pomiar został zaaktualizowany")
+        // )
 }
 
 export const getDimensions = () => (dispatch, getState) => {
