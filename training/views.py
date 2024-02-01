@@ -81,17 +81,23 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
 
 # TODO Fix this
-class UserGoalViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
+class UserGoalViewSet(CreateModelMixin, DestroyModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserGoalSerializer
 
     def get_queryset(self):
         user = self.request.user
-        return UserGoal.objects.filter(user=user, completed=False).order_by('finish_date')
+        return UserGoal.objects.filter(user=user).order_by('finish_date')
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def not_completed(self, request):
+        user = request.user
+        queryset = UserGoal.objects.filter(user=user, completed=False).order_by('-finish_date')
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def completed(self, request):
         user = request.user

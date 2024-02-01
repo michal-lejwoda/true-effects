@@ -1,9 +1,11 @@
 @import "settings.scss";
+
 .settings {
   min-height: 100vh;
   padding: 0 10px 0 10px;
   display: flex;
   flex-direction: column;
+
   &__title {
     margin-top: 1rem;
     margin-bottom: 2rem;
@@ -21,6 +23,7 @@
       &__element {
         padding: 15px 5px 15px;
         border-bottom: 2px solid white;
+
 
         :hover {
           cursor: pointer;
@@ -42,10 +45,41 @@
   }
 
   &__dimensions {
+    &__elements {
+      div:nth-child(odd) {
+        background-color: $main_color;
+        padding-left: 3rem;
+
+
+      }
+
+      div:nth-child(even) {
+        background-color: $light_main_color;
+        padding-left: 3rem;
+      }
+    }
+
     &__element {
-      padding-top: 0.3rem;
-      padding-bottom: 0.3rem;
+      padding: 0.3rem;
+      border-bottom: 1px solid white;
       font-size: 1.1rem;
+      :hover{
+        cursor: pointer;
+      }
+
+      input {
+        :hover {
+          cursor: pointer;
+        }
+      }
+
+      label {
+        :hover {
+          cursor: pointer;
+        }
+      }
+
+
     }
   }
 }
@@ -55,9 +89,14 @@
   justify-content: center;
 
   &__options {
-    padding-left: 1rem;
-    @include breakpoint(bigmobile) {
+    padding: 1rem;
+    border: 2px solid white;
+
+    @include breakpoint(mobilebig) {
+      width: 350px;
       min-width: 400px;
+      height: 520px;
+
     }
   }
 
@@ -72,6 +111,9 @@
 }
 
 .choices {
+  border: 2px solid white;
+  border-right: none;
+
   &__element {
     padding: 1rem 1rem 1.4rem;
     //padding-bottom: 1.4rem;
@@ -80,6 +122,10 @@
     //padding-left: 1rem;
     border-bottom: 1px solid white;
     text-align: center;
+
+    &:hover {
+      cursor: pointer;
+    }
 
   }
 }
