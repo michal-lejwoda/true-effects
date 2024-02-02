@@ -2,22 +2,6 @@
 export const handleMovetoHome = (history) => {
     history.push("/");
 }
-export const handleMovetoScheduler = (history) => {
-    history.push("/schedule");
-}
-export const handleMovetoCreator = (history) => {
-    history.push("/createtraining");
-}
-export const handleMovetoMeasurements = (history) => {
-    history.push("/addmeasurements");
-}
-export const handleMovetoAllMeasurements = (history) => {
-    history.push("/displaymeasurements");
-}
-
-export const handleMovetoGoalsAndDimensions = (history) =>{
-    history.push("/goals_and_dimensions")
-}
 
 export const handleMovetoDimensions = (history) =>{
     history.push("/dimensions")
@@ -26,10 +10,6 @@ export const handleMovetoDimensions = (history) =>{
 export const handleMovetoMobileDimensions = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
     history.push("/dimensions")
     setIsMobileNavOpen(!isMobileNavOpen)
-}
-
-export const handleMovetoAddGoals = (history) => {
-    history.push("/addgoals");
 }
 
 export const handleMoveToScheduler = (history) =>{
@@ -44,12 +24,6 @@ export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobil
 export const handleMoveToTraining = (history,id) => {
     history.push(`/training/${id}`)
 }
-
-export const handleMoveToMobileTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
-    history.push("/training");
-    setIsMobileNavOpen(!isMobileNavOpen)
-}
-
 
 export const handleMovetoSettings = (history) =>{
     history.push("/settings")

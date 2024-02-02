@@ -30,6 +30,7 @@ import {useAuth} from "./hooks/auth/useAuth";
 
 const DefaultContainer = (props) => {
     useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
+
     async function fetchAllData() {
         try {
             const promises = [
@@ -68,7 +69,6 @@ const DefaultContainer = (props) => {
                     <Route path="/dimensions" component={Dimensions}/>
                     <Route path="/settings" component={Settings}/>
                     <Route path="/scheduler" component={Scheduler}/>
-                    {/*<Route path="/training" component={Training}/>*/}
                     <Route path="/training/:trainingId" component={Training}/>
                     <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
                     <Route path="/create_training" component={CreateTraining}/>
