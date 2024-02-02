@@ -1,5 +1,5 @@
 from django.db.models import Q
-from rest_framework import status
+from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, \
     DestroyModelMixin
@@ -163,6 +163,9 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
     def get_training_by_id(self, request, pk=None):
         try:
             training = Training.objects.get(id=pk, user=self.request.user)
+            sorted_multi_series = training.multi_series.all().order_by('id')
+            for multi_series in sorted_multi_series:
+                multi_series.single_series.all().order_by('id')
         except Training.DoesNotExist:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(instance=training)
@@ -257,3 +260,8 @@ class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, Up
         if serializer.is_valid():
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class SingleSeriesViewSet(UpdateModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SingleSeriesSerializer
+    queryset = SingleSeries.objects.all()
