@@ -18,8 +18,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 
-const ModifyTraining = (props) => {
-
+const CheckTraining = (props) => {
     const history = useHistory()
     const [visibleElements, setVisibleElements] = useState([]);
     const [apiData, setApiData] = useState(null);
@@ -157,8 +156,7 @@ const ModifyTraining = (props) => {
                                     <div className="multiseries mt-data__multiseries">
                                         {values.multi_series.map((multiseries, index) => {
                                             return (
-                                                <div className="multi-element multiseries__multi-element--collapse"
-                                                     key={`${multiseries.id}`}>
+                                                <div className="multi-element multiseries__multi-element--collapse" key={`${multiseries.id}`}>
                                                     <div className="multi-element__container"
                                                          onClick={() => toggleVisibility(index)}>
                                                         <div
@@ -172,8 +170,7 @@ const ModifyTraining = (props) => {
                                                         className="single-series multi-element__single-series--expanded">
                                                         {visibleElements.includes(index) && multiseries.single_series.map((singleseries, indexv2) => {
                                                             return (
-                                                                <div className="single-series__element"
-                                                                     key={`${multiseries.id}-${singleseries.id}`}>
+                                                                <div className="single-series__element" key={`${multiseries.id}-${singleseries.id}`}>
                                                                     <p className="single-series__series-num">Seria {indexv2 + 1}</p>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
@@ -256,4 +253,4 @@ export default connect(mapStateToProps, {
     getTrainings,
     getSingleTraining,
     updateSingleSeries
-})(ModifyTraining);
+})(CheckTraining);
