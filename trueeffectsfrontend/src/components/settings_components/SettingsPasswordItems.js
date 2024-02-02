@@ -12,7 +12,7 @@ export const SettingsPasswordItems = (props) => {
         validationOnBlue: false,
         onSubmit: values => {
             props.changePassword(values)
-                .then(()=>{
+                .then(() => {
                     props.setSuccessModal(true)
                 })
                 .catch((err) => {

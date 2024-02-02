@@ -21,6 +21,7 @@ export function CompareDimensions(props) {
                 <Modal.Body>
                     <div className="dimensions__table">
                         <table>
+                            <thead>
                             <tr>
                                 <th>Parametry</th>
                                 <th>
@@ -48,6 +49,7 @@ export function CompareDimensions(props) {
                                     </Select>
                                 </th>
                             </tr>
+                            </thead>
                             {Object.keys(props.userDimensionConfigurationForCompare).map(element => {
                                 return (
                                     <tr key={element}>

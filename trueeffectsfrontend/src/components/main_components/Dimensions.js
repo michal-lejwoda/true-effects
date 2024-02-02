@@ -47,21 +47,23 @@ const Dimensions = (props) => {
                             </div>
                         )
                     }) : <p>Nie masz jeszcze żadnych pomiarów</p>}
-                {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) && <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
-                                 handleShow={handleShowCreateDimension}
-                                 getDimensions={props.getDimensions}
-                                 userDimensionConfiguration={props.userDimensionConfiguration}
-                                 userDimensionsForCreate={props.userDimensionsForCreate}
-                                 userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
-                                 userDimensions={props.userDimensions}
-                                 postDimension={props.postDimension}
-                />}
-                {props.userDimensionConfigurationLoaded && <CompareDimensions show={showCompareDimensions} handleClose={handleCloseCompareDimensions}
-                                   handleShow={handleShowCompareDimensions}
-                                   userDimensions={props.userDimensions}
-                                   userDimensionConfiguration={props.userDimensionConfiguration}
-                                   userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
-                />}
+                {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) &&
+                    <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
+                                     handleShow={handleShowCreateDimension}
+                                     getDimensions={props.getDimensions}
+                                     userDimensionConfiguration={props.userDimensionConfiguration}
+                                     userDimensionsForCreate={props.userDimensionsForCreate}
+                                     userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                                     userDimensions={props.userDimensions}
+                                     postDimension={props.postDimension}
+                    />}
+                {props.userDimensionConfigurationLoaded &&
+                    <CompareDimensions show={showCompareDimensions} handleClose={handleCloseCompareDimensions}
+                                       handleShow={handleShowCompareDimensions}
+                                       userDimensions={props.userDimensions}
+                                       userDimensionConfiguration={props.userDimensionConfiguration}
+                                       userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                    />}
             </div>
         </div>
     ) : (props.userDimensionsLoading || props.userDimensionConfigurationForCompareLoading) && (

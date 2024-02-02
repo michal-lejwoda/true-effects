@@ -80,10 +80,6 @@ const Register = (props) => {
                             <button className="button__register square-buttons" type="submit">
                                 Zarejestruj się
                             </button>
-                            {/*#TODO create forget password someday*/}
-                            {/*<p className="button__forgot-password">*/}
-                            {/*    Zapomniałem hasła*/}
-                            {/*</p>*/}
                         </div>
                     </form>
                 </div>

@@ -77,7 +77,7 @@ const Goals = (props) => {
                                             deleteGoal={props.deleteGoal}/>
                 }
             </div>
-        ):
+        ) :
         (props.userGoalsCompletedLoading || props.userGoalsToAchieveLoading) && (
             <div className="box-loading">
                 <BoxLoading/>

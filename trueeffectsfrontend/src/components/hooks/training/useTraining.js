@@ -74,11 +74,11 @@ export const useTraining = (props) => {
         } = currentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries]
         const {multi_series} = currentTraining
         return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
-        extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
-        handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
-    }else {
+            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
+    } else {
         return [null, null, null, null,
-        null, null, null, null, null, actualMultiSeries, actualSingleSeries,
-        handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
+            null, null, null, null, null, actualMultiSeries, actualSingleSeries,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
     }
 }

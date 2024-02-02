@@ -13,17 +13,17 @@ import '../../new_sass/create_training.scss'
 
 const CreateTraining = (props) => {
     const history = useHistory()
-    const [multiSeries, multiSeriesIndex, singleSeries, values, errors,showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+    const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
         setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings)
 
     const [defaultExercises, setDefaultExercises] = useState()
-    useEffect(()=>{
+    useEffect(() => {
         props.getExercises("")
-            .then(response=>{
+            .then(response => {
                 setDefaultExercises(response)
             })
-    },[])
+    }, [])
 
     return (
         <div className="create-training">
@@ -88,4 +88,9 @@ const mapStateToProps = (state) => {
         create_single_training_error_message: state.training.create_single_training_error_message,
     }
 }
-export default connect(mapStateToProps, {getExercises, createTraining, createUserExercise, getTrainings})(CreateTraining);
+export default connect(mapStateToProps, {
+    getExercises,
+    createTraining,
+    createUserExercise,
+    getTrainings
+})(CreateTraining);

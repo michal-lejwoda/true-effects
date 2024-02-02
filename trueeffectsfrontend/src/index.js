@@ -10,6 +10,7 @@ import './new_sass/main.scss';
 import Login from "./components/auth_components/Login";
 import Register from "./components/auth_components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 ReactDOM.render(
     <CookiesProvider>
         <Provider store={store}>
