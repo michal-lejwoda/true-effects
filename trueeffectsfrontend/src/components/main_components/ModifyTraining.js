@@ -5,7 +5,8 @@ import {
     createTraining,
     deleteCurrentTraining,
     getSingleTraining,
-    getTrainings, updateSingleSeries,
+    getTrainings,
+    updateSingleSeries,
     updateTraining
 } from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
@@ -38,17 +39,11 @@ const ModifyTraining = (props) => {
 
     const handleModifyTraining = async (data) => {
         await props.updateTraining(data)
-    }
-    const handleCopyTrainingToAnotherDate = async (data) => {
-        await props.createTraining(data)
+        await handleMoveToScheduler(history)
     }
 
     const handleDeleteTraining = async (id) => {
         await props.deleteCurrentTraining(id)
-    }
-    const handleDate = (date, values) => {
-        values.date = date
-
     }
 
     const handleModifySingleSeries = (e, values, id, multi_series_index, single_series_index, singleseries) => {
@@ -89,9 +84,7 @@ const ModifyTraining = (props) => {
                 />
                 <Formik
                     initialValues={apiData}
-                    onSubmit={(values, {setSubmitting}) => {
-                        handleModifyTraining(values)
-                    }}>
+                >
                     {({
                           values,
                           setFieldValue,
@@ -141,18 +134,19 @@ const ModifyTraining = (props) => {
                                                type="text"/>
                                         <span>Opis treningu</span>
                                     </div>
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="time" value={values.time}
+                                               type="text"/>
+                                        <span>Czas treningu</span>
+                                    </div>
                                     <div className="mt-data__buttons--end">
                                         <button className="standard-button"
-                                                onClick={() => handleMoveToTraining(history)}>Zapisz zmiany w treningu
+                                                onClick={() => handleModifyTraining(values)}>Zapisz zmiany w treningu
                                         </button>
                                     </div>
                                 </div>
                                 <div className="mt-data--list">
                                     <h1 className="title modify-training__title">Modyfikuj serie</h1>
-                                    {/*<div className="mt-data__buttons">*/}
-                                    {/*    <button className="standard-button" type="submit">Modyfikuj trening</button>*/}
-
-                                    {/*</div>*/}
                                     <div className="multiseries mt-data__multiseries">
                                         {values.multi_series.map((multiseries, index) => {
                                             return (
