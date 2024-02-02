@@ -1,5 +1,3 @@
-import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
-
 const yup = require("yup");
 
 export const createGoalValidation = yup.object().shape({
@@ -90,7 +88,7 @@ export const registerUserValidation = yup.object().shape({
 export const createExerciseModalValidation = yup.object().shape({
     name: yup.string().required('Stare hasło jest wymagane'),
     password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
-        // .min(2, "Nazwa ćwiczenia jest za krótka")
+    // .min(2, "Nazwa ćwiczenia jest za krótka")
 })
 
 export const changePasswordValidation = yup.object().shape({

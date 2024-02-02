@@ -8,13 +8,13 @@ import {
     GET_USER_COMPLETED_GOALS_ERROR,
     GET_USER_COMPLETED_GOALS_LOADING,
     GET_USER_COMPLETED_GOALS_SUCCESS,
-    GET_USER_DIMENSION_CONFIGURATION_ERROR, GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_ERROR,
+    GET_USER_DIMENSION_CONFIGURATION_ERROR,
+    GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_ERROR,
     GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_LOADING,
     GET_USER_DIMENSION_CONFIGURATION_FOR_COMPARE_SUCCESS,
     GET_USER_DIMENSION_CONFIGURATION_LOADING,
     GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
     GET_USER_DIMENSIONS_ERROR,
-    GET_USER_DIMENSIONS_FOR_CREATE,
     GET_USER_DIMENSIONS_FOR_CREATE_ERROR,
     GET_USER_DIMENSIONS_FOR_CREATE_LOADING,
     GET_USER_DIMENSIONS_FOR_CREATE_SUCCESS,
@@ -34,9 +34,6 @@ export const postGoal = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/user_goal/`, data)
-        // .then(res => {
-        //     alert("Cel został dodany")
-        // })
 }
 
 export const getCompletedGoals = () => (dispatch, getState) => {
@@ -67,7 +64,7 @@ export const getGoalsToAchieve = () => (dispatch, getState) => {
             type: GET_USER_GOALS_TO_ACHIEVE_SUCCESS,
             payload: res.data,
         }))
-        .catch(()=>dispatch({
+        .catch(() => dispatch({
             type: GET_USER_GOALS_TO_ACHIEVE_ERROR
         }));
 }
@@ -80,7 +77,7 @@ export const putGoal = (data, id) => (dispatch, getState) => {
             return res.data
         })
         .catch(err => {
-            return err
+            throw err
         })
 }
 
@@ -95,18 +92,12 @@ export const postDimension = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/user_dimension/`, data)
-        .then(res => {
-            alert("Pomiar został dodany")
-        })
 }
 
 export const putDimension = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_dimension/`, data)
-        // .then(
-        //     alert("Pomiar został zaaktualizowany")
-        // )
 }
 
 export const getDimensions = () => (dispatch, getState) => {
@@ -120,7 +111,7 @@ export const getDimensions = () => (dispatch, getState) => {
             type: GET_USER_DIMENSIONS_SUCCESS,
             payload: res.data,
         }))
-        .catch(()=> dispatch({
+        .catch(() => dispatch({
             type: GET_USER_DIMENSIONS_ERROR
         }))
 }
@@ -136,7 +127,7 @@ export const getUserDimensionsForCreate = () => (dispatch, getState) => {
             type: GET_USER_DIMENSIONS_FOR_CREATE_SUCCESS,
             payload: res.data,
         }))
-        .catch(()=> dispatch({
+        .catch(() => dispatch({
             type: GET_USER_DIMENSIONS_FOR_CREATE_ERROR
         }))
 }
@@ -191,9 +182,6 @@ export const putDimensionConfiguration = (data) => (dispatch, getState) => {
             type: PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
             payload: res.data
         }))
-        // .catch(err => {
-        //     console.log(err.response)
-        // })
 }
 
 export const getDimensionConfiguration = () => (dispatch, getState) => {
@@ -207,7 +195,7 @@ export const getDimensionConfiguration = () => (dispatch, getState) => {
             type: GET_USER_DIMENSION_CONFIGURATION_SUCCESS,
             payload: res.data
         }))
-        .catch(()=> dispatch({
+        .catch(() => dispatch({
             type: GET_USER_DIMENSION_CONFIGURATION_ERROR,
         }))
 
@@ -246,8 +234,6 @@ export const getSingleTraining = (id) => (dispatch, getState) => {
 export const updateTraining = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    console.log("data")
-    console.log(data)
     return axios.put(`${TRUEEFFECTS_URL}/api/v1/single_training/${data.id}/update_training/`, data)
         .then(res => dispatch({
             type: UPDATE_SINGLE_TRAINING_SUCCESS,

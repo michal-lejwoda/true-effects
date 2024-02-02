@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Field, Formik} from "formik";
 import {connect} from "react-redux";
 import {
@@ -11,65 +11,17 @@ import {
 } from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
 import {convertDate} from "../helpers/function_helpers";
-import {useHistory} from "react-router-dom";
-import {handleMovetoHome, handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
+import useModifyTraining from "../hooks/training/useModifyTraining";
 
 const ModifyTraining = (props) => {
-
-    const history = useHistory()
-    const [visibleElements, setVisibleElements] = useState([]);
-    const [apiData, setApiData] = useState(null);
-    const [removeTrainingModal, setRemoveTrainingModal] = useState(false);
-    const [differentDayModal, setDifferentDayModal] = useState(false);
-    const {trainingId} = props.match.params;
-    useEffect(() => {
-        props.getSingleTraining(trainingId)
-            .then((res) => {
-                setApiData(res);
-            })
-            .catch(() => {
-                handleMovetoHome(history)
-            })
-    }, [trainingId])
-
-    const handleModifyTraining = async (data) => {
-        await props.updateTraining(data)
-        await handleMoveToScheduler(history)
-    }
-
-    const handleDeleteTraining = async (id) => {
-        await props.deleteCurrentTraining(id)
-    }
-
-    const handleModifySingleSeries = (e, values, id, multi_series_index, single_series_index, singleseries) => {
-        e.preventDefault()
-        props.updateSingleSeries(singleseries)
-            .then(() => {
-                props.getSingleTraining(trainingId)
-                    .then((res) => {
-                        setApiData(res);
-                    })
-                    .catch(() => {
-                        handleMovetoHome(history)
-                    })
-            })
-    }
-
-
-    const toggleVisibility = (elementId) => {
-        setVisibleElements((prevVisibleElements) => {
-            if (prevVisibleElements.includes(elementId)) {
-                return prevVisibleElements.filter((id) => id !== elementId);
-            } else {
-                return [...prevVisibleElements, elementId];
-            }
-        });
-    };
+    const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining,
+        setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
     return (
         <div className="modify-training">
             {apiData && <>
