@@ -90,7 +90,6 @@ const ModifyTraining = (props) => {
                 <Formik
                     initialValues={apiData}
                     onSubmit={(values, {setSubmitting}) => {
-                        console.log("submit")
                         handleModifyTraining(values)
                     }}>
                     {({
@@ -118,7 +117,7 @@ const ModifyTraining = (props) => {
                                         </div>
                                         <div className="mt-data__buttons--end">
                                             <button className="standard-button"
-                                                    onClick={() => handleMoveToTraining(history)}>Trenuj ->
+                                                    onClick={() => handleMoveToTraining(history, values.id)}>Trenuj ->
                                             </button>
                                         </div>
 

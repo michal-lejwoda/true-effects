@@ -14,6 +14,12 @@
 .mt-data {
   width: 100%;
 
+  .multiseries {
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+  }
+
   &--top {
     flex: 1 1;
     @include breakpoint(laptop) {
@@ -47,7 +53,7 @@
   }
 
   &--list {
-    display:flex;
+    display: flex;
     flex: 1 1;
     flex-direction: column;
     align-items: center;
@@ -57,12 +63,7 @@
     }
   }
 }
-//
-.multiseries {
-  width: 100%;
-  min-width: 300px;
-  max-width: 450px;
-}
+
 
 .multi-element {
   margin-top: 1rem;

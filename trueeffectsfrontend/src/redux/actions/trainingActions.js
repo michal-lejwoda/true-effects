@@ -191,9 +191,9 @@ export const putDimensionConfiguration = (data) => (dispatch, getState) => {
             type: PUT_USER_DIMENSION_CONFIGURATION_SUCCESS,
             payload: res.data
         }))
-        .catch(err => {
-            console.log(err.response)
-        })
+        // .catch(err => {
+        //     console.log(err.response)
+        // })
 }
 
 export const getDimensionConfiguration = () => (dispatch, getState) => {
@@ -299,8 +299,7 @@ export const getExercises = (param) => (dispatch, getState) => {
             return res.data
         })
         .catch(err => {
-            console.log(err)
-            return err
+            throw err
         })
 }
 export const createUserExercise = (data) => (dispatch, getState) => {

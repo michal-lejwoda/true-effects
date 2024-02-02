@@ -16,7 +16,6 @@ export const SettingsPasswordItems = (props) => {
                     props.setSuccessModal(true)
                 })
                 .catch((err) => {
-                    console.log(err)
                     setErrors(err.response.data)
                 })
         },
