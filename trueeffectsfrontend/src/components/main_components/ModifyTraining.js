@@ -54,17 +54,15 @@ const ModifyTraining = (props) => {
     const handleModifySingleSeries = (e, values, id, multi_series_index, single_series_index, singleseries) => {
         e.preventDefault()
         props.updateSingleSeries(singleseries)
-        // console.log("id")
-        // console.log(id)
-        // console.log("multi_series_index")
-        // console.log(multi_series_index)
-        // console.log("single_series_index")
-        // console.log(single_series_index)
-        // console.log("values")
-        // console.log(values)
-        // console.log("singleseries")
-        // console.log(singleseries)
-
+            .then(() => {
+                props.getSingleTraining(trainingId)
+                    .then((res) => {
+                        setApiData(res);
+                    })
+                    .catch(() => {
+                        handleMovetoHome(history)
+                    })
+            })
     }
 
 
@@ -77,10 +75,6 @@ const ModifyTraining = (props) => {
             }
         });
     };
-    console.log("visible elmenets")
-    console.log(visibleElements)
-    console.log("apiData")
-    console.log(apiData)
     return (
         <div className="modify-training">
             {apiData && <>
@@ -107,48 +101,63 @@ const ModifyTraining = (props) => {
                       }) => (
                         <form className="modify-training__form" onSubmit={handleSubmit}>
                             <div className="mt-data modify-training__mt-data">
-                                <h1 className="title modify-training__title">Modyfikuj Trening</h1>
-                                <DatePicker locale='pl'
-                                            name="date"
-                                            value={values.date}
-                                            className="create-training__datepicker animated-datepicker"
-                                            placeholderText={"Wybierz date treningu"}
-                                            dateFormat='yyyy-MM-dd'
-                                            onChange={(date) => setFieldValue('date', convertDate(date))
-                                            }
-                                />
-                                <div className="mt-data__buttons">
-                                    <button className="standard-button"
-                                            onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => handleMoveToTraining(history)}>Trenuj ->
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => setDifferentDayModal(true)}>Dodaj trening do
-                                        innego dnia +
-                                    </button>
+                                <div className="mt-data--top">
+                                    <h1 className="title modify-training__title">Modyfikuj Trening</h1>
 
-                                </div>
-                                <div className="animatedInput">
-                                    <Field onChange={handleChange} name="name" value={values.name} type="text"/>
-                                    <span>Nazwa Treningu</span>
-                                </div>
-
-                                <div className="animatedInput">
-                                    <Field onChange={handleChange} name="description" value={values.description}
-                                           type="text"/>
-                                    <span>Opis treningu</span>
-                                </div>
-                                <div className="mt-data--list">
                                     <div className="mt-data__buttons">
-                                        <button className="standard-button" type="submit">Modyfikuj trening</button>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
+                                            </button>
+                                        </div>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => setDifferentDayModal(true)}>Dodaj trening do
+                                                innego dnia +
+                                            </button>
+                                        </div>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => handleMoveToTraining(history)}>Trenuj ->
+                                            </button>
+                                        </div>
 
                                     </div>
+                                    <DatePicker locale='pl'
+                                                name="date"
+                                                value={values.date}
+                                                className="create-training__datepicker animated-datepicker"
+                                                placeholderText={"Wybierz date treningu"}
+                                                dateFormat='yyyy-MM-dd'
+                                                onChange={(date) => setFieldValue('date', convertDate(date))
+                                                }
+                                    />
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="name" value={values.name} type="text"/>
+                                        <span>Nazwa Treningu</span>
+                                    </div>
+
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="description" value={values.description}
+                                               type="text"/>
+                                        <span>Opis treningu</span>
+                                    </div>
+                                    <div className="mt-data__buttons--end">
+                                        <button className="standard-button"
+                                                onClick={() => handleMoveToTraining(history)}>Zapisz zmiany w treningu
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="mt-data--list">
+                                    <h1 className="title modify-training__title">Modyfikuj serie</h1>
+                                    {/*<div className="mt-data__buttons">*/}
+                                    {/*    <button className="standard-button" type="submit">Modyfikuj trening</button>*/}
+
+                                    {/*</div>*/}
                                     <div className="multiseries mt-data__multiseries">
                                         {values.multi_series.map((multiseries, index) => {
                                             return (
-                                                <div className="multi-element multiseries__multi-element--collapse">
+                                                <div className="multi-element multiseries__multi-element--collapse" key={`${multiseries.id}`}>
                                                     <div className="multi-element__container"
                                                          onClick={() => toggleVisibility(index)}>
                                                         <div
@@ -162,7 +171,7 @@ const ModifyTraining = (props) => {
                                                         className="single-series multi-element__single-series--expanded">
                                                         {visibleElements.includes(index) && multiseries.single_series.map((singleseries, indexv2) => {
                                                             return (
-                                                                <div className="single-series__element">
+                                                                <div className="single-series__element" key={`${multiseries.id}-${singleseries.id}`}>
                                                                     <p className="single-series__series-num">Seria {indexv2 + 1}</p>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
@@ -210,7 +219,8 @@ const ModifyTraining = (props) => {
                                                                         <span>Pauza po fazie ekscentrycznej</span>
                                                                     </div>
                                                                     <div className="single-series__button">
-                                                                        <button className="standard-button" onClick={(e)=>handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>Modyfikuj
+                                                                        <button className="standard-button"
+                                                                                onClick={(e) => handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>Modyfikuj
                                                                             pojedyńczą serie
                                                                         </button>
                                                                     </div>
