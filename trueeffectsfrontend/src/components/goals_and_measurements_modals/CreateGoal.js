@@ -64,7 +64,8 @@ export function CreateGoal(props) {
                                           onChange={handleChange}></textarea>
                                 <span>Opis celu</span>
                             </div>
-                            {errors.description && <p className="inputs__error--red inputs__error--start">{errors.description}</p>}
+                            {errors.description &&
+                                <p className="inputs__error--red inputs__error--start">{errors.description}</p>}
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">

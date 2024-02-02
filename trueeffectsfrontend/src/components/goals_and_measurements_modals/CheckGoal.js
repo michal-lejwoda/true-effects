@@ -74,14 +74,14 @@ export function CheckGoal(props) {
                     </Modal.Header>
                     <Modal.Body className="content create-goal__content">
                         <div className="inputs content__inputs">
-                            <div className="inputs__datepicker "><DatePicker locale='pl'
-                                                                             className="animated-datepicker"
-                                                                             placeholderText="Data realizacji"
-                                                                             dateFormat='dd-MM-yyyy'
-                                                                             selected={values.finishJsDate}
-                                // selected={values.finishDate}
-                                                                             onChange={date => handleDateForGoals(date, setFieldValue)}
-                            />
+                            <div className="inputs__datepicker ">
+                                <DatePicker locale='pl'
+                                            className="animated-datepicker"
+                                            placeholderText="Data realizacji"
+                                            dateFormat='dd-MM-yyyy'
+                                            selected={values.finishJsDate}
+                                            onChange={date => handleDateForGoals(date, setFieldValue)}
+                                />
                             </div>
                             {errors.finishDate && <p className="inputs__error">{errors.finishDate}</p>}
                             <div className="inputs__goal-name animatedInput">

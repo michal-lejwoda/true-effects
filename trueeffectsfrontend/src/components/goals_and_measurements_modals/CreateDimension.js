@@ -61,11 +61,6 @@ export function CreateDimension(props) {
                                             <span>{props.userDimensionConfigurationForCompare[element]}</span>
                                         </div>
                                         {errors[element] && <p>{errors[element]}</p>}
-                                        {/*<label>{props.userDimensionConfigurationForCompare[element]}</label>*/}
-                                        {/*<input type="number" onChange={handleChange} name={element}*/}
-                                        {/*       value={values[element]}*/}
-                                        {/*/>*/}
-                                        {/*{errors[element] && <p>{errors[element]}</p>}*/}
                                     </div>
                                 </div>
                             )
@@ -75,9 +70,6 @@ export function CreateDimension(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="standard-button " type="submit">Zapisz pomiar</button>
-                    {/*<Button variant="primary" type="submit">*/}
-                    {/*    Save Changes*/}
-                    {/*</Button>*/}
                 </Modal.Footer>
             </form>
         </Modal>

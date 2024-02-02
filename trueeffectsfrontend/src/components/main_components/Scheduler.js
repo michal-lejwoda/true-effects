@@ -38,31 +38,31 @@ const Scheduler = (props) => {
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">
-          <div className="scheduler__title">
-            Kalendarz treningu
-          </div>
-          <div className="schedule">
-            <Calendar
-              culture='pl-PL'
-              views={['month']}
-              selectable={true}
-              events={events}
-              onSelectEvent={handleSelect}
-              localizer={localizer}
-              style={{ height: 900, width: '100%' }}
-            />
-            {props.trainingForModal && (
-              <DisplayTrainingOnSchedulerModal
-                history={history}
-                trainingForModal={props.trainingForModal}
-                show={showModal}
-                handleClose={handleCloseModal}
-                getSingleTraining={getSingleTraining}
-              />
-            )}
-          </div>
+            <div className="scheduler__title">
+                Kalendarz treningu
+            </div>
+            <div className="schedule">
+                <Calendar
+                    culture='pl-PL'
+                    views={['month']}
+                    selectable={true}
+                    events={events}
+                    onSelectEvent={handleSelect}
+                    localizer={localizer}
+                    style={{height: 900, width: '100%'}}
+                />
+                {props.trainingForModal && (
+                    <DisplayTrainingOnSchedulerModal
+                        history={history}
+                        trainingForModal={props.trainingForModal}
+                        show={showModal}
+                        handleClose={handleCloseModal}
+                        getSingleTraining={getSingleTraining}
+                    />
+                )}
+            </div>
         </div>
-    ): props.trainingsLoading && (
+    ) : props.trainingsLoading && (
         <div className="box-loading">
             <BoxLoading/>
         </div>
