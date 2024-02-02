@@ -29,6 +29,7 @@ class SingleSeries(models.Model):
 
     class Meta:
         verbose_name_plural = "Single Series"
+        ordering = ["id"]
     def __str__(self):
         return f"{self.user.username} {self.exercise.name} {self.series_num}"
 
@@ -41,6 +42,7 @@ class MultiSeries(models.Model):
 
     class Meta:
         verbose_name_plural = "Multi Series"
+        ordering = ["id"]
     def __str__(self):
         return f"{self.user.username} {self.exercise.name} {self.series_num}"
 
