@@ -26,7 +26,6 @@ import {
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import {useAuth} from "./hooks/auth/useAuth";
-import CheckTraining from "./main_components/CheckTraining";
 
 
 const DefaultContainer = (props) => {
@@ -72,7 +71,6 @@ const DefaultContainer = (props) => {
                     {/*<Route path="/training" component={Training}/>*/}
                     <Route path="/training/:trainingId" component={Training}/>
                     <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
-                    <Route path="/check_training/:trainingId" component={CheckTraining}/>
                     <Route path="/create_training" component={CreateTraining}/>
                 </>
                 : <BoxLoading/>

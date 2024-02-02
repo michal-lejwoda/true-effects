@@ -14,8 +14,6 @@ const Dimensions = (props) => {
     const handleShowCompareDimensions = () => setShowCompareDimensions(true);
     const handleCloseCreateDimension = () => setShowCreateDimension(false);
     const handleCloseCompareDimensions = () => setShowCompareDimensions(false);
-    console.log(props.userDimensions)
-    console.log(props.userDimensions)
 
     return props.userDimensionsLoaded && props.userDimensionConfigurationForCompareLoaded ? (
         <div className="dimensions">

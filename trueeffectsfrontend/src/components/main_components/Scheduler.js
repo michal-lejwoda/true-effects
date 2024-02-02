@@ -34,11 +34,7 @@ const Scheduler = (props) => {
         setShowModal(true)
     }
     const handleSelect = async (e) => {
-        console.log("e")
-        console.log(e)
         await handleMoveToModifyTraining(history, e.id)
-        // await props.getSingleTraining(e.id)
-        // await setShowModal(true)
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">
