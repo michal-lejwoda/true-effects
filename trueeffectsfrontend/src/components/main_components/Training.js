@@ -82,7 +82,7 @@ const Training = (props) => {
                     </div>
                     <div
                         className="stoper__label">
-                        Seria {actualSingleSeries+1}/{multi_series[actualMultiSeries].single_series.length}
+                        Seria {actualSingleSeries + 1}/{multi_series[actualMultiSeries].single_series.length}
                     </div>
                     <div className="stoper__stopwatch">
                         <CustomStopwatch
@@ -95,19 +95,6 @@ const Training = (props) => {
                         <div className="row__label">Fazy</div>
                         <div
                             className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
-                    </div>
-                    <div className="row content__row">
-                        <div className="row__label">Ciężar dodatkowy</div>
-                        <div className="modify-data row__modify-data">
-                            <input
-                                className="modify-data__input"
-                                onChange={handleExtraWeight}
-                                placeholder={extra_weight}
-                                value={extraWeight}
-                                id="actualreps" min="0"
-                                max="10000"/>
-                            <div className="modify-data__display-old">/ {extra_weight} kg</div>
-                        </div>
                     </div>
                     <div className="row content__row">
 
@@ -123,6 +110,20 @@ const Training = (props) => {
                             <div className="modify-data__display-old">/ {reps} </div>
                         </div>
                     </div>
+                    <div className="row__element content__row">
+                        <div className="row__label">Ciężar dodatkowy</div>
+                        <div className="modify-data row__modify-data">
+                            <input
+                                className="modify-data__input"
+                                onChange={handleExtraWeight}
+                                placeholder={extra_weight}
+                                value={extraWeight}
+                                id="actualreps" min="0"
+                                max="10000"/>
+                            <div className="modify-data__display-old">/ {extra_weight} kg</div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div className="buttons content__buttons">

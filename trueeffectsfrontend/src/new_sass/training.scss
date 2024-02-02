@@ -71,10 +71,13 @@
 }
 
 .row {
+  &__element{
+
+  }
   &__label {
     font-size: 1.6rem;
     font-weight: 600;
-    margin-top: 1rem;
+    //margin-top: 1rem;
     @include breakpoint(mobilebig) {
       font-size: 1.6rem;
     }
@@ -126,8 +129,5 @@
   margin-top: 1.5rem;
   @include breakpoint(mobilebig) {
     font-size: 1.5rem;
-  }
-  @include breakpoint(tablet) {
-    font-size: 1.8rem;
   }
 }
