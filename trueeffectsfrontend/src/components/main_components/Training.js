@@ -37,14 +37,6 @@ const Training = (props) => {
         if (!multi_series) {
             return null;
         }
-        console.log("apiData")
-        console.log(apiData)
-        console.log("actualMultiSeries")
-        console.log(actualMultiSeries)
-        console.log("actualSingleSeries")
-        console.log(actualSingleSeries)
-        console.log("multi_series")
-        console.log(multi_series)
         const handleFinishTraining = async () => {
             modifyMultiSeries()
             const string_time = timeToString(hours, minutes, seconds)
@@ -97,30 +89,6 @@ const Training = (props) => {
                             seconds={seconds} minutes={minutes} hours={hours} start={start} pause={pause} reset={reset}
                         />
                     </div>
-
-                    {/*<div className="">*/}
-                    {/*    <div className=""*/}
-                    {/*        // style={{visibility: endtraining ? 'hidden' : 'visible'}}*/}
-                    {/*    >*/}
-                    {/*        /!*{training.training[`${series}`].reps.map(function (item, index) {*!/*/}
-                    {/*        /!*        if (index < singleSeries + 1) {*!/*/}
-                    {/*        /!*            return (*!/*/}
-                    {/*        /!*                <Checkbox checked={true}/>*!/*/}
-                    {/*        /!*            )*!/*/}
-                    {/*        /!*        } else {*!/*/}
-                    {/*        /!*            return (*!/*/}
-                    {/*        /!*                <Checkbox disabled checked={false}/>*!/*/}
-                    {/*        /!*            )*!/*/}
-                    {/*        /!*        }*!/*/}
-                    {/*        /!*    }*!/*/}
-                    {/*        /!*)}*!/*/}
-                    {/*    </div>*/}
-                    {/*    <div className=""*/}
-                    {/*        // style={{visibility: endtraining ? 'hidden' : 'visible'}}*/}
-                    {/*    >*/}
-                    {/*        /!*Seria {singleSeries + 1}/{training.training[`${series}`].reps.length}*!/*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
                 <div className="content training__content">
                     <div className="row content__row">
