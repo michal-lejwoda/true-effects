@@ -35,20 +35,22 @@ const AddTrainingToDifferentDayModal = (props) => {
                         <CloseButton onClick={() => props.handleClose(false)} variant="white"/>
                     </Modal.Header>
                     <Modal.Body>
-                        <DatePicker locale='pl'
-                                    name="date"
-                                    value={values.date}
-                                    className=" animated-datepicker"
-                                    placeholderText="Wybierz date treningu"
-                                    dateFormat='yyyy-MM-dd'
-                                    onChange={(date) => setFieldValue('date', convertDate(date))
-                                    }/>
-                        {errors.date && <p>{errors.date}</p>}
-                        <div className="animatedInput">
-                            <input onChange={handleChange} name="name" value={values.name} type="text"/>
-                            <span>Nazwa Treningu</span>
+                        <div className="add-training-to-date">
+                            <DatePicker locale='pl'
+                                        name="date"
+                                        value={values.date}
+                                        className=" animated-datepicker"
+                                        placeholderText="Wybierz date treningu"
+                                        dateFormat='yyyy-MM-dd'
+                                        onChange={(date) => setFieldValue('date', convertDate(date))
+                                        }/>
+                            {errors.date && <p>{errors.date}</p>}
+                            <div className="animatedInput">
+                                <input onChange={handleChange} name="name" value={values.name} type="text"/>
+                                <span>Nazwa Treningu</span>
+                            </div>
+                            {errors.name && <p>{errors.name}</p>}
                         </div>
-                        {errors.name && <p>{errors.name}</p>}
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="standard-button"
