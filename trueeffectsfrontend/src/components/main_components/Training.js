@@ -37,11 +37,18 @@ const Training = (props) => {
         if (!multi_series) {
             return null;
         }
-
+        console.log("apiData")
+        console.log(apiData)
+        console.log("actualMultiSeries")
+        console.log(actualMultiSeries)
+        console.log("actualSingleSeries")
+        console.log(actualSingleSeries)
+        console.log("multi_series")
+        console.log(multi_series)
         const handleFinishTraining = async () => {
             modifyMultiSeries()
             const string_time = timeToString(hours, minutes, seconds)
-            let training_obj = Object.assign({}, props.training)
+            let training_obj = Object.assign({}, apiData)
             training_obj.multi_series = multi_series
             training_obj.time = string_time
             await props.updateTraining(training_obj)
@@ -80,6 +87,10 @@ const Training = (props) => {
                     <div
                         className="stoper__name">
                         {multi_series[actualMultiSeries].exercise.name}
+                    </div>
+                    <div
+                        className="stoper__label">
+                        Seria {actualSingleSeries+1}/{multi_series[actualMultiSeries].single_series.length}
                     </div>
                     <div className="stoper__stopwatch">
                         <CustomStopwatch
@@ -144,32 +155,32 @@ const Training = (props) => {
                             <div className="modify-data__display-old">/ {reps} </div>
                         </div>
                     </div>
-                    <div className="buttons content__buttons">
-                        <button
-                            onClick={() => setShowFinishTraining(true)}
-                            className="buttons__finish standard-button"
-                        >Zakończ trening X
-                        </button>
-                        <button
-                            onClick={handleMovetoAnotherSeries}
-                            className="buttons__next standard-button"
-                            style={{
-                                visibility:
-                                    actualMultiSeries === multi_series.length - 1 &&
-                                    actualSingleSeries ===
-                                    multi_series[multi_series.length - 1].single_series.length - 1
-                                        ? 'hidden'
-                                        : 'visible'
-                            }}
-                            // style={{visibility: actualMultiSeries===multi_series.length && actualSingleSeries === multi_series[multi_series.length-1].single_series.length -1 ? 'hidden' : 'visible'}}
-                            // onClick={goNext}
-                            id="nextexercise"
-                        >Przejdź dalej
-                        </button>
-
-                    </div>
                 </div>
-                <FinishTrainingModal showFinishTraining={showFinishTraining} setShowFinishTraining={setShowFinishTraining}
+
+                <div className="buttons content__buttons">
+                    <button
+                        onClick={() => setShowFinishTraining(true)}
+                        className="buttons__finish standard-button"
+                    >Zakończ trening
+                    </button>
+                    <button
+                        onClick={handleMovetoAnotherSeries}
+                        className="buttons__next standard-button"
+                        style={{
+                            visibility:
+                                actualMultiSeries === multi_series.length - 1 &&
+                                actualSingleSeries ===
+                                multi_series[multi_series.length - 1].single_series.length - 1
+                                    ? 'hidden'
+                                    : 'visible'
+                        }}
+                        id="nextexercise"
+                    >Przejdź dalej
+                    </button>
+
+                </div>
+                <FinishTrainingModal showFinishTraining={showFinishTraining}
+                                     setShowFinishTraining={setShowFinishTraining}
                                      handleFinishTraining={handleFinishTraining}/>
 
             </div>
