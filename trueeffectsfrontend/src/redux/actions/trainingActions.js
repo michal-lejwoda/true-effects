@@ -95,9 +95,11 @@ export const postDimension = (data) => (dispatch, getState) => {
 }
 
 export const putDimension = (data) => (dispatch, getState) => {
+    console.log("dataDImension")
+    console.log(data)
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_dimension/`, data)
+    return axios.put(`${TRUEEFFECTS_URL}/api/v1/user_dimension/${data.id}/`, data)
 }
 
 export const getDimensions = () => (dispatch, getState) => {

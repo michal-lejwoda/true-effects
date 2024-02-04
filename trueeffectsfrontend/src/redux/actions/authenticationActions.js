@@ -12,7 +12,18 @@ import axios from 'axios';
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
 
-
+export const postResetPassword = (data) => (dispatch, getState) =>{
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/reset_password/`, data)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+                throw err
+            }
+        )
+}
 export const changePassword = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`

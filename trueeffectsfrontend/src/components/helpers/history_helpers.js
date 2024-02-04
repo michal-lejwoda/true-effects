@@ -16,6 +16,15 @@ export const handleMoveToScheduler = (history) =>{
     history.push("/scheduler");
 }
 
+export const handleMoveToDashboard = (history) =>{
+    history.push("/")
+}
+
+export const handleMoveToMobileDashboard = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/");
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+
 export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
     history.push("/scheduler");
     setIsMobileNavOpen(!isMobileNavOpen)

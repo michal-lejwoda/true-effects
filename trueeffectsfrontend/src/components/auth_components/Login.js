@@ -8,7 +8,7 @@ import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
 
 const Login = (props) => {
-    const [handleMoveToRegister, handleChange, handleSubmit, errors] = useLogin(props)
+    const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors]= useLogin(props)
     if (props.token !== null) {
         props.history.push('/')
     }
@@ -57,9 +57,9 @@ const Login = (props) => {
                             <button className="button__login square-buttons" type="submit">
                                 Zaloguj się
                             </button>
-                            {/*<p className="button__forgot-password">*/}
-                            {/*    Zapomniałem hasła*/}
-                            {/*</p>*/}
+                            <div className="button__forgot-password" onClick={handleMoveToResetPassword}>
+                                Zresetuj hasło
+                            </div>
                         </div>
                     </form>
                 </div>

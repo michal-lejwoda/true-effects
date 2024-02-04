@@ -121,7 +121,9 @@ $beige: #CAC0B3;
 .box-loading{
   min-height: 100vh;
 }
-
+.MuiSelect-select{
+  min-width: 150px !important;
+}
 .MuiIconButton-label{
   color:white;
 }

@@ -4,10 +4,10 @@ import {faDumbbell} from "@fortawesome/fontawesome-free-solid";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {
-    handleMoveToCreateTraining,
+    handleMoveToCreateTraining, handleMoveToDashboard,
     handleMovetoDimensions,
     handleMovetoGoals,
-    handleMoveToMobileCreateTraining,
+    handleMoveToMobileCreateTraining, handleMoveToMobileDashboard,
     handleMovetoMobileDimensions,
     handleMoveToMobileGoals,
     handleMoveToMobileScheduler,
@@ -27,6 +27,10 @@ const Navbar = () => {
                 icon={faBars}/></div>
             <div className="nav_bar__logo"><FontAwesomeIcon icon={faDumbbell}/>TrueEffects</div>
             <ul className="nav_bar__desktop">
+                <li className="nav_bar__element nav_bar__desktop__element"
+                    onClick={() => handleMoveToDashboard(history)}>
+                    <button className="nav_bar__button">Strona domowa</button>
+                </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToScheduler(history)}>
                     <button className="nav_bar__button">Kalendarz treningów</button>
@@ -48,6 +52,11 @@ const Navbar = () => {
                 </li>
             </ul>
             <ul className="nav_bar__mobile" style={{display: isMobileNavOpen ? 'flex' : 'none'}}>
+                <li className="nav_bar__element nav_bar__mobile__element"
+                    onClick={() => handleMoveToMobileDashboard(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    <button className="nav_bar__button">Strona Domowa
+                    </button>
+                </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMoveToMobileScheduler(history, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">Kalendarz
