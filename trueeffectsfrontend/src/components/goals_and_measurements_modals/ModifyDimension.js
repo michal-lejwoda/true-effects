@@ -4,6 +4,7 @@ import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
 import {MenuItem, Select} from "@material-ui/core";
+import {getDimensions} from "../../redux/actions/trainingActions";
 
 
 export function ModifyDimension(props) {
@@ -19,10 +20,10 @@ export function ModifyDimension(props) {
     const handleValueChange = (event) => {
         setValues(props.userDimensions.find(x => x.id === event.target.value))
     }
-    const handleModifyDimension = async () => {
-        console.log("values")
-        console.log(values)
-        props.putDimension(values)
+    const handleModifyDimension = () => {
+        props.putDimension(values).then(()=>{
+            props.getDimensions()
+        })
     }
 
     useEffect(() => {
