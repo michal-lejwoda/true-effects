@@ -23,6 +23,7 @@ export function ModifyDimension(props) {
     const handleModifyDimension = () => {
         props.putDimension(values).then(()=>{
             props.getDimensions()
+            props.handleClose()
         })
     }
 

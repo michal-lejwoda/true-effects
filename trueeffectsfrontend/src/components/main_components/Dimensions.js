@@ -48,7 +48,7 @@ const Dimensions = (props) => {
                             <div key={element}>
                                 <div className="animatedInput">
                                     <input
-                                        defaultValue={props.userDimensions[0][element]}
+                                        value={props.userDimensions[0][element]}
                                         type="text" disabled={true}/>
                                     <span>{props.userDimensionConfigurationForCompare[element]}</span>
                                 </div>
