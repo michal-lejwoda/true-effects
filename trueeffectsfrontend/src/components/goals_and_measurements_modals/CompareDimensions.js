@@ -55,7 +55,7 @@ export function CompareDimensions(props) {
                                     <tr key={element}>
                                         <td>{props.userDimensionConfigurationForCompare[element]}</td>
                                         <td className="td--border">{(firstDimension && firstDimension[element] !== null) ? firstDimension[element]: "-"}</td>
-                                        <td className="td--border">{(secondDimension && secondDimension[element]  !== null) ? firstDimension[element]: "-"}</td>
+                                        <td className="td--border">{(secondDimension && secondDimension[element]  !== null) ? secondDimension[element]: "-"}</td>
                                     </tr>
                                 )
                             })}
