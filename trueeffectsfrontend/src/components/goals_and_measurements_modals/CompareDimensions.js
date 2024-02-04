@@ -26,7 +26,7 @@ export function CompareDimensions(props) {
                                 <th>Parametry</th>
                                 <th>
                                     <Select
-                                        className="dimensions__select"
+                                        // className="dimensions__select"
                                         onChange={handleFirstDimensionChange}
                                         value={firstDimension && firstDimension.id}
                                     >
@@ -54,8 +54,8 @@ export function CompareDimensions(props) {
                                 return (
                                     <tr key={element}>
                                         <td>{props.userDimensionConfigurationForCompare[element]}</td>
-                                        <td>{firstDimension && firstDimension[element]}</td>
-                                        <td>{secondDimension && secondDimension[element]}</td>
+                                        <td className="td--border">{(firstDimension && firstDimension[element] !== null) ? firstDimension[element]: "-"}</td>
+                                        <td className="td--border">{(secondDimension && secondDimension[element]  !== null) ? firstDimension[element]: "-"}</td>
                                     </tr>
                                 )
                             })}

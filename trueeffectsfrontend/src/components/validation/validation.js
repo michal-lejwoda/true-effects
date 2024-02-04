@@ -103,3 +103,7 @@ export const addTrainingToDifferentDayValidation = yup.object().shape({
     name: yup.string().min(2, "Nazwa treningu jest za krótka").required("Pole name nie może być puste"),
     date: yup.string().min(8, "Data się nie zgadza").required("Pole data nie może być puste")
 })
+
+export const resetPasswordValidation = yup.object().shape({
+    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
+})
