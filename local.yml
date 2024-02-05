@@ -65,5 +65,13 @@ services:
     environment:
       - CHOKIDAR_USEPOLLING=true
 
+  trueeffects_redis:
+    container_name: trueeffects_redis
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    networks:
+      - backend
+
 networks:
   backend:
