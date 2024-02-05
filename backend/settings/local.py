@@ -10,6 +10,16 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {'default': dj_database_url.config(default=config.get('DATABASE_URL'))}
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://trueeffects_redis:6379/1',  # Replace with your Redis server information
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
 """STATICFILES"""
 
 STATIC_URL = '/local-backend-static/'
