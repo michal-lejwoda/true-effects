@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+APP_DIR = Path(__file__).resolve().parent.parent.parent
 
 CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = "authorization.CustomUser"
@@ -38,6 +39,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR, 'build'),
+            os.path.join(APP_DIR, 'authorization/templates')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
