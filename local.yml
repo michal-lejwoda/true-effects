@@ -35,7 +35,7 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash -c "python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
 #    entrypoint: /app/entrypoint.sh
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
@@ -72,6 +72,13 @@ services:
       - '6379:6379'
     networks:
       - backend
+#  trueeffects_worker:
+#    build: .
+#    command: celery -A myapp worker --loglevel=info
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - web
 
 networks:
   backend:
