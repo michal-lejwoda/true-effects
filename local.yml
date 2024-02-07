@@ -42,6 +42,8 @@ services:
       - ".:/app"
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_ENVIRONMENT=backend.settings.local
     networks:
       - backend
     depends_on:

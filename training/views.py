@@ -4,11 +4,11 @@ from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, \
     DestroyModelMixin
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ViewSet
 
-from backend.tasks import add
+from backend.tasks import send_reset_password_to_mail
 from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration, SingleSeries
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
     SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
@@ -265,19 +265,9 @@ class SingleSeriesViewSet(UpdateModelMixin, GenericViewSet):
     serializer_class = SingleSeriesSerializer
     queryset = SingleSeries.objects.all()
 
-class SingleTrigger(ListModelMixin, GenericViewSet):
-    # permission_classes = [IsAuthenticated]
-    serializer_class = SingleSeriesSerializer
-    queryset = SingleSeries.objects.all()
-
-    def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
-
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        serializer = self.get_serializer(queryset, many=True)
-        add(2,5)
-        return Response(serializer.data)
+class SendMail(ViewSet):
+    permission_classes = [AllowAny]
+    @action(detail=False, methods=['POST'])
+    def reset_password(self, request):
+        send_reset_password_to_mail(request.data['email'])
+        return Response(status=status.HTTP_200_OK)
