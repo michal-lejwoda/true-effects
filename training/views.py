@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnl
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
+from backend.tasks import add
 from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration, SingleSeries
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
     SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
@@ -263,3 +264,20 @@ class SingleSeriesViewSet(UpdateModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = SingleSeriesSerializer
     queryset = SingleSeries.objects.all()
+
+class SingleTrigger(ListModelMixin, GenericViewSet):
+    # permission_classes = [IsAuthenticated]
+    serializer_class = SingleSeriesSerializer
+    queryset = SingleSeries.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        add(2,5)
+        return Response(serializer.data)
