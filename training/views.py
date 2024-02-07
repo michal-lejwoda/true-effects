@@ -269,5 +269,7 @@ class SendMail(ViewSet):
     permission_classes = [AllowAny]
     @action(detail=False, methods=['POST'])
     def reset_password(self, request):
+        print("test")
+        print(request.data['email'])
         send_reset_password_to_mail(request.data['email'])
         return Response(status=status.HTTP_200_OK)
