@@ -3,6 +3,7 @@ from decouple import Config, RepositoryEnv
 from .base import *
 DEBUG = True
 config = Config(RepositoryEnv('.env_local'))
+URL = config('URL')
 SECRET_KEY = config.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 

@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 
 from authorization.views import RegistrationViewSet, CustomAuthToken, LogoutViewSet, ChangePasswordViewSet
 from training.views import ExerciseViewSet, UserDimensionViewSet, UserGoalViewSet, TrainingViewSet, \
-    UserDimensionConfigurationViewSet, SingleTrainingViewSet, SingleSeriesViewSet, SingleTrigger
+    UserDimensionConfigurationViewSet, SingleTrainingViewSet, SingleSeriesViewSet, SendMail
 
 router = DefaultRouter()
 
@@ -17,4 +17,4 @@ router.register(r'trainings', TrainingViewSet, basename='trainings')
 router.register(r'single_series', SingleSeriesViewSet, basename='single_series')
 router.register(r'single_training',SingleTrainingViewSet, basename='single_training')
 router.register(r'user_dimension_configuration', UserDimensionConfigurationViewSet, basename='user_dimension_configuration')
-router.register(r'send_mail', SingleTrigger, basename='send_mail')
+router.register(r'send_mail', SendMail, basename='send_mail')
