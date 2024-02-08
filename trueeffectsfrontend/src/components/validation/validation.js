@@ -107,3 +107,11 @@ export const addTrainingToDifferentDayValidation = yup.object().shape({
 export const resetPasswordValidation = yup.object().shape({
     email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
 })
+
+export const changePasswordviaTokenValidation = yup.object().shape({
+    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
+    new_password1: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    new_password2: yup.string()
+        .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
+        .required('Potwierdzenie hasła jest wymagane.'),
+})
