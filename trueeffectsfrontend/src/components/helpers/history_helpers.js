@@ -65,3 +65,10 @@ export const handleMoveToMobileCreateTraining = (history, isMobileNavOpen, setIs
     history.push("/create_training");
     setIsMobileNavOpen(!isMobileNavOpen)
 }
+
+export const handleMoveToLogin = (history) => {
+        history.push('/login')
+}
+export const handleMoveToRegister = (history) => {
+        history.push('/register')
+    }
