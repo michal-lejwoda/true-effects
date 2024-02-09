@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import PasswordChangeForm
 from django.core.validators import validate_email
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from authorization.models import CustomUser
 
@@ -69,3 +70,21 @@ class ChangePasswordSerializer(serializers.Serializer):
             return data
         else:
             raise serializers.ValidationError(form.errors)
+
+class ChangePasswordWithTokenSerializer(serializers.Serializer):
+    token = serializers.CharField(required=True)
+    email = serializers.EmailField(required=True)
+    new_password1 = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate(self, data):
+        try:
+            token = Token.objects.get(key__exact=data['token'])
+            if token.user.email != data['email']:
+                raise serializers.ValidationError()
+            if data['new_password1'] != data['new_password2']:
+                raise serializers.ValidationError()
+            data['user'] = token.user
+            return data
+        except Token.DoesNotExist:
+            raise serializers.ValidationError()

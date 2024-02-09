@@ -3,6 +3,7 @@
 .register {
   display: flex;
   min-height: 100vh;
+
   &__container {
     display: flex;
     width: 50%;
@@ -19,8 +20,17 @@
   .container {
     display: flex;
 
-    .content{
-      display:flex;
+    .header {
+      &__element {
+        &:hover {
+          cursor: pointer;
+          color: $colar_pink;
+        }
+      }
+    }
+
+    .content {
+      display: flex;
       flex-grow: 1;
       justify-content: center;
       flex-direction: row;
@@ -31,11 +41,12 @@
       flex-direction: row;
       justify-content: flex-end;
       font-size: 1.2rem;
-      @include breakpoint(mobilebig){
+      @include breakpoint(mobilebig) {
         font-size: 1.6rem;
         //margin: 0px 20px 0px;
       }
     }
+
     .form {
       display: flex;
       flex-direction: column;
@@ -43,27 +54,32 @@
       text-align: center;
       flex-grow: 1;
       max-width: 500px;
-      &__errors{
-        color: red;
+
+      &__errors {
+        color: $colar_pink;
         font-weight: 600;
         text-align: start;
         margin-bottom: 0.5rem;
       }
-      &__username{
+
+      &__username {
         color: white;
         margin-bottom: 2rem;
       }
+
       &__title {
         font-size: 2rem;
         font-weight: 600;
         margin-bottom: 2rem;
       }
-      .button{
-        &__register{
+
+      .button {
+        &__register {
           margin-bottom: 1.3rem;
         }
-        &__forgot-password{
-          &:hover{
+
+        &__forgot-password {
+          &:hover {
             cursor: pointer;
           }
         }

@@ -10,6 +10,9 @@ import './new_sass/main.scss';
 import Login from "./components/auth_components/Login";
 import Register from "./components/auth_components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ResetPassword from "./components/auth_components/ResetPassword";
+import PasswordChange from "./components/auth_components/PasswordChange";
+
 ReactDOM.render(
     <CookiesProvider>
         <Provider store={store}>
@@ -18,6 +21,8 @@ ReactDOM.render(
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
+                        <Route exact path="/reset_password" component={ResetPassword}/>
+                        <Route path="/reset_password/:token" component={PasswordChange}/>
                         <Route component={DefaultContainer}/>
                     </Switch>
                 </BrowserRouter>

@@ -2,16 +2,20 @@ import React, {useState} from 'react';
 import {CreateDimension} from "../goals_and_measurements_modals/CreateDimension";
 import {CompareDimensions} from "../goals_and_measurements_modals/CompareDimensions";
 import {connect} from "react-redux";
-import {getDimensions, postDimension} from "../../redux/actions/trainingActions";
+import {getDimensions, postDimension, putDimension} from "../../redux/actions/trainingActions";
 import "../../new_sass/main.scss"
 import "../../new_sass/dimensions.scss"
 import {BoxLoading} from "react-loadingg";
+import {ModifyDimension} from "../goals_and_measurements_modals/ModifyDimension";
 
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
     const [showCompareDimensions, setShowCompareDimensions] = useState(false);
+    const [showModifyDimension, setShowModifyDimension] = useState(false);
     const handleShowCreateDimension = () => setShowCreateDimension(true);
     const handleShowCompareDimensions = () => setShowCompareDimensions(true);
+    const handleShowModifyDimension = () => setShowModifyDimension(true)
+    const handleCloseModifyDimension = () => setShowModifyDimension(false);
     const handleCloseCreateDimension = () => setShowCreateDimension(false);
     const handleCloseCompareDimensions = () => setShowCompareDimensions(false);
 
@@ -21,11 +25,15 @@ const Dimensions = (props) => {
                 <h1 className="title dimensions__title">Ostatni pomiar</h1>
                 <div className="dimensions__buttons">
                     <button className="standard-button dimensions__buttons__create"
-                            onClick={handleShowCreateDimension}>+
+                            onClick={handleShowCreateDimension}>
                         Dodaj nowy pomiar
                     </button>
+                    <button className="standard-button dimensions__buttons__create"
+                            onClick={handleShowModifyDimension}>
+                        Modyfikuj pomiar
+                    </button>
                     <button className="standard-button dimensions__buttons__compare"
-                            onClick={handleShowCompareDimensions}>+
+                            onClick={handleShowCompareDimensions}>
                         Porównaj Pomiary
                     </button>
                 </div>
@@ -40,28 +48,40 @@ const Dimensions = (props) => {
                             <div key={element}>
                                 <div className="animatedInput">
                                     <input
-                                        defaultValue={props.userDimensions[0][element]}
+                                        value={props.userDimensions[0][element]}
                                         type="text" disabled={true}/>
                                     <span>{props.userDimensionConfigurationForCompare[element]}</span>
                                 </div>
                             </div>
                         )
                     }) : <p>Nie masz jeszcze żadnych pomiarów</p>}
-                {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) && <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
-                                 handleShow={handleShowCreateDimension}
-                                 getDimensions={props.getDimensions}
-                                 userDimensionConfiguration={props.userDimensionConfiguration}
-                                 userDimensionsForCreate={props.userDimensionsForCreate}
-                                 userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
-                                 userDimensions={props.userDimensions}
-                                 postDimension={props.postDimension}
-                />}
-                {props.userDimensionConfigurationLoaded && <CompareDimensions show={showCompareDimensions} handleClose={handleCloseCompareDimensions}
-                                   handleShow={handleShowCompareDimensions}
-                                   userDimensions={props.userDimensions}
-                                   userDimensionConfiguration={props.userDimensionConfiguration}
-                                   userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
-                />}
+                {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) &&
+                    <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
+                                     handleShow={handleShowCreateDimension}
+                                     getDimensions={props.getDimensions}
+                                     userDimensionConfiguration={props.userDimensionConfiguration}
+                                     userDimensionsForCreate={props.userDimensionsForCreate}
+                                     userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                                     userDimensions={props.userDimensions}
+                                     postDimension={props.postDimension}
+                    />}
+                {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) &&
+                    <ModifyDimension show={showModifyDimension} handleClose={handleCloseModifyDimension}
+                                     handleShow={handleShowModifyDimension}
+                                     getDimensions={props.getDimensions}
+                                     userDimensionConfiguration={props.userDimensionConfiguration}
+                                     userDimensionsForCreate={props.userDimensionsForCreate}
+                                     userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                                     userDimensions={props.userDimensions}
+                                     putDimension={props.putDimension}
+                    />}
+                {props.userDimensionConfigurationLoaded &&
+                    <CompareDimensions show={showCompareDimensions} handleClose={handleCloseCompareDimensions}
+                                       handleShow={handleShowCompareDimensions}
+                                       userDimensions={props.userDimensions}
+                                       userDimensionConfiguration={props.userDimensionConfiguration}
+                                       userDimensionConfigurationForCompare={props.userDimensionConfigurationForCompare}
+                    />}
             </div>
         </div>
     ) : (props.userDimensionsLoading || props.userDimensionConfigurationForCompareLoading) && (
@@ -86,4 +106,4 @@ const mapStateToProps = (state) => {
         userDimensionConfigurationForCompareLoaded: state.training.userDimensionConfigurationForCompareLoaded
     }
 }
-export default connect(mapStateToProps, {postDimension, getDimensions})(Dimensions);
+export default connect(mapStateToProps, {postDimension, getDimensions, putDimension})(Dimensions);

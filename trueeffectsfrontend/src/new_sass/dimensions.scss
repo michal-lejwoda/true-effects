@@ -12,6 +12,7 @@
   }
   &__select {
     color: white;
+    margin-bottom: 2rem;
   }
 
   &__table {
@@ -23,7 +24,9 @@
       border-collapse: separate;
       border-spacing: 10px;
     }
-
+  .td--border{
+    border-bottom: 1px solid white;
+  }
   }
 
   th {

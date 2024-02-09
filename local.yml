@@ -35,12 +35,17 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
-    entrypoint: /app/entrypoint.sh
+    command: bash -c "python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
+#    entrypoint: /app/entrypoint.sh
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
+      - ".:/app"
     ports:
       - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend.settings.local
+      - AUTH_USER_MODEL=authorization.CustomUser
+      - REDIS_CONTAINER=trueeffects_redis
     networks:
       - backend
     depends_on:
@@ -63,6 +68,14 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+
+  trueeffects_redis:
+    container_name: trueeffects_redis
+    image: 'redis:latest'
+    ports:
+      - '6379:6379'
+    networks:
+      - backend
 
 networks:
   backend:
