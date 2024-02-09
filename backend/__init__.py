@@ -5,8 +5,6 @@ def initialize_django():
     if not apps.ready:
         apps.populate(settings.INSTALLED_APPS)
         from rest_framework.authtoken.models import Token
-    # Tutaj możesz wykonywać operacje związane z Token lub innymi elementami Django
 
-# Wywołanie funkcji initialize_django(), aby załadować Django, gdy moduł zostanie zaimportowany
 initialize_django()
 __all__ = ('celery_app',)

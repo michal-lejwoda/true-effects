@@ -43,7 +43,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - DJANGO_SETTINGS_ENVIRONMENT=backend.settings.local
+      - DJANGO_SETTINGS_MODULE=backend.settings.local
+      - AUTH_USER_MODEL=authorization.CustomUser
+      - REDIS_CONTAINER=trueeffects_redis
     networks:
       - backend
     depends_on:
@@ -74,13 +76,6 @@ services:
       - '6379:6379'
     networks:
       - backend
-#  trueeffects_worker:
-#    build: .
-#    command: celery -A myapp worker --loglevel=info
-#    volumes:
-#      - .:/app
-#    depends_on:
-#      - web
 
 networks:
   backend:
