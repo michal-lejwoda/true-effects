@@ -9,6 +9,7 @@ import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActio
 import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
+import {handleMoveToModifyTraining} from "../helpers/history_helpers";
 
 require('moment/locale/pl.js')
 
@@ -33,36 +34,35 @@ const Scheduler = (props) => {
         setShowModal(true)
     }
     const handleSelect = async (e) => {
-        await props.getSingleTraining(e.id)
-        await setShowModal(true)
+        await handleMoveToModifyTraining(history, e.id)
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">
-          <div className="scheduler__title">
-            Kalendarz treningu
-          </div>
-          <div className="schedule">
-            <Calendar
-              culture='pl-PL'
-              views={['month']}
-              selectable={true}
-              events={events}
-              onSelectEvent={handleSelect}
-              localizer={localizer}
-              style={{ height: 900, width: '100%' }}
-            />
-            {props.trainingForModal && (
-              <DisplayTrainingOnSchedulerModal
-                history={history}
-                trainingForModal={props.trainingForModal}
-                show={showModal}
-                handleClose={handleCloseModal}
-                getSingleTraining={getSingleTraining}
-              />
-            )}
-          </div>
+            <div className="scheduler__title">
+                Kalendarz treningu
+            </div>
+            <div className="schedule">
+                <Calendar
+                    culture='pl-PL'
+                    views={['month']}
+                    selectable={true}
+                    events={events}
+                    onSelectEvent={handleSelect}
+                    localizer={localizer}
+                    style={{height: 900, width: '100%'}}
+                />
+                {props.trainingForModal && (
+                    <DisplayTrainingOnSchedulerModal
+                        history={history}
+                        trainingForModal={props.trainingForModal}
+                        show={showModal}
+                        handleClose={handleCloseModal}
+                        getSingleTraining={getSingleTraining}
+                    />
+                )}
+            </div>
         </div>
-    ): props.trainingsLoading && (
+    ) : props.trainingsLoading && (
         <div className="box-loading">
             <BoxLoading/>
         </div>

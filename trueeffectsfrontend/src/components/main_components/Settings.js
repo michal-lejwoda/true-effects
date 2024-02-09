@@ -7,10 +7,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWeight} from "@fortawesome/fontawesome-free-solid";
 import {connect} from "react-redux";
 import {changePassword, postLogoutAuth} from "../../redux/actions/authenticationActions";
+import SaveSettingsSuccessModal from "../settings_components/modals/SaveSettingsSuccessModal";
 
 
 const Settings = (props) => {
     const [activeState, setActiveState] = useState('DIMENSIONS')
+    const [successModal, setSuccessModal] = useState(false)
     return (
         <div className="settings">
             <h1 className="title settings__title">Ustawienia</h1>
@@ -24,12 +26,16 @@ const Settings = (props) => {
                              onClick={() => setActiveState("PASSWORD")}><FontAwesomeIcon size="2x" icon={faLock}/></div>
                     </div>
                     <div className="menu__options">
-                        {(activeState === 'DIMENSIONS' && props.userDimensionConfigurationLoaded ) && <SettingsDimensionItems/>}
+                        {(activeState === 'DIMENSIONS' && props.userDimensionConfigurationLoaded) &&
+                            <SettingsDimensionItems setSuccessModal={setSuccessModal}/>}
                         {activeState === 'PASSWORD' && <SettingsPasswordItems changePassword={props.changePassword}
-                                                                              postLogoutAuth={props.postLogoutAuth}/>}
+                                                                              postLogoutAuth={props.postLogoutAuth}
+                                                                              setSuccessModal={setSuccessModal}
+                        />}
                     </div>
                 </div>
             </div>
+            <SaveSettingsSuccessModal show={successModal} handleClose={() => setSuccessModal(false)}/>
         </div>
     );
 };

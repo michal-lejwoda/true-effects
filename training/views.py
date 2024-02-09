@@ -1,16 +1,17 @@
 from django.db.models import Q
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin, \
     DestroyModelMixin
-from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet, ModelViewSet
-from django.utils import timezone
-from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration, SingleSeries, \
-    MultiSeries
+from rest_framework.viewsets import GenericViewSet, ViewSet
+
+from backend.tasks import send_reset_password_to_mail
+from training.models import Exercise, UserDimension, UserGoal, Training, UserDimensionConfiguration, SingleSeries
 from training.serializers import ExerciseSerializer, UserDimensionSerializer, UserGoalSerializer, TrainingSerializer, \
-    MultiSeriesSerializer, SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
+    SingleSeriesSerializer, UserDimensionConfigurationSerializer, \
     UserDimensionSerializerForCreate, UserDimensionSerializerConfigurationForCompare, SimpleTrainingSerializer
 
 
@@ -32,7 +33,6 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-
     @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
     def post_user_exercise(self, request):
         data = request.data.copy()
@@ -42,17 +42,17 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
-        return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
-
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_user_exercises(self, request):
         user = request.user
-        user_exercises =  Exercise.objects.filter(user=user).order_by('-popularity')
+        user_exercises = Exercise.objects.filter(user=user).order_by('-popularity')
         serializer = ExerciseSerializer(user_exercises, many=True)
         return Response(serializer.data)
 
-class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+
+class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin,  ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserDimensionSerializer
 
@@ -71,7 +71,8 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             serializer = UserDimensionSerializerForCreate(instance=user_dimension, context={'request': request})
             return Response(serializer.data)
         except UserDimension.DoesNotExist:
-            data = {"weight": None, "growth": None, "left_biceps": None,"right_biceps": None, "left_forearm": None, "right_forearm": None, "left_leg": None,"right_leg": None, "bodyfat": None}
+            data = {"weight": None, "growth": None, "left_biceps": None, "right_biceps": None, "left_forearm": None,
+                    "right_forearm": None, "left_leg": None, "right_leg": None, "bodyfat": None}
             serializer = UserDimensionSerializerForCreate(data=data, context={'request': request})
             if serializer.is_valid():
                 return Response(serializer.data)
@@ -79,18 +80,24 @@ class UserDimensionViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
                 return Response(serializer.errors)
 
 
-
 # TODO Fix this
-class UserGoalViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
+class UserGoalViewSet(CreateModelMixin, DestroyModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserGoalSerializer
 
     def get_queryset(self):
         user = self.request.user
-        return UserGoal.objects.filter(user=user, completed=False).order_by('finish_date')
+        return UserGoal.objects.filter(user=user).order_by('finish_date')
 
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
+
+    @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
+    def not_completed(self, request):
+        user = request.user
+        queryset = UserGoal.objects.filter(user=user, completed=False).order_by('-finish_date')
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def completed(self, request):
@@ -106,6 +113,7 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
 
     def get_queryset(self):
         return Training.objects.filter(user=self.request.user).order_by('date')
+
     def perform_create(self, serializer):
         serializer.save(user_id=self.request.user.id)
 
@@ -132,10 +140,6 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
     def move_training(self, request, pk):
         pass
 
-
-
-
-
         # print("data")
         # print(data)
         # instance = self.get_object()
@@ -157,39 +161,41 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
     def get_training_by_id(self, request, pk=None):
         try:
             training = Training.objects.get(id=pk, user=self.request.user)
+            sorted_multi_series = training.multi_series.all().order_by('id')
+            for multi_series in sorted_multi_series:
+                multi_series.single_series.all().order_by('id')
         except Training.DoesNotExist:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(instance=training)
         return Response(serializer.data)
 
-
-    @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
-    def update_multi_series(self, request):
-        data = request.data.copy()
-        training_id = data.pop('id')
-        training_obj = Training.objects.get(id=training_id)
-        multi_series_elements = data.pop('multi_series')
-        user = request.user
-        #TODO For loop
-        for multi_series_element in multi_series_elements:
-            print("test")
-            mss = MultiSeriesSerializer(data = multi_series_element)
-            if mss.is_valid():
-                multi_series_obj = mss.save()
-            else:
-                print(mss.errors)
-            for single_series_element in multi_series_element['single_series']:
-                print("test")
-                print(single_series_element)
-                single_series_serializer = SingleSeriesSerializer(data=single_series_element)
-                if single_series_serializer.is_valid():
-                    single_series_obj = single_series_serializer.save()
-
-            # serializer = MultiSeriesSerializer(data=multi_series_element)
-            # if serializer.is_valid():
-            #     saved_object = serializer.save()
-            #     training_obj.multi_series.set(saved_object)
-        return Response(training_obj)
+    # @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
+    # def update_multi_series(self, request):
+    #     data = request.data.copy()
+    #     training_id = data.pop('id')
+    #     training_obj = Training.objects.get(id=training_id)
+    #     multi_series_elements = data.pop('multi_series')
+    #     user = request.user
+    #     #TODO For loop
+    #     for multi_series_element in multi_series_elements:
+    #         print("test")
+    #         mss = MultiSeriesSerializer(data = multi_series_element)
+    #         if mss.is_valid():
+    #             multi_series_obj = mss.save()
+    #         else:
+    #             print(mss.errors)
+    #         for single_series_element in multi_series_element['single_series']:
+    #             print("test")
+    #             print(single_series_element)
+    #             single_series_serializer = SingleSeriesSerializer(data=single_series_element)
+    #             if single_series_serializer.is_valid():
+    #                 single_series_obj = single_series_serializer.save()
+    #
+    #         # serializer = MultiSeriesSerializer(data=multi_series_element)
+    #         # if serializer.is_valid():
+    #         #     saved_object = serializer.save()
+    #         #     training_obj.multi_series.set(saved_object)
+    #     return Response(training_obj)
 
 
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -202,7 +208,8 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_last_completed_trainings(self, request):
         current_timezone = timezone.now().date()
-        last_three_records = Training.objects.filter(user=self.request.user, date__lt=current_timezone).order_by('date')[:3]
+        last_three_records = Training.objects.filter(user=self.request.user, date__lt=current_timezone).order_by(
+            'date')[:3]
         serializer = self.get_serializer(last_three_records, many=True)
         return Response(serializer.data)
 
@@ -215,12 +222,11 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         return Response(serializer.data)
 
 
-
-
 class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserDimensionConfigurationSerializer
     queryset = UserDimensionConfiguration.objects.all()
+
     def update(self, request, *args, **kwargs):
         data = request.data.copy()
         data['user'] = self.request.user.id
@@ -236,7 +242,8 @@ class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, Up
         user = request.user
         try:
             user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
-            serializer = UserDimensionSerializerConfigurationForCompare(instance=user_dimension_config, context={'request': request})
+            serializer = UserDimensionSerializerConfigurationForCompare(instance=user_dimension_config,
+                                                                        context={'request': request})
             return Response(serializer.data)
         except UserDimension.DoesNotExist:
             return Response(None, status=status.HTTP_404_NOT_FOUND)
@@ -251,3 +258,18 @@ class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, Up
         if serializer.is_valid():
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class SingleSeriesViewSet(UpdateModelMixin, GenericViewSet):
+    permission_classes = [IsAuthenticated]
+    serializer_class = SingleSeriesSerializer
+    queryset = SingleSeries.objects.all()
+
+class SendMail(ViewSet):
+    permission_classes = [AllowAny]
+    @action(detail=False, methods=['POST'])
+    def reset_password(self, request):
+        print("test")
+        print(request.data['email'])
+        send_reset_password_to_mail(request.data['email'])
+        return Response(status=status.HTTP_200_OK)

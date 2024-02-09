@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Field, Formik} from "formik";
 import {connect} from "react-redux";
 import {
@@ -6,65 +6,22 @@ import {
     deleteCurrentTraining,
     getSingleTraining,
     getTrainings,
+    updateSingleSeries,
     updateTraining
 } from "../../redux/actions/trainingActions";
 import DatePicker from "react-datepicker";
 import {convertDate} from "../helpers/function_helpers";
-import {useHistory} from "react-router-dom";
-import {handleMovetoHome, handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMoveToScheduler, handleMoveToTraining} from "../helpers/history_helpers";
 import "../../new_sass/modify_training.scss"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
+import useModifyTraining from "../hooks/training/useModifyTraining";
 
 const ModifyTraining = (props) => {
-
-    const history = useHistory()
-    const [visibleElements, setVisibleElements] = useState([]);
-    const [apiData, setApiData] = useState(null);
-    const [removeTrainingModal, setRemoveTrainingModal] = useState(false);
-    const [differentDayModal, setDifferentDayModal] = useState(false);
-    const {trainingId} = props.match.params;
-    useEffect(() => {
-        props.getSingleTraining(trainingId)
-            .then((res) => {
-                setApiData(res);
-            })
-            .catch(() => {
-                handleMovetoHome(history)
-            })
-    }, [trainingId])
-
-    const handleModifyTraining = async (data) => {
-        await props.updateTraining(data)
-    }
-    const handleCopyTrainingToAnotherDate = async (data) => {
-        await props.createTraining(data)
-    }
-
-    const handleDeleteTraining = async (id) => {
-        await props.deleteCurrentTraining(id)
-    }
-    const handleDate = (date, values) => {
-        values.date = date
-
-    }
-
-
-    const toggleVisibility = (elementId) => {
-        setVisibleElements((prevVisibleElements) => {
-            if (prevVisibleElements.includes(elementId)) {
-                return prevVisibleElements.filter((id) => id !== elementId);
-            } else {
-                return [...prevVisibleElements, elementId];
-            }
-        });
-    };
-    console.log("visible elmenets")
-    console.log(visibleElements)
-    console.log("apiData")
-    console.log(apiData)
+    const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining,
+        setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
     return (
         <div className="modify-training">
             {apiData && <>
@@ -79,10 +36,7 @@ const ModifyTraining = (props) => {
                 />
                 <Formik
                     initialValues={apiData}
-                    onSubmit={(values, {setSubmitting}) => {
-                        console.log("submit")
-                        handleModifyTraining(values)
-                    }}>
+                >
                     {({
                           values,
                           setFieldValue,
@@ -91,48 +45,65 @@ const ModifyTraining = (props) => {
                       }) => (
                         <form className="modify-training__form" onSubmit={handleSubmit}>
                             <div className="mt-data modify-training__mt-data">
-                                <h1 className="title modify-training__title">Modyfikuj Trening</h1>
-                                <DatePicker locale='pl'
-                                            name="date"
-                                            value={values.date}
-                                            className="create-training__datepicker animated-datepicker"
-                                            placeholderText={"Wybierz date treningu"}
-                                            dateFormat='yyyy-MM-dd'
-                                            onChange={(date) => setFieldValue('date', convertDate(date))
-                                            }
-                                />
-                                <div className="mt-data__buttons">
-                                    <button className="standard-button"
-                                            onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => handleMoveToTraining(history)}>Trenuj ->
-                                    </button>
-                                    <button className="standard-button"
-                                            onClick={() => setDifferentDayModal(true)}>Dodaj trening do
-                                        innego dnia +
-                                    </button>
+                                <div className="mt-data--top">
+                                    <h1 className="title modify-training__title">Modyfikuj Trening</h1>
 
-                                </div>
-                                <div className="animatedInput">
-                                    <Field onChange={handleChange} name="name" value={values.name} type="text"/>
-                                    <span>Nazwa Treningu</span>
-                                </div>
-
-                                <div className="animatedInput">
-                                    <Field onChange={handleChange} name="description" value={values.description}
-                                           type="text"/>
-                                    <span>Opis treningu</span>
-                                </div>
-                                <div className="mt-data--list">
                                     <div className="mt-data__buttons">
-                                        <button className="standard-button" type="submit">Modyfikuj trening</button>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
+                                            </button>
+                                        </div>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => setDifferentDayModal(true)}>Dodaj trening do
+                                                innego dnia +
+                                            </button>
+                                        </div>
+                                        <div className="mt-data__buttons--end">
+                                            <button className="standard-button"
+                                                    onClick={() => handleMoveToTraining(history, values.id)}>Trenuj ->
+                                            </button>
+                                        </div>
 
                                     </div>
+                                    <DatePicker locale='pl'
+                                                name="date"
+                                                value={values.date}
+                                                className="create-training__datepicker animated-datepicker"
+                                                placeholderText={"Wybierz date treningu"}
+                                                dateFormat='yyyy-MM-dd'
+                                                onChange={(date) => setFieldValue('date', convertDate(date))
+                                                }
+                                    />
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="name" value={values.name} type="text"/>
+                                        <span>Nazwa Treningu</span>
+                                    </div>
+
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="description" value={values.description}
+                                               type="text"/>
+                                        <span>Opis treningu</span>
+                                    </div>
+                                    <div className="animatedInput">
+                                        <Field onChange={handleChange} name="time" value={values.time}
+                                               type="text"/>
+                                        <span>Czas treningu</span>
+                                    </div>
+                                    <div className="mt-data__buttons--end">
+                                        <button className="standard-button"
+                                                onClick={() => handleModifyTraining(values)}>Zapisz zmiany w treningu
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="mt-data--list">
+                                    <h1 className="title modify-training__title">Modyfikuj serie</h1>
                                     <div className="multiseries mt-data__multiseries">
                                         {values.multi_series.map((multiseries, index) => {
                                             return (
-                                                <div className="multi-element multiseries__multi-element--collapse">
+                                                <div className="multi-element multiseries__multi-element--collapse"
+                                                     key={`${multiseries.id}`}>
                                                     <div className="multi-element__container"
                                                          onClick={() => toggleVisibility(index)}>
                                                         <div
@@ -146,7 +117,8 @@ const ModifyTraining = (props) => {
                                                         className="single-series multi-element__single-series--expanded">
                                                         {visibleElements.includes(index) && multiseries.single_series.map((singleseries, indexv2) => {
                                                             return (
-                                                                <div className="single-series__element">
+                                                                <div className="single-series__element"
+                                                                     key={`${multiseries.id}-${singleseries.id}`}>
                                                                     <p className="single-series__series-num">Seria {indexv2 + 1}</p>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
@@ -193,7 +165,12 @@ const ModifyTraining = (props) => {
                                                                             onChange={handleChange} type="text"/>
                                                                         <span>Pauza po fazie ekscentrycznej</span>
                                                                     </div>
-
+                                                                    <div className="single-series__button">
+                                                                        <button className="standard-button"
+                                                                                onClick={(e) => handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>Modyfikuj
+                                                                            pojedyńczą serie
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             )
                                                         })}
@@ -222,5 +199,6 @@ export default connect(mapStateToProps, {
     createTraining,
     deleteCurrentTraining,
     getTrainings,
-    getSingleTraining
+    getSingleTraining,
+    updateSingleSeries
 })(ModifyTraining);

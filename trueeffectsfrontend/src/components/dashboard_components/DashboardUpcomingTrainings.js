@@ -1,6 +1,6 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
-import {handleMoveToTraining} from "../helpers/history_helpers";
+import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
 
 const DashboardUpcomingTrainings = (props) => {
     const history = useHistory()
@@ -20,7 +20,9 @@ const DashboardUpcomingTrainings = (props) => {
                                 <button onClick={() => handleGoToTraining(upcoming_training.id)}
                                         className="upcoming_training__button dashboard__button">Trenuj teraz
                                 </button>
-                                <button className="upcoming_training__button dashboard__button">Sprawdź
+                                <button className="upcoming_training__button dashboard__button"
+                                    onClick={()=>handleMoveToModifyTraining(history, upcoming_training.id)}
+                                >Sprawdź
                                 </button>
                             </div>
                             <p className="upcoming_training__date dashboard__date">Data

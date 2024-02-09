@@ -1,13 +1,15 @@
 import {
-    POST_LOGIN,
-    USER_LOADED,
     AUTH_ERROR,
     LOGIN_ERROR,
+    POST_LOGIN,
+    POST_LOGOUT_AUTH,
     POST_REGISTER,
     REGISTER_ERROR,
-    POST_LOGOUT_AUTH,
-    USER_LOADING, TOKEN_LOADED,
+    TOKEN_LOADED,
+    USER_LOADED,
+    USER_LOADING,
 } from '../actions/types';
+
 const initialState = {
     token: null,
     name: null,
@@ -22,49 +24,49 @@ const initialState = {
     hours: '',
 
 };
-export default function authreducer(state=initialState,action){
-    switch(action.type){
+export default function authreducer(state = initialState, action) {
+    switch (action.type) {
         case POST_LOGIN:
-            return{
+            return {
                 ...state,
-                token:action.payload,
+                token: action.payload,
                 tokenloaded: true,
                 error: ''
             }
         case LOGIN_ERROR:
-            return{
+            return {
                 ...state,
                 login_error: action.payload
             }
         case POST_REGISTER:
-            return{
+            return {
                 ...state,
-                token:action.payload.token,
-                name:action.payload.username,
+                token: action.payload.token,
+                name: action.payload.username,
                 tokenloaded: true,
                 error_register: ''
             }
         case REGISTER_ERROR:
-            return{
+            return {
                 ...state,
                 error_register: action.payload
             }
         case POST_LOGOUT_AUTH:
-            return{
+            return {
                 ...state,
                 token: '',
                 tokenloaded: false
             }
         case USER_LOADING:
-            return{
+            return {
                 ...state,
                 isLoading: true
             }
         case USER_LOADED:
-            return{
+            return {
                 ...state,
                 isLoaded: true,
-                isAuthenticated: true,  
+                isAuthenticated: true,
                 token: action.payload.token,
                 name: action.payload.username,
                 error: ''
@@ -72,11 +74,11 @@ export default function authreducer(state=initialState,action){
         case AUTH_ERROR:
             localStorage.removeItem('token')
             localStorage.removeItem('name')
-            return{
+            return {
                 ...state,
-                token:null,
+                token: null,
                 name: null,
-                isAuthenticated:false,
+                isAuthenticated: false,
                 isLoading: false
             }
         case TOKEN_LOADED:
@@ -85,7 +87,7 @@ export default function authreducer(state=initialState,action){
                 token: action.payload
             }
 
-        default: 
+        default:
             return state;
     }
 }

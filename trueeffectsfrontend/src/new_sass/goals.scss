@@ -74,4 +74,13 @@
     padding-left: 1rem;
     text-align: start;
   }
+  &__error{
+    &--red{
+      color: $colar-pink
+    }
+    &--start{
+      display: flex;
+      padding-left: 1rem;
+    }
+  }
 }

@@ -17,14 +17,6 @@ const RemoveTrainingModal = (props) => {
                     <button className="standard-button"
                             onClick={() => props.handleDeleteTraining(props.id)}>Usuń trening
                     </button>
-                    {/*<button className="standard-button"*/}
-                    {/*        onClick={() => handleMoveToModifyTraining(props.history)}>Modyfikuj trening*/}
-                    {/*</button>*/}
-                    {/*<button className="standard-button" onClick={() => handleMoveToTraining(props.history)}>Ćwicz*/}
-                    {/*</button>*/}
-                    {/*<button className="standard-button" onClick={() => handleMoveToScheduler(props.history)}>Przejdź do*/}
-                    {/*    kalendarza*/}
-                    {/*</button>*/}
                 </Modal.Footer>
             </Modal>
         </div>

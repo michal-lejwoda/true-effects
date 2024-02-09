@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import "react-datepicker/dist/react-datepicker.css";
 import {connect} from "react-redux";
-import {getCompletedGoals, getGoalsToAchieve, postGoal, putGoal} from "../../redux/actions/trainingActions";
+import {deleteGoal, getCompletedGoals, getGoalsToAchieve, postGoal, putGoal} from "../../redux/actions/trainingActions";
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 import "../../new_sass/goals.scss"
@@ -73,9 +73,11 @@ const Goals = (props) => {
                 />
                 {selectedGoal && <CheckGoal putGoal={props.putGoal} getCompletedGoals={props.getCompletedGoals}
                                             getGoalsToAchieve={props.getGoalsToAchieve} selectedGoal={selectedGoal}
-                                            showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}/>}
+                                            showCheckGoal={showCheckGoal} setShowCheckGoal={setShowCheckGoal}
+                                            deleteGoal={props.deleteGoal}/>
+                }
             </div>
-        ):
+        ) :
         (props.userGoalsCompletedLoading || props.userGoalsToAchieveLoading) && (
             <div className="box-loading">
                 <BoxLoading/>
@@ -92,4 +94,4 @@ const mapStateToProps = (state) => {
         userGoalsToAchieveLoaded: state.training.userGoalsToAchieveLoaded
     }
 }
-export default connect(mapStateToProps, {postGoal, putGoal, getCompletedGoals, getGoalsToAchieve})(Goals);
+export default connect(mapStateToProps, {postGoal, putGoal, getCompletedGoals, getGoalsToAchieve, deleteGoal})(Goals);

@@ -52,19 +52,20 @@ export function CreateGoal(props) {
                                                                              onChange={date => handleDateForGoals(date, setFieldValue)}
                             />
                             </div>
-                            {errors.finishDate && <p className="inputs__error">{errors.finishDate}</p>}
+                            {errors.finishDate && <p className="inputs__error--red">{errors.finishDate}</p>}
                             <div className="inputs__goal-name animatedInput">
                                 <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
                                 <span>Nazwa celu treningowego</span>
                             </div>
-                            {errors.goal && <p className="inputs__error">{errors.goal}</p>}
+                            {errors.goal && <p className="inputs__error--red inputs__error--start">{errors.goal}</p>}
                             <div className="inputs__goal-description animatedInput">
 
                                 <textarea name="description" cols="50" rows="10" value={values.description}
                                           onChange={handleChange}></textarea>
                                 <span>Opis celu</span>
                             </div>
-                            {errors.description && <p className="inputs__error">{errors.description}</p>}
+                            {errors.description &&
+                                <p className="inputs__error--red inputs__error--start">{errors.description}</p>}
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">

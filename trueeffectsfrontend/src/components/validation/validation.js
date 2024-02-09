@@ -1,5 +1,3 @@
-import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
-
 const yup = require("yup");
 
 export const createGoalValidation = yup.object().shape({
@@ -90,7 +88,7 @@ export const registerUserValidation = yup.object().shape({
 export const createExerciseModalValidation = yup.object().shape({
     name: yup.string().required('Stare hasło jest wymagane'),
     password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
-        // .min(2, "Nazwa ćwiczenia jest za krótka")
+    // .min(2, "Nazwa ćwiczenia jest za krótka")
 })
 
 export const changePasswordValidation = yup.object().shape({
@@ -104,4 +102,16 @@ export const changePasswordValidation = yup.object().shape({
 export const addTrainingToDifferentDayValidation = yup.object().shape({
     name: yup.string().min(2, "Nazwa treningu jest za krótka").required("Pole name nie może być puste"),
     date: yup.string().min(8, "Data się nie zgadza").required("Pole data nie może być puste")
+})
+
+export const resetPasswordValidation = yup.object().shape({
+    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
+})
+
+export const changePasswordviaTokenValidation = yup.object().shape({
+    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
+    new_password1: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    new_password2: yup.string()
+        .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
+        .required('Potwierdzenie hasła jest wymagane.'),
 })

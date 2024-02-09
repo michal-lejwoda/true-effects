@@ -2,22 +2,6 @@
 export const handleMovetoHome = (history) => {
     history.push("/");
 }
-export const handleMovetoScheduler = (history) => {
-    history.push("/schedule");
-}
-export const handleMovetoCreator = (history) => {
-    history.push("/createtraining");
-}
-export const handleMovetoMeasurements = (history) => {
-    history.push("/addmeasurements");
-}
-export const handleMovetoAllMeasurements = (history) => {
-    history.push("/displaymeasurements");
-}
-
-export const handleMovetoGoalsAndDimensions = (history) =>{
-    history.push("/goals_and_dimensions")
-}
 
 export const handleMovetoDimensions = (history) =>{
     history.push("/dimensions")
@@ -28,12 +12,17 @@ export const handleMovetoMobileDimensions = (history, isMobileNavOpen, setIsMobi
     setIsMobileNavOpen(!isMobileNavOpen)
 }
 
-export const handleMovetoAddGoals = (history) => {
-    history.push("/addgoals");
-}
-
 export const handleMoveToScheduler = (history) =>{
     history.push("/scheduler");
+}
+
+export const handleMoveToDashboard = (history) =>{
+    history.push("/")
+}
+
+export const handleMoveToMobileDashboard = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/");
+    setIsMobileNavOpen(!isMobileNavOpen)
 }
 
 export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
@@ -44,12 +33,6 @@ export const handleMoveToMobileScheduler = (history, isMobileNavOpen, setIsMobil
 export const handleMoveToTraining = (history,id) => {
     history.push(`/training/${id}`)
 }
-
-export const handleMoveToMobileTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
-    history.push("/training");
-    setIsMobileNavOpen(!isMobileNavOpen)
-}
-
 
 export const handleMovetoSettings = (history) =>{
     history.push("/settings")
@@ -70,8 +53,8 @@ export const handleMoveToMobileGoals = (history, isMobileNavOpen, setIsMobileNav
 }
 
 
-export const handleMoveToModifyTraining = (history) =>{
-    history.push("/modify_training")
+export const handleMoveToModifyTraining = (history, id) =>{
+    history.push(`/modify_training/${id}`)
 }
 
 export const handleMoveToCreateTraining = (history) =>{
@@ -82,3 +65,10 @@ export const handleMoveToMobileCreateTraining = (history, isMobileNavOpen, setIs
     history.push("/create_training");
     setIsMobileNavOpen(!isMobileNavOpen)
 }
+
+export const handleMoveToLogin = (history) => {
+        history.push('/login')
+}
+export const handleMoveToRegister = (history) => {
+        history.push('/register')
+    }

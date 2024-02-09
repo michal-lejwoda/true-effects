@@ -121,10 +121,15 @@ $beige: #CAC0B3;
 .box-loading{
   min-height: 100vh;
 }
-
+.MuiSelect-select{
+  min-width: 150px !important;
+}
 .MuiIconButton-label{
   color:white;
 }
 .rbc-off-range-bg{
   background: $light_main_color;
+}
+#root{
+  min-height: 100vh;
 }

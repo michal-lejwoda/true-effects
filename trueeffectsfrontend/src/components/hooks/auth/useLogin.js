@@ -10,6 +10,9 @@ export const useLogin = (props) => {
     const handleMoveToRegister = () => {
         props.history.push('/register')
     }
+    const handleMoveToResetPassword = () => {
+        props.history.push('/reset_password')
+    }
     const handleLogin = async () => {
         let data = {
             "username": values.username,
@@ -29,5 +32,5 @@ export const useLogin = (props) => {
             handleLogin()
         },
     });
-    return [handleMoveToRegister, handleChange, handleSubmit, errors]
+    return [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors]
 }
