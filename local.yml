@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
     ports:
-      - "81:80"
-      - "444:443"
+      - "81:81"
+      - "444:444"
     networks:
       - backend
     restart: always
@@ -36,13 +36,13 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001 & celery -A backend.tasks worker --loglevel=info"
 #    entrypoint: /app/entrypoint.sh
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
       - ".:/app"
     ports:
-      - "8001:8000"
+      - "8001:8001"
     environment:
       - DJANGO_SETTINGS_MODULE=backend.settings.local
       - AUTH_USER_MODEL=authorization.CustomUser
@@ -62,7 +62,7 @@ services:
     volumes:
       - "./trueeffectsfrontend:/frontend"
     ports:
-      - "3001:3000"
+      - "3001:3001"
     depends_on:
       - trueeffects_db
       - trueeffects_backend
@@ -70,6 +70,7 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - PORT=3001
 
   trueeffects_redis:
     container_name: trueeffects_redis
