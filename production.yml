@@ -12,8 +12,8 @@ services:
     networks:
       - prod_backend
     ports:
-      - "80:80"
-      - "443:443"
+      - "82:82"
+      - "445:445"
     depends_on:
       - production_trueeffects_backend
 
@@ -22,8 +22,10 @@ services:
     image: postgres
     env_file:
       - .env_production
+    environment:
+      - PGPORT=5434
     ports:
-      - "5432:5432"
+      - "5434:5434"
     networks:
       - prod_backend
 
@@ -39,8 +41,9 @@ services:
       - DJANGO_SETTINGS_MODULE=backend.settings.production
       - AUTH_USER_MODEL=authorization.CustomUser
       - REDIS_CONTAINER=production_trueeffects_redis
+      - REDIS_URL=redis://trueeffects_redis:6381/0
     ports:
-      - "8000:8000"
+      - "8002:8000"
     depends_on:
       - production_trueeffects_db
     networks:
@@ -50,9 +53,10 @@ services:
     container_name: production_trueeffects_redis
     image: 'redis:latest'
     ports:
-      - '6379:6379'
+      - '6381:6381'
     networks:
       - prod_backend
+    command: --port 6381
 
 
 networks:
