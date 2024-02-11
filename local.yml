@@ -7,8 +7,8 @@ services:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
     ports:
-      - "80:80"
-      - "443:443"
+      - "81:81"
+      - "444:444"
     networks:
       - backend
     restart: always
@@ -25,27 +25,29 @@ services:
       - POSTGRES_DB=postgres5
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGPORT=5433
     networks:
       - backend
     ports:
-      - "5432:5432"
+      - "5433:5433"
 
   trueeffects_backend:
     container_name: trueeffects_backend
     build:
       context: .
       dockerfile: ./compose/local/trueeffects_backend/Dockerfile
-    command: bash -c "python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001 & celery -A backend.tasks worker --loglevel=info"
 #    entrypoint: /app/entrypoint.sh
     volumes:
       - "/app/backend/local-backend-static:/app/backend/local-backend-static"
       - ".:/app"
     ports:
-      - "8000:8000"
+      - "8001:8001"
     environment:
       - DJANGO_SETTINGS_MODULE=backend.settings.local
       - AUTH_USER_MODEL=authorization.CustomUser
       - REDIS_CONTAINER=trueeffects_redis
+      - REDIS_URL=redis://trueeffects_redis:6380/0
     networks:
       - backend
     depends_on:
@@ -60,7 +62,7 @@ services:
     volumes:
       - "./trueeffectsfrontend:/frontend"
     ports:
-      - "3000:3000"
+      - "3001:3001"
     depends_on:
       - trueeffects_db
       - trueeffects_backend
@@ -68,12 +70,14 @@ services:
       - backend
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - PORT=3001
 
   trueeffects_redis:
     container_name: trueeffects_redis
     image: 'redis:latest'
     ports:
-      - '6379:6379'
+      - '6380:6380'
+    command: --port 6380
     networks:
       - backend
 
