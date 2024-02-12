@@ -12,7 +12,7 @@ services:
     networks:
       - prod_backend
     ports:
-      - "82:82"
+      - "82:80"
       - "445:445"
     restart: always
     depends_on:
