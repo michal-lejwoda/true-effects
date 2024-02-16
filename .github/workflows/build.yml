@@ -1,4 +1,4 @@
-name: CI/CD with Docker
+name: True Effects
 
 on:
   push:
@@ -6,52 +6,24 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Set up Environment Variables
-        run: |
-          echo "POSTGRES_PORT=${{ secrets.POSTGRES_PORT }}" > .env_production
-          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" > .env_production
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" > .env_production
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" > .env_production
-          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" > .env_production
-          echo "PRODUCTION_DATABASE_URL=${{ secrets.PRODUCTION_DATABASE_URL }}" > .env_production
-          echo "PRODUCTION_SECRET_KEY=${{ secrets.PRODUCTION_SECRET_KEY }}" > .env_production
-
-      - name: Build Docker Images
-        run: |
-          docker-compose -f production.yml build
   deploy:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - name: Copy Deployment Files to Server
-        uses: appleboy/scp-action@v1.0.3
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           port: ${{ secrets.SERVER_PORT }}
-          source: "."
-          target: "~/true-effects-deploy"
-
-#      - name: SSH into Server and Pull Docker Images
-#        uses: appleboy/ssh-action@v1.0.3
-#        with:
-#          host: ${{ secrets.SERVER_IP }}
-#          username: ${{ secrets.SERVER_USER }}
-#          key: ${{ secrets.PRIVATE_KEY }}
-#          port: ${{ secrets.SERVER_PORT }}
-#          script: |
-#            cd true-effects-deploy
-#            docker-compose -f production.yml pull
-#            docker-compose -f production.yml up -d
+          script: |
+            cd true-effects
+            git pull
+            docker kill $(docker ps -q -a)
+            source ~/.nvm/nvm.sh
+            nvm use 18
+            cd trueeffectsfrontend
+            npm run build
+            cd ..
+            docker-compose -f production.yml build
+            docker-compose -f production.yml up -d
