@@ -1,8 +1,18 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
+import {handleMoveToScheduler} from "../../helpers/history_helpers";
+import {useHistory} from "react-router-dom";
 
 const RemoveTrainingModal = (props) => {
+    const history = useHistory()
+    const handleDelete = async() =>{
+        await props.handleDeleteTraining(props.id)
+        await props.getUpcomingTrainings()
+        await props.getLastCompletedTrainings()
+        await props.getTrainings()
+        await handleMoveToScheduler(history)
+    }
     return (
         <div>
             <Modal show={props.show} onHide={() => props.handleClose(false)}>
@@ -15,7 +25,7 @@ const RemoveTrainingModal = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="standard-button"
-                            onClick={() => props.handleDeleteTraining(props.id)}>Usuń trening
+                            onClick={() => handleDelete()}>Usuń trening
                     </button>
                 </Modal.Footer>
             </Modal>

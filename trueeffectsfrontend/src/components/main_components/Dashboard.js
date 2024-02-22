@@ -4,6 +4,12 @@ import DashboardCompletedTrainings from "../dashboard_components/DashboardComple
 import DashboardLastDimension from "../dashboard_components/DashboardLastDimension";
 import DashboardUpcomingTrainings from "../dashboard_components/DashboardUpcomingTrainings";
 import "../../new_sass/dashboard.scss";
+import {
+    createTraining,
+    getLastCompletedTrainings,
+    getSingleTraining, getTrainings,
+    getUpcomingTrainings
+} from "../../redux/actions/trainingActions";
 
 const Dashboard = props => {
     return (
@@ -12,10 +18,20 @@ const Dashboard = props => {
             <div className="main-information dashboard__main-information">
                 <div className="main-information__upcoming-trainings">
                     <DashboardUpcomingTrainings
-                        upcomingTrainings={props.upcomingTrainings}/>
+                        upcomingTrainings={props.upcomingTrainings} createTraining={props.createTraining}
+                        getSingleTraining={props.getSingleTraining}
+                        getUpcomingTrainings={props.getUpcomingTrainings}
+                        getLastCompletedTrainings={props.getLastCompletedTrainings}
+                        getTrainings={props.getTrainings}
+                    />
                 </div>
                 <div className="main-information__completed-trainings">
-                    <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings}/>
+                    <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings}
+                                                 createTraining={createTraining}
+                                                 getUpcomingTrainings={props.getUpcomingTrainings}
+                                                 getLastCompletedTrainings={props.getLastCompletedTrainings}
+                                                 getTrainings={props.getTrainings}
+                    />
                 </div>
                 <div className="main-information__last-dimension">
                     <DashboardLastDimension userDimensions={props.userDimensions}
@@ -33,8 +49,14 @@ const mapStateToProps = (state) => {
         lastCompletedTrainings: state.training.lastCompletedTrainings,
         userDimensionConfigurationForCompare: state.training.userDimensionConfigurationForCompare,
         userDimensions: state.training.userDimensions,
-        // userDimensionsForCreate: state.training.userDimensionsForCreate,
 
     }
 }
-export default connect(mapStateToProps, null)(Dashboard);
+
+export default connect(mapStateToProps, {
+    createTraining,
+    getSingleTraining,
+    getUpcomingTrainings,
+    getLastCompletedTrainings,
+    getTrainings
+})(Dashboard);
