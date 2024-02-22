@@ -3,9 +3,9 @@ import {Field, Formik} from "formik";
 import {connect} from "react-redux";
 import {
     createTraining,
-    deleteCurrentTraining,
+    deleteCurrentTraining, getLastCompletedTrainings,
     getSingleTraining,
-    getTrainings,
+    getTrainings, getUpcomingTrainings,
     updateSingleSeries,
     updateTraining
 } from "../../redux/actions/trainingActions";
@@ -27,7 +27,9 @@ const ModifyTraining = (props) => {
             {apiData && <>
                 <RemoveTrainingModal id={trainingId} show={removeTrainingModal} handleClose={setRemoveTrainingModal}
                                      getTrainings={props.getTrainings} handleDeleteTraining={handleDeleteTraining}
-                                     handleMoveToScheduler={handleMoveToScheduler} history={props.history}/>
+                                     handleMoveToScheduler={handleMoveToScheduler} history={props.history}
+                                    getUpcomingTrainings={props.getUpcomingTrainings} getLastCompletedTrainings={props.getLastCompletedTrainings}
+                />
                 <AddTrainingToDifferentDayModal show={differentDayModal} handleClose={setDifferentDayModal}
                                                 training={apiData} createTraining={props.createTraining}
                                                 getTrainings={props.getTrainings}
@@ -200,5 +202,7 @@ export default connect(mapStateToProps, {
     deleteCurrentTraining,
     getTrainings,
     getSingleTraining,
-    updateSingleSeries
+    updateSingleSeries,
+    getLastCompletedTrainings,
+    getUpcomingTrainings
 })(ModifyTraining);

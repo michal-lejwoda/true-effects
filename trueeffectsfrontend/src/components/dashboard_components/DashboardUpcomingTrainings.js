@@ -1,11 +1,30 @@
 import React from 'react';
 import {useHistory} from "react-router-dom";
 import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
+import {getSingleTraining} from "../../redux/actions/trainingActions";
 
 const DashboardUpcomingTrainings = (props) => {
     const history = useHistory()
     const handleGoToTraining = (id) => {
-        handleMoveToTraining(history, id)
+        props.getSingleTraining(id)
+            .then((training) => {
+                let date = new Date()
+                let res = date.toISOString().split('T')[0]
+                if (training.date === res) {
+                    handleMoveToTraining(history, id)
+                } else {
+                    let data = training
+                    data.date = res
+                    props.createTraining(data)
+                        .then((res) => {
+                            props.getUpcomingTrainings()
+                            props.getLastCompletedTrainings()
+                            handleMoveToTraining(history, res.id)
+                        })
+                }
+            })
+
+
     }
     return (
         <div className="upcoming-trainings">
@@ -21,7 +40,7 @@ const DashboardUpcomingTrainings = (props) => {
                                         className="upcoming_training__button dashboard__button">Trenuj teraz
                                 </button>
                                 <button className="upcoming_training__button dashboard__button"
-                                    onClick={()=>handleMoveToModifyTraining(history, upcoming_training.id)}
+                                        onClick={() => handleMoveToModifyTraining(history, upcoming_training.id)}
                                 >Sprawdź
                                 </button>
                             </div>

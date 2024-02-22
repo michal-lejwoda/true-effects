@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import {convertDate} from "../../helpers/function_helpers";
 import {createTrainingValidation} from "../../validation/validation";
 
-export const useCreateTraining = (createTraining, getTrainings) => {
+export const useCreateTraining = (createTraining, getTrainings, getUpcomingTrainings, getLastCompletedTrainings) => {
     const [showCreatedTrainingModal, setShowCreatedTrainingModal] = useState(false)
     const [showCreateExerciseModal, setShowExerciseModal] = useState(false)
     const [multiSeries, setMultiSeries] = useState([])
@@ -23,6 +23,8 @@ export const useCreateTraining = (createTraining, getTrainings) => {
         data["multi_series"] = multiSeries
         if (validateTraining(data) === true) {
             await createTraining(data)
+            await getUpcomingTrainings()
+            await getLastCompletedTrainings()
             await getTrainings()
             await setShowCreatedTrainingModal(true)
         } else {
