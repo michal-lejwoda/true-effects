@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 import DatePicker from "react-datepicker";
 import CreateMultiSeries from "../create_training_components/CreateMultiSeries";
 import {connect} from "react-redux";
-import {createTraining, createUserExercise, getExercises, getTrainings} from "../../redux/actions/trainingActions";
+import {
+    createTraining,
+    createUserExercise,
+    getExercises, getLastCompletedTrainings,
+    getTrainings,
+    getUpcomingTrainings
+} from "../../redux/actions/trainingActions";
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 import {convertDate} from "../helpers/function_helpers";
 import CreatedTrainingModal from "../create_training_components/modals/CreatedTrainingModal";
@@ -15,7 +21,7 @@ const CreateTraining = (props) => {
     const history = useHistory()
     const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
-        setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings)
+        setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings, props.getUpcomingTrainings, props.getLastCompletedTrainings)
 
     const [defaultExercises, setDefaultExercises] = useState()
     useEffect(() => {
@@ -92,5 +98,7 @@ export default connect(mapStateToProps, {
     getExercises,
     createTraining,
     createUserExercise,
-    getTrainings
+    getTrainings,
+    getUpcomingTrainings,
+    getLastCompletedTrainings
 })(CreateTraining);
