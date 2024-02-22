@@ -19,6 +19,7 @@ const DashboardUpcomingTrainings = (props) => {
                         .then((res) => {
                             props.getUpcomingTrainings()
                             props.getLastCompletedTrainings()
+                            props.getTrainings()
                             handleMoveToTraining(history, res.id)
                         })
                 }
