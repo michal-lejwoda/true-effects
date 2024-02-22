@@ -7,7 +7,7 @@ import "../../new_sass/dashboard.scss";
 import {
     createTraining,
     getLastCompletedTrainings,
-    getSingleTraining,
+    getSingleTraining, getTrainings,
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
 
@@ -18,13 +18,19 @@ const Dashboard = props => {
             <div className="main-information dashboard__main-information">
                 <div className="main-information__upcoming-trainings">
                     <DashboardUpcomingTrainings
-                        upcomingTrainings={props.upcomingTrainings} createTraining={props.createTraining} getSingleTraining={props.getSingleTraining}
-                        getUpcomingTrainings={props.getUpcomingTrainings} getLastCompletedTrainings={props.getLastCompletedTrainings}
+                        upcomingTrainings={props.upcomingTrainings} createTraining={props.createTraining}
+                        getSingleTraining={props.getSingleTraining}
+                        getUpcomingTrainings={props.getUpcomingTrainings}
+                        getLastCompletedTrainings={props.getLastCompletedTrainings}
+                        getTrainings={props.getTrainings}
                     />
                 </div>
                 <div className="main-information__completed-trainings">
-                    <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings} createTraining={createTraining}
-                        getUpcomingTrainings={props.getUpcomingTrainings} getLastCompletedTrainings={props.getLastCompletedTrainings}
+                    <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings}
+                                                 createTraining={createTraining}
+                                                 getUpcomingTrainings={props.getUpcomingTrainings}
+                                                 getLastCompletedTrainings={props.getLastCompletedTrainings}
+                                                 getTrainings={props.getTrainings}
                     />
                 </div>
                 <div className="main-information__last-dimension">
@@ -43,9 +49,14 @@ const mapStateToProps = (state) => {
         lastCompletedTrainings: state.training.lastCompletedTrainings,
         userDimensionConfigurationForCompare: state.training.userDimensionConfigurationForCompare,
         userDimensions: state.training.userDimensions,
-        // userDimensionsForCreate: state.training.userDimensionsForCreate,
 
     }
 }
 
-export default connect(mapStateToProps, {createTraining, getSingleTraining, getUpcomingTrainings, getLastCompletedTrainings})(Dashboard);
+export default connect(mapStateToProps, {
+    createTraining,
+    getSingleTraining,
+    getUpcomingTrainings,
+    getLastCompletedTrainings,
+    getTrainings
+})(Dashboard);
