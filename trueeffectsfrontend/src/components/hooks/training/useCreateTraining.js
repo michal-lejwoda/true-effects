@@ -6,10 +6,10 @@ import {createTrainingValidation} from "../../validation/validation";
 export const useCreateTraining = (createTraining, getTrainings, getUpcomingTrainings, getLastCompletedTrainings) => {
     const [showCreatedTrainingModal, setShowCreatedTrainingModal] = useState(false)
     const [showCreateExerciseModal, setShowExerciseModal] = useState(false)
+    const [createdTraining, setCreatedTraining] = useState(null)
     const [multiSeries, setMultiSeries] = useState([])
     const [multiSeriesIndex, setMultiSeriesIndex] = useState(0)
     const [singleSeries, setSingleSeries] = useState([])
-
     const handleCloseCreatedTrainingModal = () => {
         setShowCreatedTrainingModal(false);
     }
@@ -22,7 +22,7 @@ export const useCreateTraining = (createTraining, getTrainings, getUpcomingTrain
         let data = values
         data["multi_series"] = multiSeries
         if (validateTraining(data) === true) {
-            await createTraining(data)
+            setCreatedTraining(await createTraining(data))
             await getUpcomingTrainings()
             await getLastCompletedTrainings()
             await getTrainings()
@@ -55,7 +55,7 @@ export const useCreateTraining = (createTraining, getTrainings, getUpcomingTrain
             return false
         }
     }
-    return [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+    return [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, createdTraining, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
         setShowExerciseModal]
 

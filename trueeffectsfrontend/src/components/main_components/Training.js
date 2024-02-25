@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {getSingleTraining, updateTraining} from "../../redux/actions/trainingActions";
+import {getSingleTraining, updateSingleSeries, updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
 import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
@@ -9,30 +9,51 @@ import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
 import {useTraining} from "../hooks/training/useTraining";
+import {useCookies} from "react-cookie";
 
 const Training = (props) => {
+        const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const history = useHistory()
         const [apiData, setApiData] = useState(null);
+        const [oldApiData, setOldApiData] = useState(null)
         const {trainingId} = props.match.params;
         const [showFinishTraining, setShowFinishTraining] = useState(false)
+        const timeToSeconds = (timeString) => {
+            const [hours, minutes, seconds] = timeString.split(':').map(Number);
+            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            return totalSeconds;
+        }
+
+        let stopwatchOffset = new Date();
+        if (cookies.true_effects_training) {
+            stopwatchOffset.setSeconds(stopwatchOffset.getSeconds() + timeToSeconds(cookies.true_effects_training.time));
+        }
         const {
             seconds, minutes, hours, start, pause, reset,
-        } = useStopwatch({autoStart: false});
+        } = useStopwatch({autoStart: false, offsetTimestamp: stopwatchOffset});
+
+        const getTimeForCookie = () => {
+            const string_time = timeToString(hours, minutes, seconds)
+            return string_time
+        }
 
         useEffect(() => {
             props.getSingleTraining(trainingId)
                 .then((res) => {
                     setApiData(res);
-
+                    setOldApiData(JSON.parse(JSON.stringify(res)));
                 })
                 .catch(() => {
                     handleMovetoHome(history)
                 })
         }, [trainingId])
-
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
-            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({training: apiData});
+            extra_weight, reps, rest, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({
+            training: apiData,
+            updateSingleSeries: props.updateSingleSeries,
+            getTimeForCookie
+        });
 
         if (!multi_series) {
             return null;
@@ -44,6 +65,7 @@ const Training = (props) => {
             training_obj.multi_series = multi_series
             training_obj.time = string_time
             await props.updateTraining(training_obj)
+            await removeCookieTraining("true_effects_training")
             await handleMoveToScheduler(history)
         }
         return (
@@ -94,8 +116,22 @@ const Training = (props) => {
                     <div className="row content__row">
                         <div className="row__label">Fazy</div>
                         <div
-                            className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
+                            className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}
+                        </div>
+                        <div className="error__container">
+
+                        </div>
                     </div>
+                    <div className="row content__row">
+                        <div className="row__label">Odpoczynek</div>
+                        <div
+                            className="row__name">{rest} s
+                        </div>
+                        <div className="error__container">
+
+                        </div>
+                    </div>
+
                     <div className="row content__row">
 
                         <div className="row__label">Powtórzenia</div>
@@ -107,7 +143,11 @@ const Training = (props) => {
                                 onChange={handleReps}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {reps} </div>
+                            <div
+                                className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps} </div>
+                        </div>
+                        <div className="error__container">
+                            {errors && errors.reps && <p className="header__errors">{errors.reps}</p>}
                         </div>
                     </div>
                     <div className="row__element content__row">
@@ -120,7 +160,12 @@ const Training = (props) => {
                                 value={extraWeight}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {extra_weight} kg</div>
+                            <div
+                                className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight} kg
+                            </div>
+                        </div>
+                        <div className="error__container">
+                            {errors && errors.extra_weight && <p className="header__errors">{errors.extra_weight}</p>}
                         </div>
                     </div>
 
@@ -163,4 +208,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {updateTraining, getSingleTraining})(Training);
+export default connect(mapStateToProps, {updateTraining, getSingleTraining, updateSingleSeries})(Training);

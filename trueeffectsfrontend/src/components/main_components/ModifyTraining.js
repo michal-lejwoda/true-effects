@@ -131,6 +131,13 @@ const ModifyTraining = (props) => {
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
+                                                                               name={`multi_series[${index}].single_series[${indexv2}].extra_weight`}
+                                                                               value={singleseries.extra_weight}
+                                                                               type="text"/>
+                                                                        <span>Dodatkowa waga</span>
+                                                                    </div>
+                                                                    <div className="animatedInput">
+                                                                        <Field onChange={handleChange}
                                                                                name={`multi_series[${index}].single_series[${indexv2}].rest`}
                                                                                value={singleseries.rest}
                                                                                type="text"/>
