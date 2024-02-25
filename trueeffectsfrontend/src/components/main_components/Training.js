@@ -15,6 +15,7 @@ const Training = (props) => {
         const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const history = useHistory()
         const [apiData, setApiData] = useState(null);
+        const [oldApiData, setOldApiData] = useState(null)
         const {trainingId} = props.match.params;
         const [showFinishTraining, setShowFinishTraining] = useState(false)
         const timeToSeconds = (timeString) => {
@@ -40,14 +41,14 @@ const Training = (props) => {
             props.getSingleTraining(trainingId)
                 .then((res) => {
                     setApiData(res);
-
+                    setOldApiData(JSON.parse(JSON.stringify(res)));
                 })
                 .catch(() => {
                     handleMovetoHome(history)
                 })
         }, [trainingId])
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
-            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
+            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({
             training: apiData,
             updateSingleSeries: props.updateSingleSeries,
@@ -128,8 +129,9 @@ const Training = (props) => {
                                 onChange={handleReps}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {reps} </div>
+                            <div className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps} </div>
                         </div>
+                        {errors && errors.reps && <p className="header__errors">{errors.reps}</p>}
                     </div>
                     <div className="row__element content__row">
                         <div className="row__label">Ciężar dodatkowy</div>
@@ -141,8 +143,9 @@ const Training = (props) => {
                                 value={extraWeight}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {extra_weight} kg</div>
+                            <div className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight} kg</div>
                         </div>
+                        {errors && errors.extra_weight && <p className="header__errors">{errors.extra_weight}</p>}
                     </div>
 
                 </div>
