@@ -35,10 +35,20 @@ const useModifyTraining = (props) => {
                 props.getSingleTraining(trainingId)
                     .then((res) => {
                         setApiData(res);
+                        alert("Seria została zmodyfikowana")
                     })
                     .catch(() => {
                         handleMovetoHome(history)
                     })
+            })
+            .catch((err) => {
+                let message = "Nie udało się zmodyfikować serii. Sprawdź poprawność danych:\n";
+                for (let key in err.response.data) {
+                    if (err.response.data.hasOwnProperty(key)) {
+                        message += "Pole " + key + ": " + err.response.data[key] + "\n";
+                    }
+                }
+                alert(message)
             })
     }
 
