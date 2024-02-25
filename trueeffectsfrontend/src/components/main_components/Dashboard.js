@@ -27,7 +27,8 @@ const Dashboard = props => {
                 </div>
                 <div className="main-information__completed-trainings">
                     <DashboardCompletedTrainings lastCompletedTrainings={props.lastCompletedTrainings}
-                                                 createTraining={createTraining}
+                                                 createTraining={props.createTraining}
+                                                 getSingleTraining={props.getSingleTraining}
                                                  getUpcomingTrainings={props.getUpcomingTrainings}
                                                  getLastCompletedTrainings={props.getLastCompletedTrainings}
                                                  getTrainings={props.getTrainings}

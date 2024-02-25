@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {handleMovetoHome, handleMoveToScheduler} from "../../helpers/history_helpers";
+import {getBackendField} from "../../helpers/function_helpers";
 
 const useModifyTraining = (props) => {
     const history = useHistory()
@@ -35,10 +36,20 @@ const useModifyTraining = (props) => {
                 props.getSingleTraining(trainingId)
                     .then((res) => {
                         setApiData(res);
+                        alert("Seria została zmodyfikowana")
                     })
                     .catch(() => {
                         handleMovetoHome(history)
                     })
+            })
+            .catch((err) => {
+                let message = "Nie udało się zmodyfikować serii. Sprawdź poprawność danych:\n";
+                for (let key in err.response.data) {
+                    if (err.response.data.hasOwnProperty(key)) {
+                        message += "Pole " + getBackendField()[key] + ": " + err.response.data[key] + "\n";
+                    }
+                }
+                alert(message)
             })
     }
 

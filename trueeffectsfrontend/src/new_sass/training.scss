@@ -1,5 +1,9 @@
 @import "settings.scss";
-
+.error{
+  &__container{
+    height: 30px;
+  }
+}
 .training {
   display: flex;
   flex-direction: column;
@@ -60,7 +64,6 @@
 .content {
   display: flex;
   flex-direction: column;
-
   text-align: center;
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -68,9 +71,14 @@
     flex-direction: row;
     justify-content: center;
   }
+
 }
 
 .row {
+  @include breakpoint(laptop){
+    max-width: 350px;
+  }
+
   &__element{
 
   }
@@ -129,5 +137,6 @@
   margin-top: 1.5rem;
   @include breakpoint(mobilebig) {
     font-size: 1.5rem;
+    margin-bottom: 1rem;
   }
 }
