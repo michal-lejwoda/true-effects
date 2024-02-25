@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
+import {useCookies} from "react-cookie";
 
 export const useTraining = (props) => {
+    const [cookies, setCookie] = useCookies(['true_effects_training']);
     const {training} = props;
     const [currentTraining, setCurrentTraining] = useState(null);
     const [actualMultiSeries, setActualMultiSeries] = useState(0);
@@ -8,6 +10,13 @@ export const useTraining = (props) => {
     const [trainingFinished, setTrainingFinished] = useState(false);
     const [extraWeight, setExtraWeight] = useState(null)
     const [actualReps, setActualReps] = useState(null)
+    useEffect(() => {
+        if (cookies.true_effects_training !== undefined) {
+            setActualMultiSeries(cookies.true_effects_training.actualMultiSeries)
+            setActualSingleSeries(cookies.true_effects_training.actualSingleSeries)
+            setCurrentTraining(cookies.true_effects_training.currentTraining)
+        }
+    }, [])
     useEffect(() => {
         if (training) {
             setExtraWeight(training.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight)
@@ -20,6 +29,7 @@ export const useTraining = (props) => {
         updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight = extraWeight;
         updatedCurrentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps = actualReps;
         setCurrentTraining(updatedCurrentTraining);
+
     };
     const handleExtraWeight = (e) => {
         setExtraWeight(e.target.value)
@@ -28,13 +38,28 @@ export const useTraining = (props) => {
         setActualReps(e.target.value)
     }
     const setAnotherSeries = () => {
+        setCookie("true_effects_training", {
+            "trainingId": training.id,
+            "actualMultiSeries": actualMultiSeries,
+            "actualSingleSeries": actualSingleSeries + 1
+        }, {maxAge: 3600, sameSite: 'strict' })
         const {multi_series} = currentTraining
+        props.updateSingleSeries(multi_series[actualMultiSeries].single_series[actualSingleSeries])
         setActualSingleSeries(actualSingleSeries + 1)
         setExtraWeight(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].extra_weight)
         setActualReps(multi_series[actualMultiSeries].single_series[actualSingleSeries + 1].reps)
+
+
+
     }
     const setAnotherMultiSeries = () => {
+        setCookie("true_effects_training", {
+            "trainingId": training.id,
+            "actualMultiSeries": actualMultiSeries + 1,
+            "actualSingleSeries": 0
+        },{maxAge: 3600, sameSite: 'strict'})
         const {multi_series} = currentTraining
+        props.updateSingleSeries(multi_series[actualMultiSeries].single_series[actualSingleSeries])
         setActualSingleSeries(0)
         setActualMultiSeries(actualMultiSeries + 1)
         setExtraWeight(multi_series[actualMultiSeries + 1].single_series[0].extra_weight)
