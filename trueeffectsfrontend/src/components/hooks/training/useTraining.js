@@ -41,7 +41,8 @@ export const useTraining = (props) => {
         setCookie("true_effects_training", {
             "trainingId": training.id,
             "actualMultiSeries": actualMultiSeries,
-            "actualSingleSeries": actualSingleSeries + 1
+            "actualSingleSeries": actualSingleSeries + 1,
+            "time": props.getTimeForCookie()
         }, {maxAge: 3600, sameSite: 'strict' })
         const {multi_series} = currentTraining
         props.updateSingleSeries(multi_series[actualMultiSeries].single_series[actualSingleSeries])
@@ -56,7 +57,8 @@ export const useTraining = (props) => {
         setCookie("true_effects_training", {
             "trainingId": training.id,
             "actualMultiSeries": actualMultiSeries + 1,
-            "actualSingleSeries": 0
+            "actualSingleSeries": 0,
+            "time": props.getTimeForCookie()
         },{maxAge: 3600, sameSite: 'strict'})
         const {multi_series} = currentTraining
         props.updateSingleSeries(multi_series[actualMultiSeries].single_series[actualSingleSeries])

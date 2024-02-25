@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
+import ResetStopwatchModal from "./modals/ResetStopwatchModal";
 
 const CustomStopwatch = (props) => {
+    const [showResetStopwatch, setShowResetStopwatch] = useState(false)
     return (
         <div className="stopwatch">
             <div className="stopwatch__timer">
@@ -9,8 +11,9 @@ const CustomStopwatch = (props) => {
             <div className="stopwatch__buttons">
                 <button className="stopwatch__button square-buttons" id="start" onClick={props.start}>Start</button>
                 <button className="stopwatch__button square-buttons" id="pause" onClick={props.pause}>Pauza</button>
-                <button className="stopwatch__button square-buttons" id="reset" onClick={props.reset}>Reset</button>
+                <button className="stopwatch__button square-buttons" id="reset" onClick={()=> setShowResetStopwatch(true)}>Reset</button>
             </div>
+            <ResetStopwatchModal reset={props.reset} showResetStopwatch={showResetStopwatch} setShowResetStopwatch={setShowResetStopwatch}/>
         </div>
     );
 };
