@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {connect} from "react-redux";
-import {getSingleTraining, updateTraining} from "../../redux/actions/trainingActions";
+import {getSingleTraining, updateSingleSeries, updateTraining} from "../../redux/actions/trainingActions";
 import "../../new_sass/training.scss";
 import {useStopwatch} from "react-timer-hook";
 import CustomStopwatch from "../training_components/CustomStopwatch";
@@ -9,8 +9,10 @@ import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
 import {useHistory} from "react-router-dom";
 import {useTraining} from "../hooks/training/useTraining";
+import {useCookies} from "react-cookie";
 
 const Training = (props) => {
+        const [, , removeCookieTraining] = useCookies('true_effects_training')
         const history = useHistory()
         const [apiData, setApiData] = useState(null);
         const {trainingId} = props.match.params;
@@ -29,10 +31,9 @@ const Training = (props) => {
                     handleMovetoHome(history)
                 })
         }, [trainingId])
-
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
             extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({training: apiData});
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({training: apiData, updateSingleSeries: props.updateSingleSeries});
 
         if (!multi_series) {
             return null;
@@ -44,6 +45,7 @@ const Training = (props) => {
             training_obj.multi_series = multi_series
             training_obj.time = string_time
             await props.updateTraining(training_obj)
+            await removeCookieTraining("true_effects_training")
             await handleMoveToScheduler(history)
         }
         return (
@@ -163,4 +165,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, {updateTraining, getSingleTraining})(Training);
+export default connect(mapStateToProps, {updateTraining, getSingleTraining, updateSingleSeries})(Training);
