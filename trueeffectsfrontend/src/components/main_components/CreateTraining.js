@@ -19,7 +19,7 @@ import '../../new_sass/create_training.scss'
 
 const CreateTraining = (props) => {
     const history = useHistory()
-    const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, setMultiSeries, setMultiSeriesIndex,
+    const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, createdTraining, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
         setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings, props.getUpcomingTrainings, props.getLastCompletedTrainings)
 
@@ -74,6 +74,7 @@ const CreateTraining = (props) => {
             <CreatedTrainingModal history={history}
                                   showCreatedTrainingModal={showCreatedTrainingModal}
                                   handleCloseCreatedTrainingModal={handleCloseCreatedTrainingModal}
+                                  createdTraining={createdTraining}
             />
             <CreateExerciseModal history={history}
                                  showCreateExerciseModal={showCreateExerciseModal}
