@@ -12,14 +12,29 @@ import {useTraining} from "../hooks/training/useTraining";
 import {useCookies} from "react-cookie";
 
 const Training = (props) => {
-        const [, , removeCookieTraining] = useCookies('true_effects_training')
+        const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const history = useHistory()
         const [apiData, setApiData] = useState(null);
         const {trainingId} = props.match.params;
         const [showFinishTraining, setShowFinishTraining] = useState(false)
+        const timeToSeconds = (timeString) => {
+            const [hours, minutes, seconds] = timeString.split(':').map(Number);
+            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            return totalSeconds;
+        }
+
+        let stopwatchOffset = new Date();
+        if (cookies.true_effects_training) {
+            stopwatchOffset.setSeconds(stopwatchOffset.getSeconds() + timeToSeconds(cookies.true_effects_training.time));
+        }
         const {
             seconds, minutes, hours, start, pause, reset,
-        } = useStopwatch({autoStart: false});
+        } = useStopwatch({autoStart: false, offsetTimestamp: stopwatchOffset});
+
+        const getTimeForCookie = () => {
+            const string_time = timeToString(hours, minutes, seconds)
+            return string_time
+        }
 
         useEffect(() => {
             props.getSingleTraining(trainingId)
@@ -33,7 +48,11 @@ const Training = (props) => {
         }, [trainingId])
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
             extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries,
-            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({training: apiData, updateSingleSeries: props.updateSingleSeries});
+            handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({
+            training: apiData,
+            updateSingleSeries: props.updateSingleSeries,
+            getTimeForCookie
+        });
 
         if (!multi_series) {
             return null;
