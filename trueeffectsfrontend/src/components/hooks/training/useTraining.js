@@ -36,9 +36,6 @@ export const useTraining = (props) => {
 
     };
     const handleExtraWeight = (e) => {
-        console.log(e.target.value)
-        console.log("currentTraining")
-        console.log(currentTraining)
         setExtraWeight(e.target.value)
     }
     const handleReps = (e) => {
@@ -82,8 +79,6 @@ export const useTraining = (props) => {
                 setErrors(null)
             })
             .catch((err) => {
-                console.log("err")
-                console.log(err.response.data)
                 setErrors(err.response.data)
             })
 
@@ -118,15 +113,16 @@ export const useTraining = (props) => {
             eccentric_phase,
             pause_after_eccentric_phase,
             extra_weight,
-            reps
+            reps,
+            rest
         } = currentTraining.multi_series[actualMultiSeries].single_series[actualSingleSeries]
         const {multi_series} = currentTraining
         return [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
-            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
+            extra_weight, reps, rest, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
     } else {
         return [null, null, null, null,
-            null, null, null, null, null, actualMultiSeries, actualSingleSeries, errors,
+            null, null, null, null, null, null, actualMultiSeries, actualSingleSeries, errors,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries]
     }
 }

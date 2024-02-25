@@ -48,7 +48,7 @@ const Training = (props) => {
                 })
         }, [trainingId])
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
-            extra_weight, reps, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
+            extra_weight, reps, rest, extraWeight, actualReps, multi_series, actualMultiSeries, actualSingleSeries, errors,
             handleExtraWeight, handleReps, handleMovetoAnotherSeries, modifyMultiSeries] = useTraining({
             training: apiData,
             updateSingleSeries: props.updateSingleSeries,
@@ -116,8 +116,22 @@ const Training = (props) => {
                     <div className="row content__row">
                         <div className="row__label">Fazy</div>
                         <div
-                            className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}</div>
+                            className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}
+                        </div>
+                        <div className="error__container">
+
+                        </div>
                     </div>
+                    <div className="row content__row">
+                        <div className="row__label">Odpoczynek</div>
+                        <div
+                            className="row__name">{rest} s
+                        </div>
+                        <div className="error__container">
+
+                        </div>
+                    </div>
+
                     <div className="row content__row">
 
                         <div className="row__label">Powtórzenia</div>
@@ -129,9 +143,12 @@ const Training = (props) => {
                                 onChange={handleReps}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps} </div>
+                            <div
+                                className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].reps} </div>
                         </div>
-                        {errors && errors.reps && <p className="header__errors">{errors.reps}</p>}
+                        <div className="error__container">
+                            {errors && errors.reps && <p className="header__errors">{errors.reps}</p>}
+                        </div>
                     </div>
                     <div className="row__element content__row">
                         <div className="row__label">Ciężar dodatkowy</div>
@@ -143,9 +160,13 @@ const Training = (props) => {
                                 value={extraWeight}
                                 id="actualreps" min="0"
                                 max="10000"/>
-                            <div className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight} kg</div>
+                            <div
+                                className="modify-data__display-old">/ {oldApiData.multi_series[actualMultiSeries].single_series[actualSingleSeries].extra_weight} kg
+                            </div>
                         </div>
-                        {errors && errors.extra_weight && <p className="header__errors">{errors.extra_weight}</p>}
+                        <div className="error__container">
+                            {errors && errors.extra_weight && <p className="header__errors">{errors.extra_weight}</p>}
+                        </div>
                     </div>
 
                 </div>
