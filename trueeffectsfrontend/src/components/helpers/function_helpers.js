@@ -15,6 +15,7 @@ export const timeToString = (hours, minutes, seconds) => {
 }
 
 export const getBackendField = () => {
+
     const dict = {
         "concentric_phase": "faza koncentryczna",
         "pause_after_concentric_phase": "pauza po fazie koncentrycznej",
