@@ -52,7 +52,7 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         return Response(serializer.data)
 
 
-class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin,  ListModelMixin, GenericViewSet):
+class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = UserDimensionSerializer
 
@@ -122,10 +122,6 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
         data = request.data
         instance = self.get_object()
         for multi_series in data.pop('multi_series'):
-            # multi_series_object = MultiSeries.objects.get(id=i['id'])
-            # multi_series_serializer = MultiSeriesSerializer(instance=multi_series_object, data=i)
-            # if multi_series_serializer.is_valid():
-            #     multi_series_serializer.save()
             for single_series in multi_series.pop('single_series'):
                 single_series_object = SingleSeries.objects.get(id=single_series['id'])
                 single_series_serializer = SingleSeriesSerializer(instance=single_series_object, data=single_series)
@@ -135,27 +131,6 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
         if training_serializer.is_valid():
             training_serializer.save()
             return Response(training_serializer.data, status=status.HTTP_200_OK)
-
-    @action(detail=True, methods=['POST'], permission_classes=[IsAuthenticated])
-    def move_training(self, request, pk):
-        pass
-
-        # print("data")
-        # print(data)
-        # instance = self.get_object()
-        # for multiseries_index, i in enumerate(instance.multi_series.all()):
-        #     print(i.exercise.name)
-        #     print("multiseries_index")
-        #     print(multiseries_index)
-        #     for single_series_index, j in enumerate(i.single_series.all()):
-        #         single_series_object = SingleSeries.objects.get(id=j.id)
-        #         print("single_series_index")
-        #         print(single_series_index)
-        #         # single_series_serializer = SingleSeriesSerializer()
-        #         # if single_series_serializer.is_valid():
-        #         #     single_series_serializer.save()
-
-        return Response("Working", status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_training_by_id(self, request, pk=None):
@@ -168,34 +143,6 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
             return Response(status=status.HTTP_401_UNAUTHORIZED)
         serializer = self.get_serializer(instance=training)
         return Response(serializer.data)
-
-    # @action(detail=False, methods=['POST'], permission_classes=[IsAuthenticated])
-    # def update_multi_series(self, request):
-    #     data = request.data.copy()
-    #     training_id = data.pop('id')
-    #     training_obj = Training.objects.get(id=training_id)
-    #     multi_series_elements = data.pop('multi_series')
-    #     user = request.user
-    #     #TODO For loop
-    #     for multi_series_element in multi_series_elements:
-    #         print("test")
-    #         mss = MultiSeriesSerializer(data = multi_series_element)
-    #         if mss.is_valid():
-    #             multi_series_obj = mss.save()
-    #         else:
-    #             print(mss.errors)
-    #         for single_series_element in multi_series_element['single_series']:
-    #             print("test")
-    #             print(single_series_element)
-    #             single_series_serializer = SingleSeriesSerializer(data=single_series_element)
-    #             if single_series_serializer.is_valid():
-    #                 single_series_obj = single_series_serializer.save()
-    #
-    #         # serializer = MultiSeriesSerializer(data=multi_series_element)
-    #         # if serializer.is_valid():
-    #         #     saved_object = serializer.save()
-    #         #     training_obj.multi_series.set(saved_object)
-    #     return Response(training_obj)
 
 
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
@@ -265,11 +212,11 @@ class SingleSeriesViewSet(UpdateModelMixin, GenericViewSet):
     serializer_class = SingleSeriesSerializer
     queryset = SingleSeries.objects.all()
 
+
 class SendMail(ViewSet):
     permission_classes = [AllowAny]
+
     @action(detail=False, methods=['POST'])
     def reset_password(self, request):
-        print("test")
-        print(request.data['email'])
         send_reset_password_to_mail(request.data['email'])
         return Response(status=status.HTTP_200_OK)
