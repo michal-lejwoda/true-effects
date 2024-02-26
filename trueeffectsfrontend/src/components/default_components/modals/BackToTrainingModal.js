@@ -1,11 +1,15 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
-import {handleMoveToTraining} from "../../helpers/history_helpers";
+import {handleMoveToDashboard, handleMoveToTraining} from "../../helpers/history_helpers";
 import {CloseButton} from "react-bootstrap";
 import {useCookies} from "react-cookie";
 
 const BackToTrainingModal = (props) => {
-    const [cookies, , ] = useCookies('true_effects_training')
+    const [cookies, ,] = useCookies('true_effects_training')
+    const handleBackToTraining = () => {
+        props.setShowBackToTrainingModal(false)
+        handleMoveToTraining(props.history, cookies.true_effects_training.trainingId)
+    }
     return (
         <div className="created-training-modal create-training__created-training-modal">
             <Modal show={props.showBackToTrainingModal} onHide={props.handleCloseBackToTrainingModal}>
@@ -17,12 +21,11 @@ const BackToTrainingModal = (props) => {
                     <p>Nie dokończyłeś ostatniego treningu czy chciałbyś do niego wrócić?</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="standard-button" onClick={props.handleCloseBackToTrainingModal}>Nie wracaj
+                    <button className="standard-button" onClick={props.handleCloseBackToTrainingModal}>
+                        Nie wracaj
                     </button>
                     <button className="standard-button"
-                            onClick={() => handleMoveToTraining(props.history, cookies.true_effects_training.trainingId)}>Wróć
-                        do
-                        treningu
+                            onClick={handleBackToTraining}>Wróć do treningu
                     </button>
                 </Modal.Footer>
             </Modal>
