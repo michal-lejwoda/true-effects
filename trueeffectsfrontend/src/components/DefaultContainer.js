@@ -1,5 +1,5 @@
-import {Route} from 'react-router-dom';
-import React, {useEffect} from 'react';
+import {Route, useHistory} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from "./main_components/Settings";
 import {loadToken, postLogoutAuth} from "../redux/actions/authenticationActions";
@@ -26,10 +26,16 @@ import {
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import {useAuth} from "./hooks/auth/useAuth";
+import BackToTrainingModal from "./default_components/modals/BackToTrainingModal";
+import {useCookies} from "react-cookie";
+import {handleMoveToDashboard, handleMoveToTraining} from "./helpers/history_helpers";
 
 
 const DefaultContainer = (props) => {
     useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history)
+    const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
+    const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false)
+    const history = useHistory()
 
     async function fetchAllData() {
         try {
@@ -58,6 +64,17 @@ const DefaultContainer = (props) => {
 
         }
     }, [props.token])
+    const handleCloseBackToTrainingModal = () => {
+        removeCookieTraining('true_effects_training')
+        setShowBackToTrainingModal(false)
+        handleMoveToDashboard(history)
+    }
+    useEffect(() => {
+        if (cookies.true_effects_training !== undefined) {
+            setShowBackToTrainingModal(true)
+            // handleMoveToTraining(history, cookies.true_effects_training.trainingId)
+        }
+    }, [])
 
     return (
         <>
@@ -72,6 +89,10 @@ const DefaultContainer = (props) => {
                     <Route path="/training/:trainingId" component={Training}/>
                     <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
                     <Route path="/create_training" component={CreateTraining}/>
+                    <BackToTrainingModal handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
+                                         showBackToTrainingModal={showBackToTrainingModal}
+
+                    />
                 </>
                 : <BoxLoading/>
             }
