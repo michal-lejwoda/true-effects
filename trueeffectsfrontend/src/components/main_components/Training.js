@@ -12,8 +12,8 @@ import {useTraining} from "../hooks/training/useTraining";
 import {useCookies} from "react-cookie";
 
 const Training = (props) => {
-        const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const history = useHistory()
+        const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const [apiData, setApiData] = useState(null);
         const [oldApiData, setOldApiData] = useState(null)
         const {trainingId} = props.match.params;
