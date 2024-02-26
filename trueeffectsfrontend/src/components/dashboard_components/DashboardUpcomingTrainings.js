@@ -24,8 +24,6 @@ const DashboardUpcomingTrainings = (props) => {
                         })
                 }
             })
-
-
     }
     return (
         <div className="upcoming-trainings">

@@ -23,8 +23,6 @@ const DashboardCompletedTrainings = (props) => {
                         })
                 }
             })
-
-
     }
     return (
         <div className="completed-trainings">
