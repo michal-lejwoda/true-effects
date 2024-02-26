@@ -28,7 +28,7 @@ import {
 import {useAuth} from "./hooks/auth/useAuth";
 import BackToTrainingModal from "./default_components/modals/BackToTrainingModal";
 import {useCookies} from "react-cookie";
-import {handleMoveToDashboard, handleMoveToTraining} from "./helpers/history_helpers";
+import {handleMoveToDashboard} from "./helpers/history_helpers";
 
 
 const DefaultContainer = (props) => {
@@ -91,6 +91,8 @@ const DefaultContainer = (props) => {
                     <Route path="/create_training" component={CreateTraining}/>
                     <BackToTrainingModal handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
                                          showBackToTrainingModal={showBackToTrainingModal}
+                                         setShowBackToTrainingModal={setShowBackToTrainingModal}
+                                         history={history}
 
                     />
                 </>
