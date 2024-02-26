@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import 'moment/locale/pl';
 import "../../new_sass/scheduler.scss"
 import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
-import DisplayTrainingOnSchedulerModal from "../scheduler_components/DisplayTrainingOnSchedulerModal";
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
 import {handleMoveToModifyTraining} from "../helpers/history_helpers";
@@ -51,15 +50,15 @@ const Scheduler = (props) => {
                     localizer={localizer}
                     style={{height: 900, width: '100%'}}
                 />
-                {props.trainingForModal && (
-                    <DisplayTrainingOnSchedulerModal
-                        history={history}
-                        trainingForModal={props.trainingForModal}
-                        show={showModal}
-                        handleClose={handleCloseModal}
-                        getSingleTraining={getSingleTraining}
-                    />
-                )}
+                {/*{props.trainingForModal && (*/}
+                {/*    <DisplayTrainingOnSchedulerModal*/}
+                {/*        history={history}*/}
+                {/*        trainingForModal={props.trainingForModal}*/}
+                {/*        show={showModal}*/}
+                {/*        handleClose={handleCloseModal}*/}
+                {/*        getSingleTraining={getSingleTraining}*/}
+                {/*    />*/}
+                {/*)}*/}
             </div>
         </div>
     ) : props.trainingsLoading && (
