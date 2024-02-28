@@ -15,7 +15,8 @@
 
 ## Application technology description
 
-Backend of application is written in django framework. Application contain Login and Registration for user and requires the user to be logged in to use the application. Frontend of aplication is written in react, for easier management of application status was used redux. Forms are validated via Formik library and validated by yup to prevent errors. Application utilizes Docker containers for seamless deployment and execution. Staticfiles are served via nginx. The application is hosted on my vps server and with each approved PR it is built and reloaded automatically thanks to github actions.
+The backend of this application is written in django framework. The application contains Login and Registration for user and requires the user to be logged in to use the application. Frontend of aplication is written in react, for easier management of the application status, redux was used. Forms are validated via Formik library and every input is validated by yup to prevent errors. Application utilizes Docker containers for seamless deployment and execution, while staticfiles are served via nginx. The application is hosted on my vps server and with each approved PR it is built and reloaded automatically, thanks to github actions.
+
 
 ## Application allows to:
 
