@@ -1,5 +1,6 @@
 # True Effects - Application that allows you to manage your training. 
 
+### Demo: https://true-effects.pl
 
 ## Technology stack
 
