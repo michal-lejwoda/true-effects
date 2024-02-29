@@ -37,6 +37,7 @@ const Login = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.username && <p>{errors.username}</p>}
+                            {props.login_error["username"] && <p>{props.login_error["username"]}</p>}
                         </div>
                         <div className="form__password animatedInput">
                             <input
@@ -48,11 +49,12 @@ const Login = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.password && <p>{errors.password}</p>}
+                            {props.login_error["password"] && <p>{props.login_error["password"]}</p>}
                         </div>
-                        <div className="errors form__errors">
-                            {Object.keys(errors).length === 0 && props.login_error &&
-                                <p>{props.login_error.non_field_errors[0]}</p>}
-                        </div>
+                        {/*<div className="errors form__errors">*/}
+                        {/*    {Object.keys(errors).length === 0 && props.login_error &&*/}
+                        {/*        <p>{props.login_error.non_field_errors[0]}</p>}*/}
+                        {/*</div>*/}
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">
                                 Zaloguj się
