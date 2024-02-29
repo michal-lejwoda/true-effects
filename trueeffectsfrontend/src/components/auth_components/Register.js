@@ -37,6 +37,7 @@ const Register = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.username && <p>{errors.username}</p>}
+                            {props.error_register["username"] && <p>{props.error_register["username"]}</p>}
                         </div>
 
                         <div className="form__email animatedInput">
@@ -49,6 +50,7 @@ const Register = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.email && <p>{errors.email}</p>}
+                            {props.error_register["email"] && <p>{props.error_register["email"]}</p>}
                         </div>
                         <div className="form__password animatedInput">
                             <input
@@ -60,6 +62,7 @@ const Register = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.password && <p>{errors.password}</p>}
+                            {props.error_register["password"] && <p>{props.error_register["password"]}</p>}
                         </div>
                         <div className="form__password animatedInput">
                             <input
@@ -71,10 +74,7 @@ const Register = (props) => {
                         </div>
                         <div className="errors form__errors">
                             {errors.password2 && <p>{errors.password2}</p>}
-                        </div>
-                        <div className="errors form__errors">
-                            {Object.keys(errors).length === 0 && props.register_error &&
-                                <p>{props.register_error.non_field_errors[0]}</p>}
+                            {props.error_register["password2"] && <p>{props.error_register["password2"]}</p>}
                         </div>
                         <div className="button form__button">
                             <button className="button__register square-buttons" type="submit">
