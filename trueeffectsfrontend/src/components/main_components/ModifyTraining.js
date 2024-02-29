@@ -22,6 +22,27 @@ import useModifyTraining from "../hooks/training/useModifyTraining";
 const ModifyTraining = (props) => {
     const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining,
         setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
+
+    const handleGoToTraining = (id) => {
+        props.getSingleTraining(id)
+            .then((training) => {
+                let date = new Date()
+                let res = date.toISOString().split('T')[0]
+                if (training.date === res) {
+                    handleMoveToTraining(history, id)
+                } else {
+                    let data = training
+                    data.date = res
+                    props.createTraining(data)
+                        .then((res) => {
+                            props.getUpcomingTrainings()
+                            props.getLastCompletedTrainings()
+                            props.getTrainings()
+                            handleMoveToTraining(history, res.id)
+                        })
+                }
+            })
+    }
     return (
         <div className="modify-training">
             {apiData && <>
@@ -64,7 +85,7 @@ const ModifyTraining = (props) => {
                                         </div>
                                         <div className="mt-data__buttons--end">
                                             <button className="standard-button"
-                                                    onClick={() => handleMoveToTraining(history, values.id)}>Trenuj ->
+                                                    onClick={() => handleGoToTraining(values.id)}>Trenuj ->
                                             </button>
                                         </div>
 
