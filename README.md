@@ -2,6 +2,11 @@
 
 ### Demo: https://true-effects.pl
 
+## Test Account
+
+### Login: testowy_uzytkownik 
+### Password: trueeffects
+
 ## Technology stack
 
 ### DevOps
