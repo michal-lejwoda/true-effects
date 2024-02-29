@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {
     createTraining,
     createUserExercise,
-    getExercises, getLastCompletedTrainings,
+    getExercises, getLastCompletedTrainings, getSingleTraining,
     getTrainings,
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
@@ -75,6 +75,11 @@ const CreateTraining = (props) => {
                                   showCreatedTrainingModal={showCreatedTrainingModal}
                                   handleCloseCreatedTrainingModal={handleCloseCreatedTrainingModal}
                                   createdTraining={createdTraining}
+                                  getSingleTraining={props.getSingleTraining}
+                                  createTraining={props.createTraining}
+                                  getTrainings={props.getTrainings}
+                                  getUpcomingTrainings={props.getUpcomingTrainings}
+                                  getLastCompletedTrainings={getLastCompletedTrainings}
             />
             <CreateExerciseModal history={history}
                                  showCreateExerciseModal={showCreateExerciseModal}
@@ -99,6 +104,7 @@ export default connect(mapStateToProps, {
     getExercises,
     createTraining,
     createUserExercise,
+    getSingleTraining,
     getTrainings,
     getUpcomingTrainings,
     getLastCompletedTrainings
