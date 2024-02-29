@@ -54,6 +54,8 @@ const ModifyTraining = (props) => {
                 <AddTrainingToDifferentDayModal show={differentDayModal} handleClose={setDifferentDayModal}
                                                 training={apiData} createTraining={props.createTraining}
                                                 getTrainings={props.getTrainings}
+                                                getLastCompletedTrainings={props.getLastCompletedTrainings}
+                                                getUpcomingTrainings={props.getUpcomingTrainings}
                                                 handleMoveToScheduler={handleMoveToScheduler}
                                                 history={props.history}
                 />
