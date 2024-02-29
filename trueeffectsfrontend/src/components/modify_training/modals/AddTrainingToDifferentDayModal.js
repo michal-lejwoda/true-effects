@@ -22,6 +22,8 @@ const AddTrainingToDifferentDayModal = (props) => {
             props.createTraining(training)
                 .then(() => {
                     props.getTrainings()
+                    props.getUpcomingTrainings()
+                    props.getLastCompletedTrainings()
                     props.handleMoveToScheduler(props.history)
                 })
         },
