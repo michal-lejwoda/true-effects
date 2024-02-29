@@ -16,10 +16,14 @@ import {
     handleMovetoSettings
 } from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
+import {connect} from "react-redux";
+import {postLogoutAuth} from "../../redux/actions/authenticationActions";
+import {useCookies} from "react-cookie";
 
-const Navbar = () => {
+const Navbar = (props) => {
     const history = useHistory()
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+    const [, ,removeCookie] = useCookies(['true_effects_token']);
 
     return (
         <nav className="nav_bar">
@@ -49,6 +53,10 @@ const Navbar = () => {
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMovetoSettings(history)}>
                     <button className="nav_bar__button">Ustawienia</button>
+                </li>
+                <li className="nav_bar__element nav_bar__desktop__element"
+                    onClick={() => props.postLogoutAuth(removeCookie)}>
+                    <button className="nav_bar__button">Wyloguj się</button>
                 </li>
             </ul>
             <ul className="nav_bar__mobile" style={{display: isMobileNavOpen ? 'flex' : 'none'}}>
@@ -82,9 +90,21 @@ const Navbar = () => {
                     onClick={() => handleMoveToMobileSettings(history, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">Ustawienia</button>
                 </li>
+                {props.token &&
+                <li className="nav_bar__element nav_bar__mobile__element"
+                    onClick={() => props.postLogoutAuth(removeCookie)}>
+                    <button className="nav_bar__button">Wyloguj się</button>
+                </li>
+                    }
             </ul>
         </nav>
     )
 }
 
-export default Navbar;
+const mapStateToProps = (state) => {
+    return {
+        token: state.authentication.token,
+    }
+}
+
+export default connect(mapStateToProps, {postLogoutAuth})(Navbar);

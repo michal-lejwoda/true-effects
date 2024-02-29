@@ -54,7 +54,7 @@ export default function authreducer(state = initialState, action) {
         case POST_LOGOUT_AUTH:
             return {
                 ...state,
-                token: '',
+                token: null,
                 tokenloaded: false
             }
         case USER_LOADING:
