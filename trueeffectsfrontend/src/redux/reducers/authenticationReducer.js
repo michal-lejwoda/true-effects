@@ -14,14 +14,11 @@ const initialState = {
     token: null,
     name: null,
     isAuthenticated: null,
-    login_error: null,
+    login_error: [],
     error: '',
     error_register: [],
     tokenloaded: false,
     error_register_name: '',
-    seconds: '',
-    minutes: '',
-    hours: '',
 
 };
 export default function authreducer(state = initialState, action) {
@@ -44,7 +41,7 @@ export default function authreducer(state = initialState, action) {
                 token: action.payload.token,
                 name: action.payload.username,
                 tokenloaded: true,
-                error_register: ''
+                error_register: []
             }
         case REGISTER_ERROR:
             return {
@@ -69,7 +66,8 @@ export default function authreducer(state = initialState, action) {
                 isAuthenticated: true,
                 token: action.payload.token,
                 name: action.payload.username,
-                error: ''
+                error: '',
+                login_error: []
             }
         case AUTH_ERROR:
             localStorage.removeItem('token')
