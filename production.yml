@@ -9,11 +9,13 @@ services:
     volumes:
       - "/app/backend/production-static:/app/backend/production-static"
       - "./trueeffectsfrontend/build:/build"
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
     networks:
       - prod_backend
     ports:
       - "80:80"
-      - "445:445"
+      - "443:443"
     restart: always
     depends_on:
       - production_trueeffects_backend
@@ -44,7 +46,7 @@ services:
       - REDIS_CONTAINER=production_trueeffects_redis
       - REDIS_URL=redis://trueeffects_redis:6381/0
     ports:
-      - "8002:8002"
+      - "8000:8000"
     depends_on:
       - production_trueeffects_db
     networks:
@@ -59,6 +61,13 @@ services:
       - prod_backend
     command: --port 6381
 
+  production_certbot:
+    image: certbot/certbot
+    container_name: production_certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
 
 networks:
   prod_backend:
