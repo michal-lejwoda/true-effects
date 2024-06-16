@@ -68,6 +68,7 @@ services:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
     command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
-
+    depends_on:
+      - production_trueeffects_nginx
 networks:
   prod_backend:
