@@ -17,8 +17,8 @@ services:
       - "80:80"
       - "443:443"
     restart: always
-    depends_on:
-      - production_trueeffects_backend
+#    depends_on:
+#      - production_trueeffects_backend
 
   production_trueeffects_db:
     container_name: production_trueeffects_db
