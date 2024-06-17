@@ -3,6 +3,7 @@
 *~
 
 .env
+.git
 *.local
 
 build/
