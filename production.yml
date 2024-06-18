@@ -70,5 +70,13 @@ services:
     command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
     networks:
       - prod_backend
+
 networks:
   prod_backend:
+    enable_ipv6: true
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.0.0/16
+        - subnet: 2001:db8:1::/64
