@@ -20,12 +20,20 @@ services:
 
   trueeffects_db:
     container_name: trueeffects_db
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
     image: postgres
     environment:
       - POSTGRES_DB=postgres5
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - PGPORT=5433
+      - POSTGRES_HOST=trueeffects_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+
     networks:
       - backend
     ports:
@@ -83,3 +91,6 @@ services:
 
 networks:
   backend:
+
+volumes:
+  postgres_data:
