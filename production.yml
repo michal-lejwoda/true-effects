@@ -26,6 +26,12 @@ services:
     image: postgres
     env_file:
       - .env_production
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    volumes:
+      - prod_postgres_data:/var/lib/postgresql/data
+      - ./prod_backups:/prod_backups
     environment:
       - PGPORT=5434
     ports:
@@ -75,6 +81,9 @@ services:
 
 networks:
   prod_backend:
+
+volumes:
+  prod_postgres_data:
 #IPV6 enable
 #    enable_ipv6: true
 #    driver: bridge
