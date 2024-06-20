@@ -25,8 +25,9 @@ if [[ "${POSTGRES_USER}" == "postgres" ]]; then
     exit 1
 fi
 
+
 export PGHOST="${POSTGRES_HOST}"
-export PGPORT="${POSTGRES_PORT}"
+export PGPORT="${PGPORT}"
 export PGUSER="${POSTGRES_USER}"
 export PGPASSWORD="${POSTGRES_PASSWORD}"
 export PGDATABASE="${POSTGRES_DB}"
