@@ -13,9 +13,7 @@ services:
 #      - ./certbot/www:/var/www/certbot
     networks:
       - prod_backend
-    ports:
-      - "82:80"
-      - "445:443"
+      - connector
     restart: always
     depends_on:
       - production_trueeffects_backend
@@ -33,8 +31,6 @@ services:
       - ./prod_backups:/prod_backups
     environment:
       - PGPORT=5434
-#    ports:
-#      - "5434:5434"
     networks:
       - prod_backend
 
@@ -51,8 +47,6 @@ services:
       - AUTH_USER_MODEL=authorization.CustomUser
       - REDIS_CONTAINER=production_trueeffects_redis
       - REDIS_URL=redis://trueeffects_redis:6381/0
-#    ports:
-#      - "8000:8000"
     depends_on:
       - production_trueeffects_db
     networks:
@@ -61,8 +55,6 @@ services:
   production_trueeffects_redis:
     container_name: production_trueeffects_redis
     image: 'redis:latest'
-#    ports:
-#      - '6381:6381'
     networks:
       - prod_backend
     command: --port 6381
@@ -80,14 +72,7 @@ services:
 
 networks:
   prod_backend:
-
+  connector:
+    external: true
 volumes:
   prod_postgres_data:
-#IPV6 enable
-#    enable_ipv6: true
-#    driver: bridge
-#    ipam:
-#      driver: default
-#      config:
-#        - subnet: 172.28.0.0/16
-#        - subnet: 2001:db8:1::/64
