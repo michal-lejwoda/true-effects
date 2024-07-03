@@ -50,6 +50,7 @@ services:
       - production_trueeffects_db
     networks:
       - prod_backend
+      - connector
 
   production_trueeffects_redis:
     container_name: production_trueeffects_redis
