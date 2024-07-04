@@ -1,21 +1,21 @@
 services:
-  production_trueeffects_nginx:
-    image: nginx
-    container_name: production_trueeffects_nginx
-    build:
-      context: .
-      dockerfile: ./compose/production-multiple-apps/nginx/Dockerfile
-    volumes:
-      - "/app/backend/production-static:/app/backend/production-static"
-      - "./trueeffectsfrontend/build:/build"
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    networks:
-      - prod_backend
-      - connector
-    restart: always
-    depends_on:
-      - production_trueeffects_backend
+#  production_trueeffects_nginx:
+#    image: nginx
+#    container_name: production_trueeffects_nginx
+#    build:
+#      context: .
+#      dockerfile: ./compose/production-multiple-apps/nginx/Dockerfile
+#    volumes:
+#      - "/app/backend/production-static:/app/backend/production-static"
+#      - "./trueeffectsfrontend/build:/build"
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    networks:
+#      - prod_backend
+#      - connector
+#    restart: always
+#    depends_on:
+#      - production_trueeffects_backend
 
   production_trueeffects_db:
     container_name: production_trueeffects_db
@@ -59,16 +59,16 @@ services:
       - prod_backend
     command: --port 6381
 
-#TODO ONLY FOR IPV4
-  production_certbot:
-    image: certbot/certbot
-    container_name: production_certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-    command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
-    networks:
-      - prod_backend
+##TODO ONLY FOR IPV4
+#  production_certbot:
+#    image: certbot/certbot
+#    container_name: production_certbot
+#    volumes:
+#      - ./certbot/conf:/etc/letsencrypt
+#      - ./certbot/www:/var/www/certbot
+#    command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
+#    networks:
+#      - prod_backend
 
 networks:
   prod_backend:
