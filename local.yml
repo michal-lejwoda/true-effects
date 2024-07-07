@@ -1,4 +1,4 @@
-version: "3.7"
+#version: "3.7"
 services:
   trueeffects_nginx:
     image: nginx
@@ -7,13 +7,12 @@ services:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
     ports:
-      - "81:81"
-      - "444:444"
+      - 80:80
     networks:
       - backend
     restart: always
     volumes:
-      - "/app/backend/local-backend-static:/app/backend/local-backend-static"
+      - /app/backend/local-backend-static:/app/backend/local-backend-static
     depends_on:
       - trueeffects_backend
       - trueeffects_frontend
@@ -24,38 +23,29 @@ services:
       context: .
       dockerfile: ./compose/local/postgres/Dockerfile
     image: postgres
-    environment:
-      - POSTGRES_DB=postgres5
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - PGPORT=5433
-      - POSTGRES_HOST=trueeffects_db
+    env_file:
+      - ./.envs/local/.postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backups:/backups
-
     networks:
       - backend
-    ports:
-      - "5433:5433"
+#    ports:
+#      - 5432:5432
 
   trueeffects_backend:
-    container_name: trueeffects_backend
+    container_name: django
     build:
       context: .
-      dockerfile: ./compose/local/trueeffects_backend/Dockerfile
-    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8001 & celery -A backend.tasks worker --loglevel=info"
-#    entrypoint: /app/entrypoint.sh
+      dockerfile: compose/local/django/Dockerfile
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
     volumes:
-      - "/app/backend/local-backend-static:/app/backend/local-backend-static"
-      - ".:/app"
-    ports:
-      - "8001:8001"
-    environment:
-      - DJANGO_SETTINGS_MODULE=backend.settings.local
-      - AUTH_USER_MODEL=authorization.CustomUser
-      - REDIS_CONTAINER=trueeffects_redis
-      - REDIS_URL=redis://trueeffects_redis:6380/0
+      - /app/backend/local-backend-static:/app/backend/local-backend-static
+      - .:/app
+#    ports:
+#      - 8000:8000
+    env_file:
+      - ./.envs/local/.django
     networks:
       - backend
     depends_on:
@@ -63,29 +53,27 @@ services:
 
   trueeffects_frontend:
     stdin_open: true
-    container_name: trueeffects_frontend
+    container_name: react
     build:
       context: .
-      dockerfile: ./compose/local/trueeffects_frontend/Dockerfile
+      dockerfile: compose/local/react/Dockerfile
+    env_file:
+      - .envs/local/.react
     volumes:
-      - "./trueeffectsfrontend:/frontend"
-    ports:
-      - "3001:3001"
+      - ./trueeffectsfrontend:/frontend
+#    ports:
+#      - 3000:3000
     depends_on:
       - trueeffects_db
       - trueeffects_backend
     networks:
       - backend
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-      - PORT=3001
 
   trueeffects_redis:
     container_name: trueeffects_redis
-    image: 'redis:latest'
-    ports:
-      - '6380:6380'
-    command: --port 6380
+    build:
+      context: .
+      dockerfile: ./compose/local/redis/Dockerfile
     networks:
       - backend
 

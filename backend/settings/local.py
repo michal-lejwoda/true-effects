@@ -2,7 +2,7 @@ import dj_database_url
 from decouple import Config, RepositoryEnv
 from .base import *
 DEBUG = True
-config = Config(RepositoryEnv('.env_local'))
+config = Config(RepositoryEnv('.envs/local/.django'))
 URL = config('URL')
 SECRET_KEY = config.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
