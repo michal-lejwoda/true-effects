@@ -18,3 +18,4 @@ venv
 trueeffectsfrontend/build
 .env.development
 .env.production
+.envs/production/
