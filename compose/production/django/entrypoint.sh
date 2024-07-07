@@ -1,5 +1,6 @@
 #!/bin/sh
-. /app/.env_production
+#. /app/.env_production
+. /app/.envs/production/.postgres
 check_postgres_ready(){
 POSTGRES_DB=$POSTGRES_DB POSTGRES_USER=$POSTGRES_USER POSTGRES_PASSWORD=$POSTGRES_PASSWORD POSTGRES_HOST=$POSTGRES_HOST POSTGRES_PORT=$POSTGRES_PORT python3 - <<END
 import os

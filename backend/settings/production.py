@@ -1,11 +1,11 @@
 import dj_database_url
-from decouple import Config, RepositoryEnv
+from decouple import Config
 from .base import *
 
 DEBUG = False
-config = Config(RepositoryEnv('.env_production'))
+config = Config('.envs/production/.django')
 SECRET_KEY = config.get('PRODUCTION_SECRET_KEY')
-#TODO
+#TODO BACK HERE
 ALLOWED_HOSTS = ['*']
 
 """DATABASES"""
