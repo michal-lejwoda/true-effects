@@ -1,4 +1,17 @@
 services:
+  production_trueeffects_db:
+    container_name: production_trueeffects_db
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    env_file:
+      - .envs/production/.postgres
+    volumes:
+      - prod_postgres_data:/var/lib/postgresql/data
+      - ./prod_backups:/prod_backups
+    networks:
+      - prod_backend
+
   production_trueeffects_nginx:
     image: nginx
     container_name: production_trueeffects_nginx
@@ -6,37 +19,15 @@ services:
       context: .
       dockerfile: ./compose/production/nginx/Dockerfile
     volumes:
-      - "/app/backend/production-static:/app/backend/production-static"
-      - "./trueeffectsfrontend/build:/build"
-#TODO ONLY FOR IPV4
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot
+      - /app/backend/production-static:/app/backend/production-static
+      - ./trueeffectsfrontend/build:/build
     networks:
       - prod_backend
     ports:
-      - "80:80"
-      - "443:443"
+      - 80:80
     restart: always
     depends_on:
       - production_trueeffects_backend
-
-  production_trueeffects_db:
-    container_name: production_trueeffects_db
-    image: .postgres
-    env_file:
-      - .envs/env_production
-    build:
-      context: .
-      dockerfile: ./compose/production/.postgres/Dockerfile
-    volumes:
-      - prod_postgres_data:/var/lib/postgresql/data
-      - ./prod_backups:/prod_backups
-    environment:
-      - PGPORT=5434
-    ports:
-      - "5434:5434"
-    networks:
-      - prod_backend
 
   production_trueeffects_backend:
     container_name: production_trueeffects_backend
@@ -45,14 +36,9 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     entrypoint: /app/entrypoint.sh
     volumes:
-      - "/app/backend/production-static:/app/backend/production-static"
-    environment:
-      - DJANGO_SETTINGS_MODULE=backend.settings.production
-      - AUTH_USER_MODEL=authorization.CustomUser
-      - REDIS_CONTAINER=production_trueeffects_redis
-      - REDIS_URL=redis://trueeffects_redis:6381/0
-    ports:
-      - "8000:8000"
+      - /app/backend/production-static:/app/backend/production-static
+    env_file:
+      - .envs/production/.django
     depends_on:
       - production_trueeffects_db
     networks:
@@ -60,34 +46,14 @@ services:
 
   production_trueeffects_redis:
     container_name: production_trueeffects_redis
-    image: 'redis:latest'
-    ports:
-      - '6381:6381'
+    build:
+      context: .
+      dockerfile: ./compose/production/redis/Dockerfile
     networks:
       - prod_backend
-    command: --port 6381
-
-#TODO ONLY FOR IPV4
-#  production_certbot:
-#    image: certbot/certbot
-#    container_name: production_certbot
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot
-#    command: certonly --webroot -w /var/www/certbot --force-renewal --email michal.lejwoda@gmail.com -d true-effects.pl --agree-tos
-#    networks:
-#      - prod_backend
 
 networks:
   prod_backend:
 
 volumes:
   prod_postgres_data:
-#IPV6 enable
-#    enable_ipv6: true
-#    driver: bridge
-#    ipam:
-#      driver: default
-#      config:
-#        - subnet: 172.28.0.0/16
-#        - subnet: 2001:db8:1::/64
