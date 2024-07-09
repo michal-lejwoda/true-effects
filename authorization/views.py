@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.mixins import CreateModelMixin
@@ -15,6 +16,7 @@ class CustomAuthToken(ObtainAuthToken, GenericViewSet):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+        request.session['login_time'] = timezone.now().isoformat()
         return Response(user.return_login_dict_with_token)
 
 
@@ -60,6 +62,8 @@ class LogoutViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
 
     def list(self, request):
+        if 'login_time' in request.session:
+            del request.session['login_time']
         request.user.auth_token.delete()
         return Response(data="Zostałeś wylogowany", status=status.HTTP_200_OK)
 

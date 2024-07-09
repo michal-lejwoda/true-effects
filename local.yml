@@ -30,8 +30,8 @@ services:
       - ./backups:/backups
     networks:
       - backend
-#    ports:
-#      - 5432:5432
+    ports:
+      - 5432:5432
 
   trueeffects_backend:
     container_name: django
@@ -42,8 +42,8 @@ services:
     volumes:
       - /app/backend/local-backend-static:/app/backend/local-backend-static
       - .:/app
-#    ports:
-#      - 8000:8000
+    ports:
+      - 8000:8000
     env_file:
       - ./.envs/local/.django
     networks:
@@ -61,8 +61,8 @@ services:
       - .envs/local/.react
     volumes:
       - ./trueeffectsfrontend:/frontend
-#    ports:
-#      - 3000:3000
+    ports:
+      - 3000:3000
     depends_on:
       - trueeffects_db
       - trueeffects_backend
@@ -76,6 +76,8 @@ services:
       dockerfile: ./compose/local/redis/Dockerfile
     networks:
       - backend
+    ports:
+      - 6379:6379
 
 networks:
   backend:

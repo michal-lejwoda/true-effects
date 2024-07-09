@@ -7,6 +7,7 @@ APP_DIR = Path(__file__).resolve().parent.parent.parent
 CORS_ALLOW_ALL_ORIGINS = True
 AUTH_USER_MODEL = "authorization.CustomUser"
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -16,9 +17,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'channels',
     'authorization',
     'training',
+    'achievements',
     'django_extensions',
+
 ]
 
 MIDDLEWARE = [
@@ -31,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'achievements.middleware.LoginTimeMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -54,6 +59,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
+
+ASGI_APPLICATION = 'backend.asgi.application'
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
+
 
 REST_FRAMEWORK = {
 
