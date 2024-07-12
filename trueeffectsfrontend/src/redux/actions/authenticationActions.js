@@ -75,16 +75,13 @@ export const postLogoutAuth = (removeCookie) => dispatch => {
 export const loadUser = (data, handleSetToken) => (dispatch) => {
     dispatch({type: USER_LOADING});
     delete axios.defaults.headers.common["Authorization"];
-    axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
-        // .then(res =>{
-        //     handleSetToken(res.data.token)
-        //     return res
-        // })
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
         .then(res => {
             dispatch({
                 type: USER_LOADED,
                 payload: res.data
             })
+            return res.data
         }).catch(err => {
         dispatch({
             type: LOGIN_ERROR,

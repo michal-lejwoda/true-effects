@@ -60,6 +60,7 @@ export default function authreducer(state = initialState, action) {
                 isLoading: true
             }
         case USER_LOADED:
+
             return {
                 ...state,
                 isLoaded: true,

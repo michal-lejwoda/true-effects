@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from rest_framework.authtoken.models import Token
 
+from achievements.models import SumLoggedInTime
 from . import celery_app
 
 @celery_app.task()
@@ -34,3 +35,9 @@ def send_reset_password_to_mail(email: str):
         )
     except Token.DoesNotExist:
         pass
+
+@celery_app.task()
+def update_spended_time(user, spended_time):
+    logged_in_record = SumLoggedInTime.objects.get(user=user)
+    logged_in_record.time += spended_time
+    logged_in_record.save()

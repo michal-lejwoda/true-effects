@@ -16,7 +16,10 @@ class CustomAuthToken(ObtainAuthToken, GenericViewSet):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
+        print("timezone.now().isoformat()")
+        print(timezone.now().isoformat())
         request.session['login_time'] = timezone.now().isoformat()
+        print(request.session['login_time'])
         return Response(user.return_login_dict_with_token)
 
 

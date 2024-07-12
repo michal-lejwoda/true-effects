@@ -1,6 +1,8 @@
 import {useCookies} from "react-cookie";
 import {useFormik} from "formik";
 import {loginUserValidation} from "../../validation/validation";
+import {connectLogInTimeWebSocket} from "../../websockets/LogInTimeWebSocket";
+
 
 export const useLogin = (props) => {
     const [, setCookie] = useCookies(['true_effects_token']);
@@ -18,7 +20,10 @@ export const useLogin = (props) => {
             "username": values.username,
             "password": values.password
         }
-        return await props.loadUser(data, handleSetToken)
+        const res = await props.loadUser(data, handleSetToken)
+        console.log("token")
+        console.log(res)
+        await connectLogInTimeWebSocket(res['token']);
     }
 
     const {values, handleChange, handleSubmit, errors} = useFormik({
