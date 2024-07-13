@@ -56,7 +56,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
             login_time = 0
             for achievment in self.actual_logged_in_achievements:
                 print("achievement", achievment)
-                wait_time = max(0, (achievment['minutes'] - login_time)*60)
+                wait_time = max(0, (achievment['minutes'] - login_time) * 60)
                 await asyncio.sleep(wait_time)
                 await self.send_notification_v3()
                 login_time = achievment['minutes']

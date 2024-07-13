@@ -24,19 +24,9 @@ def create_sum_logged_in_time(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Training)
 def check_training_achievements(sender, instance, created, **kwargs):
-    print("check_training_achievements")
     if created:
-        print("instance.created_by", instance.user)
-        user_trainings_count = Training.objects.filter(user=instance.user).count()
-        print("user_trainings_count")
-        print(user_trainings_count)
-        channel_layer = get_channel_layer()
-        print("channel_layer")
-        print(channel_layer)
-        print("important")
-        print(f"user_{instance.user.id}")
+        Training.objects.filter(user=instance.user).count()
         group_name = f"user_{instance.user.id}"
-        print(group_name)
         message = {
             "message": "Creaeted training"
         }
@@ -49,13 +39,5 @@ def check_training_achievements(sender, instance, created, **kwargs):
                 'text': message
             }
         )
-        # async_to_sync(channel_layer.group_send)(
-        #     f"user_{instance.user.id}",
-        #     {
-        #         'type': 'send_notification_v3',
-        #         'message': 'Congratulations! You have created your first Training!'
-        #     }
-        # )
-        print("koniec")
 
 
