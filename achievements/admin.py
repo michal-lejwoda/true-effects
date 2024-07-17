@@ -1,9 +1,10 @@
 from django.contrib import admin
 
-from achievements.models import Achievement, UserAchievement, TypeAchievement, SumLoggedInTime
+from achievements.models import Achievement, UserAchievement, TypeAchievement, SumLoggedInTime, UserModifyTraining
 
-# Register your models here.
+
 admin.site.register(Achievement)
 admin.site.register(UserAchievement)
 admin.site.register(TypeAchievement)
 admin.site.register(SumLoggedInTime)
+admin.site.register(UserModifyTraining)
