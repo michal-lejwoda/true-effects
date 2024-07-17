@@ -1,5 +1,3 @@
-import json
-
 import channels
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
@@ -9,6 +7,7 @@ from django.dispatch import receiver
 from achievements.models import SumLoggedInTime, UserModifyTraining, Achievement, UserAchievement
 from authorization.models import CustomUser
 from training.models import Training, UserDimension, UserGoal, Exercise
+from django.utils.translation import gettext as _
 
 @receiver(post_save, sender=CustomUser)
 def create_sum_logged_in_time(sender, instance, created, **kwargs):
@@ -88,7 +87,7 @@ def check_user_goal_achievements(sender, instance, created, **kwargs):
         UserGoal.objects.filter(user=instance.user).count()
         group_name = f"user_{instance.user.id}"
         message = {
-            "message": "Creaeted Goal"
+            "message": _("Created goal")
         }
         channel_layer = channels.layers.get_channel_layer()
 

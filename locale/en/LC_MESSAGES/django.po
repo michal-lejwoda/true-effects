@@ -1,0 +1,5 @@
+msgid "Message"
+msgstr "Message"
+
+msgid "Congratulations! You have added 5 exercises."
+msgstr "Congratulations! You have added 5 exercises."
