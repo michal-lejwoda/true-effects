@@ -1,8 +1,27 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-21 19:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n"
+"%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n"
+"%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
 msgid "Message"
 msgstr "Wiadomość"
-
-msgid "Congratulations! You have added 5 exercises."
-msgstr "Gratulacje! Dodałeś 5 ćwiczeń."
 
 msgid "Created goal."
 msgstr "Stworzono cel."
@@ -12,9 +31,6 @@ msgstr "Gratulacje! Udało ci się stworzyć twoje własne ćwiczenie."
 
 msgid "Congratulations! You have been logged in for 10 minutes."
 msgstr "Gratulacje! Jesteś zalogowany przez 10 minut."
-
-msgid "Congratulations! You have been logged into the site for 1 hour."
-msgstr "Gratulacje! Jesteś zalogowany na stronie przez 10 minut."
 
 msgid "Congratulations! You have added 5 exercises."
 msgstr "Gratulacje! Dodałeś 5 własnych ćwiczeń."
@@ -46,3 +62,9 @@ msgstr "Gratulacje! Jesteś zalogowany przez 2 godziny."
 
 msgid "Congratulations! You have been logged in for 4 hours."
 msgstr "Gratulacje! Jesteś zalogowany przez 4 godziny."
+
+msgid "Congratulations! You have just created your first training."
+msgstr "Gratulacje! Stworzyłeś swój pierwszy trening."
+
+msgid "Popek"
+msgstr "Monster"
