@@ -1,2 +1,0 @@
-msgid "Message"
-msgstr "Nachricht"

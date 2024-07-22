@@ -10,7 +10,6 @@ from achievements.middleware import TokenAuthMiddleware
 from achievements.routing import websocket_urlpatterns
 
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings.local')
 
 django_asgi_app = get_asgi_application()
 

@@ -1,8 +1,11 @@
-from django.utils.timezone import now
-from django.contrib.auth.models import AnonymousUser
-from rest_framework.authtoken.models import Token
 from urllib.parse import parse_qs
+
 from channels.db import database_sync_to_async
+from django.contrib.auth.models import AnonymousUser
+from django.utils.timezone import now
+from rest_framework.authtoken.models import Token
+
+
 class LoginTimeMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
@@ -18,7 +21,6 @@ class LoginTimeMiddleware:
         return None
 
 
-
 @database_sync_to_async
 def get_user(token_key):
     try:
@@ -26,6 +28,7 @@ def get_user(token_key):
         return token.user
     except Token.DoesNotExist:
         return AnonymousUser()
+
 
 class TokenAuthMiddleware:
     def __init__(self, inner):
