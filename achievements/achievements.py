@@ -7,13 +7,16 @@ from django.utils import timezone
 
 from achievements.models import Achievement, UserAchievement, SumLoggedInTime
 from backend.tasks import update_spended_time
-
+from urllib.parse import parse_qs
 
 class LoginTimeAchievements(AsyncWebsocketConsumer):
 
     async def connect(self):
-        self.total_login_time = 0
+        query_string = self.scope['query_string'].decode()
+        query_params = parse_qs(query_string)
+        self.language = query_params.get('language', [None])[0]
         self.login_time = timezone.now().isoformat()
+        self.total_login_time = 0
         self.user = self.scope["user"]
         self.start_time = timezone.now()
         self.user_group_name = f"user_{self.user.id}"
@@ -127,6 +130,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         return list(Achievement.objects.filter(type_achievement__name='LOGGED_TIME').exclude(
             id__in=UserAchievement.objects.filter(user=self.user).values_list('achievement_id', flat=True)
         ).order_by('minutes').values())
+
 
     async def fetch_not_achieved_data(self):
         self.not_achieved = await self.fetch_not_achieved_achievements()
