@@ -12,12 +12,14 @@ import Register from "./components/auth_components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ResetPassword from "./components/auth_components/ResetPassword";
 import PasswordChange from "./components/auth_components/PasswordChange";
+import {LanguageProvider} from "./components/context/LanguageContext";
 
 ReactDOM.render(
     <CookiesProvider>
         <Provider store={store}>
             <StrictMode>
                 <BrowserRouter>
+                    <LanguageProvider>
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
@@ -25,6 +27,7 @@ ReactDOM.render(
                         <Route path="/reset_password/:token" component={PasswordChange}/>
                         <Route component={DefaultContainer}/>
                     </Switch>
+                    </LanguageProvider>
                 </BrowserRouter>
             </StrictMode>
         </Provider>

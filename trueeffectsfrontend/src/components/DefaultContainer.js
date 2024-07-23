@@ -29,6 +29,7 @@ import {useAuth} from "./hooks/auth/useAuth";
 import BackToTrainingModal from "./default_components/modals/BackToTrainingModal";
 import {useCookies} from "react-cookie";
 import {handleMoveToDashboard} from "./helpers/history_helpers";
+import webSocketClient from "./websockets/LogInTimeWebSocket";
 
 
 const DefaultContainer = (props) => {
@@ -57,7 +58,23 @@ const DefaultContainer = (props) => {
             console.error('Error fetching data:', error);
         }
     }
+    useEffect(() => {
+        if (props.token) {
+            fetchAllData();
+            const initialLanguage = 'en';
+            webSocketClient.connect(props.token, initialLanguage)
+                .then(() => {
+                    console.log('WebSocket connection established');
+                })
+                .catch((error) => {
+                    console.error('Failed to establish WebSocket connection:', error);
+                });
 
+            return () => {
+                webSocketClient.close();
+            };
+        }
+    }, [props.token]);
     useEffect(() => {
         if (props.token) {
             fetchAllData();

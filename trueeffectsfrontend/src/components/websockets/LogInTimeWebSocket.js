@@ -1,17 +1,42 @@
-export const connectLogInTimeWebSocket = (token, language) => {
-        const socket = new WebSocket(`ws://0.0.0.0:8000/ws/login-time/?token=${token}&language=${language}`);
+class WebSocketClient {
+    constructor() {
+        this.socket = null;
+        this.url = '';
+    }
 
-        socket.onopen = () => {
-            console.log('WebSocket connection established');
-        };
+    connect(token, language) {
+        return new Promise((resolve, reject) => {
+            this.url = `ws://0.0.0.0:8000/ws/login-time/?token=${token}&language=${language}`;
+            this.socket = new WebSocket(this.url);
 
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            console.log("data.message")
-            console.log(data.message)
-        };
+            this.socket.onopen = () => {
+                console.log('WebSocket connection established');
+                resolve();
+            };
 
-        socket.onclose = () => {
-            console.log('WebSocket connection closed');
-        };
-    };
+            this.socket.onerror = (error) => {
+                console.error('WebSocket error:', error);
+                reject(error);
+            };
+
+            this.socket.onclose = () => {
+                console.log('WebSocket connection closed');
+            };
+        });
+    }
+
+    close() {
+        if (this.socket) {
+            this.socket.close();
+        }
+    }
+
+    send(message) {
+        if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+            this.socket.send(message);
+        }
+    }
+}
+
+const webSocketClient = new WebSocketClient();
+export default webSocketClient;

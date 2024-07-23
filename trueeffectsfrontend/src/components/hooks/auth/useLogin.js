@@ -1,7 +1,7 @@
 import {useCookies} from "react-cookie";
 import {useFormik} from "formik";
 import {loginUserValidation} from "../../validation/validation";
-import {connectLogInTimeWebSocket} from "../../websockets/LogInTimeWebSocket";
+// import {connectLogInTimeWebSocket} from "../../websockets/LogInTimeWebSocket";
 
 
 export const useLogin = (props) => {
@@ -22,7 +22,7 @@ export const useLogin = (props) => {
         }
         const res = await props.loadUser(data, handleSetToken)
         const language = 'en'
-        await connectLogInTimeWebSocket(res['token'], language);
+        // await connectLogInTimeWebSocket(res['token'], language);
     }
 
     const {values, handleChange, handleSubmit, errors} = useFormik({

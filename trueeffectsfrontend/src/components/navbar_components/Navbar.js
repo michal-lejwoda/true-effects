@@ -19,11 +19,25 @@ import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
 import {postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
+import {LANGUAGES} from "../context/languages";
+import {useLanguage} from "../context/LanguageContext";
+// import {useTranslation} from "react-i18next";
+// // import {useTranslation} from "react-i18next";
 
 const Navbar = (props) => {
     const history = useHistory()
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [, ,removeCookie] = useCookies(['true_effects_token']);
+    const { updateLanguage } = useLanguage()
+    // const {i18n, t} = useTranslation();
+    // const [language, setLanguage] = useState(i18n.language)
+
+    const onChangeLanguage = (e) => {
+        // const lang_code = e.target.value;
+        // setLanguage(e.target.value)
+        // i18n.changeLanguage(lang_code);
+        updateLanguage(e.target.value);
+    };
 
     return (
         <nav className="nav_bar">
@@ -31,6 +45,15 @@ const Navbar = (props) => {
                 icon={faBars}/></div>
             <div className="nav_bar__logo"><FontAwesomeIcon icon={faDumbbell}/>TrueEffects</div>
             <ul className="nav_bar__desktop">
+                <select className="menu__language--select navbar__select"
+                        // value={language}
+                        onChange={onChangeLanguage}>
+                    {LANGUAGES.map(({code, label}) => (
+                        <option key={code} value={code}>
+                            {label}
+                        </option>
+                    ))}
+                </select>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToDashboard(history)}>
                     <button className="nav_bar__button">Strona domowa</button>
