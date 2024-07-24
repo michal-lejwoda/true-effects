@@ -39,7 +39,7 @@ def check_training_achievements(sender, instance, created, **kwargs):
                         date_earned=timezone.now()
                     ).save()
                     message = {
-                        "message": _(achievement['message'])
+                        "message": achievement['message']
                     }
                     channel_layer = get_channel_layer()
                     async_to_sync(channel_layer.group_send)(

@@ -22,6 +22,14 @@ class WebSocketClient {
             this.socket.onclose = () => {
                 console.log('WebSocket connection closed');
             };
+
+            this.socket.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                console.log('Received message:', data);
+                if (this.onMessage) {
+                    this.onMessage(data);
+                }
+            };
         });
     }
 

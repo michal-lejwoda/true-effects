@@ -7,14 +7,20 @@ const LanguageContext = createContext();
 
 export const LanguageProvider = ({ children }) => {
     const {i18n} = useTranslation();
-    const [cookies] = useCookies(['token']);
+    const [cookies] = useCookies(['true_effects_token']);
     const [language, setLanguage] = useState("en");
 
     const updateLanguage = useCallback((newLanguage) => {
+        console.log("newLanguage")
+        console.log(newLanguage)
         setLanguage(newLanguage);
         if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
-            const token = cookies.token;
+            console.log("przechodzi")
+            console.log("cookies")
+            console.log(cookies)
+            const token = cookies.true_effects_token;
             if (token) {
+                console.log("wysyła")
                 webSocketClient.send(JSON.stringify({ action: 'update_language', language: newLanguage, token }));
             }
         }

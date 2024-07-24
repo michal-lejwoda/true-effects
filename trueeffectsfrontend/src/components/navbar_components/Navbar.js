@@ -21,21 +21,17 @@ import {postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
 import {LANGUAGES} from "../context/languages";
 import {useLanguage} from "../context/LanguageContext";
-// import {useTranslation} from "react-i18next";
-// // import {useTranslation} from "react-i18next";
+import {useTranslation} from "react-i18next";
 
 const Navbar = (props) => {
     const history = useHistory()
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [, ,removeCookie] = useCookies(['true_effects_token']);
     const { updateLanguage } = useLanguage()
-    // const {i18n, t} = useTranslation();
-    // const [language, setLanguage] = useState(i18n.language)
+
 
     const onChangeLanguage = (e) => {
-        // const lang_code = e.target.value;
-        // setLanguage(e.target.value)
-        // i18n.changeLanguage(lang_code);
+        console.log(e.target.value)
         updateLanguage(e.target.value);
     };
 

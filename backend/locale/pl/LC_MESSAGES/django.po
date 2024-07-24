@@ -66,5 +66,3 @@ msgstr "Gratulacje! Jesteś zalogowany przez 4 godziny."
 msgid "Congratulations! You have just created your first training."
 msgstr "Gratulacje! Stworzyłeś swój pierwszy trening."
 
-msgid "Popek"
-msgstr "Monster"

@@ -3,11 +3,12 @@ import json
 
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-from django.utils import timezone
+from django.utils import timezone, translation
 
 from achievements.models import Achievement, UserAchievement, SumLoggedInTime
 from backend.tasks import update_spended_time
 from urllib.parse import parse_qs
+from django.utils.translation import gettext as _
 
 class LoginTimeAchievements(AsyncWebsocketConsumer):
 
@@ -15,6 +16,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         query_string = self.scope['query_string'].decode()
         query_params = parse_qs(query_string)
         self.language = query_params.get('language', [None])[0]
+        translation.activate(self.language)
         self.login_time = timezone.now().isoformat()
         self.total_login_time = 0
         self.user = self.scope["user"]
@@ -30,13 +32,18 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         self.keep_alive_task = asyncio.create_task(self.keep_connection_alive())
         print("Tasks created")
     async def receive(self, text_data):
-        # Handle incoming messages from the client here
-        print("receive", text_data)
+        text_data_json = json.loads(text_data)
+        action = text_data_json.get('action')
+        language = text_data_json.get('language')
+        if action == 'update_language':
+            self.language = language
+            translation.activate(self.language)
+
 
     async def keep_connection_alive(self):
         while True:
             try:
-                await self.send(json.dumps({'type': 'ping'}))
+                # await self.send(json.dumps({'type': 'ping'}))
                 await asyncio.sleep(30)  # Ping every 30 seconds
             except Exception as e:
                 print(f"Keep-alive error: {e}")
@@ -49,48 +56,34 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         if spended_time_in_minutes > 2:
             update_spended_time.delay(self.user.id,spended_time_in_minutes)
 
-
-
-
-
     async def logged_in_timer(self):
         print("logged_in_timer")
         if self.user.is_authenticated:
             login_time = 0
-            for achievment in self.actual_logged_in_achievements:
-                print("achievement", achievment)
-                wait_time = max(0, (achievment['minutes'] - login_time) * 60)
+            for achievement in self.actual_logged_in_achievements:
+                print("achievement", achievement)
+                wait_time = max(0, (achievement['minutes'] - login_time) * 60)
                 await asyncio.sleep(wait_time)
-                await self.send_notification_v3()
-                login_time = achievment['minutes']
+                await self.create_notification_from_backend()
+                login_time = achievement['minutes']
     async def summary_logged_in_time(self):
         print("summarty_logged_in_time")
         if self.user.is_authenticated:
-            for achievment in self.actual_logged_in_achievements:
-                print(achievment)
-                wait_time = max(0, (achievment['minutes'] - self.sum_time) * 60)
-                print(wait_time)
+            for achievement in self.actual_logged_in_achievements:
+                print("achievement", achievement)
+                wait_time = max(0, (achievement['minutes'] - self.sum_time) * 60)
                 await asyncio.sleep(wait_time)
-                await self.send_notification_v3()
+                await self.create_notification_from_backend(achievement['message'])
 
-    async def send_notification_v2(self, event):
-        print("send_notification_v2 called")
-        message = event['message']
-        print(f"Sending message to {self.user.id}: {message}")
+
+    async def create_notification_from_backend(self, message):
+        print("create_notification_from_backend")
+        message = _(message)
         await self.send(text_data=json.dumps({
             'message': message
         }))
-
-    async def send_notification_v3(self):
-        print("send_notification_v3")
-        await self.send(text_data=json.dumps({
-            'message': 'Message has been sent!'
-        }))
     async def send_notifications(self, event):
-        print("send_notifications called")
-        print("event")
-        print(event)
-        message = event['text']['message']
+        message = _(event['text']['message'])
         print(f"Sending message to {self.user.id}: {message}")
         await self.send(text_data=json.dumps({
             'message': message
@@ -106,13 +99,11 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         self.sum_time = data3
 
     async def create_logged_in_tasks(self):
-        print("Inside create_logged_in_tasks")
         self.sum_logged_in_timer = asyncio.create_task(self.summary_logged_in_time())
         self.logged_in_timer = asyncio.create_task(self.logged_in_timer())
         self.keep_alive_task = asyncio.create_task(self.keep_connection_alive())
-        print("Tasks created")
         await asyncio.gather(self.sum_logged_in_timer, self.logged_in_timer, self.keep_alive_task)
-        print("After await gather in create_logged_in_tasks")
+
     @database_sync_to_async
     def summary_time(self):
         sum_logged_in_time, created = SumLoggedInTime.objects.get_or_create(user=self.user)
