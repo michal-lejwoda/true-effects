@@ -11,13 +11,8 @@ export const LanguageProvider = ({ children }) => {
     const [language, setLanguage] = useState("en");
 
     const updateLanguage = useCallback((newLanguage) => {
-        console.log("newLanguage")
-        console.log(newLanguage)
         setLanguage(newLanguage);
         if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
-            console.log("przechodzi")
-            console.log("cookies")
-            console.log(cookies)
             const token = cookies.true_effects_token;
             if (token) {
                 console.log("wysyła")
