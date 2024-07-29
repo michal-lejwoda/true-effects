@@ -20,3 +20,4 @@ trueeffectsfrontend/build
 .env.production
 .envs/production/
 .idea
+node_modules
