@@ -13,6 +13,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ResetPassword from "./components/auth_components/ResetPassword";
 import PasswordChange from "./components/auth_components/PasswordChange";
 import {LanguageProvider} from "./components/context/LanguageContext";
+import "./i18n"
 
 ReactDOM.render(
     <CookiesProvider>

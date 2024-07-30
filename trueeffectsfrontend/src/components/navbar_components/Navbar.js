@@ -4,10 +4,12 @@ import {faDumbbell} from "@fortawesome/fontawesome-free-solid";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {
-    handleMoveToCreateTraining, handleMoveToDashboard,
+    handleMoveToCreateTraining,
+    handleMoveToDashboard,
     handleMovetoDimensions,
     handleMovetoGoals,
-    handleMoveToMobileCreateTraining, handleMoveToMobileDashboard,
+    handleMoveToMobileCreateTraining,
+    handleMoveToMobileDashboard,
     handleMovetoMobileDimensions,
     handleMoveToMobileGoals,
     handleMoveToMobileScheduler,
@@ -21,7 +23,7 @@ import {postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
 import {LANGUAGES} from "../context/languages";
 import {useLanguage} from "../context/LanguageContext";
-import {useTranslation} from "react-i18next";
+import i18next from "i18next";
 
 const Navbar = (props) => {
     const history = useHistory()
@@ -31,7 +33,6 @@ const Navbar = (props) => {
 
 
     const onChangeLanguage = (e) => {
-        console.log(e.target.value)
         updateLanguage(e.target.value);
     };
 
@@ -42,7 +43,7 @@ const Navbar = (props) => {
             <div className="nav_bar__logo"><FontAwesomeIcon icon={faDumbbell}/>TrueEffects</div>
             <ul className="nav_bar__desktop">
                 <select className="menu__language--select navbar__select"
-                        // value={language}
+                        value={i18next.language}
                         onChange={onChangeLanguage}>
                     {LANGUAGES.map(({code, label}) => (
                         <option key={code} value={code}>

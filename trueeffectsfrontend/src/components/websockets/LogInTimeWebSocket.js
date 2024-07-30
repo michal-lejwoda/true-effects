@@ -3,14 +3,14 @@ class WebSocketClient {
         this.socket = null;
         this.url = '';
         this.onMessageCallbacks = [];
-        this.reconnectInterval = 5000; // 5 seconds
-        this.pingInterval = 30000; // 30 seconds
+        this.reconnectInterval = 5000;
+        this.pingInterval = 30000;
         this.pingTimeout = null;
         this.isConnected = false;
     }
 
     connect(token, language) {
-        if (this.isConnected) return Promise.resolve(); // Prevent multiple connections
+        if (this.isConnected) return Promise.resolve();
 
         return new Promise((resolve, reject) => {
             this.url = `ws://0.0.0.0:8000/ws/login-time/?token=${token}&language=${language}`;

@@ -9,6 +9,7 @@ import {
     USER_LOADING
 } from './types';
 import axios from 'axios';
+import i18next from "i18next";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
 
@@ -53,6 +54,7 @@ export const postRegister = (data, handleSetToken) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
         .then(res => {
+            i18next.language = res.data.default_language
             handleSetToken(res.data.token)
             return res
         })
@@ -77,6 +79,11 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
     delete axios.defaults.headers.common["Authorization"];
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
         .then(res => {
+            i18next.language = res.data.default_language
+            handleSetToken(res.data.token)
+            return res
+        })
+        .then(res => {
             dispatch({
                 type: USER_LOADED,
                 payload: res.data
@@ -94,7 +101,6 @@ export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     axios.get(`${TRUEEFFECTS_URL}/api/v1/logout/`)
         .then(res => {
-            // handleRemoveToken()
             handleRemoveToken()
             window.localStorage.removeItem('token')
             window.localStorage.removeItem('name')

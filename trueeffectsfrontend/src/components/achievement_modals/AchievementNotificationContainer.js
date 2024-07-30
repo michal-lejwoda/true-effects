@@ -1,29 +1,36 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import AchievementNotification from './AchievementNotification';
-// import webSocketClient from './webSocketClient';
-import '../../new_sass/notification.scss'
+import '../../new_sass/notification.scss';
 import webSocketClient from "../websockets/LogInTimeWebSocket";
-import {useCookies} from "react-cookie";
-import {useLanguage} from "../context/LanguageContext";
+import { useCookies } from "react-cookie";
+import { useLanguage } from "../context/LanguageContext";
 
 const AchievementNotificationContainer = () => {
     const [notifications, setNotifications] = useState([]);
+    const [token, setToken] = useState(null);
     const [cookies] = useCookies(['true_effects_token']);
-    const { language } = useLanguage()
+    const { language } = useLanguage();
 
     useEffect(() => {
-        const token = cookies.true_effects_token;
+        if (cookies.true_effects_token) {
+            setToken(cookies.true_effects_token);
+        }
+    }, [cookies]);
 
-        webSocketClient.connect(token, language)
-            .then(() => {
-                webSocketClient.addOnMessageCallback(handleNewMessage);
-            })
-            .catch(error => console.error('WebSocket connection error:', error));
+    useEffect(() => {
+        if (token) {
 
-        return () => {
-            webSocketClient.close();
-        };
-    }, []);
+            webSocketClient.connect(token, language)
+                .then(() => {
+                    webSocketClient.addOnMessageCallback(handleNewMessage);
+                })
+                .catch(error => console.error('WebSocket connection error:', error));
+
+            return () => {
+                webSocketClient.close();
+            };
+        }
+    }, [token, language]);
 
     const handleNewMessage = (data) => {
         setNotifications((prevNotifications) => [...prevNotifications, data.message]);

@@ -27,8 +27,17 @@ import {
     UPDATE_SINGLE_TRAINING_SUCCESS,
 } from './types';
 import axios from 'axios';
+import i18next from "i18next";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
+
+axios.interceptors.request.use((config) => {
+    const language = i18next.language;
+    config.headers['Accept-Language'] = language;
+    return config;
+}, (error) => {
+    return Promise.reject(error);
+});
 
 export const postGoal = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
