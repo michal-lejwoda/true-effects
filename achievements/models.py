@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 from authorization.models import CustomUser
 
 class TypeAchievement(models.Model):
@@ -23,12 +25,14 @@ class UserAchievement(models.Model):
     achievement = models.ForeignKey(Achievement,  null=True, on_delete=models.SET_NULL)
     is_earned = models.BooleanField(default=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='achievements')
-    date_earned = models.DateTimeField(null=True, default=None)
+    date_earned = models.DateTimeField(null=True, default=timezone.now())
     is_displayed_for_user = models.BooleanField(default=False)
 
     def __str__(self):
         return self.achievement.name
 
+    class Meta:
+        unique_together = ('achievement', 'user')
 class UserModifyTraining(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     time = models.IntegerField(default=0)

@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.utils import timezone, translation
@@ -9,6 +10,7 @@ from achievements.models import Achievement, UserAchievement, SumLoggedInTime
 from backend.tasks import update_spended_time
 from urllib.parse import parse_qs
 from django.utils.translation import gettext as _
+from django.db.utils import DatabaseError
 
 class LoginTimeAchievements(AsyncWebsocketConsumer):
 
@@ -62,6 +64,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 print("logged achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - login_time) * 60)
                 await asyncio.sleep(wait_time)
+                await self.create_user_achievement(achievement)
                 await self.create_notification_from_backend(achievement['message'])
                 login_time = achievement['minutes']
     async def summary_logged_in_time(self):
@@ -71,9 +74,22 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 print("summary achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - self.sum_time) * 60)
                 await asyncio.sleep(wait_time)
+                await self.create_user_achievement(achievement)
                 await self.create_notification_from_backend(achievement['message'])
 
-
+    @sync_to_async
+    def create_user_achievement(self, achievement):
+        print("create_user_achievement")
+        try:
+            UserAchievement.objects.get_or_create(
+                achievement_id=achievement['id'],
+                is_earned=True,
+                user=self.user,
+                is_displayed_for_user=False
+            )
+            print("Finished create_user_achievement")
+        except Exception as e:
+            print(f"Error in create_user_achievement: {e}")
     async def create_notification_from_backend(self, message):
         print("create_notification_from_backend")
         translation.activate(self.language)
