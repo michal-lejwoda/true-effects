@@ -7,10 +7,13 @@ class WebSocketClient {
         this.pingInterval = 30000;
         this.pingTimeout = null;
         this.isConnected = false;
+        this.shouldReconnect = true;
     }
 
     connect(token, language) {
-        if (this.isConnected) return Promise.resolve();
+        if (this.isConnected) {
+            this.reset();
+        }
 
         return new Promise((resolve, reject) => {
             this.url = `ws://0.0.0.0:8000/ws/login-time/?token=${token}&language=${language}`;
@@ -19,6 +22,7 @@ class WebSocketClient {
             this.socket.onopen = () => {
                 console.log('WebSocket connection established');
                 this.isConnected = true;
+                this.shouldReconnect = true;
                 this.startHeartbeat();
                 resolve();
             };
@@ -26,7 +30,9 @@ class WebSocketClient {
             this.socket.onerror = (error) => {
                 console.error('WebSocket error:', error);
                 this.isConnected = false;
-                this.reconnect(token, language);
+                if (this.shouldReconnect) {
+                    this.reconnect(token, language);
+                }
                 reject(error);
             };
 
@@ -34,7 +40,9 @@ class WebSocketClient {
                 console.log('WebSocket connection closed');
                 this.isConnected = false;
                 this.stopHeartbeat();
-                this.reconnect(token, language);
+                if (this.shouldReconnect) {
+                    this.reconnect(token, language);
+                }
             };
 
             this.socket.onmessage = (event) => {
@@ -46,10 +54,19 @@ class WebSocketClient {
     }
 
     reconnect(token, language) {
-        setTimeout(() => {
-            console.log('Reconnecting...');
-            this.connect(token, language);
-        }, this.reconnectInterval);
+        if (this.shouldReconnect) {
+            setTimeout(() => {
+                console.log('Reconnecting...');
+                this.connect(token, language);
+            }, this.reconnectInterval);
+        }
+    }
+
+    reset() {
+        this.shouldReconnect = false;
+        this.close();
+        this.url = '';
+        this.isConnected = false;
     }
 
     startHeartbeat() {
@@ -67,12 +84,19 @@ class WebSocketClient {
     close() {
         if (this.socket) {
             this.stopHeartbeat();
+            this.shouldReconnect = false;
             this.socket.close();
             this.isConnected = false;
         }
     }
 
+    logout() {
+        this.reset();
+        console.log('Logged out and WebSocket connection closed.');
+    }
+
     send(message) {
+        console.log("message")
         if (this.socket && this.socket.readyState === WebSocket.OPEN) {
             this.socket.send(message);
         }

@@ -31,7 +31,6 @@ import {
     getUpcomingTrainings,
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
-import webSocketClient from "./websockets/LogInTimeWebSocket";
 import AchievementNotificationContainer from "./achievement_modals/AchievementNotificationContainer";
 
 

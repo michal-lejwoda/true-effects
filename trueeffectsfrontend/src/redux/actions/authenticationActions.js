@@ -10,6 +10,7 @@ import {
 } from './types';
 import axios from 'axios';
 import i18next from "i18next";
+import webSocketClient from "../../components/websockets/LogInTimeWebSocket";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
 
@@ -69,7 +70,9 @@ export const postRegister = (data, handleSetToken) => dispatch => {
         }))
 }
 export const postLogoutAuth = (removeCookie) => dispatch => {
+    console.log("postLogoutAuth")
     removeCookie("true_effects_token")
+    webSocketClient.reset();
     dispatch({
         type: POST_LOGOUT_AUTH
     })
@@ -96,21 +99,22 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
         })
     })
 }
-export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    axios.get(`${TRUEEFFECTS_URL}/api/v1/logout/`)
-        .then(res => {
-            handleRemoveToken()
-            window.localStorage.removeItem('token')
-            window.localStorage.removeItem('name')
-            return res
-        })
-        .then(res => dispatch({
-            type: AUTH_ERROR
-        }))
-
-}
+// export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
+//     let token = getState().authentication.token
+//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
+//     axios.get(`${TRUEEFFECTS_URL}/api/v1/logout/`)
+//         .then(res => {
+//             handleRemoveToken()
+//             window.localStorage.removeItem('token')
+//             window.localStorage.removeItem('name')
+//
+//             return res
+//         })
+//         .then(res => dispatch({
+//             type: AUTH_ERROR
+//         }))
+//
+// }
 
 export const loadToken = (token) => (dispatch, getState) => {
     dispatch({
