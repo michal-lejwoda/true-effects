@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
-    ChangePasswordWithTokenSerializer
+    ChangePasswordWithTokenSerializer, ChangeLanguageSerializer
 
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
@@ -16,11 +16,24 @@ class CustomAuthToken(ObtainAuthToken, GenericViewSet):
         serializer = self.serializer_class(data=request.data, context={'request': request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
-        print("timezone.now().isoformat()")
-        print(timezone.now().isoformat())
         request.session['login_time'] = timezone.now().isoformat()
-        print(request.session['login_time'])
         return Response(user.return_login_dict_with_token)
+
+class ChangeDefaultLanguage(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = ChangeLanguageSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        user = request.user
+        if serializer.is_valid():
+            user.default_language = serializer.data['language']
+            user.save()
+            return Response(status=status.HTTP_200_OK)
+        else:
+            print(serializer.errors)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class ChangePasswordViewSet(GenericViewSet):

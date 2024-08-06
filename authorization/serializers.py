@@ -3,6 +3,7 @@ from django.core.validators import validate_email
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
+from achievements.choices import LANGUAGES
 from authorization.models import CustomUser
 
 
@@ -57,6 +58,8 @@ class UserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ('id',)
 
+class ChangeLanguageSerializer(serializers.Serializer):
+    language = serializers.ChoiceField(choices=LANGUAGES)
 
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)

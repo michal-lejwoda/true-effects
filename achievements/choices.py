@@ -4,3 +4,9 @@ class ACHIEVEMENT_CHOICES:
     SUM_LOGGED_TIME = "SUM_LOGGED_TIME"
     LOGGED_TIME = "LOGGED_TIME"
     SUM_USER_MODIFY_TRAINING = "SUM_USER_MODIFY_TRAINING"
+
+LANGUAGES = (
+    ("en", "English"),
+    ("pl", "Polish"),
+    ("de", "Deutsch"),
+)
