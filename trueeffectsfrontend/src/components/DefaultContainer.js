@@ -1,5 +1,5 @@
 import {Route, useHistory} from 'react-router-dom';
-import React, {useEffect, useState} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
 import {getUser, loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
@@ -85,7 +85,9 @@ const DefaultContainer = (props) => {
 
     return (
         <>
-            <Navbar/>
+            <Suspense fallback={<BoxLoading/>}>
+                <Navbar/>
+            </Suspense>
             {props.token ? (
                 <>
                     <Route exact path="/" component={Dashboard}/>
@@ -106,9 +108,10 @@ const DefaultContainer = (props) => {
                         <h2>WebSocket Notification</h2>
                         <p>{webSocketMessage}</p>
                     </AchievementModal>
-                    <AchievementNotificationContainer>
-                        <h1>dsasdasad</h1>
-                    </AchievementNotificationContainer>
+                    <Suspense fallback={<BoxLoading/>}>
+                        <AchievementNotificationContainer>
+                        </AchievementNotificationContainer>
+                    </Suspense>
                 </>
             ) : (
                 <BoxLoading/>

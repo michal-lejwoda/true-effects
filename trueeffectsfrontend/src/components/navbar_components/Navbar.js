@@ -22,32 +22,30 @@ import {connect} from "react-redux";
 import {changeLanguage, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
 import {LANGUAGES} from "../context/languages";
-import i18next from "i18next";
-import {useLanguage} from "../context/LanguageContext";
 import webSocketClient from "../websockets/LogInTimeWebSocket";
 import {useTranslation} from "react-i18next";
 
 const Navbar = (props) => {
     const history = useHistory()
-    const { i18n } = useTranslation();
+    const {i18n, t} = useTranslation();
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [cookies, , removeCookie] = useCookies(['true_effects_token']);
 
     const syncLanguage = useCallback(() => {
         console.log("syncLanguage")
-    if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
-        const token = cookies.true_effects_token;
-        if (token) {
-            webSocketClient.send(JSON.stringify({ action: 'update_language', language: i18n.language, token }));
+        if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
+            const token = cookies.true_effects_token;
+            if (token) {
+                webSocketClient.send(JSON.stringify({action: 'update_language', language: i18n.language, token}));
+            }
+        } else {
+            console.warn('WebSocket is not open. Language update may not be sent.');
         }
-    } else {
-        console.warn('WebSocket is not open. Language update may not be sent.');
-    }
-}, [i18n.language]);
+    }, [i18n.language]);
 
-useEffect(() => {
-    syncLanguage();
-}, [syncLanguage]);
+    useEffect(() => {
+        syncLanguage();
+    }, [syncLanguage]);
 
     const onChangeLanguage = (e) => {
         const data = {
@@ -77,7 +75,7 @@ useEffect(() => {
                 )}
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToDashboard(history)}>
-                    <button className="nav_bar__button">Strona domowa</button>
+                    <button className="nav_bar__button">{t("Homepage")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToScheduler(history)}>

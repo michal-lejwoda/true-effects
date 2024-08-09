@@ -20,7 +20,7 @@ ReactDOM.render(
         <Provider store={store}>
             <StrictMode>
                 <BrowserRouter>
-                    <LanguageProvider>
+                    {/*<LanguageProvider>*/}
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
@@ -28,7 +28,7 @@ ReactDOM.render(
                         <Route path="/reset_password/:token" component={PasswordChange}/>
                         <Route component={DefaultContainer}/>
                     </Switch>
-                    </LanguageProvider>
+                    {/*</LanguageProvider>*/}
                 </BrowserRouter>
             </StrictMode>
         </Provider>
