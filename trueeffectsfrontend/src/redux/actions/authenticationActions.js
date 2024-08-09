@@ -1,5 +1,5 @@
 import {
-    AUTH_ERROR,
+    GET_USER_DIMENSION_CONFIGURATION_SUCCESS, LANGUAGE_LOADED,
     LOGIN_ERROR,
     POST_LOGOUT_AUTH,
     POST_REGISTER,
@@ -9,7 +9,7 @@ import {
     USER_LOADING
 } from './types';
 import axios from 'axios';
-import i18next from "i18next";
+import i18n from "i18next";
 import webSocketClient from "../../components/websockets/LogInTimeWebSocket";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
@@ -55,7 +55,7 @@ export const postRegister = (data, handleSetToken) => dispatch => {
     delete axios.defaults.headers.common["Authorization"];
     axios.post(`${TRUEEFFECTS_URL}/api/v1/register/`, data)
         .then(res => {
-            i18next.language = res.data.default_language
+            i18n.changeLanguage(res.data.default_language);
             handleSetToken(res.data.token)
             return res
         })
@@ -77,12 +77,42 @@ export const postLogoutAuth = (removeCookie) => dispatch => {
         type: POST_LOGOUT_AUTH
     })
 }
+
+export const changeLanguage = (data) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/change_default_language/`, data)
+        .then(res => {
+            return res
+        })
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+export const getUser = () => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/get_user/`)
+        .then(res => {
+            i18n.changeLanguage(res.data.default_language);
+            return res.data
+        })
+        .then(() => dispatch({
+            type: LANGUAGE_LOADED,
+        }))
+        .catch(err => {
+            console.log(err)
+        })
+}
+
+
 export const loadUser = (data, handleSetToken) => (dispatch) => {
     dispatch({type: USER_LOADING});
     delete axios.defaults.headers.common["Authorization"];
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
         .then(res => {
-            i18next.language = res.data.default_language
+            i18n.changeLanguage(res.data.default_language);
             handleSetToken(res.data.token)
             return res
         })
@@ -93,28 +123,12 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
             })
             return res.data
         }).catch(err => {
-        dispatch({
-            type: LOGIN_ERROR,
-            payload: err.response.data
+            dispatch({
+                type: LOGIN_ERROR,
+                payload: err.response.data
+            })
         })
-    })
 }
-// export const logoutUser = (handleRemoveToken) => (dispatch, getState) => {
-//     let token = getState().authentication.token
-//     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-//     axios.get(`${TRUEEFFECTS_URL}/api/v1/logout/`)
-//         .then(res => {
-//             handleRemoveToken()
-//             window.localStorage.removeItem('token')
-//             window.localStorage.removeItem('name')
-//
-//             return res
-//         })
-//         .then(res => dispatch({
-//             type: AUTH_ERROR
-//         }))
-//
-// }
 
 export const loadToken = (token) => (dispatch, getState) => {
     dispatch({

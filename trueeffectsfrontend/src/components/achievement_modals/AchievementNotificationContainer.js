@@ -10,7 +10,6 @@ const AchievementNotificationContainer = () => {
     const [token, setToken] = useState(null);
     const [cookies] = useCookies(['true_effects_token']);
     const {i18n} = useTranslation();
-
     useEffect(() => {
         if (cookies.true_effects_token) {
             setToken(cookies.true_effects_token);

@@ -8,6 +8,7 @@ import {
     TOKEN_LOADED,
     USER_LOADED,
     USER_LOADING,
+    LANGUAGE_LOADED
 } from '../actions/types';
 
 const initialState = {
@@ -19,6 +20,7 @@ const initialState = {
     error_register: [],
     tokenloaded: false,
     error_register_name: '',
+    language_loaded: false
 
 };
 export default function authreducer(state = initialState, action) {
@@ -29,6 +31,11 @@ export default function authreducer(state = initialState, action) {
                 token: action.payload,
                 tokenloaded: true,
                 error: ''
+            }
+        case LANGUAGE_LOADED:
+            return {
+                ...state,
+                language_loaded: true
             }
         case LOGIN_ERROR:
             return {
@@ -59,6 +66,7 @@ export default function authreducer(state = initialState, action) {
                 ...state,
                 isLoading: true
             }
+
         case USER_LOADED:
 
             return {

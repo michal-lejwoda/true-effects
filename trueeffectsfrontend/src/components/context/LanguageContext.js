@@ -10,7 +10,7 @@ export const LanguageProvider = ({ children }) => {
     const [cookies] = useCookies(['true_effects_token']);
     const updateLanguage = useCallback((newLanguage) => {
         console.log("updateLanguage")
-        if (i18n.language !== newLanguage) {
+        // if (i18n.language !== newLanguage) {
             i18n.changeLanguage(newLanguage);
             console.log("wywolanie updateLANGUAGE")
             if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
@@ -23,7 +23,7 @@ export const LanguageProvider = ({ children }) => {
             } else {
                 console.warn('WebSocket is not open. Language update may not be sent.');
             }
-        }
+        // }
     }, [cookies.true_effects_token, i18n]);
 
     return (

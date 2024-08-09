@@ -1,5 +1,5 @@
 import "../../new_sass/navbar.scss"
-import React, {useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {faDumbbell} from "@fortawesome/fontawesome-free-solid";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
@@ -19,25 +19,43 @@ import {
 } from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
 import {connect} from "react-redux";
-import {postLogoutAuth} from "../../redux/actions/authenticationActions";
+import {changeLanguage, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
 import {LANGUAGES} from "../context/languages";
 import i18next from "i18next";
-import {useTranslation} from "react-i18next";
 import {useLanguage} from "../context/LanguageContext";
+import webSocketClient from "../websockets/LogInTimeWebSocket";
+import {useTranslation} from "react-i18next";
 
 const Navbar = (props) => {
     const history = useHistory()
-    const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-    const [, ,removeCookie] = useCookies(['true_effects_token']);
-    const { updateLanguage } = useLanguage()
     const { i18n } = useTranslation();
+    const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+    const [cookies, , removeCookie] = useCookies(['true_effects_token']);
 
+    const syncLanguage = useCallback(() => {
+        console.log("syncLanguage")
+    if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
+        const token = cookies.true_effects_token;
+        if (token) {
+            webSocketClient.send(JSON.stringify({ action: 'update_language', language: i18n.language, token }));
+        }
+    } else {
+        console.warn('WebSocket is not open. Language update may not be sent.');
+    }
+}, [i18n.language]);
+
+useEffect(() => {
+    syncLanguage();
+}, [syncLanguage]);
 
     const onChangeLanguage = (e) => {
-        // console.log("change_language")
-        // i18n.changeLanguage(e.target.value);
-        updateLanguage(e.target.value);
+        const data = {
+            "language": e.target.value
+        }
+        i18n.changeLanguage(e.target.value)
+        // updateLanguage(e.target.value);
+        props.changeLanguage(data)
     };
 
     return (
@@ -46,15 +64,17 @@ const Navbar = (props) => {
                 icon={faBars}/></div>
             <div className="nav_bar__logo"><FontAwesomeIcon icon={faDumbbell}/>TrueEffects</div>
             <ul className="nav_bar__desktop">
-                <select className="menu__language--select navbar__select"
-                        value={i18next.language}
-                        onChange={onChangeLanguage}>
-                    {LANGUAGES.map(({code, label}) => (
-                        <option key={code} value={code}>
-                            {label}
-                        </option>
-                    ))}
-                </select>
+                {props.language_loaded && (
+                    <select className="menu__language--select navbar__select"
+                            value={i18n.language}
+                            onChange={onChangeLanguage}>
+                        {LANGUAGES.map(({code, label}) => (
+                            <option key={code} value={code}>
+                                {label}
+                            </option>
+                        ))}
+                    </select>
+                )}
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToDashboard(history)}>
                     <button className="nav_bar__button">Strona domowa</button>
@@ -115,11 +135,11 @@ const Navbar = (props) => {
                     <button className="nav_bar__button">Ustawienia</button>
                 </li>
                 {props.token &&
-                <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => props.postLogoutAuth(removeCookie)}>
-                    <button className="nav_bar__button">Wyloguj się</button>
-                </li>
-                    }
+                    <li className="nav_bar__element nav_bar__mobile__element"
+                        onClick={() => props.postLogoutAuth(removeCookie)}>
+                        <button className="nav_bar__button">Wyloguj się</button>
+                    </li>
+                }
             </ul>
         </nav>
     )
@@ -128,7 +148,8 @@ const Navbar = (props) => {
 const mapStateToProps = (state) => {
     return {
         token: state.authentication.token,
+        language_loaded: state.authentication.language_loaded
     }
 }
 
-export default connect(mapStateToProps, {postLogoutAuth})(Navbar);
+export default connect(mapStateToProps, {postLogoutAuth, changeLanguage})(Navbar);

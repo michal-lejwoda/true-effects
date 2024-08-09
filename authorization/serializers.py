@@ -61,6 +61,11 @@ class UserSerializer(serializers.ModelSerializer):
 class ChangeLanguageSerializer(serializers.Serializer):
     language = serializers.ChoiceField(choices=LANGUAGES)
 
+class GetUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('id','default_language')
+
 class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password1 = serializers.CharField(required=True)

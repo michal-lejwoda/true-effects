@@ -2,7 +2,7 @@ import {Route, useHistory} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
-import {loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
+import {getUser, loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
 import Scheduler from './main_components/Scheduler';
 import Training from './main_components/Training';
 import ModifyTraining from './main_components/ModifyTraining';
@@ -16,7 +16,6 @@ import {useAuth} from './hooks/auth/useAuth';
 import BackToTrainingModal from './default_components/modals/BackToTrainingModal';
 import {useCookies} from 'react-cookie';
 import {handleMoveToDashboard} from './helpers/history_helpers';
-// import webSocketClient from '../websockets/LogInTimeWebSocket';
 import AchievementModal from "./achievement_modals/AchievementModal";
 import {
     getCompletedGoals,
@@ -53,7 +52,8 @@ const DefaultContainer = (props) => {
                 props.getGoalsToAchieve(),
                 props.getCompletedGoals(),
                 props.getUpcomingTrainings(),
-                props.getLastCompletedTrainings()
+                props.getLastCompletedTrainings(),
+                props.getUser()
             ];
             await Promise.all(promises);
         } catch (error) {
@@ -64,22 +64,6 @@ const DefaultContainer = (props) => {
     useEffect(() => {
         if (props.token) {
             fetchAllData();
-            // const initialLanguage = 'en';
-            // webSocketClient.connect(props.token, initialLanguage)
-            //     .then(() => {
-            //         console.log('WebSocket connection established');
-            //         webSocketClient.onMessage = (data) => {
-            //             setWebSocketMessage(data.content);
-            //             setShowWebSocketModal(true);
-            //         };
-            //     })
-            //     .catch((error) => {
-            //         console.error('Failed to establish WebSocket connection:', error);
-            //     });
-            //
-            // return () => {
-            //     webSocketClient.close();
-            // };
         }
     }, [props.token]);
 
@@ -135,6 +119,7 @@ const DefaultContainer = (props) => {
 
 const mapStateToProps = (state) => ({
     token: state.authentication.token,
+    language_loaded: state.authentication.language_loaded,
 });
 
 export default connect(mapStateToProps, {
@@ -150,5 +135,6 @@ export default connect(mapStateToProps, {
     postLogoutAuth,
     loadToken,
     getLastCompletedTrainings,
-    getUpcomingTrainings
+    getUpcomingTrainings,
+    getUser
 })(DefaultContainer);

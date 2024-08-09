@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
-    ChangePasswordWithTokenSerializer, ChangeLanguageSerializer
+    ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer
 
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
@@ -34,7 +34,14 @@ class ChangeDefaultLanguage(GenericViewSet):
             print(serializer.errors)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+class GetUserViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    serializer_class = GetUserSerializer
 
+    def list(self, request):
+        user = self.request.user
+        serializer = self.serializer_class(user)
+        return Response(serializer.data)
 
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer
