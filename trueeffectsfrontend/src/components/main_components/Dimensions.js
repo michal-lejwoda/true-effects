@@ -55,7 +55,7 @@ const Dimensions = (props) => {
                                 </div>
                             </div>
                         )
-                    }) : <p>{t("you don't have any measurements yet")}</p>}
+                    }) : <p>{t("You don't have any measurements yet")}</p>}
                 {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) &&
                     <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                                      handleShow={handleShowCreateDimension}

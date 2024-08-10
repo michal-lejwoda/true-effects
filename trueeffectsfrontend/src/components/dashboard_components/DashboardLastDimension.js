@@ -25,7 +25,7 @@ const DashboardLastDimension = (props) => {
                             </div>
                         </div>
                     )
-                }) : <p className="dashboard__error-message">{t("you don't have any measurements yet")}</p>}
+                }) : <p className="dashboard__error-message">{t("You don't have any measurements yet")}</p>}
         </div>
     );
 };
