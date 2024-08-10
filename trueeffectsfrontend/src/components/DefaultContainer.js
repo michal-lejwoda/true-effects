@@ -36,8 +36,6 @@ const DefaultContainer = (props) => {
     useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history);
     const [cookies, , removeCookieTraining] = useCookies(['true_effects_training']);
     const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false);
-    const [showWebSocketModal, setShowWebSocketModal] = useState(false);
-    const [webSocketMessage, setWebSocketMessage] = useState('');
     const history = useHistory();
 
     async function fetchAllData() {
@@ -77,10 +75,6 @@ const DefaultContainer = (props) => {
             setShowBackToTrainingModal(true);
         }
     }, [cookies]);
-
-    const handleCloseWebSocketModal = () => {
-        setShowWebSocketModal(false);
-    };
 
     return (
         <>
