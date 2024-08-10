@@ -79,63 +79,61 @@ const Navbar = (props) => {
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToScheduler(history)}>
-                    <button className="nav_bar__button">Kalendarz treningów</button>
+                    <button className="nav_bar__button">{t("Training Calendar")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMoveToCreateTraining(history)}>
-                    <button className="nav_bar__button">Kreator treningu</button>
+                    <button className="nav_bar__button">{t("Training Creator")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element" onClick={() => handleMovetoGoals(history)}>
-                    <button className="nav_bar__button">Cele</button>
+                    <button className="nav_bar__button">{t("Goals")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMovetoDimensions(history)}>
-                    <button className="nav_bar__button">Pomiary</button>
+                    <button className="nav_bar__button">{t("Body Measurements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => handleMovetoSettings(history)}>
-                    <button className="nav_bar__button">Ustawienia</button>
+                    <button className="nav_bar__button">{t("Settings")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
                     onClick={() => props.postLogoutAuth(removeCookie)}>
-                    <button className="nav_bar__button">Wyloguj się</button>
+                    <button className="nav_bar__button">{t("Log out")}</button>
                 </li>
             </ul>
             <ul className="nav_bar__mobile" style={{display: isMobileNavOpen ? 'flex' : 'none'}}>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMoveToMobileDashboard(history, isMobileNavOpen, setIsMobileNavOpen)}>
-                    <button className="nav_bar__button">Strona Domowa
+                    <button className="nav_bar__button">{t("Homepage")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMoveToMobileScheduler(history, isMobileNavOpen, setIsMobileNavOpen)}>
-                    <button className="nav_bar__button">Kalendarz
-                        treningów
+                    <button className="nav_bar__button">{t("Training Calendar")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMoveToMobileCreateTraining(history, isMobileNavOpen, setIsMobileNavOpen)}>
-                    <button className="nav_bar__button">Kreator
-                        treningu
+                    <button className="nav_bar__button">{t("Training Creator")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element" onClick={() => {
                     handleMoveToMobileGoals(history, isMobileNavOpen, setIsMobileNavOpen)
                 }}>
-                    <button className="nav_bar__button">Cele</button>
+                    <button className="nav_bar__button">{t("Goals")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMovetoMobileDimensions(history, isMobileNavOpen, setIsMobileNavOpen)}>
-                    <button className="nav_bar__button">Pomiary</button>
+                    <button className="nav_bar__button">{t("Body Measurements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
                     onClick={() => handleMoveToMobileSettings(history, isMobileNavOpen, setIsMobileNavOpen)}>
-                    <button className="nav_bar__button">Ustawienia</button>
+                    <button className="nav_bar__button">{t("Settings")}</button>
                 </li>
                 {props.token &&
                     <li className="nav_bar__element nav_bar__mobile__element"
                         onClick={() => props.postLogoutAuth(removeCookie)}>
-                        <button className="nav_bar__button">Wyloguj się</button>
+                        <button className="nav_bar__button">{t("Log out")}</button>
                     </li>
                 }
             </ul>

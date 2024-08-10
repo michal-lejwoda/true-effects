@@ -10,11 +10,12 @@ import {
     getSingleTraining, getTrainings,
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
+import {t} from "i18next";
 
 const Dashboard = props => {
     return (
         <div className="dashboard">
-            <h1 className="title">Strona domowa</h1>
+            <h1 className="title">{t("Homepage")}</h1>
             <div className="main-information dashboard__main-information">
                 <div className="main-information__upcoming-trainings">
                     <DashboardUpcomingTrainings

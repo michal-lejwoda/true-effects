@@ -6,6 +6,7 @@ import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
+import {t} from "i18next";
 
 const Login = (props) => {
     const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors]= useLogin(props)
@@ -20,20 +21,20 @@ const Login = (props) => {
             <div className="container login__container">
                 <div className="header container__header">
                     <div className="header__element" onClick={handleMoveToRegister}>
-                        Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
+                        {t("Register")} <FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
                 <div className="content container__content">
                     <form className="form content__form" onSubmit={handleSubmit}
                           noValidate autoComplete="off">
-                        <div className="form__title">Zaloguj się</div>
+                        <div className="form__title">{t("Log in")}</div>
                         <div className="form__username animatedInput">
                             <input
                                 name="username"
                                 onChange={handleChange}
                                 type="text"
                             />
-                            <span>Nazwa użytkownika</span>
+                            <span>{t("Username")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.username && <p>{errors.username}</p>}
@@ -45,7 +46,7 @@ const Login = (props) => {
                                 onChange={handleChange}
                                 type="password"
                             />
-                            <span>Hasło</span>
+                            <span>{t("Password")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.password && <p>{errors.password}</p>}
@@ -57,10 +58,10 @@ const Login = (props) => {
                         </div>
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">
-                                Zaloguj się
+                                {t("Log in")}
                             </button>
                             <div className="button__forgot-password" onClick={handleMoveToResetPassword}>
-                                Zresetuj hasło
+                                {t("Reset password")}
                             </div>
                         </div>
                     </form>

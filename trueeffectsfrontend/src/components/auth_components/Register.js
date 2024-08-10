@@ -6,6 +6,7 @@ import AuthenticateLogo from "../AuthenticateLogo";
 import {postRegister} from "../../redux/actions/authenticationActions";
 import "../../new_sass/register.scss";
 import {useRegister} from "../hooks/auth/useRegister";
+import {t} from "i18next";
 
 const Register = (props) => {
     const [handleMoveToLogin, handleChange, handleSubmit, errors] = useRegister(props)
@@ -20,20 +21,20 @@ const Register = (props) => {
             <div className="container register__container">
                 <div className="header container__header">
                     <div className="header__element" onClick={handleMoveToLogin}>
-                        Zaloguj się <FontAwesomeIcon icon={faArrowRight}/>
+                        {t("Log in")}<FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
                 <div className="content container__content">
                     <form className="form content__form" onSubmit={handleSubmit}
                           noValidate autoComplete="off">
-                        <div className="form__title">Zarejestruj się</div>
+                        <div className="form__title">{t("Register")}</div>
                         <div className="form__username animatedInput">
                             <input
                                 name="username"
                                 onChange={handleChange}
                                 type="text"
                             />
-                            <span>Nazwa użytkownika</span>
+                            <span>{t("Username")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.username && <p>{errors.username}</p>}
@@ -46,7 +47,7 @@ const Register = (props) => {
                                 onChange={handleChange}
                                 type="email"
                             />
-                            <span>Adres Email</span>
+                            <span>{t("Email address")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.email && <p>{errors.email}</p>}
@@ -58,7 +59,7 @@ const Register = (props) => {
                                 onChange={handleChange}
                                 type="password"
                             />
-                            <span>Hasło</span>
+                            <span>{t("Password")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.password && <p>{errors.password}</p>}
@@ -70,7 +71,7 @@ const Register = (props) => {
                                 onChange={handleChange}
                                 type="password"
                             />
-                            <span>Powtórz hasło</span>
+                            <span>{t("Repeat password")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.password2 && <p>{errors.password2}</p>}
@@ -82,7 +83,7 @@ const Register = (props) => {
                         </div>
                         <div className="button form__button">
                             <button className="button__register square-buttons" type="submit">
-                                Zarejestruj się
+                                {t("Register")}
                             </button>
                         </div>
                     </form>

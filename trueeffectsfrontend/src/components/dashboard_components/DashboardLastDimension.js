@@ -1,15 +1,16 @@
 import React from 'react';
 import {handleMovetoDimensions} from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
+import {t} from "i18next";
 
 const DashboardLastDimension = (props) => {
     const history = useHistory()
     return (
         <div className="last-dimension">
-            <div className="last-dimension__title dashboard__title">Ostatni pomiar</div>
+            <div className="last-dimension__title dashboard__title">{t("Last body measurement")}</div>
             <div className="last-dimension__button dashboard__buttons">
                 <button onClick={() => handleMovetoDimensions(history)}
-                        className="upcoming_training__button dashboard__button">Przejdź do pomiarów
+                        className="upcoming_training__button dashboard__button">{t("Go to Measurements")}
                 </button>
             </div>
             {props.userDimensions.length > 0 ?
@@ -24,7 +25,7 @@ const DashboardLastDimension = (props) => {
                             </div>
                         </div>
                     )
-                }) : <p className="dashboard__error-message">Nie masz jeszcze żadnych pomiarów</p>}
+                }) : <p className="dashboard__error-message">{t("you don't have any measurements yet")}</p>}
         </div>
     );
 };
