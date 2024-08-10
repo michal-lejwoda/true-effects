@@ -8,7 +8,6 @@
   "Settings": "Settings",
   "Log in": "Log in",
   "Log out": "Log out",
-
   "Upcoming trainings": "Upcoming trainings",
   "Trainings completed": "Trainings completed",
   "Train now": "Train now",
@@ -17,18 +16,16 @@
   "Training Name": "Training Name",
   "You haven't completed any training yet": "You haven't completed any training yet",
   "You don't have any training planned yet": "You don't have any training planned yet",
-
   "Register": "Register",
   "Username": "Username",
   "Password": "Password",
   "Reset password": "Reset password",
-
   "Repeat password": "Repeat password",
   "Email address": "Email address",
   "Train again now": "Traing again now",
   "Last body measurement": "Last body measurement",
   "Go to Measurements": "Go to Measurements",
-  "You don't have any measurements yet":  "You don't have any measurements yet",
+  "You don't have any measurements yet": "You don't have any measurements yet",
   "Add new goal": "Add new goal",
   "To achieve": "To achieve",
   "You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.": "You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.",
@@ -42,7 +39,6 @@
   "Delete Goal": "Delete Goal",
   "actual_language": "en",
   "language_code": "en-GB",
-
   "Add new measurement": "Add new measurement",
   "Modify measurement": "Modify measurement",
   "Compare measurements": "Compare measurements",
@@ -52,7 +48,6 @@
   "Measurements comparison tool": "Measurements comparison tool",
   "Parameters": "Parameters",
   "Close": "Close",
-
   "Previous exercise": "Previous exercise",
   "Next exercise": "Next exercise",
   "Actual exercise": "Actual exercise",
@@ -63,7 +58,6 @@
   "Finish training": "Finish training",
   "Continue": "Continue",
   "If you want to end and save the workout, click the 'Finish training' button.": "If you want to end and save the workout, click the 'Finish training' button.",
-
   "Modify Training": "Modify Training",
   "Delete Training": "Delete Training",
   "Add training to other day": "Add training to other day",
@@ -97,6 +91,5 @@
   "Exercise name": "Exercise name",
   "Create exercise": "Create exercise",
   "Back to training": "Back to Training",
-  "You didn't finish your last workout. Would you like to resume it ?": "You didn't finish your last workout. Would you like to resume it ?",
-
+  "You didn't finish your last workout. Would you like to resume it ?": "You didn't finish your last workout. Would you like to resume it ?"
 }
