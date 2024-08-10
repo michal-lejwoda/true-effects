@@ -3,6 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import {MenuItem, Select} from "@material-ui/core";
 import {CloseButton} from "react-bootstrap";
 import {useCompareDimensions} from "../hooks/training/useCompareDimensions";
+import {t} from "i18next";
 
 export function CompareDimensions(props) {
     const {
@@ -15,7 +16,7 @@ export function CompareDimensions(props) {
         <>
             <Modal show={props.show} onHide={props.handleClose}>
                 <Modal.Header>
-                    <Modal.Title>Porównywarka pomiarów</Modal.Title>
+                    <Modal.Title>{t("Measurements comparison tool")}</Modal.Title>
                     <CloseButton onClick={props.handleClose} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
@@ -23,7 +24,7 @@ export function CompareDimensions(props) {
                         <table>
                             <thead>
                             <tr>
-                                <th>Parametry</th>
+                                <th>{t("Parameters")}</th>
                                 <th>
                                     <Select
                                         // className="dimensions__select"
@@ -63,7 +64,7 @@ export function CompareDimensions(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="standard-button" onClick={props.handleClose}>Zamknij okno</button>
+                    <button className="standard-button" onClick={props.handleClose}>{t("Close")}</button>
                 </Modal.Footer>
             </Modal>
         </>

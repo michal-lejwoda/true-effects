@@ -5,6 +5,7 @@ import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
 import {useDate} from "../hooks/training/useDate";
+import {t} from "i18next";
 
 export function CreateDimension(props) {
     const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
@@ -38,13 +39,13 @@ export function CreateDimension(props) {
         <Modal className="transparent-modal" show={props.show} onHide={props.handleClose}>
             <form onSubmit={handleSubmit}>
                 <Modal.Header>
-                    <Modal.Title>Stwórz pomiar</Modal.Title>
+                    <Modal.Title>{t("Create measurement")}</Modal.Title>
                     <CloseButton onClick={props.handleClose} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="createdimension__elements">
-                        <DatePicker locale='pl'
-                                    placeholderText={"Wybierz date"}
+                        <DatePicker locale={t("actual_language")}
+                                    placeholderText={t("Select date")}
                                     dateFormat='dd/MM/yyyy'
                                     selected={jsDate}
                                     className="createdimension__date animated-datepicker"
@@ -69,7 +70,7 @@ export function CreateDimension(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="standard-button " type="submit">Zapisz pomiar</button>
+                    <button className="standard-button " type="submit">{t("Save measurement")}</button>
                 </Modal.Footer>
             </form>
         </Modal>

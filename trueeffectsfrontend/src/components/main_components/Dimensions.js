@@ -7,6 +7,7 @@ import "../../new_sass/main.scss"
 import "../../new_sass/dimensions.scss"
 import {BoxLoading} from "react-loadingg";
 import {ModifyDimension} from "../goals_and_measurements_modals/ModifyDimension";
+import {t} from "i18next";
 
 const Dimensions = (props) => {
     const [showCreateDimension, setShowCreateDimension] = useState(false);
@@ -22,19 +23,19 @@ const Dimensions = (props) => {
     return props.userDimensionsLoaded && props.userDimensionConfigurationForCompareLoaded ? (
         <div className="dimensions">
             <div className="dimensions--last-dimension">
-                <h1 className="title dimensions__title">Ostatni pomiar</h1>
+                <h1 className="title dimensions__title">{t("Last body measurement")}</h1>
                 <div className="dimensions__buttons">
                     <button className="standard-button dimensions__buttons__create"
                             onClick={handleShowCreateDimension}>
-                        Dodaj nowy pomiar
+                        {t("Add new measurement")}
                     </button>
                     <button className="standard-button dimensions__buttons__create"
                             onClick={handleShowModifyDimension}>
-                        Modyfikuj pomiar
+                        {t("Modify measurement")}
                     </button>
                     <button className="standard-button dimensions__buttons__compare"
                             onClick={handleShowCompareDimensions}>
-                        Porównaj Pomiary
+                        {t("Compare measurements")}
                     </button>
                 </div>
                 {props.userDimensions.length > 0 &&
@@ -54,7 +55,7 @@ const Dimensions = (props) => {
                                 </div>
                             </div>
                         )
-                    }) : <p>Nie masz jeszcze żadnych pomiarów</p>}
+                    }) : <p>{t("you don't have any measurements yet")}</p>}
                 {(props.userDimensionConfigurationLoaded && props.userDimensionsForCreateLoaded) &&
                     <CreateDimension show={showCreateDimension} handleClose={handleCloseCreateDimension}
                                      handleShow={handleShowCreateDimension}

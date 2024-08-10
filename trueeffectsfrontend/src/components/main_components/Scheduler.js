@@ -9,13 +9,13 @@ import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActio
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
 import {handleMoveToModifyTraining} from "../helpers/history_helpers";
+import {t} from "i18next";
 
 require('moment/locale/pl.js')
 
 const Scheduler = (props) => {
     const history = useHistory()
     const localizer = momentLocalizer(moment)
-    const [showModal, setShowModal] = useState(false)
     let events = []
     if (props.trainings !== undefined) {
         props.trainings.map(el => {
@@ -29,20 +29,17 @@ const Scheduler = (props) => {
             return events
         })
     }
-    const handleCloseModal = () => {
-        setShowModal(true)
-    }
     const handleSelect = async (e) => {
         await handleMoveToModifyTraining(history, e.id)
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">
             <div className="scheduler__title">
-                Kalendarz treningu
+                {t("Training Calendar")}
             </div>
             <div className="schedule">
                 <Calendar
-                    culture='pl-PL'
+                    culture={t("language_code")}
                     views={['month']}
                     selectable={true}
                     events={events}
@@ -50,15 +47,6 @@ const Scheduler = (props) => {
                     localizer={localizer}
                     style={{height: 900, width: '100%'}}
                 />
-                {/*{props.trainingForModal && (*/}
-                {/*    <DisplayTrainingOnSchedulerModal*/}
-                {/*        history={history}*/}
-                {/*        trainingForModal={props.trainingForModal}*/}
-                {/*        show={showModal}*/}
-                {/*        handleClose={handleCloseModal}*/}
-                {/*        getSingleTraining={getSingleTraining}*/}
-                {/*    />*/}
-                {/*)}*/}
             </div>
         </div>
     ) : props.trainingsLoading && (

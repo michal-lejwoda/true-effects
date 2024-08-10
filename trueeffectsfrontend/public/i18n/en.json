@@ -28,7 +28,44 @@
   "Train again now": "Traing again now",
   "Last body measurement": "Last body measurement",
   "Go to Measurements": "Go to Measurements",
-  "you don't have any measurements yet":  "you don't have any measurements yet"
+  "you don't have any measurements yet":  "you don't have any measurements yet",
+  "Add new goal": "Add new goal",
+  "To achieve": "To achieve",
+  "You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.": "You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.",
+  "Completed": "Completed",
+  "Completion date": "Completion date",
+  "Goal": "Goal",
+  "Create goal": "Create goal",
+  "Training goal name": "Training goal name",
+  "Goal description": "Goal description",
+  "Save training goal": "Save training goal",
+  "Delete Goal": "Delete Goal",
+  "actual_language": "en",
+  "language_code": "en-GB",
+
+  "Add new measurement": "Add new measurement",
+  "Modify measurement": "Modify measurement",
+  "Compare measurements": "Compare measurements",
+  "Create measurement": "Create measurement",
+  "Select date": "Select date",
+  "Save measurement": "Save measurement",
+  "Measurements comparison tool": "Measurements comparison tool",
+  "Parameters": "Parameters",
+  "Close": "Close",
+
+  "Previous exercise": "Previous exercise",
+  "Next exercise": "Next exercise",
+  "Actual exercise": "Actual exercise",
+  "Phases": "Phases",
+  "Rest": "Rest",
+  "Repetitions": "Repetitions",
+  "Additional weights": "Additional weights",
+  "Finish training": "Finish training",
+  "Continue": "Continue",
+  "If you want to end and save the workout, click the 'Finish training' button.": "If you want to end and save the workout, click the 'Finish training' button.",
+
+
+
 
 
 }

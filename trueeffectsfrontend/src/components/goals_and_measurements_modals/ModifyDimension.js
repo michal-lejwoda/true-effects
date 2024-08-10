@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Modal from 'react-bootstrap/Modal'
 import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
 import {MenuItem, Select} from "@material-ui/core";
-import {getDimensions} from "../../redux/actions/trainingActions";
+import {t} from "i18next";
 
 
 export function ModifyDimension(props) {
@@ -21,7 +21,7 @@ export function ModifyDimension(props) {
         setValues(props.userDimensions.find(x => x.id === event.target.value))
     }
     const handleModifyDimension = () => {
-        props.putDimension(values).then(()=>{
+        props.putDimension(values).then(() => {
             props.getDimensions()
             props.handleClose()
         })
@@ -35,7 +35,7 @@ export function ModifyDimension(props) {
         <Modal className="transparent-modal" show={props.show} onHide={props.handleClose}>
             <form onSubmit={handleSubmit}>
                 <Modal.Header>
-                    <Modal.Title>Modyfikuj pomiar</Modal.Title>
+                    <Modal.Title>{t("Modify measurement")}</Modal.Title>
                     <CloseButton onClick={props.handleClose} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
@@ -57,7 +57,8 @@ export function ModifyDimension(props) {
                                     <div className="createdimension__elements__element__row">
                                         <div className="animatedInput">
                                             <input name={element} onChange={handleChange}
-                                                   value={values[element] !== null ? values[element]: ""} required="required"
+                                                   value={values[element] !== null ? values[element] : ""}
+                                                   required="required"
                                             />
                                             <span>{props.userDimensionConfigurationForCompare[element]}</span>
                                         </div>
@@ -70,7 +71,7 @@ export function ModifyDimension(props) {
 
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="standard-button " type="submit">Modyfikuj pomiar</button>
+                    <button className="standard-button " type="submit">{t("Modify measurement")}</button>
                 </Modal.Footer>
             </form>
         </Modal>

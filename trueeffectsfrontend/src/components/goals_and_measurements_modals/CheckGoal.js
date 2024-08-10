@@ -7,6 +7,7 @@ import {handleDateForGoals} from "../helpers/function_helpers";
 import {CloseButton} from "react-bootstrap";
 import Checkbox from "@material-ui/core/Checkbox";
 import {FormControlLabel} from "@material-ui/core";
+import {t} from "i18next";
 
 export function CheckGoal(props) {
     const {values, setFieldValue, handleSubmit, handleChange, errors, setErrors} = useFormik({
@@ -69,15 +70,15 @@ export function CheckGoal(props) {
                    onHide={() => props.setShowCheckGoal(false)} size="lg">
                 <form className="create-goal__form" onSubmit={handleSubmit}>
                     <Modal.Header className="header create-goal__header">
-                        <Modal.Title>Cel</Modal.Title>
+                        <Modal.Title>{t("Goal")}</Modal.Title>
                         <CloseButton onClick={() => props.setShowCheckGoal(false)} variant="white"/>
                     </Modal.Header>
                     <Modal.Body className="content create-goal__content">
                         <div className="inputs content__inputs">
                             <div className="inputs__datepicker ">
-                                <DatePicker locale='pl'
+                                <DatePicker locale={t("actual_language")}
                                             className="animated-datepicker"
-                                            placeholderText="Data realizacji"
+                                            placeholderText={t("Completion date")}
                                             dateFormat='dd-MM-yyyy'
                                             selected={values.finishJsDate}
                                             onChange={date => handleDateForGoals(date, setFieldValue)}
@@ -86,27 +87,27 @@ export function CheckGoal(props) {
                             {errors.finishDate && <p className="inputs__error">{errors.finishDate}</p>}
                             <div className="inputs__goal-name animatedInput">
                                 <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
-                                <span>Nazwa celu treningowego</span>
+                                <span>{t("Training goal name")}</span>
                             </div>
                             {errors.goal && <p className="inputs__error">{errors.goal}</p>}
                             <div className="inputs__goal-description animatedInput">
 
                                 <textarea name="description" cols="50" rows="10" value={values.description}
                                           onChange={handleChange}></textarea>
-                                <span>Opis celu</span>
+                                <span>{t("Goal description")}</span>
                             </div>
                             {errors.description && <p className="inputs__error">{errors.description}</p>}
                             <div className="inputs__goal-completed">
                                 <FormControlLabel control={<Checkbox onChange={handleChange} checked={values.completed}
                                                                      name="completed"/>}
-                                                  label="Czy cel został ukończony?"/>
+                                                  label={t("“Has the goal been completed?”")}/>
                             </div>
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">
-                        <button className="footer__button standard-button" onClick={handleDeleteGoal}>Usuń cel
+                        <button className="footer__button standard-button" onClick={handleDeleteGoal}>{t("Delete goal")}
                         </button>
-                        <button className="footer__button standard-button" type="submit">Zapisz cel treningowy
+                        <button className="footer__button standard-button" type="submit">{t("Save training goal")}
                         </button>
                     </Modal.Footer>
                 </form>

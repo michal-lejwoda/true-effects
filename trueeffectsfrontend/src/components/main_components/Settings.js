@@ -8,6 +8,7 @@ import {faWeight} from "@fortawesome/fontawesome-free-solid";
 import {connect} from "react-redux";
 import {changePassword, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import SaveSettingsSuccessModal from "../settings_components/modals/SaveSettingsSuccessModal";
+import {t} from "i18next";
 
 
 const Settings = (props) => {
@@ -15,7 +16,7 @@ const Settings = (props) => {
     const [successModal, setSuccessModal] = useState(false)
     return (
         <div className="settings">
-            <h1 className="title settings__title">Ustawienia</h1>
+            <h1 className="title settings__title">{t("Settings")}</h1>
             <div className="menu settings__menu">
                 <div className="menu__elements">
                     <div className="choices menu__choices">

@@ -10,6 +10,7 @@ import FinishTrainingModal from "../training_components/modals/FinishTrainingMod
 import {useHistory} from "react-router-dom";
 import {useTraining} from "../hooks/training/useTraining";
 import {useCookies} from "react-cookie";
+import {t} from "i18next";
 
 const Training = (props) => {
         const history = useHistory()
@@ -75,7 +76,7 @@ const Training = (props) => {
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries - 1] !== "undefined" ? 'visible' : 'hidden'}}
                             className="header__label">
-                            Poprzednie ćwiczenie
+                            {t("Previous exercise")}
                         </div>
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries - 1] !== "undefined" ? 'visible' : 'hidden'}}
@@ -86,7 +87,7 @@ const Training = (props) => {
                     <div className="header--nextexercise">
                         <div
                             style={{visibility: typeof multi_series[actualMultiSeries + 1] !== "undefined" ? 'visible' : 'hidden'}}
-                            className="header__label">Następne ćwiczenie
+                            className="header__label">{t("Next exercise")}
                             {/*<FontAwesomeIcon icon={faArrowRight}/>*/}
                         </div>
                         <div
@@ -97,7 +98,7 @@ const Training = (props) => {
                     </div>
                 </div>
                 <div className="stoper training__stoper">
-                    <div className="stoper__label">Aktualne Ćwiczenie</div>
+                    <div className="stoper__label">{t("Actual exercise")}</div>
                     <div
                         className="stoper__name">
                         {multi_series[actualMultiSeries].exercise.name}
@@ -114,7 +115,7 @@ const Training = (props) => {
                 </div>
                 <div className="content training__content">
                     <div className="row content__row">
-                        <div className="row__label">Fazy</div>
+                        <div className="row__label">{"Phases"}</div>
                         <div
                             className="row__name">{concentric_phase}/{pause_after_concentric_phase}/{eccentric_phase}/{pause_after_eccentric_phase}
                         </div>
@@ -123,7 +124,7 @@ const Training = (props) => {
                         </div>
                     </div>
                     <div className="row content__row">
-                        <div className="row__label">Odpoczynek</div>
+                        <div className="row__label">{t("Rest")}</div>
                         <div
                             className="row__name">{rest} s
                         </div>
@@ -134,7 +135,7 @@ const Training = (props) => {
 
                     <div className="row content__row">
 
-                        <div className="row__label">Powtórzenia</div>
+                        <div className="row__label">{t("Repetitions")}</div>
                         <div className="modify-data row__modify-data">
                             <input
                                 className="modify-data__input"
@@ -151,7 +152,7 @@ const Training = (props) => {
                         </div>
                     </div>
                     <div className="row__element content__row">
-                        <div className="row__label">Ciężar dodatkowy</div>
+                        <div className="row__label">{t("Additional weights")}</div>
                         <div className="modify-data row__modify-data">
                             <input
                                 className="modify-data__input"
@@ -175,7 +176,7 @@ const Training = (props) => {
                     <button
                         onClick={() => setShowFinishTraining(true)}
                         className="buttons__finish standard-button"
-                    >Zakończ trening
+                    >t{"Finish training"}
                     </button>
                     <button
                         onClick={handleMovetoAnotherSeries}
@@ -189,7 +190,7 @@ const Training = (props) => {
                                     : 'visible'
                         }}
                         id="nextexercise"
-                    >Przejdź dalej
+                    >{t("Continue")}
                     </button>
 
                 </div>

@@ -6,6 +6,7 @@ import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 import "../../new_sass/goals.scss"
 import {BoxLoading} from "react-loadingg";
+import {t} from "i18next";
 
 
 const Goals = (props) => {
@@ -23,14 +24,12 @@ const Goals = (props) => {
         (
             <div className="goals">
                 <div className="goals--unrealized">
-                    <h1 className="title goals__title">Do zrealizowania</h1>
+                    <h1 className="title goals__title">{t("To achieve")}</h1>
                     <div className="goals__button">
-                        <button className="standard-button" onClick={handleShowCreateGoal}>Dodaj nowy cel</button>
+                        <button className="standard-button" onClick={handleShowCreateGoal}>{t("Add new goal")}</button>
                     </div>
                     {props.userGoalsToAchieve.length === 0 &&
-                        <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk
-                            Dodaj
-                            nowy cel aby dodać cel</p>}
+                        <p className="goals__info">{t("You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.")}</p>}
                     {props.userGoalsToAchieve.map(goal_obj => {
                         return (
                             <div key={goal_obj.id} className="goals__element">
@@ -38,7 +37,7 @@ const Goals = (props) => {
                                 <div className="goals__name">{goal_obj.goal}</div>
                                 <div className="goals__check">
                                     <button className="standard-button"
-                                            onClick={() => handleCheckGoal(goal_obj)}>Sprawdź
+                                            onClick={() => handleCheckGoal(goal_obj)}>{t("Check")}
                                     </button>
                                 </div>
                             </div>
@@ -48,19 +47,17 @@ const Goals = (props) => {
                 </div>
                 <hr className="goals--hr"/>
                 <div className="goals--realized"><h1
-                    className="title goals__title">Zrealizowane</h1>
+                    className="title goals__title">{t("Completed")}</h1>
                     {props.userGoalsCompleted.length === 0 &&
-                        <p className="goals__info">Nie masz jeszcze żadnych celów do zrealizowania. Kliknij w przycisk
-                            Dodaj
-                            nowy cel aby dodać cel</p>}
+                        <p className="goals__info">{t("You don't have any goals to achieve yet. Click the 'Add New Goal' button to add a goal.")}</p>}
                     {props.userGoalsCompleted.map(goal_obj => {
                         return (
                             <div key={goal_obj.id} className="goals__element">
-                                <div className="goals__date">Data realizacji: {goal_obj.finish_date}</div>
-                                <div className="goals__name">Cel: {goal_obj.goal}</div>
+                                <div className="goals__date">{t("Completion date")}: {goal_obj.finish_date}</div>
+                                <div className="goals__name">{t("Goal")}: {goal_obj.goal}</div>
                                 <div className="goals__check">
                                     <button className="standard-button"
-                                            onClick={() => handleCheckGoal(goal_obj)}>Sprawdź
+                                            onClick={() => handleCheckGoal(goal_obj)}>{t("Check")}
                                     </button>
                                 </div>
                             </div>
