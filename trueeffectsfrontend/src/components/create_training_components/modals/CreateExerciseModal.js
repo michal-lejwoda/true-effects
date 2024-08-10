@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
 import {useFormik} from "formik";
 import {createExerciseModalValidation} from "../../validation/validation";
+import {t} from "i18next";
 
 const CreateExerciseModal = (props) => {
     const {values, handleChange, handleSubmit, setErrors, errors} = useFormik({
@@ -35,20 +36,20 @@ const CreateExerciseModal = (props) => {
             <Modal show={props.showCreateExerciseModal} onHide={props.handleCloseCreateExerciseModal}>
                 <form onSubmit={handleSubmit}>
                     <Modal.Header>
-                        <Modal.Title>Stwórz Ćwiczenie</Modal.Title>
+                        <Modal.Title>{t("Create Exercise")}</Modal.Title>
                         <CloseButton onClick={props.handleCloseCreateExerciseModal} variant="white"/>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="create-exercise-modal__name animatedInput">
                             <input name="name" onChange={handleChange} value={values.name}
                                    type="text"/>
-                            <span>Nazwa Ćwiczenia</span>
+                            <span>{t("Exercise name")}</span>
                         </div>
                         {errors.name && <p className="create-exercise-modal__error">{errors.name}</p>}
                     </Modal.Body>
                     <Modal.Footer>
                         <button className="standard-button" type="submit">
-                            Stwórz Ćwiczenie
+                            {t("Create exercise")}
                         </button>
                     </Modal.Footer>
                 </form>

@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
 import {handleMoveToScheduler} from "../../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
+import {t} from "i18next";
 
 const RemoveTrainingModal = (props) => {
     const history = useHistory()
@@ -17,15 +18,15 @@ const RemoveTrainingModal = (props) => {
         <div>
             <Modal show={props.show} onHide={() => props.handleClose(false)}>
                 <Modal.Header>
-                    <Modal.Title>Stworzono Trening</Modal.Title>
+                    <Modal.Title>{t("Remove training")}</Modal.Title>
                     <CloseButton onClick={() => props.handleClose(false)} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Jeśli jesteś pewien, że chcesz usunąć ten trening kliknij przycisk Usuń Trening</p>
+                    <p>{t("If you are sure you want to delete this workout, click the 'Delete Workout' button.")}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="standard-button"
-                            onClick={() => handleDelete()}>Usuń trening
+                            onClick={() => handleDelete()}>{t("Remove Training")}
                     </button>
                 </Modal.Footer>
             </Modal>

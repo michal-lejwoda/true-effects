@@ -5,6 +5,7 @@ import {convertDate} from "../../helpers/function_helpers";
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {addTrainingToDifferentDayValidation} from "../../validation/validation";
+import {t} from "i18next";
 
 const AddTrainingToDifferentDayModal = (props) => {
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
@@ -33,23 +34,23 @@ const AddTrainingToDifferentDayModal = (props) => {
             <Modal show={props.show} onHide={() => props.handleClose(false)}>
                 <form onSubmit={handleSubmit}>
                     <Modal.Header>
-                        <Modal.Title>Stworzono Trening</Modal.Title>
+                        <Modal.Title>{t("Training Created")}</Modal.Title>
                         <CloseButton onClick={() => props.handleClose(false)} variant="white"/>
                     </Modal.Header>
                     <Modal.Body>
                         <div className="add-training-to-date">
-                            <DatePicker locale='pl'
+                            <DatePicker locale={t("actual_language")}
                                         name="date"
                                         value={values.date}
                                         className=" animated-datepicker"
-                                        placeholderText="Wybierz date treningu"
+                                        placeholderText={t("Select training date")}
                                         dateFormat='yyyy-MM-dd'
                                         onChange={(date) => setFieldValue('date', convertDate(date))
                                         }/>
                             {errors.date && <p>{errors.date}</p>}
                             <div className="animatedInput">
                                 <input onChange={handleChange} name="name" value={values.name} type="text"/>
-                                <span>Nazwa Treningu</span>
+                                <span>{t("Training Name")}</span>
                             </div>
                             {errors.name && <p>{errors.name}</p>}
                         </div>
@@ -58,7 +59,7 @@ const AddTrainingToDifferentDayModal = (props) => {
                         <button className="standard-button"
                                 type="submit"
                             // onClick={() => handleAddToNewDate()}
-                        >Dodaj do innego dnia
+                        >{t("Add training to other day")}
                         </button>
                     </Modal.Footer>
                 </form>

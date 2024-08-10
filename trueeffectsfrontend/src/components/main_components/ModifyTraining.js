@@ -18,6 +18,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 import useModifyTraining from "../hooks/training/useModifyTraining";
+import {t} from "i18next";
 
 const ModifyTraining = (props) => {
     const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining,
@@ -71,59 +72,58 @@ const ModifyTraining = (props) => {
                         <form className="modify-training__form" onSubmit={handleSubmit}>
                             <div className="mt-data modify-training__mt-data">
                                 <div className="mt-data--top">
-                                    <h1 className="title modify-training__title">Modyfikuj Trening</h1>
+                                    <h1 className="title modify-training__title">{t("Modify Training")}</h1>
 
                                     <div className="mt-data__buttons">
                                         <div className="mt-data__buttons--end">
                                             <button className="standard-button"
-                                                    onClick={() => setRemoveTrainingModal(true)}>Usuń trening -
+                                                    onClick={() => setRemoveTrainingModal(true)}>{t("Delete Training")} -
                                             </button>
                                         </div>
                                         <div className="mt-data__buttons--end">
                                             <button className="standard-button"
-                                                    onClick={() => setDifferentDayModal(true)}>Dodaj trening do
-                                                innego dnia +
+                                                    onClick={() => setDifferentDayModal(true)}>{t("Add training to other day")} +
                                             </button>
                                         </div>
                                         <div className="mt-data__buttons--end">
                                             <button className="standard-button"
-                                                    onClick={() => handleGoToTraining(values.id)}>Trenuj ->
+                                                    onClick={() => handleGoToTraining(values.id)}>{t("Train")} ->
                                             </button>
                                         </div>
 
                                     </div>
-                                    <DatePicker locale='pl'
+                                    <DatePicker locale={t("actual_language")}
                                                 name="date"
                                                 value={values.date}
                                                 className="create-training__datepicker animated-datepicker"
-                                                placeholderText={"Wybierz date treningu"}
+                                                placeholderText={t("Select training date")}
                                                 dateFormat='yyyy-MM-dd'
                                                 onChange={(date) => setFieldValue('date', convertDate(date))
                                                 }
                                     />
                                     <div className="animatedInput">
                                         <Field onChange={handleChange} name="name" value={values.name} type="text"/>
-                                        <span>Nazwa Treningu</span>
+                                        <span>{t("Training Name")}</span>
                                     </div>
 
                                     <div className="animatedInput">
                                         <Field onChange={handleChange} name="description" value={values.description}
                                                type="text"/>
-                                        <span>Opis treningu</span>
+                                        <span>{t("Training description")}</span>
                                     </div>
                                     <div className="animatedInput">
                                         <Field onChange={handleChange} name="time" value={values.time}
                                                type="text"/>
-                                        <span>Czas treningu</span>
+                                        <span>{t("Training time")}</span>
                                     </div>
                                     <div className="mt-data__buttons--end">
                                         <button className="standard-button"
-                                                onClick={() => handleModifyTraining(values)}>Zapisz zmiany w treningu
+                                                onClick={() => handleModifyTraining(values)}>{t("Save training changes")}
                                         </button>
                                     </div>
                                 </div>
                                 <div className="mt-data--list">
-                                    <h1 className="title modify-training__title">Modyfikuj serie</h1>
+                                    <h1 className="title modify-training__title">{t("Modify series")}</h1>
                                     <div className="multiseries mt-data__multiseries">
                                         {values.multi_series.map((multiseries, index) => {
                                             return (
@@ -150,28 +150,28 @@ const ModifyTraining = (props) => {
                                                                                name={`multi_series[${index}].single_series[${indexv2}].reps`}
                                                                                value={singleseries.reps}
                                                                                type="text"/>
-                                                                        <span>Liczba powtórzeń</span>
+                                                                        <span>{t("Repetitions number")}</span>
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
                                                                                name={`multi_series[${index}].single_series[${indexv2}].extra_weight`}
                                                                                value={singleseries.extra_weight}
                                                                                type="text"/>
-                                                                        <span>Dodatkowa waga</span>
+                                                                        <span>{t("Additional weight")}</span>
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
                                                                                name={`multi_series[${index}].single_series[${indexv2}].rest`}
                                                                                value={singleseries.rest}
                                                                                type="text"/>
-                                                                        <span>Odpoczynek</span>
+                                                                        <span>{t("Rest")}</span>
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field onChange={handleChange}
                                                                                name={`multi_series[${index}].single_series[${indexv2}].concentric_phase`}
                                                                                value={singleseries.concentric_phase}
                                                                                type="text"/>
-                                                                        <span>Faza koncentryczna</span>
+                                                                        <span>{t("Concentric phase")}</span>
                                                                     </div>
                                                                     <div className="animatedInput">
                                                                         <Field
@@ -179,7 +179,7 @@ const ModifyTraining = (props) => {
                                                                             name={`multi_series[${index}].single_series[${indexv2}].pause_after_concentric_phase`}
                                                                             value={singleseries.pause_after_concentric_phase}
                                                                             type="text"/>
-                                                                        <span>Pauza po fazie koncentrycznej</span>
+                                                                        <span>{t("Pause after concentric phase")}</span>
                                                                     </div>
                                                                     <div
                                                                         className="animatedInput">
@@ -187,7 +187,7 @@ const ModifyTraining = (props) => {
                                                                             value={singleseries.eccentric_phase}
                                                                             name={`multi_series[${index}].single_series[${indexv2}].eccentric_phase`}
                                                                             onChange={handleChange} type="text"/>
-                                                                        <span>Faza ekscentryczna</span>
+                                                                        <span>{t("Eccentric phase")}</span>
                                                                     </div>
                                                                     <div
                                                                         className="animatedInput">
@@ -195,12 +195,12 @@ const ModifyTraining = (props) => {
                                                                             name={`multi_series[${index}].single_series[${indexv2}].pause_after_eccentric_phase`}
                                                                             value={singleseries.pause_after_eccentric_phase}
                                                                             onChange={handleChange} type="text"/>
-                                                                        <span>Pauza po fazie ekscentrycznej</span>
+                                                                        <span>{t("Pause after eccentric phase")}</span>
                                                                     </div>
                                                                     <div className="single-series__button">
                                                                         <button className="standard-button"
-                                                                                onClick={(e) => handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>Modyfikuj
-                                                                            pojedyńczą serie
+                                                                                onClick={(e) => handleModifySingleSeries(e, values, singleseries.id, index, indexv2, singleseries)}>
+                                                                            {t("Modify single series")}
                                                                         </button>
                                                                     </div>
                                                                 </div>

@@ -16,6 +16,7 @@ import {useHistory} from "react-router-dom";
 import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
 import {useCreateTraining} from "../hooks/training/useCreateTraining";
 import '../../new_sass/create_training.scss'
+import {t} from "i18next";
 
 const CreateTraining = (props) => {
     const history = useHistory()
@@ -34,19 +35,19 @@ const CreateTraining = (props) => {
     return (
         <div className="create-training">
             <div className="header create-training__header">
-                <h1 className="header__title">Stwórz Trening</h1>
-                <DatePicker locale='pl'
+                <h1 className="header__title">{t("Create Training")}</h1>
+                <DatePicker locale={t("actual_language")}
                             name="date"
                             className="header__datepicker animated-datepicker"
                             value={values.date}
-                            placeholderText={"Wybierz date"}
+                            placeholderText={t("Select training date")}
                             dateFormat='yyyy-MM-dd'
                             onChange={(date) => setFieldValue('date', convertDate(date))}
                 />
                 {errors.date && <p className="header__errors">{errors.date}</p>}
                 <div className="name header__name animatedInput">
                     <input name="name" type="text" required={true} onChange={handleChange}/>
-                    <span>Nazwa treningu</span>
+                    <span>{t("Training name")}</span>
                 </div>
                 {errors.name && <p className="header__errors">{errors.name}</p>}
                 <div className="description header__description animatedInput">
@@ -55,7 +56,7 @@ const CreateTraining = (props) => {
                               value={values.description}
                               rows="5">
                     </textarea>
-                    <span className="description__placeholder">Opis treningu</span>
+                    <span className="description__placeholder">{t("Training description")}</span>
                 </div>
                 {errors.description && <p className="header__errors">{errors.description}</p>}
                 {errors.multi_series && <p className="header__errors">{errors.multi_series}</p>}

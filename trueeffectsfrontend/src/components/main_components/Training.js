@@ -152,7 +152,7 @@ const Training = (props) => {
                         </div>
                     </div>
                     <div className="row__element content__row">
-                        <div className="row__label">{t("Additional weights")}</div>
+                        <div className="row__label">{t("Additional weight")}</div>
                         <div className="modify-data row__modify-data">
                             <input
                                 className="modify-data__input"

@@ -3,6 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import {handleMoveToDashboard, handleMoveToTraining} from "../../helpers/history_helpers";
 import {CloseButton} from "react-bootstrap";
 import {useCookies} from "react-cookie";
+import {t} from "i18next";
 
 const BackToTrainingModal = (props) => {
     const [cookies, ,] = useCookies('true_effects_training')
@@ -14,18 +15,18 @@ const BackToTrainingModal = (props) => {
         <div className="created-training-modal create-training__created-training-modal">
             <Modal show={props.showBackToTrainingModal} onHide={props.handleCloseBackToTrainingModal}>
                 <Modal.Header>
-                    <Modal.Title>Wróć do treningu</Modal.Title>
+                    <Modal.Title>{t("Back to training")}</Modal.Title>
                     <CloseButton onClick={props.handleCloseBackToTrainingModal} variant="white"/>
                 </Modal.Header>
                 <Modal.Body>
-                    <p>Nie dokończyłeś ostatniego treningu czy chciałbyś do niego wrócić?</p>
+                    <p>{t("You didn't finish your last workout. Would you like to resume it ?")}</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="standard-button" onClick={props.handleCloseBackToTrainingModal}>
-                        Nie wracaj
+                        {t("Don't resume")}
                     </button>
                     <button className="standard-button"
-                            onClick={handleBackToTraining}>Wróć do treningu
+                            onClick={handleBackToTraining}>{t("Back to training")}
                     </button>
                 </Modal.Footer>
             </Modal>

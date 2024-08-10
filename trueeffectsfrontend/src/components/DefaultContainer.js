@@ -16,7 +16,6 @@ import {useAuth} from './hooks/auth/useAuth';
 import BackToTrainingModal from './default_components/modals/BackToTrainingModal';
 import {useCookies} from 'react-cookie';
 import {handleMoveToDashboard} from './helpers/history_helpers';
-import AchievementModal from "./achievement_modals/AchievementModal";
 import {
     getCompletedGoals,
     getDimensionConfiguration,
@@ -104,10 +103,10 @@ const DefaultContainer = (props) => {
                         setShowBackToTrainingModal={setShowBackToTrainingModal}
                         history={history}
                     />
-                    <AchievementModal isOpen={showWebSocketModal} onClose={handleCloseWebSocketModal}>
-                        <h2>WebSocket Notification</h2>
-                        <p>{webSocketMessage}</p>
-                    </AchievementModal>
+                    {/*<AchievementModal isOpen={showWebSocketModal} onClose={handleCloseWebSocketModal}>*/}
+                    {/*    <h2>WebSocket Notification</h2>*/}
+                    {/*    <p>{webSocketMessage}</p>*/}
+                    {/*</AchievementModal>*/}
                     <Suspense fallback={<BoxLoading/>}>
                         <AchievementNotificationContainer>
                         </AchievementNotificationContainer>
