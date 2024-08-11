@@ -3,9 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
 import {useFormik} from "formik";
 import {createExerciseModalValidation} from "../../validation/validation";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const CreateExerciseModal = (props) => {
+    const {t} = useTranslation();
     const {values, handleChange, handleSubmit, setErrors, errors} = useFormik({
         initialValues: {
             name: "",

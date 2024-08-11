@@ -5,7 +5,8 @@ import {useFormik} from "formik";
 import {createGoalValidation} from "../validation/validation";
 import {handleDateForGoals} from "../helpers/function_helpers";
 import {CloseButton} from "react-bootstrap";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
+
 
 export function CreateGoal(props) {
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
@@ -22,7 +23,7 @@ export function CreateGoal(props) {
             handleSendGoals(values)
         },
     });
-
+    const {t} = useTranslation();
     const handleSendGoals = async () => {
         const data = {
             "finish_date": values.finishDate,

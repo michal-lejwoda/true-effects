@@ -1,11 +1,12 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
-import {handleMoveToDashboard, handleMoveToTraining} from "../../helpers/history_helpers";
+import {handleMoveToTraining} from "../../helpers/history_helpers";
 import {CloseButton} from "react-bootstrap";
 import {useCookies} from "react-cookie";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const BackToTrainingModal = (props) => {
+    const {t} = useTranslation();
     const [cookies, ,] = useCookies('true_effects_training')
     const handleBackToTraining = () => {
         props.setShowBackToTrainingModal(false)

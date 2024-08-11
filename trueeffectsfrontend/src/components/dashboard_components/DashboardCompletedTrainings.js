@@ -1,9 +1,10 @@
 import React from 'react';
 import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const DashboardCompletedTrainings = (props) => {
+    const {t} = useTranslation();
     const history = useHistory()
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)

@@ -6,10 +6,11 @@ import AuthenticateLogo from "../AuthenticateLogo";
 import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const Login = (props) => {
-    const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors]= useLogin(props)
+    const {t} = useTranslation();
+    const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors] = useLogin(props)
     if (props.token !== null) {
         props.history.push('/')
     }

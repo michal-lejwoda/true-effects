@@ -10,9 +10,10 @@ import FinishTrainingModal from "../training_components/modals/FinishTrainingMod
 import {useHistory} from "react-router-dom";
 import {useTraining} from "../hooks/training/useTraining";
 import {useCookies} from "react-cookie";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const Training = (props) => {
+        const {t} = useTranslation();
         const history = useHistory()
         const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const [apiData, setApiData] = useState(null);

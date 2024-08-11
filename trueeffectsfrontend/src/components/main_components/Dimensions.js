@@ -7,9 +7,10 @@ import "../../new_sass/main.scss"
 import "../../new_sass/dimensions.scss"
 import {BoxLoading} from "react-loadingg";
 import {ModifyDimension} from "../goals_and_measurements_modals/ModifyDimension";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const Dimensions = (props) => {
+    const {t} = useTranslation();
     const [showCreateDimension, setShowCreateDimension] = useState(false);
     const [showCompareDimensions, setShowCompareDimensions] = useState(false);
     const [showModifyDimension, setShowModifyDimension] = useState(false);

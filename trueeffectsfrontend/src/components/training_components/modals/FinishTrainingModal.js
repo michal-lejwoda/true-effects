@@ -1,9 +1,10 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const FinishTrainingModal = (props) => {
+    const {t} = useTranslation();
     return (
         <div className="finish-modal training__finish-modal">
             <Modal show={props.showFinishTraining} onHide={() => props.setShowFinishTraining(false)}>

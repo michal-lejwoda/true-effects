@@ -6,10 +6,11 @@ import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 import "../../new_sass/goals.scss"
 import {BoxLoading} from "react-loadingg";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 
 const Goals = (props) => {
+    const {t} = useTranslation();
     const [showCreateGoal, setShowCreateGoal] = useState(false);
     const [showCheckGoal, setShowCheckGoal] = useState(false)
     const [selectedGoal, setSelectedGoal] = useState(null)

@@ -4,10 +4,11 @@ import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
 import {MenuItem, Select} from "@material-ui/core";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 
 export function ModifyDimension(props) {
+    const {t} = useTranslation();
     const {values, handleSubmit, handleChange, errors, setValues} = useFormik({
         initialValues: props.userDimensionsForCreate,
         validationSchema: createDimensionValidation,

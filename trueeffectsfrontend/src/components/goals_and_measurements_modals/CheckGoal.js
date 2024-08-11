@@ -7,7 +7,8 @@ import {handleDateForGoals} from "../helpers/function_helpers";
 import {CloseButton} from "react-bootstrap";
 import Checkbox from "@material-ui/core/Checkbox";
 import {FormControlLabel} from "@material-ui/core";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
+
 
 export function CheckGoal(props) {
     const {values, setFieldValue, handleSubmit, handleChange, errors, setErrors} = useFormik({
@@ -50,7 +51,7 @@ export function CheckGoal(props) {
             setFieldValue("finishJsDate", new Date(props.selectedGoal.finish_date))
         }
     }, [props.selectedGoal])
-
+    const {t} = useTranslation();
     const handleDeleteGoal = (e) => {
         e.preventDefault()
         props.deleteGoal(values.id)

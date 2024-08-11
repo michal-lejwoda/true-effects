@@ -20,9 +20,10 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainingToDifferentDayModal";
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 import useModifyTraining from "../hooks/training/useModifyTraining";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const ModifyTraining = (props) => {
+    const {t} = useTranslation();
     const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining, setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
 
     const handleGoToTraining = (id) => {

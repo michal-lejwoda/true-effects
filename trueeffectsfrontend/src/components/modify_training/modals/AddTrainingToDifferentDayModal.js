@@ -5,9 +5,10 @@ import {convertDate} from "../../helpers/function_helpers";
 import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {addTrainingToDifferentDayValidation} from "../../validation/validation";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const AddTrainingToDifferentDayModal = (props) => {
+    const {t} = useTranslation();
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
             name: props.training.name,

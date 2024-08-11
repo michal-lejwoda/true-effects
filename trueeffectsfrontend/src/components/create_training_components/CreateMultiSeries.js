@@ -2,9 +2,10 @@ import React from 'react';
 import {useFormik} from "formik";
 import AsyncSelect from "react-select/async";
 import {useCreateMultiSeries} from "../hooks/training/useCreateMultiSeries";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const CreateMultiSeries = (props) => {
+    const {t} = useTranslation();
     const {values, setErrors, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
             exercise: null,
@@ -60,7 +61,8 @@ const CreateMultiSeries = (props) => {
                 </div>
                 {errors.exercise && <p className="inputs__errors">{errors.exercise}</p>}
                 <div className="inputs__button">
-                    <button className="standard-button" onClick={() => props.setShowExerciseModal(true)}>{t("Create exercise")}
+                    <button className="standard-button"
+                            onClick={() => props.setShowExerciseModal(true)}>{t("Create exercise")}
                     </button>
                 </div>
                 <div className="inputs__weight animatedInput">

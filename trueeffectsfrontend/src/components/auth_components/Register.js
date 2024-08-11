@@ -6,9 +6,10 @@ import AuthenticateLogo from "../AuthenticateLogo";
 import {postRegister} from "../../redux/actions/authenticationActions";
 import "../../new_sass/register.scss";
 import {useRegister} from "../hooks/auth/useRegister";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const Register = (props) => {
+    const {t} = useTranslation();
     const [handleMoveToLogin, handleChange, handleSubmit, errors] = useRegister(props)
     if (props.token !== null) {
         props.history.push('/')

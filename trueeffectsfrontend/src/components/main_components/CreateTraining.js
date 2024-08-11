@@ -5,7 +5,9 @@ import {connect} from "react-redux";
 import {
     createTraining,
     createUserExercise,
-    getExercises, getLastCompletedTrainings, getSingleTraining,
+    getExercises,
+    getLastCompletedTrainings,
+    getSingleTraining,
     getTrainings,
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
@@ -16,9 +18,10 @@ import {useHistory} from "react-router-dom";
 import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
 import {useCreateTraining} from "../hooks/training/useCreateTraining";
 import '../../new_sass/create_training.scss'
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const CreateTraining = (props) => {
+    const {t} = useTranslation();
     const history = useHistory()
     const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, createdTraining, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,

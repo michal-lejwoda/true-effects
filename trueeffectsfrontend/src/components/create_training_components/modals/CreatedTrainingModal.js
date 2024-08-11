@@ -3,9 +3,10 @@ import Modal from "react-bootstrap/Modal";
 import {handleMoveToModifyTraining, handleMoveToScheduler, handleMoveToTraining} from "../../helpers/history_helpers";
 import {CloseButton} from "react-bootstrap";
 import {useHistory} from "react-router-dom";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const CreatedTrainingModal = (props) => {
+    const {t} = useTranslation();
     const history = useHistory()
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)

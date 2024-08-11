@@ -7,12 +7,14 @@ import "../../new_sass/dashboard.scss";
 import {
     createTraining,
     getLastCompletedTrainings,
-    getSingleTraining, getTrainings,
+    getSingleTraining,
+    getTrainings,
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const Dashboard = props => {
+    const {t} = useTranslation();
     return (
         <div className="dashboard">
             <h1 className="title">{t("Homepage")}</h1>

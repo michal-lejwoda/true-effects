@@ -83,25 +83,26 @@ const DefaultContainer = (props) => {
             </Suspense>
             {props.token ? (
                 <>
-                    <Route exact path="/" component={Dashboard}/>
-                    <Route path="/goals" component={Goals}/>
-                    <Route path="/dimensions" component={Dimensions}/>
-                    <Route path="/settings" component={Settings}/>
-                    <Route path="/scheduler" component={Scheduler}/>
-                    <Route path="/training/:trainingId" component={Training}/>
-                    <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
-                    <Route path="/create_training" component={CreateTraining}/>
-                    <BackToTrainingModal
-                        handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
-                        showBackToTrainingModal={showBackToTrainingModal}
-                        setShowBackToTrainingModal={setShowBackToTrainingModal}
-                        history={history}
-                    />
-                    {/*<AchievementModal isOpen={showWebSocketModal} onClose={handleCloseWebSocketModal}>*/}
-                    {/*    <h2>WebSocket Notification</h2>*/}
-                    {/*    <p>{webSocketMessage}</p>*/}
-                    {/*</AchievementModal>*/}
                     <Suspense fallback={<BoxLoading/>}>
+                        <Route exact path="/" component={Dashboard}/>
+                        <Route path="/goals" component={Goals}/>
+                        <Route path="/dimensions" component={Dimensions}/>
+                        <Route path="/settings" component={Settings}/>
+                        <Route path="/scheduler" component={Scheduler}/>
+                        <Route path="/training/:trainingId" component={Training}/>
+                        <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
+                        <Route path="/create_training" component={CreateTraining}/>
+                        <BackToTrainingModal
+                            handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
+                            showBackToTrainingModal={showBackToTrainingModal}
+                            setShowBackToTrainingModal={setShowBackToTrainingModal}
+                            history={history}
+                        />
+                        {/*<AchievementModal isOpen={showWebSocketModal} onClose={handleCloseWebSocketModal}>*/}
+                        {/*    <h2>WebSocket Notification</h2>*/}
+                        {/*    <p>{webSocketMessage}</p>*/}
+                        {/*</AchievementModal>*/}
+
                         <AchievementNotificationContainer>
                         </AchievementNotificationContainer>
                     </Suspense>

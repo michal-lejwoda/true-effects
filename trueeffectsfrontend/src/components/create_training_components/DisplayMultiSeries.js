@@ -1,10 +1,10 @@
 import React from 'react';
 import {useDisplayMultiSeries} from "../hooks/training/useDisplayMultiSeries";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const DisplayMultiSeries = (props) => {
     const [visibleElements, handleRemoveSingleSeries, handleRemoveMultiSeries, toggleVisibility] = useDisplayMultiSeries(props)
-
+    const {t} = useTranslation();
     return (
         <div className="display-series create-training__display-series">
             <h1 className="display-series__title">{t("Series")}</h1>

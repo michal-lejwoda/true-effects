@@ -16,7 +16,7 @@ class WebSocketClient {
         }
 
         return new Promise((resolve, reject) => {
-            this.url = `ws://0.0.0.0:8000/ws/login-time/?token=${token}&language=${language}`;
+            this.url = `ws://0.0.0.0:80/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {

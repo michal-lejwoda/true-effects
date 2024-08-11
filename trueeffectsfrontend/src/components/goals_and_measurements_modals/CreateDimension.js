@@ -5,9 +5,11 @@ import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
 import {useDate} from "../hooks/training/useDate";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
+
 
 export function CreateDimension(props) {
+    const {t} = useTranslation();
     const {date, jsDate, dateError, setDateError, handleDateForDimensions} = useDate()
     const {values, handleSubmit, handleChange, errors, setValues} = useFormik({
         initialValues: props.userDimensionsForCreate,

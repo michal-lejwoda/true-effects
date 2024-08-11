@@ -1,10 +1,11 @@
 import React from 'react';
 import {handleMovetoDimensions} from "../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const DashboardLastDimension = (props) => {
     const history = useHistory()
+    const {t} = useTranslation();
     return (
         <div className="last-dimension">
             <div className="last-dimension__title dashboard__title">{t("Last body measurement")}</div>

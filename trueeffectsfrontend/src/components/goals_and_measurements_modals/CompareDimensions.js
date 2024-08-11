@@ -3,9 +3,10 @@ import Modal from 'react-bootstrap/Modal';
 import {MenuItem, Select} from "@material-ui/core";
 import {CloseButton} from "react-bootstrap";
 import {useCompareDimensions} from "../hooks/training/useCompareDimensions";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 export function CompareDimensions(props) {
+    const {t} = useTranslation();
     const {
         firstDimension,
         secondDimension,

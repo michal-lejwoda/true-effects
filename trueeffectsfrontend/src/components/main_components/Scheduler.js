@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Calendar, momentLocalizer} from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
@@ -9,11 +9,12 @@ import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActio
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
 import {handleMoveToModifyTraining} from "../helpers/history_helpers";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 require('moment/locale/pl.js')
 
 const Scheduler = (props) => {
+    const {t} = useTranslation();
     const history = useHistory()
     const localizer = momentLocalizer(moment)
     let events = []

@@ -8,10 +8,11 @@ import {faWeight} from "@fortawesome/fontawesome-free-solid";
 import {connect} from "react-redux";
 import {changePassword, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import SaveSettingsSuccessModal from "../settings_components/modals/SaveSettingsSuccessModal";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 
 const Settings = (props) => {
+    const {t} = useTranslation();
     const [activeState, setActiveState] = useState('DIMENSIONS')
     const [successModal, setSuccessModal] = useState(false)
     return (

@@ -3,10 +3,11 @@ import Modal from "react-bootstrap/Modal";
 import {CloseButton} from "react-bootstrap";
 import {handleMoveToScheduler} from "../../helpers/history_helpers";
 import {useHistory} from "react-router-dom";
-import {t} from "i18next";
+import {useTranslation} from "react-i18next";
 
 const RemoveTrainingModal = (props) => {
     const history = useHistory()
+    const {t} = useTranslation();
     const handleDelete = async() =>{
         await props.handleDeleteTraining(props.id)
         await props.getUpcomingTrainings()
