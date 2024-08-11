@@ -72,7 +72,7 @@ export const postRegister = (data, handleSetToken) => dispatch => {
 export const postLogoutAuth = (removeCookie) => dispatch => {
     console.log("postLogoutAuth")
     removeCookie("true_effects_token")
-    webSocketClient.reset();
+    webSocketClient.close();
     dispatch({
         type: POST_LOGOUT_AUTH
     })

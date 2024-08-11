@@ -1,4 +1,4 @@
-import React, {StrictMode} from 'react';
+import React, {StrictMode, Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import {CookiesProvider} from "react-cookie";
 import DefaultContainer from './components/DefaultContainer';
@@ -12,25 +12,27 @@ import Register from "./components/auth_components/Register";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ResetPassword from "./components/auth_components/ResetPassword";
 import PasswordChange from "./components/auth_components/PasswordChange";
-import {LanguageProvider} from "./components/context/LanguageContext";
 import "./i18n"
+import {BoxLoading} from "react-loadingg";
 
 ReactDOM.render(
     <CookiesProvider>
         <Provider store={store}>
-            <StrictMode>
+            {/*<StrictMode>*/}
                 <BrowserRouter>
                     {/*<LanguageProvider>*/}
                     <Switch>
-                        <Route exact path="/login" component={Login}/>
-                        <Route exact path="/register" component={Register}/>
-                        <Route exact path="/reset_password" component={ResetPassword}/>
-                        <Route path="/reset_password/:token" component={PasswordChange}/>
-                        <Route component={DefaultContainer}/>
+                        <Suspense fallback={<BoxLoading/>}>
+                            <Route exact path="/login" component={Login}/>
+                            <Route exact path="/register" component={Register}/>
+                            <Route exact path="/reset_password" component={ResetPassword}/>
+                            <Route path="/reset_password/:token" component={PasswordChange}/>
+                            <Route component={DefaultContainer}/>
+                        </Suspense>
                     </Switch>
                     {/*</LanguageProvider>*/}
                 </BrowserRouter>
-            </StrictMode>
+            {/*</StrictMode>*/}
         </Provider>
     </CookiesProvider>,
     document.getElementById('root')

@@ -101,6 +101,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         print("create_notification_from_backend")
         translation.activate(self.language)
         message = _(message)
+        print("wysylanie")
         await self.send(text_data=json.dumps({
             'message': message
         }))
