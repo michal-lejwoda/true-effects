@@ -1,17 +1,30 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import AchievementNotification from './AchievementNotification';
 import '../../new_sass/notification.scss';
 import webSocketClient from "../websockets/LogInTimeWebSocket";
-import { useCookies } from "react-cookie";
-import { useTranslation } from "react-i18next";
+import {useCookies} from "react-cookie";
+import {useTranslation} from "react-i18next";
+import {postConfirmAchievement} from "../../redux/actions/authenticationActions";
+import {connect} from "react-redux";
 
-const AchievementNotificationContainer = () => {
+const AchievementNotificationContainer = (props) => {
     const [notifications, setNotifications] = useState([]);
     const [token, setToken] = useState(null);
     const [cookies] = useCookies(['true_effects_token']);
-    const { i18n } = useTranslation();
+    const {i18n} = useTranslation();
     const websocketRef = useRef(null);
     const callbackRegistered = useRef(false);
+
+    const confirmAchievement = (user_achievement_id) => {
+        console.log("confirmAchievment")
+        console.log(user_achievement_id)
+        try {
+            props.postConfirmAchievement(user_achievement_id);
+        } catch (error) {
+            console.log(error)
+            console.error("Error confirming achievement:", error);
+        }
+    };
 
     useEffect(() => {
         if (cookies.true_effects_token) {
@@ -57,9 +70,11 @@ const AchievementNotificationContainer = () => {
         }
     }, [token, i18n.language]);
 
-    const handleNewMessage = (data) => {
-        console.log("Handling new message:", data);
-        setNotifications((prevNotifications) => [...prevNotifications, data.message]);
+    const handleNewMessage = async (data) => {
+        await console.log("Handling new message:", data);
+        await setNotifications((prevNotifications) => [...prevNotifications, data.message]);
+        await console.log("data", data.user_achievement_id);
+        await confirmAchievement(data.user_achievement_id);
     };
 
     const removeNotification = (index) => {
@@ -79,4 +94,4 @@ const AchievementNotificationContainer = () => {
     );
 };
 
-export default AchievementNotificationContainer;
+export default connect(null, {postConfirmAchievement})(AchievementNotificationContainer);

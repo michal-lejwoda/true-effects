@@ -69,8 +69,8 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 wait_time = max(0, (achievement['minutes'] - login_time) * 60)
                 print("wait_time", wait_time)
                 await asyncio.sleep(wait_time)
-                await self.create_user_achievement(achievement)
-                await self.create_notification_from_backend(achievement['message'])
+                user_achievement_id = await self.create_user_achievement(achievement)
+                await self.create_notification_from_backend(user_achievement_id, achievement['message'])
                 login_time = await achievement['minutes']
 
     async def summary_logged_in_time(self):
@@ -80,29 +80,36 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 print("summary achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - self.sum_time) * 60)
                 await asyncio.sleep(wait_time)
-                await self.create_user_achievement(achievement)
-                await self.create_notification_from_backend(achievement['message'])
+                user_achievement_id =  await self.create_user_achievement(achievement)
+                print("user_achievement_id", user_achievement_id)
+                await self.create_notification_from_backend(user_achievement_id, achievement['message'])
 
     @sync_to_async
     def create_user_achievement(self, achievement):
         print("create_user_achievement")
         try:
-            UserAchievement.objects.get_or_create(
+            achievement_obj, created = UserAchievement.objects.get_or_create(
                 achievement_id=achievement['id'],
-                is_earned=True,
-                user=self.user,
-                is_displayed_for_user=False
+                user= self.user,
+                defaults={
+                    'is_earned': True,
+                    'user': self.user,
+                    'is_displayed_for_user': False
+                }
             )
-            print("Finished create_user_achievement")
-        except Exception as e:
-            print(f"Error in create_user_achievement: {e}")
 
-    async def create_notification_from_backend(self, message):
+            return achievement_obj.id
+        except Exception as e:
+            print(f"Error creating user achievement: {e}")
+            return None
+
+    async def create_notification_from_backend(self, user_achievement_id, message):
         print("create_notification_from_backend")
         translation.activate(self.language)
         message = _(message)
         print("wysylanie")
         await self.send(text_data=json.dumps({
+            'user_achievement_id': user_achievement_id,
             'message': message
         }))
 

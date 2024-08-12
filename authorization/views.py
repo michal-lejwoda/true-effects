@@ -2,11 +2,13 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
+from achievements.models import UserAchievement
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
     ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer
 
@@ -42,6 +44,20 @@ class GetUserViewSet(GenericViewSet):
         user = self.request.user
         serializer = self.serializer_class(user)
         return Response(serializer.data)
+
+class ConfirmAchievementViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            user_achievement = UserAchievement.objects.get(id=request.data['user_achievement_id'])
+        except UserAchievement.DoesNotExist:
+            return Response({'detail': 'User Achievement not found.'}, status=status.HTTP_404_NOT_FOUND)
+        if user_achievement.user != request.user:
+            raise PermissionDenied('You do not have permission to modify this achievement.')
+        user_achievement.is_displayed_for_user = True
+        user_achievement.save()
+        return Response({'detail': 'Achievement activated successfully.'}, status=status.HTTP_200_OK)
 
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer

@@ -26,6 +26,19 @@ export const postResetPassword = (data) => (dispatch, getState) => {
             }
         )
 }
+export const postConfirmAchievement = (user_achievement_id) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    const data = {"user_achievement_id": user_achievement_id}
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/confirm_achievement/`, data)
+        .then(res => {
+            return res.data
+        })
+        .catch(err => {
+                throw err
+            }
+        )
+}
 
 export const postPasswordChangeWithToken = (data) => (dispatch, getState) => {
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/password_change_with_token/`, data)
