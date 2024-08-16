@@ -98,19 +98,11 @@ const DefaultContainer = (props) => {
                             setShowBackToTrainingModal={setShowBackToTrainingModal}
                             history={history}
                         />
-                        {/*<AchievementModal isOpen={showWebSocketModal} onClose={handleCloseWebSocketModal}>*/}
-                        {/*    <h2>WebSocket Notification</h2>*/}
-                        {/*    <p>{webSocketMessage}</p>*/}
-                        {/*</AchievementModal>*/}
-
                         <AchievementNotificationContainer>
                         </AchievementNotificationContainer>
                     {/*</Suspense>*/}
                 </>
             )
-            //     : (
-            //     <BoxLoading/>
-            // )
             }
         </>
     );
