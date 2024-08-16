@@ -52,13 +52,33 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 print(f"Keep-alive error: {e}")
                 break
 
+    # async def disconnect(self, close_code):
+    #     print("disconnect")
+    #     disconnect_time = timezone.now()
+    #     spended_time = disconnect_time - self.start_time
+    #     spended_time_in_minutes = spended_time.total_seconds() / 60
+    #     if spended_time_in_minutes > 2:
+    #         update_spended_time.delay(self.user.id, spended_time_in_minutes)
     async def disconnect(self, close_code):
         print("disconnect")
+
+        # Cancel the tasks to stop them from running
+        if self.check_not_shown_achievements:
+            self.check_not_shown_achievements.cancel()
+        if self.sum_logged_in_time:
+            self.sum_logged_in_time.cancel()
+        if self.logged_in_time:
+            self.logged_in_time.cancel()
+        if self.keep_alive_task:
+            self.keep_alive_task.cancel()
+
         disconnect_time = timezone.now()
         spended_time = disconnect_time - self.start_time
         spended_time_in_minutes = spended_time.total_seconds() / 60
         if spended_time_in_minutes > 2:
             update_spended_time.delay(self.user.id, spended_time_in_minutes)
+
+        await self.channel_layer.group_discard(self.user_group_name, self.channel_name)
 
     async def logged_in_timer(self):
         print("logged_in_timer")
