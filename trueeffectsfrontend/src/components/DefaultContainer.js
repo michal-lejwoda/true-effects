@@ -78,12 +78,12 @@ const DefaultContainer = (props) => {
 
     return (
         <>
-            <Suspense fallback={<BoxLoading/>}>
-                <Navbar/>
-            </Suspense>
-            {props.token ? (
+
+
+            {props.token && (
                 <>
-                    <Suspense fallback={<BoxLoading/>}>
+                    {/*<Suspense fallback={<BoxLoading/>}>*/}
+                         <Navbar/>
                         <Route exact path="/" component={Dashboard}/>
                         <Route path="/goals" component={Goals}/>
                         <Route path="/dimensions" component={Dimensions}/>
@@ -105,11 +105,13 @@ const DefaultContainer = (props) => {
 
                         <AchievementNotificationContainer>
                         </AchievementNotificationContainer>
-                    </Suspense>
+                    {/*</Suspense>*/}
                 </>
-            ) : (
-                <BoxLoading/>
-            )}
+            )
+            //     : (
+            //     <BoxLoading/>
+            // )
+            }
         </>
     );
 };
