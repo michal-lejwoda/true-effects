@@ -77,7 +77,6 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         spended_time_in_minutes = spended_time.total_seconds() / 60
         if spended_time_in_minutes > 2:
             update_spended_time.delay(self.user.id, spended_time_in_minutes)
-
         await self.channel_layer.group_discard(self.user_group_name, self.channel_name)
 
     async def logged_in_timer(self):

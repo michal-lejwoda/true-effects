@@ -4,8 +4,15 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 
 from achievements.choices import LANGUAGES
+from achievements.models import Achievement
 from authorization.models import CustomUser
 
+class AchievementSerializer(serializers.ModelSerializer):
+    earned = serializers.BooleanField()
+
+    class Meta:
+        model = Achievement
+        fields = ['id', 'name', 'description', 'earned']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)

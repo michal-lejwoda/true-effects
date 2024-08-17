@@ -1,4 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
+from django.db.models import Case, When, Value, BooleanField
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -8,9 +9,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
-from achievements.models import UserAchievement
+from achievements.models import UserAchievement, Achievement
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
-    ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer
+    ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer, AchievementSerializer
 
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
@@ -58,6 +59,23 @@ class ConfirmAchievementViewSet(GenericViewSet):
         user_achievement.is_displayed_for_user = True
         user_achievement.save()
         return Response({'detail': 'Achievement activated successfully.'}, status=status.HTTP_200_OK)
+
+
+class AchievementViewSet(GenericViewSet):
+    permission_classes = (IsAuthenticated,)
+    def list(self,request):
+        user = self.request.user
+        achievements = Achievement.objects.annotate(
+            earned=Case(
+                When(userachievement__user=user, userachievement__is_earned=True, then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField(),
+            )
+        ).distinct()
+        serializer = AchievementSerializer(achievements, many=True)
+        return Response(serializer.data)
+
+
 
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer

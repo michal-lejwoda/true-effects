@@ -1,7 +1,7 @@
 from rest_framework.routers import DefaultRouter
 
 from authorization.views import RegistrationViewSet, CustomAuthToken, LogoutViewSet, ChangePasswordViewSet, \
-    PasswordChangeWithToken, ChangeDefaultLanguage, GetUserViewSet, ConfirmAchievementViewSet
+    PasswordChangeWithToken, ChangeDefaultLanguage, GetUserViewSet, ConfirmAchievementViewSet, AchievementViewSet
 from training.views import ExerciseViewSet, UserDimensionViewSet, UserGoalViewSet, TrainingViewSet, \
     UserDimensionConfigurationViewSet, SingleTrainingViewSet, SingleSeriesViewSet, SendMail
 
@@ -23,3 +23,4 @@ router.register(r'password_change_with_token', PasswordChangeWithToken, basename
 router.register(r'change_default_language', ChangeDefaultLanguage, basename='change_default_language')
 router.register(r'send_mail', SendMail, basename='send_mail')
 router.register(r'confirm_achievement', ConfirmAchievementViewSet, basename='confirm_achievement')
+router.register(r'achievements', AchievementViewSet, basename='achievements')
