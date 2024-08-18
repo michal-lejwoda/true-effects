@@ -16,8 +16,6 @@ const AchievementNotificationContainer = (props) => {
     const callbackRegistered = useRef(false);
 
     const confirmAchievement = (user_achievement_id) => {
-        console.log("confirmAchievment")
-        console.log(user_achievement_id)
         try {
             props.postConfirmAchievement(user_achievement_id);
         } catch (error) {

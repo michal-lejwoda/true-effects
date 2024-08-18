@@ -177,7 +177,7 @@ const Training = (props) => {
                     <button
                         onClick={() => setShowFinishTraining(true)}
                         className="buttons__finish standard-button"
-                    >t{"Finish training"}
+                    >{t("Finish training")}
                     </button>
                     <button
                         onClick={handleMovetoAnotherSeries}

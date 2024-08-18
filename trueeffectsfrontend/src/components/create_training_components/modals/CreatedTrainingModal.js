@@ -43,9 +43,10 @@ const CreatedTrainingModal = (props) => {
                             onClick={() => handleMoveToModifyTraining(props.history, props.createdTraining.id)}>{t("Modify Training")}
                     </button>
                     <button className="standard-button"
-                            onClick={() => handleGoToTraining(props.createdTraining.id)}>Ćw
+                            onClick={() => handleGoToTraining(props.createdTraining.id)}>{t("Train now")}
                     </button>
-                    <button className="standard-button" onClick={() => handleMoveToScheduler(props.history)}>{t("Go to the calendar")}
+                    <button className="standard-button"
+                            onClick={() => handleMoveToScheduler(props.history)}>{t("Go to the calendar")}
                     </button>
                 </Modal.Footer>
             </Modal>

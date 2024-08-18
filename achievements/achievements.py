@@ -100,14 +100,14 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
                 print("summary achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - self.sum_time) * 60)
                 await asyncio.sleep(wait_time)
-                user_achievement_id =  await self.create_user_achievement(achievement)
+                user_achievement_id = await self.create_user_achievement(achievement)
                 print("user_achievement_id", user_achievement_id)
                 await self.create_notification_from_backend(user_achievement_id, achievement['message'])
 
     async def check_not_shown_achievements(self):
         for user_achievement in self.not_shown_achievements:
-            await self.create_notification_from_backend(user_achievement['id'], user_achievement['achievement__message'])
-
+            await self.create_notification_from_backend(user_achievement['id'],
+                                                        user_achievement['achievement__message'])
 
     @sync_to_async
     def create_user_achievement(self, achievement):
@@ -115,7 +115,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         try:
             achievement_obj, created = UserAchievement.objects.get_or_create(
                 achievement_id=achievement['id'],
-                user= self.user,
+                user=self.user,
                 defaults={
                     'is_earned': True,
                     'user': self.user,
@@ -140,9 +140,10 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
 
     async def send_notifications(self, event):
         translation.activate(self.language)
-        message = _(event['text']['message'])
+        message = _(event['message'])
         print(f"Sending message to {self.user.id}: {message}")
         await self.send(text_data=json.dumps({
+            'user_achievement_id': event['user_achievement_id'],
             'message': message
         }))
 
@@ -153,7 +154,7 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         sum_time = asyncio.create_task(self.summary_time())
         not_shown_achievements = asyncio.create_task(self.fetch_not_shown_achievements())
         data1, data2, data3, data4 = await asyncio.gather(sum_logged_in_task, actual_logged_in_task, sum_time,
-                                                    not_shown_achievements
+                                                          not_shown_achievements
                                                           )
         self.sum_logged_in_achievements = data1
         self.actual_logged_in_achievements = data2
@@ -198,7 +199,6 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
             'achievement__minutes',
             'achievement__message',
         )
-
 
         return list(achievements_with_user_ids)
         # return list(Achievement.objects.filter(
