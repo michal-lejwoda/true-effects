@@ -39,7 +39,7 @@ const SettingsDimensionItems = (props) => {
         Object.keys(dimensionConfig).forEach(key => {
             setFieldValue(key, dimensionConfig[key]);
         });
-    }, [props.userDimensionConfiguration]);
+    }, [props.userDimensionConfiguration, setFieldValue]);
 
     const handlePutSettingsDimensions = (values) => {
         const data = {

@@ -18,9 +18,8 @@ import {BoxLoading} from "react-loadingg";
 ReactDOM.render(
     <CookiesProvider>
         <Provider store={store}>
-            {/*<StrictMode>*/}
+            <StrictMode>
                 <BrowserRouter>
-                    {/*<LanguageProvider>*/}
                     <Switch>
                         <Suspense fallback={<BoxLoading/>}>
                             <Route exact path="/login" component={Login}/>
@@ -30,9 +29,8 @@ ReactDOM.render(
                             <Route component={DefaultContainer}/>
                         </Suspense>
                     </Switch>
-                    {/*</LanguageProvider>*/}
                 </BrowserRouter>
-            {/*</StrictMode>*/}
+            </StrictMode>
         </Provider>
     </CookiesProvider>,
     document.getElementById('root')
