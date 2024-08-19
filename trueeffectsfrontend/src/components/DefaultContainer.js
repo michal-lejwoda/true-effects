@@ -29,6 +29,7 @@ import {
     getUserDimensionsForCreate
 } from '../redux/actions/trainingActions';
 import AchievementNotificationContainer from "./achievement_modals/AchievementNotificationContainer";
+import AchievementsSummary from "./main_components/AchievementsSummary";
 
 
 const DefaultContainer = (props) => {
@@ -88,6 +89,7 @@ const DefaultContainer = (props) => {
                     <Route path="/training/:trainingId" component={Training}/>
                     <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
                     <Route path="/create_training" component={CreateTraining}/>
+                    <Route path="/achievements" component={AchievementsSummary}/>
                     <BackToTrainingModal
                         handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
                         showBackToTrainingModal={showBackToTrainingModal}

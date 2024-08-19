@@ -4,6 +4,7 @@ import {faDumbbell} from "@fortawesome/fontawesome-free-solid";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
 import {
+    handleMoveToAchievements,
     handleMoveToCreateTraining,
     handleMoveToDashboard,
     handleMovetoDimensions,
@@ -85,6 +86,10 @@ const Navbar = (props) => {
                     onClick={() => handleMoveToCreateTraining(history)}>
                     <button className="nav_bar__button">{t("Training Creator")}</button>
                 </li>
+                <li className="nav_bar__element nav_bar__desktop__element"
+                    onClick={() => handleMoveToAchievements(history)}>
+                    <button className="nav_bar__button">{t("Achievements")}</button>
+                </li>
                 <li className="nav_bar__element nav_bar__desktop__element" onClick={() => handleMovetoGoals(history)}>
                     <button className="nav_bar__button">{t("Goals")}</button>
                 </li>
@@ -116,6 +121,11 @@ const Navbar = (props) => {
                     onClick={() => handleMoveToMobileCreateTraining(history, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Training Creator")}
                     </button>
+                </li>
+                <li className="nav_bar__element nav_bar__mobile__element" onClick={() => {
+                    handleMoveToMobileAchievements(history, isMobileNavOpen, setIsMobileNavOpen)
+                }}>
+                    <button className="nav_bar__button">{t("Achievements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element" onClick={() => {
                     handleMoveToMobileGoals(history, isMobileNavOpen, setIsMobileNavOpen)

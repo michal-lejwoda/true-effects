@@ -4,14 +4,14 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import 'moment/locale/pl';
+import 'moment/locale/de';
 import "../../new_sass/scheduler.scss"
 import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
 import {useHistory} from "react-router-dom";
 import {BoxLoading} from "react-loadingg";
 import {handleMoveToModifyTraining} from "../helpers/history_helpers";
 import {useTranslation} from "react-i18next";
-
-require('moment/locale/pl.js')
+import i18n from "i18next";
 
 const Scheduler = (props) => {
     const {t} = useTranslation();
@@ -40,7 +40,7 @@ const Scheduler = (props) => {
             </div>
             <div className="schedule">
                 <Calendar
-                    culture={t("language_code")}
+                    culture={i18n.language}
                     views={['month']}
                     selectable={true}
                     events={events}

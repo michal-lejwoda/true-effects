@@ -61,8 +61,16 @@ export const handleMoveToCreateTraining = (history) =>{
     history.push("/create_training")
 }
 
+export const handleMoveToAchievements = (history) => {
+    history.push("/achievements")
+}
+
 export const handleMoveToMobileCreateTraining = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
     history.push("/create_training");
+    setIsMobileNavOpen(!isMobileNavOpen)
+}
+export const handleMoveToMobileAchievements = (history, isMobileNavOpen, setIsMobileNavOpen) =>{
+    history.push("/achievements");
     setIsMobileNavOpen(!isMobileNavOpen)
 }
 

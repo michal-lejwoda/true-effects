@@ -61,6 +61,7 @@ const SettingsDimensionItems = (props) => {
                 props.setSuccessModal(true)
             })
     }
+    // Todo Translate
 
     return props.userDimensionConfigurationLoaded ? (
         <form onSubmit={handleSubmit}>
