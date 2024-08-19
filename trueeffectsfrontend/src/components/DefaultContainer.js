@@ -1,5 +1,5 @@
 import {Route, useHistory} from 'react-router-dom';
-import React, {Suspense, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
 import {getUser, loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
@@ -11,7 +11,6 @@ import Dimensions from './main_components/Dimensions';
 import Goals from './main_components/Goals';
 import CreateTraining from './main_components/CreateTraining';
 import Dashboard from './main_components/Dashboard';
-import {BoxLoading} from 'react-loadingg';
 import {useAuth} from './hooks/auth/useAuth';
 import BackToTrainingModal from './default_components/modals/BackToTrainingModal';
 import {useCookies} from 'react-cookie';
@@ -78,29 +77,25 @@ const DefaultContainer = (props) => {
 
     return (
         <>
-
-
             {props.token && (
                 <>
-                    {/*<Suspense fallback={<BoxLoading/>}>*/}
-                         <Navbar/>
-                        <Route exact path="/" component={Dashboard}/>
-                        <Route path="/goals" component={Goals}/>
-                        <Route path="/dimensions" component={Dimensions}/>
-                        <Route path="/settings" component={Settings}/>
-                        <Route path="/scheduler" component={Scheduler}/>
-                        <Route path="/training/:trainingId" component={Training}/>
-                        <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
-                        <Route path="/create_training" component={CreateTraining}/>
-                        <BackToTrainingModal
-                            handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
-                            showBackToTrainingModal={showBackToTrainingModal}
-                            setShowBackToTrainingModal={setShowBackToTrainingModal}
-                            history={history}
-                        />
-                        <AchievementNotificationContainer>
-                        </AchievementNotificationContainer>
-                    {/*</Suspense>*/}
+                    <Navbar/>
+                    <Route exact path="/" component={Dashboard}/>
+                    <Route path="/goals" component={Goals}/>
+                    <Route path="/dimensions" component={Dimensions}/>
+                    <Route path="/settings" component={Settings}/>
+                    <Route path="/scheduler" component={Scheduler}/>
+                    <Route path="/training/:trainingId" component={Training}/>
+                    <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
+                    <Route path="/create_training" component={CreateTraining}/>
+                    <BackToTrainingModal
+                        handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
+                        showBackToTrainingModal={showBackToTrainingModal}
+                        setShowBackToTrainingModal={setShowBackToTrainingModal}
+                        history={history}
+                    />
+                    <AchievementNotificationContainer>
+                    </AchievementNotificationContainer>
                 </>
             )
             }
