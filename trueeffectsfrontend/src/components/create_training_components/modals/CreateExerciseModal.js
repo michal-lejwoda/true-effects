@@ -6,6 +6,7 @@ import {createExerciseModalValidation} from "../../validation/validation";
 import {useTranslation} from "react-i18next";
 
 const CreateExerciseModal = (props) => {
+
     const {t} = useTranslation();
     const {values, handleChange, handleSubmit, setErrors, errors} = useFormik({
         initialValues: {
@@ -21,11 +22,13 @@ const CreateExerciseModal = (props) => {
     const handleCreateExercise = () => {
         props.createUserExercise(values)
             .then(res => {
+                props.setFieldValue('exercise', res.data)
                 props.handleCloseCreateExerciseModal()
                 props.getExercises("")
                     .then(response => {
                         props.setDefaultExercises(response)
                     })
+
             })
             .catch(error => {
                 setErrors(error.response.data)

@@ -8,7 +8,7 @@ import {
     handleMoveToCreateTraining,
     handleMoveToDashboard,
     handleMovetoDimensions,
-    handleMovetoGoals,
+    handleMovetoGoals, handleMoveToMobileAchievements,
     handleMoveToMobileCreateTraining,
     handleMoveToMobileDashboard,
     handleMovetoMobileDimensions,

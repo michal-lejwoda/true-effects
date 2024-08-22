@@ -1,7 +1,7 @@
 import {createMultiSeriesValidation, createSingleSeriesValidation} from "../../validation/validation";
 
 export const useCreateMultiSeries = (props, values, setFieldValue, setErrors) => {
-    const {multiSeries, setMultiSeries} = props;
+    const {multiSeries, setMultiSeries,} = props;
     const {exercise, series_count} = values;
 
     const handleChangeExercise = (exerciseObject) => {

@@ -15,7 +15,6 @@ import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries
 import {convertDate} from "../helpers/function_helpers";
 import CreatedTrainingModal from "../create_training_components/modals/CreatedTrainingModal";
 import {useHistory} from "react-router-dom";
-import CreateExerciseModal from "../create_training_components/modals/CreateExerciseModal";
 import {useCreateTraining} from "../hooks/training/useCreateTraining";
 import '../../new_sass/create_training.scss'
 import {useTranslation} from "react-i18next";
@@ -73,7 +72,11 @@ const CreateTraining = (props) => {
                                setMultiSeriesIndex={setMultiSeriesIndex} getExercises={props.getExercises}
                                setShowExerciseModal={setShowExerciseModal}
                                defaultExercises={defaultExercises}
-
+                               setDefaultExercises={setDefaultExercises}
+                               history={history}
+                               showCreateExerciseModal={showCreateExerciseModal}
+                               handleCloseCreateExerciseModal={handleCloseCreateExerciseModal}
+                               createUserExercise={props.createUserExercise}
             />
             <CreatedTrainingModal history={history}
                                   showCreatedTrainingModal={showCreatedTrainingModal}
@@ -84,14 +87,6 @@ const CreateTraining = (props) => {
                                   getTrainings={props.getTrainings}
                                   getUpcomingTrainings={props.getUpcomingTrainings}
                                   getLastCompletedTrainings={getLastCompletedTrainings}
-            />
-            <CreateExerciseModal history={history}
-                                 showCreateExerciseModal={showCreateExerciseModal}
-                                 handleCloseCreateExerciseModal={handleCloseCreateExerciseModal}
-                                 createUserExercise={props.createUserExercise}
-                                 getExercises={props.getExercises}
-                                 setDefaultExercises={setDefaultExercises}
-
             />
         </div>);
 };
