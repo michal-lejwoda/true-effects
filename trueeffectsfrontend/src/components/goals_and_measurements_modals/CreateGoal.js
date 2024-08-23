@@ -46,7 +46,7 @@ export function CreateGoal(props) {
                     </Modal.Header>
                     <Modal.Body className="content create-goal__content">
                         <div className="inputs content__inputs">
-                            <div className="inputs__datepicker "><DatePicker locale='pl'
+                            <div className="inputs__datepicker "><DatePicker locale={t('actual_language')}
                                                                              className="animated-datepicker"
                                                                              placeholderText={t("Completion date")}
                                                                              dateFormat='dd/MM/yyyy'
@@ -54,12 +54,12 @@ export function CreateGoal(props) {
                                                                              onChange={date => handleDateForGoals(date, setFieldValue)}
                             />
                             </div>
-                            {errors.finishDate && <p className="inputs__error--red">{errors.finishDate}</p>}
+                            {errors.finishDate && <p className="inputs__error--red">{t(errors.finishDate)}</p>}
                             <div className="inputs__goal-name animatedInput">
                                 <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
                                 <span>{t("Training goal name")}</span>
                             </div>
-                            {errors.goal && <p className="inputs__error--red inputs__error--start">{errors.goal}</p>}
+                            {errors.goal && <p className="inputs__error--red inputs__error--start">{t(errors.goal)}</p>}
                             <div className="inputs__goal-description animatedInput">
 
                                 <textarea name="description" cols="50" rows="10" value={values.description}
@@ -67,7 +67,7 @@ export function CreateGoal(props) {
                                 <span>{t("Goal description")}</span>
                             </div>
                             {errors.description &&
-                                <p className="inputs__error--red inputs__error--start">{errors.description}</p>}
+                                <p className="inputs__error--red inputs__error--start">{t(errors.description)}</p>}
                         </div>
                     </Modal.Body>
                     <Modal.Footer className="footer create-goal__footer">

@@ -62,7 +62,7 @@ const CreateMultiSeries = (props) => {
                                      defaultOptions={props.defaultExercises}
                                      styles={customStyles}/>
                     </div>
-                    {errors.exercise && <p className="inputs__errors">{errors.exercise}</p>}
+                    {errors.exercise && <p className="inputs__errors">{t(errors.exercise)}</p>}
                     <div className="inputs__button">
                         <button className="standard-button"
                                 onClick={() => props.setShowExerciseModal(true)}>{t("Create exercise")}
@@ -74,45 +74,45 @@ const CreateMultiSeries = (props) => {
                                type="number"/>
                         <span>{t("Additional weight")}</span>
                     </div>
-                    {errors.extra_weight && <p>{errors.extra_weight}</p>}
+                    {errors.extra_weight && <p>{t(errors.extra_weight)}</p>}
                     <div className="inputs__rest animatedInput">
                         <input name="rest" onChange={handleChange} value={values.rest} required="required"
                                type="number"/>
                         <span>{t("Break time")}</span>
                     </div>
-                    {errors.rest && <p className="inputs__errors">{errors.rest}</p>}
+                    {errors.rest && <p className="inputs__errors">{t(errors.rest)}</p>}
                     <div className="inputs__reps animatedInput">
                         <input name="reps" onChange={handleChange} value={values.reps} required="required"
                                type="number"/>
                         <span>{"Repetitions number"}</span>
                     </div>
-                    {errors.reps && <p className="inputs__errors">{errors.reps}</p>}
+                    {errors.reps && <p className="inputs__errors">{t(errors.reps)}</p>}
                     <div className="inputs__concentric_phase animatedInput">
                         <input name="concentric_phase" onChange={handleChange} value={values.concentric_phase}
                                required="required" type="number"/>
                         <span>{t("Concentric phase")}</span>
                     </div>
-                    {errors.concentric_phase && <p className="inputs__errors">{errors.concentric_phase}</p>}
+                    {errors.concentric_phase && <p className="inputs__errors">{t(errors.concentric_phase)}</p>}
                     <div className="inputs__pause_after_concentric_phase animatedInput">
                         <input name="pause_after_concentric_phase" onChange={handleChange}
                                value={values.pause_after_concentric_phase} required="required" type="number"/>
                         <span>{t("Pause after concentric phase")}</span>
                     </div>
                     {errors.pause_after_concentric_phase &&
-                        <p className="inputs__errors">{errors.pause_after_concentric_phase}</p>}
+                        <p className="inputs__errors">{t(errors.pause_after_concentric_phase)}</p>}
                     <div className="inputs__eccentric_phase animatedInput">
                         <input name="eccentric_phase" onChange={handleChange} value={values.eccentric_phase}
                                required="required" type="number"/>
                         <span>{t("Eccentric phase")}</span>
                     </div>
-                    {errors.eccentric_phase && <p className="inputs__errors">{errors.eccentric_phase}</p>}
+                    {errors.eccentric_phase && <p className="inputs__errors">{t(errors.eccentric_phase)}</p>}
                     <div className="inputs__pause_after_eccentric_phase animatedInput">
                         <input name="pause_after_eccentric_phase" onChange={handleChange}
                                value={values.pause_after_eccentric_phase} required="required" type="number"/>
                         <span>{t("Pause after eccentric phase")}</span>
                     </div>
                     {errors.pause_after_eccentric_phase &&
-                        <p className="inputs__errors">{errors.pause_after_eccentric_phase}</p>}
+                        <p className="inputs__errors">{t(errors.pause_after_eccentric_phase)}</p>}
                     <div className="inputs__button">
                         <button className="standard-button"
                                 onClick={addToSingleSeries}>{t("Add single series")}</button>
@@ -122,7 +122,7 @@ const CreateMultiSeries = (props) => {
                                value={values.series_count} required="required" type="number"/>
                         <span>{t("Series number")}</span>
                     </div>
-                    {errors.series_count && <p className="inputs__errors">{errors.series_count}</p>}
+                    {errors.series_count && <p className="inputs__errors">{t(errors.series_count)}</p>}
                     <div className="inputs__button">
                         <button className="standard-button"
                                 onClick={addMultiSingleSeries}>{t("Add a few series")}</button>

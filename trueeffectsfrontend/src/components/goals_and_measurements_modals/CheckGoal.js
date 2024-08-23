@@ -85,19 +85,19 @@ export function CheckGoal(props) {
                                             onChange={date => handleDateForGoals(date, setFieldValue)}
                                 />
                             </div>
-                            {errors.finishDate && <p className="inputs__error">{errors.finishDate}</p>}
+                            {errors.finishDate && <p className="inputs__error">{t(errors.finishDate)}</p>}
                             <div className="inputs__goal-name animatedInput">
                                 <input name="goal" type="text" value={values.goal} onChange={handleChange}/>
                                 <span>{t("Training goal name")}</span>
                             </div>
-                            {errors.goal && <p className="inputs__error">{errors.goal}</p>}
+                            {errors.goal && <p className="inputs__error">{t(errors.goal)}</p>}
                             <div className="inputs__goal-description animatedInput">
 
                                 <textarea name="description" cols="50" rows="10" value={values.description}
                                           onChange={handleChange}></textarea>
                                 <span>{t("Goal description")}</span>
                             </div>
-                            {errors.description && <p className="inputs__error">{errors.description}</p>}
+                            {errors.description && <p className="inputs__error">{t(errors.description)}</p>}
                             <div className="inputs__goal-completed">
                                 <FormControlLabel control={<Checkbox onChange={handleChange} checked={values.completed}
                                                                      name="completed"/>}

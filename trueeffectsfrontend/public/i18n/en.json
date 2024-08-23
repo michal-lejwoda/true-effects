@@ -92,5 +92,18 @@
   "Create exercise": "Create exercise",
   "Back to training": "Back to Training",
   "You didn't finish your last workout. Would you like to resume it ?": "You didn't finish your last workout. Would you like to resume it ?",
-  "Go to the calendar": "Go to the calendar"
+  "Go to the calendar": "Go to the calendar",
+  "Select exercise": "Select exercise",
+  "Show weight": "Show weight",
+  "Show growth": "Show growth",
+  "Show left biceps": "Show left biceps",
+  "Show right biceps": "Show right biceps",
+  "Show left forearm": "Show left forearm",
+  "Show right forearm": "Show right forearm",
+  "Show left leg": "Show left leg",
+  "Show right leg": "Show right leg",
+  "Show bodyfat": "Show bodyfat",
+  "Save settings": "Save settings"
+
+
 }

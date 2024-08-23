@@ -9,9 +9,11 @@ import {
 } from "../../redux/actions/trainingActions";
 import {settingsDimensionValidation} from "../validation/validation";
 import {BoxLoading} from "react-loadingg";
+import {useTranslation} from "react-i18next";
 
 const SettingsDimensionItems = (props) => {
     // Todo handle settings and refresh
+    const {t} = useTranslation();
     const {values, setFieldValue, handleSubmit, handleChange} = useFormik({
         initialValues: {
             id: props.userDimensionConfiguration.id,
@@ -65,7 +67,6 @@ const SettingsDimensionItems = (props) => {
 
     return props.userDimensionConfigurationLoaded ? (
         <form onSubmit={handleSubmit}>
-            {/*<Form onSubmit={handleSubmit}>*/}
             <h2 className="settings__title">Ustawienia pomiarów</h2>
             <div className="settings__dimensions__elements">
                 <Form.Check
@@ -75,7 +76,7 @@ const SettingsDimensionItems = (props) => {
                     name="weight"
                     onChange={handleChange}
                     checked={values.weight}
-                    label="Wyświetlaj wagę"
+                    label={t("Show weight")}
                 />
                 <Form.Check
                     type="switch"
@@ -84,7 +85,7 @@ const SettingsDimensionItems = (props) => {
                     name="growth"
                     onChange={handleChange}
                     checked={values.growth}
-                    label="Wyświetlaj wzrost"
+                    label={t("Show growth")}
                 />
                 <Form.Check
                     type="switch"
@@ -93,7 +94,7 @@ const SettingsDimensionItems = (props) => {
                     name="left_biceps"
                     onChange={handleChange}
                     checked={values.left_biceps}
-                    label="Wyświetlaj lewy biceps"
+                    label={t("Show left biceps")}
                 />
                 <Form.Check
                     type="switch"
@@ -102,7 +103,7 @@ const SettingsDimensionItems = (props) => {
                     name="right_biceps"
                     onChange={handleChange}
                     checked={values.right_biceps}
-                    label="Wyświetlaj prawy biceps"
+                    label={t("Show right biceps")}
                 />
                 <Form.Check
                     type="switch"
@@ -111,7 +112,7 @@ const SettingsDimensionItems = (props) => {
                     name="left_forearm"
                     onChange={handleChange}
                     checked={values.left_forearm}
-                    label="Wyświetlaj lewe przedramię"
+                    label={t("Show left forearm")}
                 />
                 <Form.Check
                     type="switch"
@@ -120,7 +121,7 @@ const SettingsDimensionItems = (props) => {
                     name="right_forearm"
                     onChange={handleChange}
                     checked={values.right_forearm}
-                    label="Wyświetlaj prawe przedramię"
+                    label={t("Show right forearm")}
                 />
                 <Form.Check
                     type="switch"
@@ -129,7 +130,7 @@ const SettingsDimensionItems = (props) => {
                     name="left_leg"
                     onChange={handleChange}
                     checked={values.left_leg}
-                    label="Wyświetlaj lewą nogę"
+                    label={t("Show left leg")}
                 />
                 <Form.Check
                     type="switch"
@@ -138,7 +139,7 @@ const SettingsDimensionItems = (props) => {
                     name="right_leg"
                     onChange={handleChange}
                     checked={values.right_leg}
-                    label="Wyświetlaj prawą nogę"
+                    label={t("Show right leg")}
                 />
                 <Form.Check
                     type="switch"
@@ -147,11 +148,11 @@ const SettingsDimensionItems = (props) => {
                     name="bodyfat"
                     onChange={handleChange}
                     checked={values.bodyfat}
-                    label="Wyświetlaj tkanke tłuszczową"
+                    label={t("Show bodyfat")}
                 />
             </div>
             <div className="settings__accept-button">
-                <button className="standard-button" type="submit">Zapisz ustawienia</button>
+                <button className="standard-button" type="submit">{t("Save settings")}</button>
             </div>
         </form>
     ) : props.userDimensionConfigurationLoading && (
