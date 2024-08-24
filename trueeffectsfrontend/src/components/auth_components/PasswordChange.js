@@ -10,11 +10,13 @@ import {useFormik} from "formik";
 import {changePasswordviaTokenValidation} from "../validation/validation";
 import {handleMoveToLogin, handleMoveToRegister} from "../helpers/history_helpers";
 import {useHistory, useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 const PasswordChange = (props) => {
     const {token} = useParams();
+    const {t} = useTranslation();
     const history = useHistory()
-    const {values, handleChange, handleSubmit, errors} = useFormik({
+    const {handleChange, handleSubmit, errors} = useFormik({
         initialValues: {
             email: "",
             new_password1: "",
@@ -28,11 +30,11 @@ const PasswordChange = (props) => {
             data['token'] = token
             props.postPasswordChangeWithToken(data)
                 .then(() => {
-                    alert("Hasło zostało zmienione")
+                    alert(t("Password has been changed"))
                     handleMoveToLogin(history)
                 })
                 .catch(() => {
-                    alert("Nie udało się zmienić hasła. Spróbuj ponownie")
+                    alert(t("Can't change password. Try again"))
                 })
         },
     });
@@ -44,23 +46,23 @@ const PasswordChange = (props) => {
             <div className="container login__container">
                 <div className="header--space-between container__header">
                     <div className="header__element" onClick={() => handleMoveToLogin(history)}>
-                        <FontAwesomeIcon icon={faArrowLeft}/> Zaloguj się
+                        <FontAwesomeIcon icon={faArrowLeft}/>{t("Log in")}
                     </div>
                     <div className="header__element" onClick={() => handleMoveToRegister(history)}>
-                        Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
+                        {t("Register")}<FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
                 <div className="content container__content">
                     <form className="form content__form" onSubmit={handleSubmit}
                           noValidate autoComplete="off">
-                        <div className="form__title">Zmień hasło</div>
+                        <div className="form__title">{t("Change password")}</div>
                         <div className="form__username animatedInput">
                             <input
                                 name="email"
                                 onChange={handleChange}
                                 type="email"
                             />
-                            <span>Podaj Email</span>
+                            <span>{t("Email address")}</span>
                         </div>
                         <div className="errors form__errors">
                             {errors.email && <p>{errors.email}</p>}
@@ -71,10 +73,10 @@ const PasswordChange = (props) => {
                                 onChange={handleChange}
                                 type="email"
                             />
-                            <span>Podaj nowe hasło</span>
+                            <span>{t("New password")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.email && <p>{errors.email}</p>}
+                            {errors.new_password1 && <p>{errors.new_password1}</p>}
                         </div>
                         <div className="form__username animatedInput">
                             <input
@@ -82,14 +84,14 @@ const PasswordChange = (props) => {
                                 onChange={handleChange}
                                 type="email"
                             />
-                            <span>Podaj nowe hasło ponownie</span>
+                            <span>{t("Repeat new password")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.email && <p>{errors.email}</p>}
+                            {errors.new_password2 && <p>{errors.new_password2}</p>}
                         </div>
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">
-                                Zmień hasło
+                                {t("Change password")}
                             </button>
                         </div>
                     </form>

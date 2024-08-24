@@ -67,7 +67,7 @@ const SettingsDimensionItems = (props) => {
 
     return props.userDimensionConfigurationLoaded ? (
         <form onSubmit={handleSubmit}>
-            <h2 className="settings__title">Ustawienia pomiarów</h2>
+            <h2 className="settings__title">{t("Measurements settings")}</h2>
             <div className="settings__dimensions__elements">
                 <Form.Check
                     type="switch"

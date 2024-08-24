@@ -92,5 +92,16 @@
   "Create exercise": "Stwórz ćwiczenie",
   "Back to training": "Powróć do treningu",
   "You didn't finish your last workout. Would you like to resume it ?": "Nie skończyłeś ostatniego treningu. Czy chciałbyś do niego wrócić ?",
-  "Go to the calendar": "Idź do kalendarza"
+  "Go to the calendar": "Idź do kalendarza",
+  "Select exercise": "Wybierz ćwiczenie",
+  "Show weight": "Pokazuj wagę",
+  "Show growth": "Pokazuj wzrost",
+  "Show left biceps": "Pokazuj lewy biceps",
+  "Show right biceps": "Pokazuj prawy biceps",
+  "Show left forearm": "Pokazuj lewe przedramie",
+  "Show right forearm": "Pokazuj prawe przedramie",
+  "Show left leg": "Pokazuj lewą noge",
+  "Show right leg": "Pokazuj prawą nogę",
+  "Show bodyfat": "Pokazuj tkanke tluszczowa",
+  "Save settings": "Zapisz ustawienia"
 }

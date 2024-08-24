@@ -92,5 +92,16 @@
   "Create exercise": "Übung erstellen",
   "Back to training": "Zurück zur Ausbildung",
   "You didn't finish your last workout. Would you like to resume it ?": "Sie haben Ihr letztes Training nicht beendet. Möchten Sie es fortsetzen?",
-  "Go to the calendar": "Gehe zum Kalender"
+  "Go to the calendar": "Gehe zum Kalender",
+  "Select exercise": "Übung auswählen",
+  "Show weight": "Gewicht anzeigen",
+  "Show growth": "Wachstum anzeigen",
+  "Show left biceps": "Linken Bizeps anzeigen",
+  "Show right biceps": "Rechten Bizeps anzeigen",
+  "Show left forearm": "Linken Unterarm anzeigen",
+  "Show right forearm": "Rechten Unterarm anzeigen",
+  "Show left leg": "Linkes Bein anzeigen",
+  "Show right leg": "Rechtes Bein anzeigen",
+  "Show bodyfat": "Körperfett anzeigen",
+  "Save settings": "Einstellungen speichern"
 }

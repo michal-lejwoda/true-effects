@@ -103,7 +103,12 @@
   "Show left leg": "Show left leg",
   "Show right leg": "Show right leg",
   "Show bodyfat": "Show bodyfat",
-  "Save settings": "Save settings"
-
+  "Save settings": "Save settings",
+  "Measurements settings": "Measurements settings",
+  "Change password": "Change password",
+  "New password": "New password",
+  "Repeat new password": "Repeat new password",
+  "Password has been changed": "Password has been changed",
+  "Can't change password. Try again": "Can't change password. Try again"
 
 }

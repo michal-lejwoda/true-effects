@@ -7,8 +7,10 @@ import {postResetPassword} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {useResetPassword} from "../hooks/auth/useResetPassword";
+import {useTranslation} from "react-i18next";
 
 const ResetPassword = (props) => {
+    const {t} = useTranslation();
     const [handleMoveToRegister, handleMoveToLogin, handleChange, handleSubmit, errors] = useResetPassword(props)
     return (
         <div className="login">

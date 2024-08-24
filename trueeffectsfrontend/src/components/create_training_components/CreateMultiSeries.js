@@ -55,7 +55,7 @@ const CreateMultiSeries = (props) => {
                 <h1 className="create-series__title">{t("Create series")}</h1>
                 <div className="inputs create-series__inputs">
                     <div className="inputs__select">
-                        <AsyncSelect placeholder="Wybierz ćwiczenie" name="exercise" onChange={handleChangeExercise}
+                        <AsyncSelect placeholder={t("Select exercise")} name="exercise" onChange={handleChangeExercise}
                                      value={values.exercise}
                                      loadOptions={loadExercises}
                                      className="select-input"
