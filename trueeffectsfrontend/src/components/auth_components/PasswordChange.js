@@ -65,7 +65,7 @@ const PasswordChange = (props) => {
                             <span>{t("Email address")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.email && <p>{errors.email}</p>}
+                            {errors.email && <p>{t(errors.email)}</p>}
                         </div>
                         <div className="form__username animatedInput">
                             <input
@@ -76,7 +76,7 @@ const PasswordChange = (props) => {
                             <span>{t("New password")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.new_password1 && <p>{errors.new_password1}</p>}
+                            {errors.new_password1 && <p>{t(errors.new_password1)}</p>}
                         </div>
                         <div className="form__username animatedInput">
                             <input
@@ -87,7 +87,7 @@ const PasswordChange = (props) => {
                             <span>{t("Repeat new password")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.new_password2 && <p>{errors.new_password2}</p>}
+                            {errors.new_password2 && <p>{t(errors.new_password2)}</p>}
                         </div>
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">

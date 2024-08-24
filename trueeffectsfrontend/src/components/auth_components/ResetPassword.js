@@ -20,30 +20,31 @@ const ResetPassword = (props) => {
             <div className="container login__container">
                 <div className="header--space-between container__header">
                     <div className="header__element" onClick={handleMoveToLogin}>
-                       <FontAwesomeIcon icon={faArrowLeft}/> Zaloguj się
+                       <FontAwesomeIcon icon={faArrowLeft}/>
+                        {t("Log in")}
                     </div>
                     <div className="header__element" onClick={handleMoveToRegister}>
-                        Zarejestruj się <FontAwesomeIcon icon={faArrowRight}/>
+                        {t("Register")}<FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
                 <div className="content container__content">
                     <form className="form content__form" onSubmit={handleSubmit}
                           noValidate autoComplete="off">
-                        <div className="form__title">Zresetuj hasło</div>
+                        <div className="form__title">{t("Reset password")}</div>
                         <div className="form__username animatedInput">
                             <input
                                 name="username"
                                 onChange={handleChange}
                                 type="email"
                             />
-                            <span>Email</span>
+                            <span>{t("Email address")}</span>
                         </div>
                         <div className="errors form__errors">
-                            {errors.email && <p>{errors.email}</p>}
+                            {errors.email && <p>{t(errors.email)}</p>}
                         </div>
                         <div className="button form__button">
                             <button className="button__login square-buttons" type="submit">
-                                Zaloguj się
+                                {t("Reset password")}
                             </button>
                         </div>
                     </form>
