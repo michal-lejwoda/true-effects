@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
-from django.db.models import Case, When, Value, BooleanField, OuterRef, Exists
+from django.db.models import OuterRef, Exists, Subquery
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -22,6 +22,7 @@ class CustomAuthToken(ObtainAuthToken, GenericViewSet):
         request.session['login_time'] = timezone.now().isoformat()
         return Response(user.return_login_dict_with_token)
 
+
 class ChangeDefaultLanguage(GenericViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = ChangeLanguageSerializer
@@ -37,6 +38,7 @@ class ChangeDefaultLanguage(GenericViewSet):
             print(serializer.errors)
         return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
 class GetUserViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
     serializer_class = GetUserSerializer
@@ -45,6 +47,7 @@ class GetUserViewSet(GenericViewSet):
         user = self.request.user
         serializer = self.serializer_class(user)
         return Response(serializer.data)
+
 
 class ConfirmAchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
@@ -63,20 +66,22 @@ class ConfirmAchievementViewSet(GenericViewSet):
 
 class AchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
-    def list(self,request):
+
+    def list(self, request):
         user = self.request.user
         earned_subquery = UserAchievement.objects.filter(
             user=user,
             achievement=OuterRef('pk'),
             is_earned=True
         )
-
         achievements = Achievement.objects.annotate(
-            earned=Exists(earned_subquery)
+            earned=Exists(earned_subquery),
+            date_earned=Subquery(
+                earned_subquery.values('date_earned')[:1]
+            )
         ).order_by('type_achievement', 'minutes')
         serializer = AchievementSerializer(achievements, many=True)
         return Response(serializer.data)
-
 
 
 class ChangePasswordViewSet(GenericViewSet):

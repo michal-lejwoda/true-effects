@@ -2,13 +2,7 @@ import {Route, useHistory} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
-import {
-    getAchievements,
-    getUser,
-    getUserAchievements,
-    loadToken,
-    postLogoutAuth
-} from '../redux/actions/authenticationActions';
+import {getUser, getUserAchievements, loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
 import Scheduler from './main_components/Scheduler';
 import Training from './main_components/Training';
 import ModifyTraining from './main_components/ModifyTraining';

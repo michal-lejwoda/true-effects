@@ -9,10 +9,11 @@ from authorization.models import CustomUser
 
 class AchievementSerializer(serializers.ModelSerializer):
     earned = serializers.BooleanField()
+    date_earned = serializers.DateTimeField()
 
     class Meta:
         model = Achievement
-        fields = ['id', 'name', 'description', 'earned', 'image', 'type_achievement']
+        fields = ['id', 'name', 'description', 'earned', 'date_earned', 'image', 'type_achievement']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)

@@ -1,0 +1,40 @@
+.achievements {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+
+  &__title{
+    padding-top: 2rem;
+    padding-bottom:2rem;
+    text-align: center;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 50%;
+  }
+
+  &__list {
+    list-style: none;
+    border: 2px solid orange;
+    border-bottom: 1px solid orange;
+    padding: 10px;
+    min-width: 50%;
+    text-align: start;
+    &--normal{
+      background-color: rgba(0, 0, 0, .4);
+    }
+
+    &__achieved {
+      color: #909090;
+    }
+  }
+}
+
+//.notachieved {
+//  background-color: rgba(0, 0, 0, .2);
+//}
