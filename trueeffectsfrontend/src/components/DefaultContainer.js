@@ -2,7 +2,13 @@ import {Route, useHistory} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
-import {getUser, loadToken, postLogoutAuth} from '../redux/actions/authenticationActions';
+import {
+    getAchievements,
+    getUser,
+    getUserAchievements,
+    loadToken,
+    postLogoutAuth
+} from '../redux/actions/authenticationActions';
 import Scheduler from './main_components/Scheduler';
 import Training from './main_components/Training';
 import ModifyTraining from './main_components/ModifyTraining';
@@ -50,7 +56,8 @@ const DefaultContainer = (props) => {
                 props.getCompletedGoals(),
                 props.getUpcomingTrainings(),
                 props.getLastCompletedTrainings(),
-                props.getUser()
+                props.getUser(),
+                props.getUserAchievements()
             ];
             await Promise.all(promises);
         } catch (error) {
@@ -124,5 +131,6 @@ export default connect(mapStateToProps, {
     loadToken,
     getLastCompletedTrainings,
     getUpcomingTrainings,
-    getUser
+    getUser,
+    getUserAchievements
 })(DefaultContainer);

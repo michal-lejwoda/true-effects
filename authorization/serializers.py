@@ -12,7 +12,7 @@ class AchievementSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Achievement
-        fields = ['id', 'name', 'description', 'earned']
+        fields = ['id', 'name', 'description', 'earned', 'image', 'type_achievement']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={'input_type': 'password'}, write_only=True)

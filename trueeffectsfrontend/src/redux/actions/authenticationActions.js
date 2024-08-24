@@ -6,7 +6,8 @@ import {
     REGISTER_ERROR,
     TOKEN_LOADED,
     USER_LOADED,
-    USER_LOADING
+    USER_LOADING,
+    GET_USER_ACHIEVEMENTS, GET_USER_ACHIEVEMENTS_FAILED
 } from './types';
 import axios from 'axios';
 import i18n from "i18next";
@@ -27,7 +28,7 @@ export const postResetPassword = (data) => (dispatch, getState) => {
         )
 }
 export const postConfirmAchievement = (user_achievement_id) => (dispatch, getState) => {
-    let token = getState().authentication.token
+    const token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     const data = {"user_achievement_id": user_achievement_id}
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/confirm_achievement/`, data)
@@ -37,6 +38,22 @@ export const postConfirmAchievement = (user_achievement_id) => (dispatch, getSta
         .catch(err => {
                 throw err
             }
+        )
+}
+
+export const getUserAchievements = () => (dispatch, getState) => {
+    const token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.get(`${TRUEEFFECTS_URL}/api/v1/achievements/`)
+        .then(res => dispatch(
+            {
+                type: GET_USER_ACHIEVEMENTS,
+                payload: res.data
+            }))
+        .catch(err => dispatch(
+            {
+                type: GET_USER_ACHIEVEMENTS_FAILED,
+            })
         )
 }
 

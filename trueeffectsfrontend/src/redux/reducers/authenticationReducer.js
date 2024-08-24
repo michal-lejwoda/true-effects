@@ -8,7 +8,7 @@ import {
     TOKEN_LOADED,
     USER_LOADED,
     USER_LOADING,
-    LANGUAGE_LOADED
+    LANGUAGE_LOADED, GET_USER_ACHIEVEMENTS, GET_USER_ACHIEVEMENTS_FAILED
 } from '../actions/types';
 
 const initialState = {
@@ -20,7 +20,9 @@ const initialState = {
     error_register: [],
     tokenloaded: false,
     error_register_name: '',
-    language_loaded: false
+    language_loaded: false,
+    achievements_summary: [],
+    achievements_summary_loaded: false
 
 };
 export default function authreducer(state = initialState, action) {
@@ -31,6 +33,17 @@ export default function authreducer(state = initialState, action) {
                 token: action.payload,
                 tokenloaded: true,
                 error: ''
+            }
+        case GET_USER_ACHIEVEMENTS:
+            return {
+                ...state,
+                achievements_summary: action.payload,
+                achievements_summary_loaded: true
+            }
+        case GET_USER_ACHIEVEMENTS_FAILED:
+            return {
+                ...state,
+                achievements_summary_loaded: true
             }
         case LANGUAGE_LOADED:
             return {

@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import PasswordChangeForm
-from django.db.models import Case, When, Value, BooleanField
+from django.db.models import Case, When, Value, BooleanField, OuterRef, Exists
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -65,13 +65,15 @@ class AchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
     def list(self,request):
         user = self.request.user
+        earned_subquery = UserAchievement.objects.filter(
+            user=user,
+            achievement=OuterRef('pk'),
+            is_earned=True
+        )
+
         achievements = Achievement.objects.annotate(
-            earned=Case(
-                When(userachievement__user=user, userachievement__is_earned=True, then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField(),
-            )
-        ).distinct()
+            earned=Exists(earned_subquery)
+        ).order_by('type_achievement', 'minutes')
         serializer = AchievementSerializer(achievements, many=True)
         return Response(serializer.data)
 
