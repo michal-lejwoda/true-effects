@@ -111,6 +111,8 @@
   "Password has been changed": "Password has been changed",
   "Can't change password. Try again": "Can't change password. Try again",
   "Achievement not achieved": "Achievement not achieved",
-  "Achievement achieved": "Achievement achieved"
+  "Achievement achieved": "Achievement achieved",
+  "Old password": "Old password",
+  "Password change": "Password change"
 
 }
