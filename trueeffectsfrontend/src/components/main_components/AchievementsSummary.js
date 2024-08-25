@@ -4,16 +4,15 @@ import '../../new_sass/achievements.scss'
 import {useTranslation} from "react-i18next";
 
 const AchievementsSummary = (props) => {
-    console.log(props.achievements_summary)
     const {t} = useTranslation();
     return (
         <div className="achievements">
             <div className="achievements__title">
                 <h1>{t("Achievements")}</h1>
             </div>
+            {props.achievements_summary.achievements &&
             <ul className="achievements__container">
-                {props.achievements_summary.map((el) => (
-                    <>
+                {props.achievements_summary.achievements.map((el) => (
                         <li className={`achievements__list ${el.earned ? "achievements__list--bold" : "achievements__list--normal"}`}
                             style={{fontWeight: el.earned && 'bold'}}
                             key={el.id}>
@@ -38,9 +37,10 @@ const AchievementsSummary = (props) => {
                                 )}
                             </div>
                         </li>
-                    </>
+
                 ))}
             </ul>
+            }
         </div>
     );
 };

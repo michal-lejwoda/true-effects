@@ -80,8 +80,18 @@ class AchievementViewSet(GenericViewSet):
                 earned_subquery.values('date_earned')[:1]
             )
         ).order_by('type_achievement', 'minutes')
+        earned_achievements_count = achievements.filter(
+            earned=True
+        ).count()
+        total_achievements = achievements.count()
         serializer = AchievementSerializer(achievements, many=True)
-        return Response(serializer.data)
+        response_data = {
+            'total_achievements': total_achievements,
+            'earned_achievements_count': earned_achievements_count,
+            'achievements': serializer.data
+        }
+
+        return Response(response_data)
 
 
 class ChangePasswordViewSet(GenericViewSet):
