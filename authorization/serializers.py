@@ -2,11 +2,11 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.core.validators import validate_email
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-
 from achievements.choices import LANGUAGES
 from achievements.models import Achievement
 from authorization.models import CustomUser
 
+#TODO Translate
 class AchievementSerializer(serializers.ModelSerializer):
     earned = serializers.BooleanField()
     date_earned = serializers.DateTimeField()
