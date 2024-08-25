@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRight} from '@fortawesome/fontawesome-free-solid';
 import {connect} from 'react-redux';
@@ -11,9 +11,11 @@ import {useTranslation} from "react-i18next";
 const Register = (props) => {
     const {t} = useTranslation();
     const [handleMoveToLogin, handleChange, handleSubmit, errors] = useRegister(props)
-    if (props.token !== null) {
-        props.history.push('/')
-    }
+    useEffect(() => {
+        if (props.token !== null) {
+            props.history.push('/');
+        }
+    }, [props.token, props.history]);
     return (
         <div className="register">
             <div className="authenticate-logo register__authentication-logo">

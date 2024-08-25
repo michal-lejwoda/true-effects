@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faArrowRight} from '@fortawesome/fontawesome-free-solid';
@@ -11,9 +11,11 @@ import {useTranslation} from "react-i18next";
 const Login = (props) => {
     const {t} = useTranslation();
     const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors] = useLogin(props)
-    if (props.token !== null) {
-        props.history.push('/')
-    }
+    useEffect(() => {
+        if (props.token !== null) {
+            props.history.push('/');
+        }
+    }, [props.token, props.history]);
     return (
         <div className="login">
             <div className="authenticate-logo login__authentication-logo">
