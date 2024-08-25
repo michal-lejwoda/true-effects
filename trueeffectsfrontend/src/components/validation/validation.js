@@ -1,14 +1,16 @@
 const yup = require("yup");
 
 export const createGoalValidation = yup.object().shape({
-    finishDate: yup.string().min(8, "Provide correct date").required('Wybierz date'),
-    goal: yup.string().min(2, "Cel jest za krótki").max(100, "Cel jest za długi wykorzystaj opis").required('Pole jest wymagane'),
+    finishDate: yup.string().min(8, "Provide correct date").required('Select date'),
+    goal: yup.string().min(2, "Goal is too short").max(100, "Goal is too long. Use description").required('Goal' +
+        ' field is required '),
     description: yup.string(),
 });
 
 export const updateGoalValidation = yup.object().shape({
-    finishDate: yup.string().min(8, "Wprowadź poprawną date").required('Wybierz date'),
-    goal: yup.string().min(2, "Cel jest za krótki").max(100, "Cel jest za długi wykorzystaj opis").required('Pole jest wymagane'),
+    finishDate: yup.string().min(8, "Provide correct date").required('Select date'),
+    goal: yup.string().min(2, "Goal is too short").max(100, "Goal is too long. Use description").required('Goal' +
+        ' field is required '),
     description: yup.string(),
     completed: yup.boolean().required()
 });
@@ -16,19 +18,19 @@ export const updateGoalValidation = yup.object().shape({
 
 export const settingsDimensionValidation = yup.object().shape({
     id: yup.number().required(),
-    weight: yup.boolean().required(),
-    growth: yup.boolean().required(),
-    left_biceps: yup.boolean().required(),
-    right_biceps: yup.boolean().required(),
-    left_forearm: yup.boolean().required(),
-    right_forearm: yup.boolean().required(),
-    left_leg: yup.boolean().required(),
-    right_leg: yup.boolean().required(),
-    bodyfat: yup.boolean().required(),
+    weight: yup.boolean().required("Field weight is required"),
+    growth: yup.boolean().required("Field growth is required"),
+    left_biceps: yup.boolean().required("Field left biceps is required"),
+    right_biceps: yup.boolean().required("Field right biceps is required"),
+    left_forearm: yup.boolean().required("Field left forearm is required"),
+    right_forearm: yup.boolean().required("Field right forearm is required"),
+    left_leg: yup.boolean().required("Field left leg is required"),
+    right_leg: yup.boolean().required("Field right leg is required"),
+    bodyfat: yup.boolean().required("Field bodyfat is required"),
 });
 
 export const createDimensionValidation = yup.object().shape({
-    weight: yup.number().nullable(false).required("Waga jest wymagana"),
+    weight: yup.number().nullable(false).required("Field weight is required"),
     growth: yup.number().nullable(true),
     left_biceps: yup.number().nullable(true),
     right_biceps: yup.number().nullable(true),
@@ -40,78 +42,81 @@ export const createDimensionValidation = yup.object().shape({
 })
 
 export const createMultiSeriesValidation = yup.object().shape({
-    exercise: yup.object().nonNullable("Wybierz ćwiczenie").required("Wybierz ćwiczenie"),
-    extra_weight: yup.number().max(10000, "Nie no tyle to nie. Tutaj wstaw tego mema. :)").required("Musisz uzupełnić wage").typeError("Dodatkowa waga musi być liczbą"),
-    rest: yup.number().integer().max(10000).required("Musisz uzupełnić czas przerwy").typeError("Odpoczynek musi być liczbą"),
-    reps: yup.number().required("Musisz uzupełnić liczbe powtórzeń").typeError("Liczba powtórzeń musi być liczbą"),
-    concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    pause_after_concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    pause_after_eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    series_count: yup.number().integer().min(1, "Liczba jest za mała").max(50, "Liczba serii jest za duża").typeError("Liczba serii musi być liczbą całkowitą od 0 od 100"),
+    exercise: yup.object().nonNullable("Select exercise").required("Select exercise"),
+    extra_weight: yup.number().max(10000, "Extra weight is too big").required("Field extra" +
+        " weight is required").typeError("Field extra weight must be a number"),
+    rest: yup.number().integer().max(10000).required("Field rest is required").typeError("Field rest must be an" +
+        " integer number"),
+    reps: yup.number().required("Field reps is required").typeError("Field reps must be a number"),
+    concentric_phase: yup.number().typeError("Field must be a number"),
+    pause_after_concentric_phase: yup.number().typeError("Field must be a number"),
+    eccentric_phase: yup.number().typeError("Field must be a number"),
+    pause_after_eccentric_phase: yup.number().typeError("Field must be a number"),
+    series_count: yup.number().integer().min(1, "Number is too small").max(100, "Number must be an integer 1-100"),
 })
 
 export const createSingleSeriesValidation = yup.object().shape({
-    exercise: yup.object().nonNullable("Wybierz ćwiczenie").required("To pole jest wymagane"),
-    extra_weight: yup.number().max(10000, "Nie no tyle to nie. Tutaj wstaw tego mema. :)").required("Musisz uzupełnić wage").typeError("Dodatkowa waga musi być liczbą"),
-    rest: yup.number().integer().max(10000).required("Musisz uzupełnić czas przerwy").typeError("Odpoczynek musi być liczbą całkowitą"),
-    reps: yup.number().required("Musisz uzupełnić liczbe powtórzeń").typeError("Liczba powtórzeń musi być liczbą"),
-    concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    pause_after_concentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
-    pause_after_eccentric_phase: yup.number().typeError("Fazy muszą być liczbami"),
+    exercise: yup.object().nonNullable("Select exercise").required("Field exercise is required"),
+    extra_weight: yup.number().max(10000, "Extra weight is too big").required("Field extra weight is required").typeError("Field extra weight must be a number"),
+    rest: yup.number().integer().max(10000).required("Field rest is required").typeError("Field rest must be an" +
+        " integer number"),
+    reps: yup.number().required("Field reps is required").typeError("Field reps must be a number"),
+    concentric_phase: yup.number().typeError("Field must be a number"),
+    pause_after_concentric_phase: yup.number().typeError("Field must be a number"),
+    eccentric_phase: yup.number().typeError("Field must be a number"),
+    pause_after_eccentric_phase: yup.number().typeError("Field must be a number"),
 })
 
 
 export const createTrainingValidation = yup.object().shape({
-    name: yup.string().min(2, "Nazwa jest za krótka").max(100, "Nazwa jest za długa wykorzystaj opis").required('Pole nazwa jest wymagane'),
-    date: yup.string().min(2, "Musisz wybrać date").required("Pole data jest wymagane"),
-    description: yup.string().max(5000, "Opis jest za długi"),
-    multi_series: yup.array().min(1, 'Przynajmniej jedna seria jest wymagana')
+    name: yup.string().min(2, "Field name is too short").max(100, "Field name is too long. Use description").required("Field name is required"),
+    date: yup.string().min(2, "Field date must be selected").required("Field date must be selected"),
+    description: yup.string().max(5000, "Field description is too long"),
+    multi_series: yup.array().min(1, 'Field multi series needs at least number bigger than 0')
 
 })
 
 export const loginUserValidation = yup.object().shape({
-    username: yup.string().min(4, "Nazwa użytkownika jest za krótka").max(100, "Nazwa użytkownika jest za długa ").required('Pole username jest wymagane'),
-    password: yup.string().min(4, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    username: yup.string().min(4, "Field username is too short").max(100, "Field username is too long").required('Field username is required'),
+    password: yup.string().min(4, "Field password is too short").max(100, "Field password is too long").required("Field password is required"),
 })
 
 export const registerUserValidation = yup.object().shape({
-    username: yup.string().min(4, "Nazwa użytkownika jest za krótka").max(100, "Nazwa użytkownika jest za długa ").required('Pole username jest wymagane'),
-    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
-    password: yup.string().min(4, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    username: yup.string().min(4, "Field username is too short").max(100, "Field username is too long").required('Field username is required'),
+    email: yup.string().email('Field address email is invalid').required('Field address email is required'),
+    password: yup.string().min(4, "Field password is too short").max(100, "Field password is too long").required("Field password is required"),
     password2: yup.string()
-        .oneOf([yup.ref('password'), null], 'Hasła muszą być identyczne.')
-        .required('Potwierdzenie hasła jest wymagane.'),
+        .oneOf([yup.ref('password'), null], 'Passwords must match')
+        .required('Field repeat password is required'),
 })
 
 export const createExerciseModalValidation = yup.object().shape({
-    name: yup.string().required('Stare hasło jest wymagane'),
-    password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
-    // .min(2, "Nazwa ćwiczenia jest za krótka")
+    name: yup.string().required("Field name is required"),
+    // password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
+
 })
 
 export const changePasswordValidation = yup.object().shape({
-    old_password: yup.string().required('Pole stare hasło jest wymagane'),
-    new_password1: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    old_password: yup.string().required('Field old password is required'),
+    new_password1: yup.string().min(2, "Field password is too short").max(100, "Field password is too long").required("Field password is required"),
     new_password2: yup.string()
-        .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
-        .required('Potwierdzenie hasła jest wymagane.'),
+        .oneOf([yup.ref('new_password1'), null], "Passwords must match")
+        .required('Field repeat password is required'),
 })
 
 export const addTrainingToDifferentDayValidation = yup.object().shape({
-    name: yup.string().min(2, "Nazwa treningu jest za krótka").required("Pole name nie może być puste"),
-    date: yup.string().min(8, "Data się nie zgadza").required("Pole data nie może być puste")
+    name: yup.string().min(2, "Field training name is too short").required("Field training name is required"),
+    date: yup.string().min(8, "Field date is invalid").required("Field date can't be empty")
 })
 
 export const resetPasswordValidation = yup.object().shape({
-    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
+    email: yup.string().email('Field address email is invalid').required('Field address email is required'),
 })
 
 export const changePasswordviaTokenValidation = yup.object().shape({
-    email: yup.string().email('Podany adres e-mail nie jest prawidłowy.').required('Adres e-mail jest wymagany.'),
-    new_password1: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie").required('Pole hasło jest wymagane'),
+    email: yup.string().email('Field address email is invalid').required("Field address email is required"),
+    new_password1: yup.string().min(2, "Field password is too short").max(100, "Field password is too long").required("Field password is required"),
     new_password2: yup.string()
-        .oneOf([yup.ref('new_password1'), null], 'Hasła muszą być identyczne.')
-        .required('Potwierdzenie hasła jest wymagane.'),
+        .oneOf([yup.ref('new_password1'), null], 'Passwords must match')
+        .required('Field repeat password is required'),
 })
