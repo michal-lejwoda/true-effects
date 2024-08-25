@@ -92,7 +92,6 @@ export const registerUserValidation = yup.object().shape({
 
 export const createExerciseModalValidation = yup.object().shape({
     name: yup.string().required("Field name is required"),
-    // password: yup.string().min(2, "Hasło jest za krótkie").max(100, "Hasło jest za długie")
 
 })
 
