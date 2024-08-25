@@ -64,3 +64,24 @@ msgstr "Gratulacje! Jesteś zalogowany przez 4 godziny."
 
 msgid "Congratulations! You have just created your first training."
 msgstr "Gratuliere! Du hast gerade dein erstes Training erstellt."
+
+msgid "Password is too short (min 4 letters)"
+msgstr "Das Passwort ist zu kurz (mind. 4 Buchstaben)"
+
+msgid "Password is too long (max 50 letters)"
+msgstr "Das Passwort ist zu lang (max. 50 Buchstaben)"
+
+msgid "Username is too short (min 4 letters)"
+msgstr "Der Benutzername ist zu kurz (mind. 4 Buchstaben)"
+
+msgid "Username is too long (max 30 letters)"
+msgstr "Der Benutzername ist zu lang (max. 30 Buchstaben)"
+
+msgid "Address email is invalid"
+msgstr "Die E-Mail-Adresse ist ungültig"
+
+msgid "Passwords do not match"
+msgstr "Die Passwörter stimmen nicht überein"
+
+msgid "Token is invalid"
+msgstr "Das Token ist ungültig"

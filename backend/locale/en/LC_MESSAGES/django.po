@@ -25,4 +25,25 @@ msgid "Congratulations! You have added 5 exercises."
 msgstr "Congratulations! You have added 5 exercises."
 
 msgid "Congratulations! You have just created your first training."
-msgstr "To nie powinno dzialac"
+msgstr "Congratulations! You have just created your first training."
+
+msgid "Password is too short (min 4 letters)"
+msgstr "Password is too short (min 4 letters)"
+
+msgid "Password is too long (max 50 letters)"
+msgstr "Password is too long (max 50 letters)"
+
+msgid "Username is too short (min 4 letters)"
+msgstr "Username is too short (min 4 letters)"
+
+msgid "Username is too long (max 30 letters)"
+msgstr "Username is too long (max 30 letters)"
+
+msgid "Address email is invalid"
+msgstr "Address email is invalid"
+
+msgid "Passwords do not match"
+msgstr "Passwords do not match"
+
+msgid "Token is invalid"
+msgstr "Token is invalid"

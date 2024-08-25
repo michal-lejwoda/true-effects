@@ -5,6 +5,7 @@ from rest_framework.authtoken.models import Token
 from achievements.choices import LANGUAGES
 from achievements.models import Achievement
 from authorization.models import CustomUser
+from django.utils.translation import gettext as _
 
 #TODO Translate
 class AchievementSerializer(serializers.ModelSerializer):
@@ -27,18 +28,19 @@ class RegistrationSerializer(serializers.ModelSerializer):
     @staticmethod
     def validate_password(password):
         if len(password) < 4:
-            raise serializers.ValidationError('Hasło za krótkie (minimum 4 litery)')
+            raise serializers.ValidationError(_("Password is too short (min 4 letters)"))
 
         if len(password) > 50:
-            raise serializers.ValidationError('Hasło za długie (maksimum 50 liter)')
+            raise serializers.ValidationError(_("Password is too long (max 50 letters)"))
         return password
+
     @staticmethod
     def validate_username(username):
         if len(username) < 4:
-            raise serializers.ValidationError('Nazwa użytkowanika jest za krótka (minimum 4 litery)')
+            raise serializers.ValidationError(_("Username is too short (min 4 letters)"))
 
         if len(username) > 30:
-            raise serializers.ValidationError('Nazwa użytkowanika jest za długa (maksimum 30 liter)')
+            raise serializers.ValidationError(_("Username is too long (max 30 letters)"))
         return username
 
     @staticmethod
@@ -46,11 +48,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         try:
             validate_email(email)
         except:
-            raise serializers.ValidationError({'email': 'Email jest nie poprawny'})
+            raise serializers.ValidationError({'email': _("Address email is invalid")})
         return email
     def validate(self, data):
         if data['password'] != data['password2']:
-            raise serializers.ValidationError({'password': 'Hasła się nie zgadzają'})
+            raise serializers.ValidationError({'password': _('Passwords do not match')})
         return data
     def create(self, validated_data):
         user = CustomUser.objects.create(
@@ -97,10 +99,10 @@ class ChangePasswordWithTokenSerializer(serializers.Serializer):
         try:
             token = Token.objects.get(key__exact=data['token'])
             if token.user.email != data['email']:
-                raise serializers.ValidationError()
+                raise serializers.ValidationError(_("Address email is invalid"))
             if data['new_password1'] != data['new_password2']:
-                raise serializers.ValidationError()
+                raise serializers.ValidationError(_('Passwords do not match'))
             data['user'] = token.user
             return data
         except Token.DoesNotExist:
-            raise serializers.ValidationError()
+            raise serializers.ValidationError(_("Token is invalid"))
