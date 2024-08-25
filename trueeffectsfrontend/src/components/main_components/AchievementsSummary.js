@@ -10,9 +10,11 @@ const AchievementsSummary = (props) => {
             <div className="achievements__title">
                 <h1>{t("Achievements")}</h1>
             </div>
-            {props.achievements_summary.achievements &&
-            <ul className="achievements__container">
-                {props.achievements_summary.achievements.map((el) => (
+
+            {props.achievements_summary.achievements && props.achievements_summary.earned_achievements_count &&props.achievements_summary.total_achievements &&
+                <ul className="achievements__container">
+                    <p className="achievements__container__result">{props.achievements_summary.earned_achievements_count}/ {props.achievements_summary.total_achievements}</p>
+                    {props.achievements_summary.achievements.map((el) => (
                         <li className={`achievements__list ${el.earned ? "achievements__list--bold" : "achievements__list--normal"}`}
                             style={{fontWeight: el.earned && 'bold'}}
                             key={el.id}>
@@ -38,8 +40,8 @@ const AchievementsSummary = (props) => {
                             </div>
                         </li>
 
-                ))}
-            </ul>
+                    ))}
+                </ul>
             }
         </div>
     );
