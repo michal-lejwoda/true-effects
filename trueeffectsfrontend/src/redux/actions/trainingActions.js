@@ -30,7 +30,8 @@ import axios from 'axios';
 import i18next from "i18next";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
-
+console.log("Trye")
+console.log(TRUEEFFECTS_URL)
 axios.interceptors.request.use((config) => {
     const language = i18next.language;
     config.headers['Accept-Language'] = language;

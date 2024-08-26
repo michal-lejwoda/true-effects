@@ -5,6 +5,10 @@ import {useTranslation} from "react-i18next";
 
 const AchievementsSummary = (props) => {
     const {t} = useTranslation();
+    // #TODO BACK HERE
+    const baseUrl = process.env.NODE_ENV === 'development'
+    ? "http://0.0.0.0:80"
+    : '';
     return (
         <div className="achievements">
             <div className="achievements__title">
@@ -19,7 +23,8 @@ const AchievementsSummary = (props) => {
                             style={{fontWeight: el.earned && 'bold'}}
                             key={el.id}>
                             <div className="list-achievements__container">
-                                <img className="list-achievements__image" src={"http://0.0.0.0:80" + el.image}
+                                <img className="list-achievements__image"
+                                     src={`${baseUrl}${el.image}`}
                                      alt={el.name}/>
                                 <div className="list-achievements__text">
                                     <h4>{t(el.name)}</h4>
