@@ -16,6 +16,12 @@
     justify-content: center;
     align-items: center;
     min-width: 50%;
+    &__result{
+      font-weight: 700;
+      text-align: end;
+      min-width: 50%;
+      font-size: 1.2rem;
+    }
   }
 
   &__list {
@@ -32,6 +38,20 @@
     &__achieved {
       color: #909090;
     }
+  }
+}
+
+.list-achievements{
+  &__container{
+    display:flex;
+    flex-direction: row;
+  }
+  &__image{
+    height:100%;
+    width:150px;
+  }
+  &__text{
+    padding-left:20px;
   }
 }
 

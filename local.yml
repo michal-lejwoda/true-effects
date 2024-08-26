@@ -1,4 +1,3 @@
-#version: "3.7"
 services:
   trueeffects_nginx:
     image: nginx
@@ -12,7 +11,8 @@ services:
       - backend
     restart: always
     volumes:
-      - /app/backend/local-backend-static:/app/backend/local-backend-static
+      - ./backend/media:/usr/share/nginx/html/media
+      - ./backend/local-backend-static:/app/backend/local-backend-static
     depends_on:
       - trueeffects_backend
       - trueeffects_frontend
@@ -40,7 +40,8 @@ services:
       dockerfile: compose/local/django/Dockerfile
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
     volumes:
-      - /app/backend/local-backend-static:/app/backend/local-backend-static
+      - ./backend/media:/app/media
+      - ./backend/local-backend-static:/app/backend/local-backend-static
       - .:/app
     ports:
       - 8000:8000

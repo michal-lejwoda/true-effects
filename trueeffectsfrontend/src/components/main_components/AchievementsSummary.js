@@ -11,33 +11,39 @@ const AchievementsSummary = (props) => {
                 <h1>{t("Achievements")}</h1>
             </div>
 
-            {props.achievements_summary.achievements && props.achievements_summary.earned_achievements_count &&props.achievements_summary.total_achievements &&
+            {props.achievements_summary.achievements && props.achievements_summary.earned_achievements_count && props.achievements_summary.total_achievements &&
                 <ul className="achievements__container">
-                    <p className="achievements__container__result">{props.achievements_summary.earned_achievements_count}/ {props.achievements_summary.total_achievements}</p>
+                    <p className="achievements__container__result">{t("Achievement achieved")} {props.achievements_summary.earned_achievements_count} / {props.achievements_summary.total_achievements}</p>
                     {props.achievements_summary.achievements.map((el) => (
                         <li className={`achievements__list ${el.earned ? "achievements__list--bold" : "achievements__list--normal"}`}
                             style={{fontWeight: el.earned && 'bold'}}
                             key={el.id}>
-                            {/*<img src={el.image} alt={el.name}/>*/}
-                            <h4>{t(el.name)}</h4>
-                            <p>{t(el.description)}</p>
-                            <div className="achievements__list__achieved">
-                                {el.earned ? (
-                                    <div className="achieved">
-                                        <p>{t("Achievement achieved")}: {new Date(el.date_earned).toLocaleString(t("language_code"), {
-                                            day: '2-digit',
-                                            month: '2-digit',
-                                            year: 'numeric',
-                                            hour: '2-digit',
-                                            minute: '2-digit'
-                                        }).replace(',', '')}</p>
+                            <div className="list-achievements__container">
+                                <img className="list-achievements__image" src={"http://0.0.0.0:80" + el.image}
+                                     alt={el.name}/>
+                                <div className="list-achievements__text">
+                                    <h4>{t(el.name)}</h4>
+                                    <p>{t(el.description)}</p>
+                                    <div className="achievements__list__achieved">
+                                        {el.earned ? (
+                                            <div className="achieved">
+                                                <p>{t("Achievement achieved")}: {new Date(el.date_earned).toLocaleString(t("language_code"), {
+                                                    day: '2-digit',
+                                                    month: '2-digit',
+                                                    year: 'numeric',
+                                                    hour: '2-digit',
+                                                    minute: '2-digit'
+                                                }).replace(',', '')}</p>
+                                            </div>
+                                        ) : (
+                                            <div className="notachieved">
+                                                <p>{t("Achievement not achieved")}</p>
+                                            </div>
+                                        )}
                                     </div>
-                                ) : (
-                                    <div className="notachieved">
-                                        <p>{t("Achievement not achieved")}</p>
-                                    </div>
-                                )}
+                                </div>
                             </div>
+
                         </li>
 
                     ))}

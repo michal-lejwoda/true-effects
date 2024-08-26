@@ -123,3 +123,6 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / 'locale/',
 ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_URL = '/media/'
