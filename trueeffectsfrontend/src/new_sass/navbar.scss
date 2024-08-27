@@ -1,5 +1,7 @@
 @import 'settings.scss';
-
+.menu__language--select{
+  margin-right: 0.5rem;
+}
 .nav_bar {
   position: static;
   display: flex;
@@ -47,9 +49,9 @@
   &__mobile {
     display: none;
     flex-direction: column;
-    margin-top: 280px;
-    //padding: 0;
+    margin-top: 70px;
     position: absolute;
+    top: 0;
     background-color: $main_color;
     width: 100%;
     z-index: 40;
