@@ -48,12 +48,25 @@ const Navbar = (props) => {
         syncLanguage();
     }, [syncLanguage]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            const newWidth = window.innerWidth;
+            if (newWidth >= 768) {
+                setIsMobileNavOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
     const onChangeLanguage = (e) => {
         const data = {
             "language": e.target.value
         }
         i18n.changeLanguage(e.target.value)
-        // updateLanguage(e.target.value);
         props.changeLanguage(data)
     };
 
