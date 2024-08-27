@@ -141,14 +141,13 @@ class LogoutViewSet(ViewSet):
         request.user.auth_token.delete()
         return Response(data="Zostałeś wylogowany", status=status.HTTP_200_OK)
 
-
 class RegistrationViewSet(GenericViewSet, CreateModelMixin):
     serializer_class = RegistrationSerializer
 
     def create(self, request, *args, **kwargs):
-        serializer = RegistrationSerializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            test = serializer.save()
-            return Response(test, status=status.HTTP_201_CREATED)
+            response_data = serializer.save()
+            return Response(response_data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
