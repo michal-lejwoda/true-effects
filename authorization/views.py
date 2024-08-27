@@ -13,6 +13,7 @@ from achievements.models import UserAchievement, Achievement
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
     ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer, AchievementSerializer
 
+#TODO CHECK Optimization and translation
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
     def create(self, request):
