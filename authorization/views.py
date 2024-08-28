@@ -100,23 +100,24 @@ class AchievementViewSet(GenericViewSet):
 
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer
-
-    def create(self, request):
+    #TODO Update
+    def update(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.request.user
         old_password = serializer.validated_data.get('old_password')
         new_password = serializer.validated_data.get('new_password1')
         if not user.check_password(old_password):
-            return Response({'error': 'Stare hasło jest nieprawidłowe.'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'error': _('Old password is invalid')},
+                            status=status.HTTP_400_BAD_REQUEST)
         form = PasswordChangeForm(user, {'old_password': old_password, 'new_password1': new_password,
                                          'new_password2': new_password})
         if form.is_valid():
             user.set_password(new_password)
             user.save()
-            return Response({'detail': 'Hasło zostało pomyślnie zmienione.'}, status=status.HTTP_200_OK)
+            return Response({'detail': _('Password has been changed')}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'Proszę poprawić błędy w formularzu zmiany hasła.'},
+            return Response({'error': _('Please fix mistakes is change password form')},
                             status=status.HTTP_400_BAD_REQUEST)
 
 

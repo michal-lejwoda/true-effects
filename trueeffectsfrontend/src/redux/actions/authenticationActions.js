@@ -71,7 +71,7 @@ export const postPasswordChangeWithToken = (data) => (dispatch, getState) => {
 export const changePassword = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
-    return axios.post(`${TRUEEFFECTS_URL}/api/v1/change_password/`, data)
+    return axios.patch(`${TRUEEFFECTS_URL}/api/v1/change_password/`, data)
         .then(res => {
             return res.data
         })

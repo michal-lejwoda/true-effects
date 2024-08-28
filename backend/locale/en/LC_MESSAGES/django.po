@@ -56,3 +56,9 @@ msgstr "Unfortunately, the password change failed"
 
 msgid "Password has been changed"
 msgstr "Password has been changed"
+
+msgid "Old password is invalid"
+msgstr "Old password is invalid"
+
+msgid "Please fix mistakes is change password form"
+msgstr "Please fix mistakes is change password form"

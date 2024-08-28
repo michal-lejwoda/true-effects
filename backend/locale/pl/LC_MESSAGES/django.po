@@ -95,3 +95,9 @@ msgstr "Niestety zmiana hasła się nie powiodła"
 
 msgid "Password has been changed"
 msgstr "Hasło zostało zmienione"
+
+msgid "Old password is invalid"
+msgstr "Stare hasło jest nieprawidłowe"
+
+msgid "Please fix mistakes is change password form"
+msgstr "Proszę poprawić błędy w formularzu zmiany hasła"
