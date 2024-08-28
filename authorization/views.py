@@ -50,7 +50,7 @@ class GetUserViewSet(GenericViewSet):
         serializer = self.serializer_class(user)
         return Response(serializer.data)
 
-
+#TODO ConfirmAchievementViewSet, AchievementViewSet
 class ConfirmAchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
