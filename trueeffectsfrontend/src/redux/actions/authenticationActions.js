@@ -99,13 +99,18 @@ export const postRegister = (data, handleSetToken) => dispatch => {
             payload: err.response.data
         }))
 }
-export const postLogoutAuth = (removeCookie) => dispatch => {
-    console.log("postLogoutAuth")
-    removeCookie("true_effects_token")
-    webSocketClient.close();
-    dispatch({
-        type: POST_LOGOUT_AUTH
-    })
+export const postLogoutAuth = (removeCookie) => (dispatch, getState) => {
+    let token = getState().authentication.token
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    return axios.post(`${TRUEEFFECTS_URL}/api/v1/logout/`)
+        .then(res => {
+            removeCookie("true_effects_token")
+            webSocketClient.close();
+            dispatch({
+                type: POST_LOGOUT_AUTH
+            })
+            return res
+        })
 }
 
 export const changeLanguage = (data) => (dispatch, getState) => {
@@ -153,6 +158,8 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
             })
             return res.data
         }).catch(err => {
+            console.log("err")
+            console.log(err)
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err.response.data

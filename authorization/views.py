@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import OuterRef, Exists, Subquery
 from django.utils import timezone
@@ -8,12 +9,14 @@ from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
+from django.utils.translation import gettext as _
 
 from achievements.models import UserAchievement, Achievement
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
     ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer, AchievementSerializer
 
-#TODO CHECK Optimization and translation
+
+# TODO CHECK Optimization and translation
 
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
     def create(self, request):
@@ -127,20 +130,23 @@ class PasswordChangeWithToken(GenericViewSet):
             new_password = serializer.validated_data.get('new_password1')
             user.set_password(new_password)
             user.save()
-            return Response({'detail': 'Hasło zostało pomyślnie zmienione.'}, status=status.HTTP_200_OK)
+            return Response({'detail': _('Password has been changed')}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'Niestety zmiana hasła się nie powiodła :('},
+            return Response({'error': _('Unfortunately, the password change failed')},
                             status=status.HTTP_400_BAD_REQUEST)
-
 
 class LogoutViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
 
-    def list(self, request):
-        if 'login_time' in request.session:
-            del request.session['login_time']
-        request.user.auth_token.delete()
-        return Response(data="Zostałeś wylogowany", status=status.HTTP_200_OK)
+    def create(self, request):
+        try:
+            request.user.auth_token.delete()
+        except (AttributeError, request.user.DoesNotExist):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        request.session.flush()
+        logout(request)
+        return Response(data=_("You are logged out"), status=status.HTTP_200_OK)
+
 
 class RegistrationViewSet(GenericViewSet, CreateModelMixin):
     serializer_class = RegistrationSerializer

@@ -87,4 +87,11 @@ msgstr "Hasła nie są zgodne"
 msgid "Token is invalid"
 msgstr "Token jest nieprawidłowy"
 
+msgid "You are logged out"
+msgstr "Zostałeś wylogowany"
 
+msgid "Unfortunately, the password change failed"
+msgstr "Niestety zmiana hasła się nie powiodła"
+
+msgid "Password has been changed"
+msgstr "Hasło zostało zmienione"
