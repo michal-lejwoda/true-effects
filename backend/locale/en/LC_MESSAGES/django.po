@@ -62,3 +62,12 @@ msgstr "Old password is invalid"
 
 msgid "Please fix mistakes is change password form"
 msgstr "Please fix mistakes is change password form"
+
+msgid "User Achievement not found"
+msgstr "User Achievement not found"
+
+msgid "You do not have permission to modify this achievement"
+msgstr "You do not have permission to modify this achievement"
+
+msgid "Achievement activated successfully"
+msgstr "Achievement activated successfully"

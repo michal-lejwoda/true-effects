@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'achievements',
     'django_extensions',
     'debug_toolbar',
+    'silk'
 ]
 
 MIDDLEWARE = [
@@ -38,6 +39,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'achievements.middleware.LoginTimeMiddleware',
+    'silk.middleware.SilkyMiddleware',
 
 ]
 

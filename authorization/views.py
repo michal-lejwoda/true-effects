@@ -2,14 +2,15 @@ from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.db.models import OuterRef, Exists, Subquery
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import PermissionDenied
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet, ViewSet
-from django.utils.translation import gettext as _
 
 from achievements.models import UserAchievement, Achievement
 from authorization.serializers import RegistrationSerializer, ChangePasswordSerializer, \
@@ -50,7 +51,8 @@ class GetUserViewSet(GenericViewSet):
         serializer = self.serializer_class(user)
         return Response(serializer.data)
 
-#TODO ConfirmAchievementViewSet, AchievementViewSet
+
+# TODO ConfirmAchievementViewSet, AchievementViewSet
 class ConfirmAchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
 
@@ -58,17 +60,16 @@ class ConfirmAchievementViewSet(GenericViewSet):
         try:
             user_achievement = UserAchievement.objects.get(id=request.data['user_achievement_id'])
         except UserAchievement.DoesNotExist:
-            return Response({'detail': 'User Achievement not found.'}, status=status.HTTP_404_NOT_FOUND)
+            return Response({'detail': _('User Achievement not found')}, status=status.HTTP_404_NOT_FOUND)
         if user_achievement.user != request.user:
-            raise PermissionDenied('You do not have permission to modify this achievement.')
+            raise PermissionDenied(_('You do not have permission to modify this achievement'))
         user_achievement.is_displayed_for_user = True
         user_achievement.save()
-        return Response({'detail': 'Achievement activated successfully.'}, status=status.HTTP_200_OK)
+        return Response({'detail': _('Achievement activated successfully')}, status=status.HTTP_200_OK)
 
 
 class AchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
-
     def list(self, request):
         user = self.request.user
         earned_subquery = UserAchievement.objects.filter(
@@ -98,7 +99,7 @@ class AchievementViewSet(GenericViewSet):
 
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer
-    #TODO Update
+
     def update(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
