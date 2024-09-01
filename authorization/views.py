@@ -9,7 +9,6 @@ from rest_framework.exceptions import PermissionDenied
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.settings import api_settings
 from rest_framework.viewsets import GenericViewSet, ViewSet
 
 from achievements.models import UserAchievement, Achievement
@@ -68,6 +67,7 @@ class ConfirmAchievementViewSet(GenericViewSet):
 
 class AchievementViewSet(GenericViewSet):
     permission_classes = (IsAuthenticated,)
+
     def list(self, request):
         user = self.request.user
         earned_subquery = UserAchievement.objects.filter(
@@ -132,6 +132,7 @@ class PasswordChangeWithToken(GenericViewSet):
         else:
             return Response({'error': _('Unfortunately, the password change failed')},
                             status=status.HTTP_400_BAD_REQUEST)
+
 
 class LogoutViewSet(ViewSet):
     permission_classes = [IsAuthenticated]
