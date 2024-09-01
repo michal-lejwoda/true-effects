@@ -65,7 +65,6 @@ class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, G
     permission_classes = [IsAuthenticated]
     serializer_class = UserDimensionSerializer
 
-    # Default data for new user dimension instances if none exist
     DEFAULT_USER_DIMENSION_DATA = {
         "weight": None,
         "growth": None,
@@ -195,14 +194,16 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_last_completed_trainings(self, request):
-        return self._get_trainings(date_filter__lt=timezone.now().date(), limit=3, order_by='-date')
+        return self._get_trainings(date_filter='lt', limit=3, order_by='-date')
 
     @action(detail=False, methods=['GET'], permission_classes=[IsAuthenticated])
     def get_upcoming_trainings(self, request):
-        return self._get_trainings(date_filter__gte=timezone.now().date(), limit=3, order_by='date')
+        return self._get_trainings(date_filter='gte', limit=3, order_by='date')
 
     def _get_trainings(self, date_filter, limit, order_by):
-        queryset = Training.objects.filter(user=self.request.user, date=date_filter).order_by(order_by)[:limit]
+        current_date = timezone.now().date()
+        filter_kwargs = {f'date__{date_filter}': current_date}
+        queryset = Training.objects.filter(user=self.request.user, **filter_kwargs).order_by(order_by)[:limit]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
