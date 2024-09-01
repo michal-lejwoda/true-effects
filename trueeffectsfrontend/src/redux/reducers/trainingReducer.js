@@ -60,7 +60,9 @@ const initialState = {
     create_single_training_error_message: null,
     createUserExerciseError: null,
     upcomingTrainings: [],
+    upcomingTrainingsLoaded: false,
     lastCompletedTrainings: [],
+    lastCompletedTrainingsLoaded: false
 
 
 };
@@ -227,12 +229,14 @@ export default function trainreducer(state = initialState, action) {
         case GET_LAST_COMPLETED_TRAININGS:
             return {
                 ...state,
-                lastCompletedTrainings: action.payload
+                lastCompletedTrainings: action.payload,
+                lastCompletedTrainingsLoaded: true
             }
         case GET_UPCOMING_TRAININGS:
             return {
                 ...state,
-                upcomingTrainings: action.payload
+                upcomingTrainings: action.payload,
+                upcomingTrainingsLoaded: true
             }
         default:
             return state;

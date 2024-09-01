@@ -37,6 +37,35 @@ const DefaultContainer = (props) => {
     const [cookies, , removeCookieTraining] = useCookies(['true_effects_training']);
     const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false);
     const history = useHistory();
+    async function fetchHomepageData(){
+        try {
+            const promises = [
+                props.getDimensions(),
+                props.getUpcomingTrainings(),
+                props.getLastCompletedTrainings(),
+                props.getUser(),
+            ];
+            await Promise.all(promises);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+    async function fetchRestData(){
+        try {
+            const promises = [
+                props.getDimensionConfiguration(),
+                props.getUserDimensionsForCreate(),
+                props.getDimensionConfigurationForCompare(),
+                props.getTrainings(),
+                props.getGoalsToAchieve(),
+                props.getUser(),
+                props.getUserAchievements()
+            ];
+            await Promise.all(promises);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
 
     async function fetchAllData() {
         try {
@@ -61,9 +90,17 @@ const DefaultContainer = (props) => {
 
     useEffect(() => {
         if (props.token) {
-            fetchAllData();
+            fetchHomepageData().then(() => {
+                fetchRestData();
+            });
         }
     }, [props.token]);
+
+    // useEffect(() => {
+    //     if (props.token) {
+    //         fetchAllData();
+    //     }
+    // }, [props.token]);
 
     const handleCloseBackToTrainingModal = () => {
         removeCookieTraining('true_effects_training');
