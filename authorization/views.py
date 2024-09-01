@@ -17,8 +17,6 @@ from authorization.serializers import RegistrationSerializer, ChangePasswordSeri
     ChangePasswordWithTokenSerializer, ChangeLanguageSerializer, GetUserSerializer, AchievementSerializer
 
 
-# TODO CHECK Optimization and translation
-
 class CustomAuthToken(ObtainAuthToken, GenericViewSet):
     def create(self, request):
         serializer = self.serializer_class(data=request.data, context={'request': request})
