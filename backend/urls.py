@@ -25,6 +25,8 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     path('',TemplateView.as_view(template_name='index.html'))
 ]
+urlpatterns += [path('silk/', include('silk.urls', namespace='silk'))]
+
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns += [path('__debug__/', include(debug_toolbar.urls))]
