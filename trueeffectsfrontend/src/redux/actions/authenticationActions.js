@@ -120,9 +120,6 @@ export const changeLanguage = (data) => (dispatch, getState) => {
         .then(res => {
             return res
         })
-        .catch(err => {
-            console.log(err)
-        })
 }
 
 export const getUser = () => (dispatch, getState) => {
@@ -136,9 +133,6 @@ export const getUser = () => (dispatch, getState) => {
         .then(() => dispatch({
             type: LANGUAGE_LOADED,
         }))
-        .catch(err => {
-            console.log(err)
-        })
 }
 
 
@@ -158,8 +152,6 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
             })
             return res.data
         }).catch(err => {
-            console.log("err")
-            console.log(err)
             dispatch({
                 type: LOGIN_ERROR,
                 payload: err.response.data

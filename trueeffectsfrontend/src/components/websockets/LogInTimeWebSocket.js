@@ -12,7 +12,6 @@ class WebSocketClient {
 
     connect(token, language) {
         if (this.isConnected) {
-            console.log('Already connected. Resetting connection.');
             this.reset();
         }
 
@@ -21,7 +20,6 @@ class WebSocketClient {
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {
-                console.log('WebSocket connection established');
                 this.isConnected = true;
                 this.shouldReconnect = true;
                 this.startHeartbeat();
@@ -29,7 +27,6 @@ class WebSocketClient {
             };
 
             this.socket.onerror = (error) => {
-                console.error('WebSocket error:', error);
                 this.isConnected = false;
                 if (this.shouldReconnect) {
                     this.reconnect(token, language);
@@ -38,7 +35,6 @@ class WebSocketClient {
             };
 
             this.socket.onclose = () => {
-                console.log('WebSocket connection closed');
                 this.isConnected = false;
                 this.stopHeartbeat();
                 if (this.shouldReconnect) {
@@ -48,9 +44,7 @@ class WebSocketClient {
 
             this.socket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                console.log('Received message:', data);
                 this.onMessageCallbacks.forEach(callback => {
-                    console.log('Calling callback with data:', data);
                     callback(data);
                 });
             };
@@ -59,7 +53,6 @@ class WebSocketClient {
 
     reconnect(token, language) {
         if (this.shouldReconnect && !this.isConnected) {
-            console.log('Attempting to reconnect...');
             setTimeout(() => {
                 this.connect(token, language);
             }, this.reconnectInterval);
@@ -67,7 +60,6 @@ class WebSocketClient {
     }
 
     reset() {
-        console.log('Resetting WebSocket connection');
         this.shouldReconnect = false;
         this.close();
         this.removeAllCallbacks();
@@ -78,20 +70,17 @@ class WebSocketClient {
     startHeartbeat() {
         this.pingTimeout = setInterval(() => {
             if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-                console.log('Sending heartbeat ping');
                 this.socket.send(JSON.stringify({ type: 'ping' }));
             }
         }, this.pingInterval);
     }
 
     stopHeartbeat() {
-        console.log('Stopping heartbeat ping');
         clearInterval(this.pingTimeout);
     }
 
     close() {
         if (this.socket) {
-            console.log('Closing WebSocket connection');
             this.stopHeartbeat();
             this.shouldReconnect = false;
             this.socket.close();
@@ -99,30 +88,19 @@ class WebSocketClient {
         }
     }
 
-    logout() {
-        console.log('Logging out');
-        this.reset();
-    }
-
     send(message) {
         if (this.socket && this.socket.readyState === WebSocket.OPEN) {
-            console.log('Sending message:', message);
             this.socket.send(message);
         }
     }
 
     addOnMessageCallback(callback) {
-        console.log('Adding callback:', callback);
         this.removeAllCallbacks();
         this.onMessageCallbacks.push(callback);
     }
 
-    removeOnMessageCallback(callback) {
-        this.onMessageCallbacks = this.onMessageCallbacks.filter(cb => cb !== callback);
-    }
 
     removeAllCallbacks() {
-        console.log('Removing all callbacks');
         this.onMessageCallbacks = [];
     }
 }

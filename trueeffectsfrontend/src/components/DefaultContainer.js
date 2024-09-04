@@ -37,20 +37,21 @@ const DefaultContainer = (props) => {
     const [cookies, , removeCookieTraining] = useCookies(['true_effects_training']);
     const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false);
     const history = useHistory();
-    async function fetchHomepageData(){
+
+    async function fetchHomepageData() {
+        const promises = [
+            props.getDimensions(),
+            props.getUpcomingTrainings(),
+            props.getLastCompletedTrainings(),
+            props.getUser(),
+        ];
+
         try {
-            const promises = [
-                props.getDimensions(),
-                props.getUpcomingTrainings(),
-                props.getLastCompletedTrainings(),
-                props.getUser(),
-            ];
             await Promise.all(promises);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        } catch {}
     }
-    async function fetchRestData(){
+
+    async function fetchRestData() {
         try {
             const promises = [
                 props.getDimensionConfiguration(),

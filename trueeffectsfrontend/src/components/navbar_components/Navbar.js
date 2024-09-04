@@ -33,7 +33,6 @@ const Navbar = (props) => {
     const [cookies, , removeCookie] = useCookies(['true_effects_token']);
 
     const syncLanguage = useCallback(() => {
-        console.log("syncLanguage")
         if (webSocketClient.socket && webSocketClient.socket.readyState === WebSocket.OPEN) {
             const token = cookies.true_effects_token;
             if (token) {

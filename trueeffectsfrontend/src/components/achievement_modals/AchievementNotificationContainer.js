@@ -18,10 +18,7 @@ const AchievementNotificationContainer = (props) => {
     const confirmAchievement = (user_achievement_id) => {
         try {
             props.postConfirmAchievement(user_achievement_id);
-        } catch (error) {
-            console.log(error)
-            console.error("Error confirming achievement:", error);
-        }
+        } catch (error) {}
     };
 
     useEffect(() => {
@@ -35,7 +32,6 @@ const AchievementNotificationContainer = (props) => {
             const connectWebSocket = async () => {
                 try {
                     if (websocketRef.current) {
-                        console.log("Closing existing WebSocket connection");
                         websocketRef.current.close();
                         websocketRef.current.removeAllCallbacks();
                     }
@@ -45,19 +41,16 @@ const AchievementNotificationContainer = (props) => {
                     websocketRef.current = webSocketClient;
 
                     if (!callbackRegistered.current) {
-                        console.log("Registering new callback");
+
                         websocketRef.current.addOnMessageCallback(handleNewMessage);
                         callbackRegistered.current = true;
                     }
-                } catch (error) {
-                    console.error('WebSocket connection error:', error);
-                }
+                } catch (error) {}
             };
 
             connectWebSocket();
 
             return () => {
-                console.log("Cleaning up WebSocket");
                 if (websocketRef.current) {
                     websocketRef.current.close();
                     websocketRef.current.removeAllCallbacks();
@@ -69,9 +62,7 @@ const AchievementNotificationContainer = (props) => {
     }, [token, i18n.language]);
 
     const handleNewMessage = async (data) => {
-        await console.log("Handling new message:", data);
         await setNotifications((prevNotifications) => [...prevNotifications, data.message]);
-        await console.log("data", data.user_achievement_id);
         await confirmAchievement(data.user_achievement_id);
     };
 
