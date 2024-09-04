@@ -86,7 +86,7 @@ const Dimensions = (props) => {
                     />}
             </div>
         </div>
-    ) : (props.userDimensionsLoading || props.userDimensionConfigurationForCompareLoading) && (
+    ) : (
         <div className="box-loading">
             <BoxLoading/>
         </div>

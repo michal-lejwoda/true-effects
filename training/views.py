@@ -91,7 +91,7 @@ class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, G
         else:
             serializer = UserDimensionSerializerForCreate(data=self.DEFAULT_USER_DIMENSION_DATA,
                                                           context={'request': request})
-
+            serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

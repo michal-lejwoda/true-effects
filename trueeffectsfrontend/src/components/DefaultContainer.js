@@ -58,6 +58,7 @@ const DefaultContainer = (props) => {
                 props.getDimensionConfigurationForCompare(),
                 props.getTrainings(),
                 props.getGoalsToAchieve(),
+                props.getCompletedGoals(),
                 props.getUser(),
                 props.getUserAchievements()
             ];
@@ -96,11 +97,6 @@ const DefaultContainer = (props) => {
         }
     }, [props.token]);
 
-    // useEffect(() => {
-    //     if (props.token) {
-    //         fetchAllData();
-    //     }
-    // }, [props.token]);
 
     const handleCloseBackToTrainingModal = () => {
         removeCookieTraining('true_effects_training');

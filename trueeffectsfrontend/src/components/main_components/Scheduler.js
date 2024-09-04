@@ -50,7 +50,7 @@ const Scheduler = (props) => {
                 />
             </div>
         </div>
-    ) : props.trainingsLoading && (
+    ) : (
         <div className="box-loading">
             <BoxLoading/>
         </div>

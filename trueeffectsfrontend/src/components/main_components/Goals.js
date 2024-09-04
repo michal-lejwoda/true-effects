@@ -21,6 +21,8 @@ const Goals = (props) => {
         await setSelectedGoal(goal_obj)
         await setShowCheckGoal(true)
     }
+    console.log(props.userGoalsCompletedLoaded)
+    console.log(props.userGoalsToAchieveLoaded)
     return props.userGoalsCompletedLoaded && props.userGoalsToAchieveLoaded ?
         (
             <div className="goals">
@@ -76,7 +78,7 @@ const Goals = (props) => {
                 }
             </div>
         ) :
-        (props.userGoalsCompletedLoading || props.userGoalsToAchieveLoading) && (
+        (
             <div className="box-loading">
                 <BoxLoading/>
             </div>
