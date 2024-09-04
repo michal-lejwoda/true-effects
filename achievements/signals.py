@@ -25,7 +25,6 @@ def create_user_achievement(achievement, user):
         }
         return message
     except Exception as e:
-        print(f"Error creating user achievement: {e}")
         return None
 
 
@@ -61,37 +60,13 @@ def check_training_achievements(sender, instance, created, **kwargs):
                         }
                     )
                 except Achievement.DoesNotExist:
-                    print(f'Achievement with id {achievement["id"]} does not exist.')
-                except Exception as e:
-                    print(f'Error occurred: {e}')
+                    pass
+                except Exception:
+                    pass
     else:
         user_modify, created = UserModifyTraining.objects.get_or_create(user=instance.user)
         user_modify.time += 1
         user_modify.save()
-
-
-# TODO Uncomment
-# @receiver(post_save, sender=UserModifyTraining)
-# def check_user_modify_training(sender, instance, created, **kwargs):
-#     if created:
-#         group_name = f"user_{instance.user.id}"
-#         achievements = list(Achievement.objects.filter(type_achievement__name='SUM_USER_MODIFY_TRAINING').exclude(
-#             id__in=UserAchievement.objects.filter(user=instance.user).values_list('achievement_id', flat=True)
-#         ).order_by('minutes').values())
-#         counted_modify_training = UserModifyTraining.objects.filter(user=instance.user).count()
-#         for achievement in achievements:
-#             if counted_modify_training >= achievement.minutes:
-#                 message = {
-#                     "message": "Updated training"
-#                 }
-#                 channel_layer = channels.layers.get_channel_layer()
-#                 async_to_sync(channel_layer.group_send)(
-#                     group_name,
-#                     {
-#                         'type': 'send_notifications',
-#                         'text': message
-#                     }
-#                 )
 
 
 @receiver(post_save, sender=UserDimension)
@@ -118,10 +93,8 @@ def check_user_measurement_achievements(sender, instance, created, **kwargs):
                             "message": created_user_achievement["message"]
                         }
                     )
-                except Achievement.DoesNotExist:
-                    print(f'Achievement with id {achievement["id"]} does not exist.')
-                except Exception as e:
-                    print(f'Error occurred: {e}')
+                except Exception:
+                    pass
 
 
 @receiver(post_save, sender=UserGoal)
@@ -148,10 +121,8 @@ def check_user_goal_achievements(sender, instance, created, **kwargs):
                             "message": created_user_achievement["message"]
                         }
                     )
-                except Achievement.DoesNotExist:
-                    print(f'Achievement with id {achievement["id"]} does not exist.')
                 except Exception as e:
-                    print(f'Error occurred: {e}')
+                    pass
 
 
 @receiver(post_save, sender=Exercise)
@@ -159,7 +130,6 @@ def check_exercise_achievements(sender, instance, created, **kwargs):
     group_name = f"user_{instance.user.id}"
     type_achievement = 'SUM_EXERCISE_CREATED'
     if created:
-        print("created")
         achievements = list(Achievement.objects.filter(
             type_achievement__name=type_achievement
         ).exclude(
@@ -179,7 +149,5 @@ def check_exercise_achievements(sender, instance, created, **kwargs):
                             "message": created_user_achievement["message"]
                         }
                     )
-                except Achievement.DoesNotExist:
-                    print(f'Achievement with id {achievement["id"]} does not exist.')
                 except Exception as e:
-                    print(f'Error occurred: {e}')
+                    pass

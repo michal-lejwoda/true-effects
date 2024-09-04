@@ -32,37 +32,22 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         self.keep_alive_task = asyncio.create_task(self.keep_connection_alive())
 
     async def receive(self, text_data):
-        print("receive")
         text_data_json = json.loads(text_data)
-        print("text_data_json", text_data_json)
         action = text_data_json.get('action')
         language = text_data_json.get('language')
-        print("language", language)
         if action == 'update_language':
-            print("update_langeuage")
-            print(language)
             self.language = language
 
+    #TODO Check this one
     async def keep_connection_alive(self):
         while True:
             try:
-                # await self.send(json.dumps({'type': 'ping'}))
                 await asyncio.sleep(30)
             except Exception as e:
-                print(f"Keep-alive error: {e}")
                 break
 
-    # async def disconnect(self, close_code):
-    #     print("disconnect")
-    #     disconnect_time = timezone.now()
-    #     spended_time = disconnect_time - self.start_time
-    #     spended_time_in_minutes = spended_time.total_seconds() / 60
-    #     if spended_time_in_minutes > 2:
-    #         update_spended_time.delay(self.user.id, spended_time_in_minutes)
-    async def disconnect(self, close_code):
-        print("disconnect")
 
-        # Cancel the tasks to stop them from running
+    async def disconnect(self, close_code):
         if self.check_not_shown_achievements:
             self.check_not_shown_achievements.cancel()
         if self.sum_logged_in_time:
@@ -80,28 +65,21 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.user_group_name, self.channel_name)
 
     async def logged_in_timer(self):
-        print("logged_in_timer")
-        print(self.actual_logged_in_achievements)
         if self.user.is_authenticated:
             login_time = 0
             for achievement in self.actual_logged_in_achievements:
-                print("logged achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - login_time) * 60)
-                print("wait_time", wait_time)
                 await asyncio.sleep(wait_time)
                 user_achievement_id = await self.create_user_achievement(achievement)
                 await self.create_notification_from_backend(user_achievement_id, achievement['message'])
                 login_time = await achievement['minutes']
 
     async def summary_logged_in_time(self):
-        print("summarty_logged_in_time")
         if self.user.is_authenticated:
             for achievement in self.sum_logged_in_achievements:
-                print("summary achievement", achievement)
                 wait_time = max(0, (achievement['minutes'] - self.sum_time) * 60)
                 await asyncio.sleep(wait_time)
                 user_achievement_id = await self.create_user_achievement(achievement)
-                print("user_achievement_id", user_achievement_id)
                 await self.create_notification_from_backend(user_achievement_id, achievement['message'])
 
     async def check_not_shown_achievements(self):
@@ -111,7 +89,6 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
 
     @sync_to_async
     def create_user_achievement(self, achievement):
-        print("create_user_achievement")
         try:
             achievement_obj, created = UserAchievement.objects.get_or_create(
                 achievement_id=achievement['id'],
@@ -125,14 +102,11 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
 
             return achievement_obj.id
         except Exception as e:
-            print(f"Error creating user achievement: {e}")
             return None
 
     async def create_notification_from_backend(self, user_achievement_id, message):
-        print("create_notification_from_backend")
         translation.activate(self.language)
         message = _(message)
-        print("wysylanie")
         await self.send(text_data=json.dumps({
             'user_achievement_id': user_achievement_id,
             'message': message
@@ -141,14 +115,12 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
     async def send_notifications(self, event):
         translation.activate(self.language)
         message = _(event['message'])
-        print(f"Sending message to {self.user.id}: {message}")
         await self.send(text_data=json.dumps({
             'user_achievement_id': event['user_achievement_id'],
             'message': message
         }))
 
     async def fetch_initial_data(self):
-        print("fetch_initial_data")
         sum_logged_in_task = asyncio.create_task(self.fetch_not_achieved_summary_logged_in_data())
         actual_logged_in_task = asyncio.create_task(self.fetch_not_achieved_actually_logged_in_data())
         sum_time = asyncio.create_task(self.summary_time())
@@ -180,16 +152,12 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
 
     @database_sync_to_async
     def fetch_not_achieved_actually_logged_in_data(self):
-        print(list(Achievement.objects.filter(type_achievement__name='LOGGED_TIME').exclude(
-            id__in=UserAchievement.objects.filter(user=self.user).values_list('achievement_id', flat=True)
-        ).order_by('minutes').values()))
         return list(Achievement.objects.filter(type_achievement__name='LOGGED_TIME').exclude(
             id__in=UserAchievement.objects.filter(user=self.user).values_list('achievement_id', flat=True)
         ).order_by('minutes').values())
 
     @database_sync_to_async
     def fetch_not_shown_achievements(self):
-        print("fetch_not_shown_achievements")
         achievements_with_user_ids = UserAchievement.objects.filter(
             user=self.user,
             is_displayed_for_user=False
@@ -201,12 +169,6 @@ class LoginTimeAchievements(AsyncWebsocketConsumer):
         )
 
         return list(achievements_with_user_ids)
-        # return list(Achievement.objects.filter(
-        #     id__in=UserAchievement.objects.filter(
-        #         user=self.user,
-        #         is_displayed_for_user=False
-        #     ).values_list('achievement_id', flat=True)
-        # ).order_by('minutes').values())
 
     async def fetch_not_achieved_data(self):
         self.not_achieved = await self.fetch_not_achieved_achievements()
