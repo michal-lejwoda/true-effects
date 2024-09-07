@@ -71,3 +71,6 @@ msgstr "You do not have permission to modify this achievement"
 
 msgid "Achievement activated successfully"
 msgstr "Achievement activated successfully"
+
+msgid "Fields 'name' and 'description' cannot be empty"
+msgstr "Fields 'name' and 'description' cannot be empty"

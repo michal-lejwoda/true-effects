@@ -101,3 +101,6 @@ msgstr "Stare hasło jest nieprawidłowe"
 
 msgid "Please fix mistakes is change password form"
 msgstr "Proszę poprawić błędy w formularzu zmiany hasła"
+
+msgid "Fields 'name' and 'description' cannot be empty"
+msgstr "Pola nazwa i opis nie mogą być puste"

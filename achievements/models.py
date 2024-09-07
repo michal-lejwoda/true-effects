@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-
+from django.utils.translation import ugettext_lazy as _
 from authorization.models import CustomUser
 
 class TypeAchievement(models.Model):
@@ -18,11 +18,16 @@ class Achievement(models.Model):
     minutes = models.IntegerField(default=0, blank=True, null=True)
     message = models.TextField(default="")
 
+    def save(self, *args, **kwargs):
+        if not self.name or not self.description:
+            raise ValueError(_("Fields 'name' and 'description' cannot be empty"))
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
 class UserAchievement(models.Model):
-    achievement = models.ForeignKey(Achievement,  null=True, on_delete=models.SET_NULL)
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, null=False)
     is_earned = models.BooleanField(default=False)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='achievements')
     date_earned = models.DateTimeField(null=True, default=timezone.now())
