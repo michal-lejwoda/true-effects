@@ -98,11 +98,11 @@ class ChangePasswordWithTokenSerializer(serializers.Serializer):
     def validate(self, data):
         try:
             token = Token.objects.get(key__exact=data['token'])
-            if token.user.email != data['email']:
-                raise serializers.ValidationError(_("Address email is invalid"))
-            if data['new_password1'] != data['new_password2']:
-                raise serializers.ValidationError(_('Passwords do not match'))
-            data['user'] = token.user
-            return data
         except Token.DoesNotExist:
-            raise serializers.ValidationError(_("Token is invalid"))
+            raise serializers.ValidationError({"token": _("Token is invalid")})
+        if token.user.email != data['email']:
+            raise serializers.ValidationError({"email": _("Address email is invalid")})
+        if data['new_password1'] != data['new_password2']:
+            raise serializers.ValidationError({"new_password2": _("Passwords do not match")})
+        data['user'] = token.user
+        return data
