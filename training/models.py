@@ -62,12 +62,13 @@ class Training(models.Model):
 
 class UserGoal(TimeStampedModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
-    # created_date = models.DateField(null=True)
     goal = models.CharField(max_length=100)
     description = models.TextField(null=True, blank=True)
     finish_date = models.DateField(null=False)
     completed = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.user.username} {self.goal}"
 
 class UserDimension(TimeStampedModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
