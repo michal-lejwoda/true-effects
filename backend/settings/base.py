@@ -22,12 +22,10 @@ INSTALLED_APPS = [
     'training',
     'achievements',
     'django_extensions',
-    'debug_toolbar',
     'silk'
 ]
 
 MIDDLEWARE = [
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -43,15 +41,15 @@ MIDDLEWARE = [
 
 ]
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-    '0.0.0.0',
-
-]
-
-DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': lambda request: True,
-}
+# INTERNAL_IPS = [
+#     '127.0.0.1',
+#     '0.0.0.0',
+#
+# ]
+#
+# DEBUG_TOOLBAR_CONFIG = {
+#     'SHOW_TOOLBAR_CALLBACK': lambda request: True,
+# }
 
 ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [

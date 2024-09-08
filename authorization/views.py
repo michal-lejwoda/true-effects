@@ -5,8 +5,9 @@ from django.utils import timezone
 from django.utils.translation import gettext as _
 from rest_framework import status
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
-from rest_framework.mixins import CreateModelMixin
+from rest_framework.mixins import CreateModelMixin, UpdateModelMixin
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet, ViewSet
@@ -96,7 +97,8 @@ class AchievementViewSet(GenericViewSet):
 class ChangePasswordViewSet(GenericViewSet):
     serializer_class = ChangePasswordSerializer
 
-    def update(self, request):
+    @action(detail=False, methods=['patch'], url_path='update')
+    def change_password(self, request):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = self.request.user
@@ -112,9 +114,8 @@ class ChangePasswordViewSet(GenericViewSet):
             user.save()
             return Response({'detail': _('Password has been changed')}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': _('Please fix mistakes is change password form')},
+            return Response({'error': _('Please fix mistakes in change password form')},
                             status=status.HTTP_400_BAD_REQUEST)
-
 
 class PasswordChangeWithToken(GenericViewSet):
     serializer_class = ChangePasswordWithTokenSerializer
