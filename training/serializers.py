@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
-
-from .models import *
+from django.utils.translation import ugettext_lazy as _
+from .models import UserDimension, UserDimensionConfiguration, UserGoal, Exercise, SingleSeries, MultiSeries, Training
 
 
 class UserDimensionSerializer(serializers.ModelSerializer):
@@ -12,22 +12,21 @@ class UserDimensionSerializer(serializers.ModelSerializer):
 
 class UserDimensionSerializerForCreate(serializers.ModelSerializer):
     def __init__(self, instance=None, data=empty, **kwargs):
-        super().__init__(data, **kwargs)
+        super().__init__(instance, data, **kwargs)
         user = self.context['request'].user
         user_dimension_config = UserDimensionConfiguration.objects.get(user=user)
         user_dimension_config_attrs = vars(user_dimension_config)
-        for key in user_dimension_config_attrs:
-            if not user_dimension_config_attrs[key]:
-                self.fields.pop(key)
-        self.fields.pop('user')
-        self.fields.pop('id')
-        self.fields.pop('date')
-        self.instance = instance
+        keys_to_remove = [key for key in self.fields.keys() if
+                          key not in user_dimension_config_attrs or not user_dimension_config_attrs[key]]
+        for key in keys_to_remove:
+            self.fields.pop(key)
+        self.fields.pop('user', None)
+        self.fields.pop('id', None)
+        self.fields.pop('date', None)
         if data is not empty:
             self.initial_data = data
         self.partial = kwargs.pop('partial', False)
         self._context = kwargs.pop('context', {})
-        kwargs.pop('many', None)
 
     class Meta:
         model = UserDimension
@@ -46,48 +45,47 @@ class UserDimensionSerializerConfigurationForCompare(serializers.ModelSerializer
     bodyfat = serializers.SerializerMethodField()
 
     def get_weight(self, obj):
-        return "Waga(kg)"
+        return _("Weight(kg)")
 
     def get_growth(self, obj):
-        return "Wzrost(cm)"
+        return _("Growth(cm)")
 
     def get_left_biceps(self, obj):
-        return "Lewy Biceps(cm)"
+        return _("Left Biceps(cm)")
 
     def get_right_biceps(self, obj):
-        return "Prawy Biceps(cm)"
+        return _("Right Biceps(cm)")
 
     def get_left_forearm(self, obj):
-        return "Lewe Ramię(cm)"
+        return _("Left Arm(cm)")
 
     def get_right_forearm(self, obj):
-        return "Prawe Ramię(cm)"
+        return _("Right Arm(cm)")
 
     def get_left_leg(self, obj):
-        return "Lewa Noga(cm)"
+        return _("Left Leg(cm)")
 
     def get_right_leg(self, obj):
-        return "Prawa Noga(cm)"
+        return _("Right Leg(cm)")
 
     def get_bodyfat(self, obj):
-        return "Tkanka tłuszczowa(%)"
+        return _("Bodyfat(%)")
 
     def __init__(self, instance=None, data=empty, **kwargs):
-
         super().__init__(data, **kwargs)
-        instance_values = vars(instance)
-        for key in instance_values:
-            if instance_values[key] is False:
-                self.fields.pop(key)
-        self.fields.pop('user')
-        self.fields.pop('id')
-        self.fields.pop('date')
+        if instance:
+            instance_values = vars(instance)
+            for key in list(self.fields.keys()):
+                if not instance_values.get(key, True):
+                    self.fields.pop(key)
+        self.fields.pop('user', None)
+        self.fields.pop('id', None)
+        self.fields.pop('date', None)
         self.instance = instance
         if data is not empty:
             self.initial_data = data
         self.partial = kwargs.pop('partial', False)
         self._context = kwargs.pop('context', {})
-        kwargs.pop('many', None)
 
     class Meta:
         model = UserDimension
@@ -107,7 +105,6 @@ class UserDimensionConfigurationSerializer(serializers.ModelSerializer):
 
 
 class ExerciseSerializer(serializers.ModelSerializer):
-    # id = serializers.IntegerField(required=True)
     label = serializers.ReadOnlyField(source='name')
     value = serializers.ReadOnlyField(source='name')
 
@@ -119,8 +116,8 @@ class ExerciseSerializer(serializers.ModelSerializer):
             'user': {'write_only': True}
         }
 
+
 class TrainingExerciseSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=True)
     label = serializers.ReadOnlyField(source='name')
     value = serializers.ReadOnlyField(source='name')
 
@@ -180,7 +177,6 @@ class SimpleTrainingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Training
         fields = ['id', 'date', 'name']
-
 
 
 class TrainingSerializer(serializers.ModelSerializer):
