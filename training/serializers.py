@@ -192,12 +192,20 @@ class MultiSeriesSerializerv2(serializers.ModelSerializer):
         fields = '__all__'
 
     def create(self, validated_data):
-        user_id = validated_data.pop('user')
-        # exercise = Exercise.objects.get(id=validated_data['exercise'])
-        # validated_data['exercise'] = exercise
-        validated_data['user'] = user_id
+        single_series_data = validated_data.pop('single_series', [])
         multi_series_obj = MultiSeries.objects.create(**validated_data)
+        single_series_list = []
+        for single_series_element in single_series_data:
+            single_series_element['user'] = validated_data['user'].id
+            single_series_element['exercise'] = single_series_element['exercise'].id
+            single_series_serializer = SingleSeriesSerializerv2(data=single_series_element)
+            if single_series_serializer.is_valid():
+                single_series_obj = single_series_serializer.save()
+                single_series_list.append(single_series_obj)
+        multi_series_obj.single_series.set(single_series_list)
         return multi_series_obj
+
+
 
 class MultiSeriesSerializer(serializers.ModelSerializer):
     exercise = TrainingExerciseSerializer(required=False, allow_null=True)
