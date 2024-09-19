@@ -29,7 +29,6 @@ class ExerciseViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             queryset = queryset.filter(name__istartswith=param)
         return queryset
 
-
     def create(self, request, *args, **kwargs):
         data = request.data.copy()
         data['public'] = True
@@ -66,6 +65,7 @@ class UserDimensionViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, G
     serializer_class = UserDimensionSerializer
 
     DEFAULT_USER_DIMENSION_DATA = {
+        "date": None,
         "weight": None,
         "growth": None,
         "left_biceps": None,
@@ -185,6 +185,7 @@ class SingleTrainingViewSet(ListModelMixin, CreateModelMixin, DestroyModelMixin,
         serializer = self.get_serializer(instance=training)
         return Response(serializer.data)
 
+
 class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = SimpleTrainingSerializer
@@ -206,6 +207,7 @@ class TrainingViewSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         queryset = Training.objects.filter(user=self.request.user, **filter_kwargs).order_by(order_by)[:limit]
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
 
 class UserDimensionConfigurationViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin, GenericViewSet):
     permission_classes = [IsAuthenticated]

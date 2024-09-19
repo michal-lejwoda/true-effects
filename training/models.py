@@ -72,7 +72,7 @@ class UserGoal(TimeStampedModel):
 
 class UserDimension(TimeStampedModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, default=None)
-    date = models.DateField(null=False)
+    date = models.DateField(null=True)
     weight = models.FloatField(null=True, blank=True)
     growth = models.FloatField(null=True, blank=True)
     left_biceps = models.FloatField(null=True, blank=True)

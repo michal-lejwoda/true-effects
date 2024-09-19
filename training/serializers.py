@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
 from django.utils.translation import ugettext_lazy as _
+from rest_framework.relations import PrimaryKeyRelatedField
+
 from .models import UserDimension, UserDimensionConfiguration, UserGoal, Exercise, SingleSeries, MultiSeries, Training
 
 
@@ -19,10 +21,11 @@ class UserDimensionSerializerForCreate(serializers.ModelSerializer):
         keys_to_remove = [key for key in self.fields.keys() if
                           key not in user_dimension_config_attrs or not user_dimension_config_attrs[key]]
         for key in keys_to_remove:
+            if key is "date":
+                continue
             self.fields.pop(key)
         self.fields.pop('user', None)
         self.fields.pop('id', None)
-        self.fields.pop('date', None)
         if data is not empty:
             self.initial_data = data
         self.partial = kwargs.pop('partial', False)
@@ -129,6 +132,31 @@ class TrainingExerciseSerializer(serializers.ModelSerializer):
             'user': {'write_only': True}
         }
 
+class SingleSeriesSerializerv2(serializers.ModelSerializer):
+    exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
+
+    def create(self, validated_data):
+        user_id = validated_data.pop('user')
+        validated_data['user'] = user_id
+        single_series_obj = SingleSeries.objects.create(**validated_data)
+        return single_series_obj
+
+    def update(self, instance, validated_data):
+        instance.extra_weight = validated_data.pop('extra_weight')
+        instance.rest = validated_data.pop('rest')
+        instance.concentric_phase = validated_data.pop('concentric_phase')
+        instance.eccentric_phase = validated_data.pop('eccentric_phase')
+        instance.pause_after_concentric_phase = validated_data.pop('pause_after_concentric_phase')
+        instance.pause_after_eccentric_phase = validated_data.pop('pause_after_eccentric_phase')
+        instance.reps = validated_data.pop('reps')
+        instance.series_num = validated_data.pop('series_num')
+        instance.save()
+        return instance
+    class Meta:
+        model = SingleSeries
+        fields = '__all__'
+
+
 class SingleSeriesSerializer(serializers.ModelSerializer):
     exercise = TrainingExerciseSerializer(required=False, allow_null=True)
 
@@ -155,6 +183,21 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
         model = SingleSeries
         fields = '__all__'
 
+class MultiSeriesSerializerv2(serializers.ModelSerializer):
+    exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
+    single_series = SingleSeriesSerializerv2(required=False, allow_null=True, many=True)
+
+    class Meta:
+        model = MultiSeries
+        fields = '__all__'
+
+    def create(self, validated_data):
+        user_id = validated_data.pop('user')
+        # exercise = Exercise.objects.get(id=validated_data['exercise'])
+        # validated_data['exercise'] = exercise
+        validated_data['user'] = user_id
+        multi_series_obj = MultiSeries.objects.create(**validated_data)
+        return multi_series_obj
 
 class MultiSeriesSerializer(serializers.ModelSerializer):
     exercise = TrainingExerciseSerializer(required=False, allow_null=True)
