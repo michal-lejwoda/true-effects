@@ -1,9 +1,9 @@
 from rest_framework.test import APITestCase, APIRequestFactory
 
 from authorization.models import CustomUser
-from training.models import UserDimension, Exercise, SingleSeries
+from training.models import UserDimension, Exercise, SingleSeries, MultiSeries
 from training.serializers import UserDimensionSerializer, UserDimensionSerializerForCreate, MultiSeriesSerializerv2, \
-    SingleSeriesSerializerv2
+    SingleSeriesSerializerv2, TrainingSerializer
 
 
 class UserDimensionSerializerTest(APITestCase):
@@ -113,39 +113,40 @@ class MultiSeriesSerializerv2Test(APITestCase):
         self.assertEqual(multi_series.exercise, self.exercise)
         self.assertEqual(multi_series.single_series.count(), 1)
 
-# class TrainingSerializerTest(APITestCase):
-#     def setUp(self):
-#         self.user = CustomUser.objects.create_user(username='testuser', password='testpass')
-#         self.exercise = Exercise.objects.create(user=self.user, name="Deadlift")
-#         self.single_series = SingleSeries.objects.create(user=self.user, exercise=self.exercise, reps=8, series_num=1)
-#         self.multi_series = MultiSeries.objects.create(user=self.user, exercise=self.exercise)
-#         self.multi_series.single_series.add(self.single_series)
-#         self.training_data = {
-#             'user': self.user.id,
-#             'name': 'Leg Day',
-#             'date': '2023-09-07',
-#             'multi_series': [{
-#                 'exercise': self.exercise.id,
-#                 'single_series': [{
-#                     'extra_weight': 10,
-#                     'rest': 60,
-#                     'concentric_phase': 2,
-#                     'eccentric_phase': 3,
-#                     'pause_after_concentric_phase': 1,
-#                     'pause_after_eccentric_phase': 1,
-#                     'reps': 10,
-#                     'series_num': 1
-#                 }],
-#                 'series_num': 1
-#             }]
-#         }
-#
-#     def test_training_serializer(self):
-#         factory = APIRequestFactory()
-#         request = factory.post('/some-url/')
-#         request.user = self.user
-#
-#         serializer = TrainingSerializer(data=self.training_data, context={'request': request})
-#         self.assertTrue(serializer.is_valid(), f"Errors: {serializer.errors}")
-#         training = serializer.save()
-#         self.assertEqual(training.user, self.user)
+class TrainingSerializerTest(APITestCase):
+    def setUp(self):
+        self.user = CustomUser.objects.create_user(username='testuser', password='testpass')
+        self.exercise = Exercise.objects.create(user=self.user, name="Deadlift")
+        self.single_series = SingleSeries.objects.create(user=self.user, exercise=self.exercise, reps=8, series_num=1)
+        self.multi_series = MultiSeries.objects.create(user=self.user, exercise=self.exercise)
+        self.multi_series.single_series.add(self.single_series)
+        self.training_data = {
+            'user': self.user.id,
+            'name': 'Leg Day',
+            'date': '2023-09-07',
+            'multi_series': [{
+                'exercise': self.exercise.id,
+                'single_series': [{
+                    'extra_weight': 10,
+                    'rest': 60,
+                    'concentric_phase': 2,
+                    'eccentric_phase': 3,
+                    'pause_after_concentric_phase': 1,
+                    'pause_after_eccentric_phase': 1,
+                    'reps': 10,
+                    'series_num': 1,
+                    'exercise': self.exercise.id,
+                }],
+                'series_num': 1
+            }]
+        }
+
+    def test_training_serializer(self):
+        factory = APIRequestFactory()
+        request = factory.post('/some-url/')
+        request.user = self.user
+
+        serializer = TrainingSerializer(data=self.training_data, context={'request': request})
+        self.assertTrue(serializer.is_valid(), f"Errors: {serializer.errors}")
+        training = serializer.save()
+        self.assertEqual(training.user, self.user)

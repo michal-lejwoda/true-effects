@@ -231,7 +231,7 @@ class SimpleTrainingSerializer(serializers.ModelSerializer):
 
 
 class TrainingSerializer(serializers.ModelSerializer):
-    multi_series = MultiSeriesSerializer(many=True, required=False, allow_null=True)
+    multi_series = MultiSeriesSerializerv2(many=True, required=False, allow_null=True)
 
     class Meta:
         model = Training
@@ -245,17 +245,17 @@ class TrainingSerializer(serializers.ModelSerializer):
         for multiseries_element in multiseries_elements:
             single_series_data = multiseries_element.pop('single_series')
             multiseries_element['user'] = user
-            multi_series_serializer = MultiSeriesSerializer(data=multiseries_element)
+            multi_series_serializer = MultiSeriesSerializerv2(data=multiseries_element)
             if multi_series_serializer.is_valid():
                 multi_series_obj = multi_series_serializer.save()
                 multi_series_list.append(multi_series_obj)
-            single_series_list = []
-            for single_series_element in single_series_data:
-                single_series_element['user'] = user
-                single_series_serializer = SingleSeriesSerializer(data=single_series_element)
-                if single_series_serializer.is_valid():
-                    single_series_obj = single_series_serializer.save()
-                    single_series_list.append(single_series_obj)
-                multi_series_obj.single_series.set(single_series_list)
+                single_series_list = []
+                for single_series_element in single_series_data:
+                    single_series_element['user'] = user
+                    single_series_serializer = SingleSeriesSerializerv2(data=single_series_element)
+                    if single_series_serializer.is_valid():
+                        single_series_obj = single_series_serializer.save()
+                        single_series_list.append(single_series_obj)
+                    multi_series_obj.single_series.set(single_series_list)
             training.multi_series.set(multi_series_list)
         return training
