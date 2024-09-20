@@ -1,6 +1,6 @@
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import empty
-from django.utils.translation import ugettext_lazy as _
 from rest_framework.relations import PrimaryKeyRelatedField
 
 from .models import UserDimension, UserDimensionConfiguration, UserGoal, Exercise, SingleSeries, MultiSeries, Training
@@ -132,6 +132,7 @@ class TrainingExerciseSerializer(serializers.ModelSerializer):
             'user': {'write_only': True}
         }
 
+
 class SingleSeriesSerializerv2(serializers.ModelSerializer):
     exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
 
@@ -152,6 +153,7 @@ class SingleSeriesSerializerv2(serializers.ModelSerializer):
         instance.series_num = validated_data.pop('series_num')
         instance.save()
         return instance
+
     class Meta:
         model = SingleSeries
         fields = '__all__'
@@ -179,9 +181,11 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
         instance.series_num = validated_data.pop('series_num')
         instance.save()
         return instance
+
     class Meta:
         model = SingleSeries
         fields = '__all__'
+
 
 class MultiSeriesSerializerv2(serializers.ModelSerializer):
     exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
@@ -204,7 +208,6 @@ class MultiSeriesSerializerv2(serializers.ModelSerializer):
                 single_series_list.append(single_series_obj)
         multi_series_obj.single_series.set(single_series_list)
         return multi_series_obj
-
 
 
 class MultiSeriesSerializer(serializers.ModelSerializer):

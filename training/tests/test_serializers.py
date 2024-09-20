@@ -2,7 +2,7 @@ from rest_framework.test import APITestCase, APIRequestFactory
 
 from authorization.models import CustomUser
 from training.models import UserDimension, Exercise, SingleSeries, MultiSeries
-from training.serializers import UserDimensionSerializer, UserDimensionSerializerForCreate, MultiSeriesSerializerv2, \
+from training.serializers import UserDimensionSerializer, MultiSeriesSerializerv2, \
     SingleSeriesSerializerv2, TrainingSerializer
 
 
@@ -112,6 +112,7 @@ class MultiSeriesSerializerv2Test(APITestCase):
         multi_series = serializer.save()
         self.assertEqual(multi_series.exercise, self.exercise)
         self.assertEqual(multi_series.single_series.count(), 1)
+
 
 class TrainingSerializerTest(APITestCase):
     def setUp(self):

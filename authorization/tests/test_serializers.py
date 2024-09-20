@@ -2,7 +2,6 @@ import io
 from datetime import datetime
 
 from PIL import Image
-from django.contrib.auth.models import AnonymousUser
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory
@@ -36,6 +35,7 @@ class AchievementSerializerTest(APITestCase):
             'image': self.image_file,
             'type_achievement': self.type_achievement.id,
         }
+
     def test_achievement_serializer_valid(self):
         serializer = AchievementSerializer(data=self.achievement_data)
         serializer.is_valid()
@@ -139,7 +139,6 @@ class ChangePasswordWithTokenSerializerTest(APITestCase):
 
     def tearDown(self):
         Token.objects.filter(user=self.user).delete()
-
 
     def test_change_password_with_token_serializer_valid(self):
         serializer = ChangePasswordWithTokenSerializer(data=self.valid_data)

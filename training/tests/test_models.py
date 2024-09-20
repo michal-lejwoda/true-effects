@@ -1,7 +1,10 @@
 from django.test import TestCase
 from django.utils import timezone
+
 from authorization.models import CustomUser
-from training.models import Exercise, SingleSeries, MultiSeries, Training, UserGoal, UserDimension, UserDimensionConfiguration
+from training.models import Exercise, SingleSeries, MultiSeries, Training, UserGoal, UserDimension, \
+    UserDimensionConfiguration
+
 
 class ExerciseModelTest(TestCase):
     def setUp(self):

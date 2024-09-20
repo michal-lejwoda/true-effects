@@ -1,7 +1,8 @@
+from django.db.utils import IntegrityError
 from django.test import TestCase
+
 from achievements.models import Achievement, TypeAchievement, UserAchievement, UserModifyTraining, SumLoggedInTime
 from authorization.models import CustomUser
-from django.db.utils import IntegrityError
 
 
 class SimpleTest(TestCase):

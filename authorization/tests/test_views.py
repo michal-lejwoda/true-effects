@@ -1,8 +1,7 @@
-from django.test import TestCase
-from django.utils import timezone
-from rest_framework.test import APIClient, APITestCase
-from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
+from django.utils import timezone
+from rest_framework.authtoken.models import Token
+from rest_framework.test import APIClient, APITestCase
 
 from achievements.models import Achievement, UserAchievement, TypeAchievement
 
@@ -44,6 +43,8 @@ class ChangeDefaultLanguageTest(APITestCase):
     def test_change_default_language_invalid(self):
         response = self.client.post('/api/v1/change_default_language/', {'language': ''})
         self.assertEqual(response.status_code, 400)
+
+
 #
 
 class GetUserViewSetTest(APITestCase):
