@@ -127,6 +127,8 @@ def check_user_goal_achievements(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Exercise)
 def check_exercise_achievements(sender, instance, created, **kwargs):
+    if instance.user is None:
+        return False
     group_name = f"user_{instance.user.id}"
     type_achievement = 'SUM_EXERCISE_CREATED'
     if created:

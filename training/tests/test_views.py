@@ -10,19 +10,22 @@ from rest_framework.authtoken.models import Token
 
 class ExerciseViewSetTest(APITestCase):
     def setUp(self):
-        self.user = CustomUser.objects.create_user(username='testuser', password='password')
-        self.token = Token.objects.create(user=self.user)
+        self.user = CustomUser.objects.create_user(username='testuser2', password='password')
+        self.user.refresh_from_db()
+        self.token, created = Token.objects.get_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
+
+
 
         self.exercise_data = {
             'name': 'Push Up',
-            'description': 'Push up exercise',
-            'public': True
+            'public': True,
+            'popularity': 1
         }
         self.exercise = Exercise.objects.create(user=self.user, **self.exercise_data)
 
     def test_create_exercise(self):
-        url = reverse('exercise-list')  # Assuming you have set proper URLs
+        url = reverse('exercise-list')
         response = self.client.post(url, self.exercise_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -37,7 +40,7 @@ class ExerciseViewSetTest(APITestCase):
 class UserDimensionViewSetTest(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(username='testuser', password='password')
-        self.token = Token.objects.create(user=self.user)
+        self.token, created = Token.objects.get_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
         self.dimension_data = {
@@ -99,7 +102,7 @@ class UserGoalViewSetTest(APITestCase):
 class SingleTrainingViewSetTest(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(username='testuser', password='password')
-        self.token = Token.objects.create(user=self.user)
+        self.token, created =Token.objects.get_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
         self.training_data = {
@@ -109,12 +112,12 @@ class SingleTrainingViewSetTest(APITestCase):
         self.training = Training.objects.create(user=self.user, **self.training_data)
 
     def test_create_training(self):
-        url = reverse('training-list')
+        url = reverse('single_training-list')
         response = self.client.post(url, self.training_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_get_training_by_id(self):
-        url = reverse('training-get-training-by-id', args=[self.training.id])
+        url = reverse('single_training-get-training-by-id', args=[self.training.id])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], 'Training 1')
