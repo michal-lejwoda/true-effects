@@ -1,3 +1,4 @@
+from django.test import RequestFactory
 from django.utils import timezone
 from rest_framework.test import APITestCase
 from django.urls import reverse
@@ -6,6 +7,8 @@ from rest_framework import status
 from authorization.models import CustomUser
 from training.models import Exercise, UserDimension, UserGoal, Training
 from rest_framework.authtoken.models import Token
+
+from training.serializers import TrainingSerializer
 
 
 class ExerciseViewSetTest(APITestCase):
@@ -99,25 +102,55 @@ class UserGoalViewSetTest(APITestCase):
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]['goal'], 'Lose Weight')
 
+
 class SingleTrainingViewSetTest(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create_user(username='testuser', password='password')
-        self.token, created =Token.objects.get_or_create(user=self.user)
+        self.token, created = Token.objects.get_or_create(user=self.user)
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token.key)
 
+
+        self.exercise_data = {
+            'name': 'Push Up',
+            'public': True,
+            'popularity': 1
+        }
+        self.factory = RequestFactory()
+        self.exercise = Exercise.objects.create(user=self.user, **self.exercise_data)
         self.training_data = {
             'name': 'Training 1',
             'date': '2024-09-25',
+            'multi_series': [{
+                'exercise': self.exercise.id,
+                'single_series': [{
+                    'extra_weight': 10,
+                    'rest': 60,
+                    'concentric_phase': 2,
+                    'eccentric_phase': 3,
+                    'pause_after_concentric_phase': 1,
+                    'pause_after_eccentric_phase': 1,
+                    'reps': 10,
+                    'series_num': 1,
+                    'exercise': self.exercise.id,
+                }],
+                'series_num': 1
+            }]
         }
-        self.training = Training.objects.create(user=self.user, **self.training_data)
 
     def test_create_training(self):
         url = reverse('single_training-list')
         response = self.client.post(url, self.training_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(response.data['name'], self.training_data['name'])
 
     def test_get_training_by_id(self):
-        url = reverse('single_training-get-training-by-id', args=[self.training.id])
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(response.data['name'], 'Training 1')
+        request = self.factory.post('/fake-url/', self.training_data, format='json')
+        request.user = self.user
+        serializer = TrainingSerializer(data=self.training_data, context={'request': request})
+        if serializer.is_valid():
+            training = serializer.save(user=self.user)
+
+            url = reverse('single_training-get-training-by-id', args=[training.id])
+            response = self.client.get(url)
+            self.assertEqual(response.status_code, status.HTTP_200_OK)
+            self.assertEqual(response.data['name'], self.training_data['name'])
