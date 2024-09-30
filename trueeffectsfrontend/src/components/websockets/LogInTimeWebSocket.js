@@ -11,6 +11,7 @@ class WebSocketClient {
     }
 
     connect(token, language) {
+        console.log("connect")
         if (this.isConnected) {
             this.reset();
         }
@@ -35,6 +36,7 @@ class WebSocketClient {
             };
 
             this.socket.onclose = () => {
+                console.log("socket on close")
                 this.isConnected = false;
                 this.stopHeartbeat();
                 if (this.shouldReconnect) {
@@ -60,6 +62,7 @@ class WebSocketClient {
     }
 
     reset() {
+        console.log("reset")
         this.shouldReconnect = false;
         this.close();
         this.removeAllCallbacks();
