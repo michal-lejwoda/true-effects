@@ -84,7 +84,7 @@ const CreateMultiSeries = (props) => {
                     <div className="inputs__reps animatedInput">
                         <input name="reps" onChange={handleChange} value={values.reps} required="required"
                                type="number"/>
-                        <span>{"Repetitions number"}</span>
+                        <span>{t("Repetitions number")}</span>
                     </div>
                     {errors.reps && <p className="inputs__errors">{t(errors.reps)}</p>}
                     <div className="inputs__concentric_phase animatedInput">
