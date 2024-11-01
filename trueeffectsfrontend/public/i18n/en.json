@@ -179,6 +179,9 @@
   "Field training name is too short": "Field training name is too short",
   "Field training name is required": "Field training name is required",
   "Field date is invalid": "Field date is invalid",
-  "Field date can't be empty": "Field date can't be empty"
+  "Field date can't be empty": "Field date can't be empty",
+  "Account": "Account",
+  "Settings saved": "Settings saved",
+  "Successfully saved the settings !!!": "Successfully saved the settings !!!",
 
 }
