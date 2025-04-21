@@ -1,5 +1,6 @@
 FROM postgres:12-bullseye
-
+ARG ENV=local
+ENV ENV=${ENV}
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
   # dependencies for building Python packages

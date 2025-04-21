@@ -1,7 +1,8 @@
-#version: "3.7"
+
 services:
   trueeffects_nginx:
-    image: nginx
+    image: saxatachi/trueeffects_nginx:dev
+
     container_name: trueeffects_nginx
     build:
       context: .
@@ -18,11 +19,11 @@ services:
       - trueeffects_frontend
 
   trueeffects_db:
+    image: saxatachi/trueeffects_db:dev
     container_name: trueeffects_db
     build:
       context: .
       dockerfile: ./compose/local/postgres/Dockerfile
-    image: postgres
     env_file:
       - ./.envs/local/.postgres
     volumes:
@@ -34,6 +35,7 @@ services:
 #      - 5432:5432
 
   trueeffects_backend:
+    image: saxatachi/trueeffects_backend:dev
     container_name: django
     build:
       context: .
@@ -52,6 +54,7 @@ services:
       - trueeffects_db
 
   trueeffects_frontend:
+    image: saxatachi/trueeffects_frontend:dev
     stdin_open: true
     container_name: react
     build:
@@ -71,6 +74,7 @@ services:
       - backend
 
   trueeffects_redis:
+    image: saxatachi/trueeffects_redis:dev
     container_name: trueeffects_redis
     build:
       context: .
