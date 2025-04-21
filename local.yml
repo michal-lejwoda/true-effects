@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: ./compose/local/nginx/Dockerfile
     ports:
-      - 80:80
+      - 80:81
     networks:
       - backend
     restart: always
@@ -61,8 +61,9 @@ services:
       - .envs/local/.react
     volumes:
       - ./trueeffectsfrontend:/frontend
-#    ports:
-#      - 3000:3000
+      - /app/node_modules
+    ports:
+      - 3000:3000
     depends_on:
       - trueeffects_db
       - trueeffects_backend
