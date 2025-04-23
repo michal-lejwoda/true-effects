@@ -20,3 +20,15 @@ resource "azurerm_subnet" "te_db_subnet" {
   address_prefixes     = ["10.0.2.0/24"]
 
 }
+resource "azurerm_private_dns_zone" "db" {
+  name                = "privatelink.postgres.database.azure.com"
+  resource_group_name = var.resource_group_name
+}
+
+resource "azurerm_private_dns_zone_virtual_network_link" "db_link" {
+  name                  = "db-link"
+  resource_group_name   = var.resource_group_name
+  private_dns_zone_name = azurerm_private_dns_zone.db.name
+  virtual_network_id    = azurerm_virtual_network.te_vnet.id
+  registration_enabled  = false
+}
