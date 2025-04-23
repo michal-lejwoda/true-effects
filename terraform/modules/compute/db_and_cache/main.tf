@@ -3,15 +3,15 @@ resource "azurerm_redis_cache" "redis" {
   location            = var.location
   resource_group_name = var.resource_group_name
   capacity            = 1
-  family              = "C"
-  sku_name            = "Basic"
+  family              = "P"
+  sku_name            = "Premium"
   # enable_non_ssl_port = false
 
   redis_configuration {
     maxmemory_policy = "allkeys-lru"
   }
 
-  subnet_id = var.te_db_subnet_id
+  subnet_id = var.te_cache_subnet_id
   minimum_tls_version = "1.2"
 }
 
@@ -29,5 +29,6 @@ resource "azurerm_postgresql_flexible_server" "db" {
 
   delegated_subnet_id    = var.te_db_subnet_id
   private_dns_zone_id    = var.te_private_dns_zone_db_id
+  public_network_access_enabled = false
   zone                   = "1"
 }

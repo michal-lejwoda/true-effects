@@ -18,6 +18,11 @@ variable "te_db_subnet_id" {
   description = "This is id of db subnet"
 }
 
+variable "te_cache_subnet_id" {
+  type = string
+  description = "This is of subnet for redis "
+}
+
 variable "te_private_dns_zone_db_id" {
   type = string
   description = "this is private dns for db"

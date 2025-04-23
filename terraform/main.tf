@@ -28,6 +28,7 @@ module "db-and-cache" {
     frontend_container_name = var.frontend_container_name
     te_container_apps_subnet_id = module.vnet.te_container_apps_subnet_id
     te_db_subnet_id = module.vnet.te_db_subnet_id
+    te_cache_subnet_id = module.vnet.te_cache_subnet_id
     te_private_dns_zone_db_id = module.vnet.te_private_dns_zone_db_id
     depends_on = [ module.vnet ]
 }
