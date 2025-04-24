@@ -1,17 +1,17 @@
 module "resource-group" {
-    source = "./modules/general/resourcegroup"
+    source = "modules/infra/general/resourcegroup"
     resource_group_name = var.resource_group_name
     location = var.location
 }
 
 module "vnet" {
-    source = "./modules/vnet"
+    source = "modules/infra/vnet"
     location = var.location
     resource_group_name = var.resource_group_name
     depends_on = [ module.resource-group ]
 }
 module "container-env" {
-    source="./modules/compute/container_env"
+    source="modules/infra/compute/container_env"
     resource_group_name=var.resource_group_name
     location=var.location
     backend_container_name=var.backend_container_name
@@ -21,7 +21,7 @@ module "container-env" {
 }
 
 module "db-and-cache" {
-    source="./modules/compute/db_and_cache"
+    source="modules/infra/compute/db_and_cache"
     resource_group_name=var.resource_group_name
     location=var.location
     backend_container_name=var.backend_container_name

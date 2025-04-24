@@ -1,5 +1,5 @@
 resource "azurerm_redis_cache" "redis" {
-  name                = "te-redis"
+  name                = var.te_redis_name
   location            = var.location
   resource_group_name = var.resource_group_name
   capacity            = 1
@@ -16,7 +16,7 @@ resource "azurerm_redis_cache" "redis" {
 }
 
 resource "azurerm_postgresql_flexible_server" "db" {
-  name                   = "te-postgres"
+  name                   = var.te_postgres_name
   resource_group_name    = var.resource_group_name
   location               = var.location
   version                = "14"

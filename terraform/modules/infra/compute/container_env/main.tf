@@ -1,5 +1,5 @@
 resource "azurerm_container_app_environment" "te_container_app_env" {
-  name                = "te-container-app-env"
+  name                = var.te-container-app-env-name
   location            = var.location
   resource_group_name = var.resource_group_name
   internal_load_balancer_enabled = false
