@@ -26,6 +26,14 @@ variable "te_redis_name" {
   type= string
 }
 
+variable "te_postgres_name" {
+  type = string
+}
+
+variable "te_container_app_env_name" {
+  type = string
+}
+
 variable "te_vnet_name" {
   type= string
 }

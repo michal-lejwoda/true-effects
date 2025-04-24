@@ -37,3 +37,11 @@ variable "frontend_container_name" {
   type= string
   description = "This defines name of frontend container"
 }
+
+variable "te_redis_name" {
+  type = string
+}
+
+variable "te_postgres_name" {
+  type = string
+}

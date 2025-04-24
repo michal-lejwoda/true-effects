@@ -21,3 +21,7 @@ variable "frontend_container_name" {
   type= string
   description = "This defines name of frontend container"
 }
+
+variable "te_container_app_env_name" {
+  type = string
+}
