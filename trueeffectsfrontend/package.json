@@ -45,6 +45,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts --openssl-legacy-provider build",
+    "build:local": "env $(cat .env.production.local | xargs) react-scripts build",
+    "build:azuredev": "env $(cat .env.azure.dev | xargs) react-scripts build",
+    "build:azureprod": "env $(cat .env.azure.prod | xargs) react-scripts build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject"
   },

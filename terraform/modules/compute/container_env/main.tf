@@ -52,10 +52,10 @@ resource "azurerm_container_app" "frontend" {
         value = "dev"
       }
     }
-
-    # ingress {
-    #   external_enabled = true
-    #   target_port      = 3000
-    # }
+  }
+  ingress {
+    external_enabled = true
+    target_port      = 80
+    transport        = "auto"
   }
 }
