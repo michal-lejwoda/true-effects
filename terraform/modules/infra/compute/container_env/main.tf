@@ -1,5 +1,5 @@
 resource "azurerm_container_app_environment" "te_container_app_env" {
-  name                = var.te-container-app-env-name
+  name                = var.te_container_app_env_name
   location            = var.location
   resource_group_name = var.resource_group_name
   internal_load_balancer_enabled = false
@@ -57,5 +57,10 @@ resource "azurerm_container_app" "frontend" {
     external_enabled = true
     target_port      = 80
     transport        = "auto"
+    traffic_weight {
+  latest_revision = true
+  percentage      = 100
+}
+
   }
 }
