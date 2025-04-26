@@ -1,0 +1,89 @@
+
+services:
+  trueeffects_nginx:
+    image: saxatachi/trueeffects_nginx:dev
+
+    container_name: trueeffects_nginx
+    build:
+      context: .
+      dockerfile: ./compose/local/nginx/Dockerfile
+    ports:
+      - 80:81
+    networks:
+      - backend
+    restart: always
+    volumes:
+      - /app/backend/local-backend-static:/app/backend/local-backend-static
+    depends_on:
+      - trueeffects_backend
+      - trueeffects_frontend
+
+  trueeffects_db:
+    image: saxatachi/trueeffects_db:dev
+    container_name: trueeffects_db
+    build:
+      context: .
+      dockerfile: ./compose/local/postgres/Dockerfile
+    env_file:
+      - ./.envs/local/.postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backups:/backups
+    networks:
+      - backend
+#    ports:
+#      - 5432:5432
+
+  trueeffects_backend:
+    image: saxatachi/trueeffects_backend:dev
+    container_name: django
+    build:
+      context: .
+      dockerfile: compose/local/django/Dockerfile
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
+    volumes:
+      - /app/backend/local-backend-static:/app/backend/local-backend-static
+      - .:/app
+#    ports:
+#      - 8000:8000
+    env_file:
+      - ./.envs/local/.django
+    networks:
+      - backend
+    depends_on:
+      - trueeffects_db
+
+  trueeffects_frontend:
+    image: saxatachi/trueeffects_frontend:dev
+    stdin_open: true
+    container_name: react
+    build:
+      context: .
+      dockerfile: compose/local/react/Dockerfile
+    env_file:
+      - .envs/local/.react
+    volumes:
+      - ./trueeffectsfrontend:/frontend
+      - /app/node_modules
+    ports:
+      - 3000:3000
+    depends_on:
+      - trueeffects_db
+      - trueeffects_backend
+    networks:
+      - backend
+
+  trueeffects_redis:
+    image: saxatachi/trueeffects_redis:dev
+    container_name: trueeffects_redis
+    build:
+      context: .
+      dockerfile: ./compose/local/redis/Dockerfile
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  postgres_data:

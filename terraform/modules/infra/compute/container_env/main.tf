@@ -19,10 +19,15 @@ resource "azurerm_container_app" "backend" {
       cpu    = 0.5
       memory = "1.0Gi"
 
-      env {
-        name  = "ENV"
-        value = "dev"
-      }
+      ingress {
+    external_enabled = false
+    target_port      = 8000
+    transport        = "auto"
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
 
       # env {
       #   name  = "DATABASE_URL"
