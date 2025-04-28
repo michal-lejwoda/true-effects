@@ -20,25 +20,20 @@ resource "azurerm_container_app" "backend" {
       memory = "1.0Gi"
 
       ingress {
-    external_enabled = false
-    target_port      = 8000
-    transport        = "auto"
+        external_enabled = false
+        target_port      = 8000
+        transport        = "auto"
 
-    traffic_weight {
-      latest_revision = true
-      percentage      = 100
+        traffic_weight {
+          latest_revision = true
+          percentage      = 100
+        }
+  }
+
+
     }
-
-      # env {
-      #   name  = "DATABASE_URL"
-      #   value = "postgres://user:password@my-db-host:5432/dbname"
-      # }
-    }
-
-
   }
 }
-
 resource "azurerm_container_app" "frontend" {
   name                         = var.frontend_container_name
   container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
@@ -51,11 +46,6 @@ resource "azurerm_container_app" "frontend" {
       image  = "docker.io/saxatachi/trueeffects_frontend:dev"
       cpu    = 0.5
       memory = "1.0Gi"
-
-      env {
-        name  = "ENV"
-        value = "dev"
-      }
     }
   }
   ingress {
