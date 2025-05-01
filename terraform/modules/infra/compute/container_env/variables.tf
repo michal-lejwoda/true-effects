@@ -45,3 +45,7 @@ variable "redis_primary_key" {
 variable "storage_account_name" {
   type = string
 }
+
+variable "BLOB_URL" {
+  type = string
+}

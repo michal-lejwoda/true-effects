@@ -12,13 +12,10 @@ resource "azurerm_storage_container" "frontend_container" {
   container_access_type = "blob"
 }
 
-resource "azurerm_storage_blob" "frontend_files" {
-  for_each = fileset("${path.module}/../../../trueeffectsfrontend/build", "**")
-
-  name                   = each.value
+resource "azurerm_storage_blob" "react_zip" {
+  name                   = "build.zip"
   storage_account_name   = azurerm_storage_account.frontend.name
   storage_container_name = azurerm_storage_container.frontend_container.name
   type                   = "Block"
-  source                 = "${path.module}/../../../trueeffectsfrontend/build/${each.value}"
-  content_type           = lookup(var.mime_types, each.value, "application/octet-stream")
+  source                 = "${path.module}/../../../trueeffectsfrontend/build.zip"
 }

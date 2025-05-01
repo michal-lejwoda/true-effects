@@ -77,6 +77,10 @@ resource "azurerm_container_app" "frontend_nginx" {
       memory = "1.0Gi"
       ports  = [80]
 
+      environment_variables = {
+        BLOB_URL = var.BLOB_URL
+      }
+
       volume {
         name      = "frontend_volume"
         mount_path = "/usr/share/nginx/html"

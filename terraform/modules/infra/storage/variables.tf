@@ -26,3 +26,6 @@ variable "mime_types" {
 variable "storage_account_name" {
   type = string
 }
+variable "BLOB_URL" {
+  type = string
+}
