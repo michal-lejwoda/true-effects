@@ -45,3 +45,7 @@ variable "te_redis_name" {
 variable "te_postgres_name" {
   type = string
 }
+
+variable "db_fqdn" {
+  type = string
+}

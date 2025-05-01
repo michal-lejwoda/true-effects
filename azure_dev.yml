@@ -2,7 +2,6 @@
 services:
   trueeffects_nginx:
     image: saxatachi/trueeffects_nginx:dev
-
     container_name: trueeffects_nginx
     build:
       context: .

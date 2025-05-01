@@ -25,3 +25,11 @@ variable "frontend_container_name" {
 variable "te_container_app_env_name" {
   type = string
 }
+
+variable "key_vault_id" {
+  description = "ID Key Vault"
+  type        = string
+}
+variable "db_fqdn" {
+  type = string
+}

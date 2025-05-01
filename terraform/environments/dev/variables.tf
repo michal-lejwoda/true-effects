@@ -53,3 +53,11 @@ variable "te_cache_subnet_name" {
 variable "db_link_name" {
   type= string
 }
+
+variable "db_password" {
+  type = string
+}
+
+variable "db_fqdn" {
+  type = string
+}

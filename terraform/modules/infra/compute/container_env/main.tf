@@ -1,3 +1,23 @@
+data "azurerm_key_vault_secret" "db_username" {
+  name         = "db-username"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "db_password" {
+  name         = "db-password"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "db_name" {
+  name         = "db-name"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "db_port" {
+  name         = "db-name"
+  key_vault_id = var.key_vault_id
+}
+
 resource "azurerm_container_app_environment" "te_container_app_env" {
   name                = var.te_container_app_env_name
   location            = var.location
@@ -6,11 +26,13 @@ resource "azurerm_container_app_environment" "te_container_app_env" {
   infrastructure_subnet_id = var.te_container_apps_subnet_id
 
 }
+
 resource "azurerm_container_app" "backend" {
   name                         = var.backend_container_name
   container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
   resource_group_name          = var.resource_group_name
   revision_mode                = "Single"
+
 
   template {
     container {
@@ -19,7 +41,13 @@ resource "azurerm_container_app" "backend" {
       cpu    = 0.5
       memory = "1.0Gi"
 
-      ingress {
+      env {
+    name  = "DATABASE_URL"
+    value = local.db_url
+  }
+    }
+  }
+  ingress {
         external_enabled = false
         target_port      = 8000
         transport        = "auto"
@@ -28,10 +56,6 @@ resource "azurerm_container_app" "backend" {
           latest_revision = true
           percentage      = 100
         }
-  }
-
-
-    }
   }
 }
 resource "azurerm_container_app" "frontend" {

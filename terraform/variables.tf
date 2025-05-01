@@ -17,3 +17,8 @@ variable "frontend_container_name" {
   type= string
   description = "This defines name of frontend container"
 }
+
+variable "db_fqdn" {
+  description = "FQDN bazy danych PostgreSQL"
+  type        = string
+}
