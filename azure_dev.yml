@@ -4,8 +4,8 @@ services:
     image: saxatachi/trueeffects_nginx:dev
     container_name: trueeffects_nginx
     build:
-      context: .
-      dockerfile: ./compose/local/nginx/Dockerfile
+      context: ./trueeffectsfrontend/
+      dockerfile: ../compose/azure-dev/nginx/Dockerfile
     ports:
       - 80:80
     networks:
@@ -16,21 +16,6 @@ services:
     depends_on:
       - trueeffects_backend
 
-#  trueeffects_db:
-#    image: saxatachi/trueeffects_db:dev
-#    container_name: trueeffects_db
-#    build:
-#      context: .
-#      dockerfile: ./compose/local/postgres/Dockerfile
-#    env_file:
-#      - ./.envs/local/.postgres
-#    volumes:
-#      - postgres_data:/var/lib/postgresql/data
-#      - ./backups:/backups
-#    networks:
-#      - backend
-#    ports:
-#      - 5432:5432
 
   trueeffects_backend:
     image: saxatachi/trueeffects_backend:dev
@@ -46,18 +31,8 @@ services:
       - ./.envs/local/.django
     networks:
       - backend
-    depends_on:
-      - trueeffects_db
-
-
-  trueeffects_redis:
-    image: saxatachi/trueeffects_redis:dev
-    container_name: trueeffects_redis
-    build:
-      context: .
-      dockerfile: ./compose/local/redis/Dockerfile
-    networks:
-      - backend
+#    depends_on:
+#      - trueeffects_db
 
 networks:
   backend:

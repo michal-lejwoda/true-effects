@@ -32,3 +32,4 @@ resource "azurerm_postgresql_flexible_server" "db" {
   public_network_access_enabled = false
   zone                   = "1"
 }
+

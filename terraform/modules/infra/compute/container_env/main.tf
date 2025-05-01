@@ -45,6 +45,10 @@ resource "azurerm_container_app" "backend" {
     name  = "DATABASE_URL"
     value = local.db_url
   }
+      env {
+    name  = "REDIS_URL"
+    value = local.redis_url
+  }
     }
   }
   ingress {
@@ -58,7 +62,8 @@ resource "azurerm_container_app" "backend" {
         }
   }
 }
-resource "azurerm_container_app" "frontend" {
+
+resource "azurerm_container_app" "frontend_nginx" {
   name                         = var.frontend_container_name
   container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
   resource_group_name          = var.resource_group_name
@@ -67,19 +72,34 @@ resource "azurerm_container_app" "frontend" {
   template {
     container {
       name   = "frontend"
-      image  = "docker.io/saxatachi/trueeffects_frontend:dev"
+      image  = "saxatachi/trueeffects_nginx:dev"  # Zastąp swoim obrazem
       cpu    = 0.5
       memory = "1.0Gi"
+      ports  = [80]
+
+      volume {
+        name      = "frontend_volume"
+        mount_path = "/usr/share/nginx/html"
+        read_only  = true
+      }
     }
   }
+
   ingress {
     external_enabled = true
     target_port      = 80
     transport        = "auto"
     traffic_weight {
-  latest_revision = true
-  percentage      = 100
-}
+      latest_revision = true
+      percentage      = 100
+    }
+  }
 
+  volume {
+    name = "frontend_volume"
+    secret {
+      name  = "frontend_files"
+      value = "https://${var.storage_account_name}.z13.web.core.windows.net"
+    }
   }
 }

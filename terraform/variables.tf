@@ -22,3 +22,4 @@ variable "db_fqdn" {
   description = "FQDN bazy danych PostgreSQL"
   type        = string
 }
+

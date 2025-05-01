@@ -34,6 +34,12 @@ module "db-and-cache" {
   depends_on                  = [module.vnet]
 }
 
+module "storage" {
+  source = "../../modules/infra/storage"
+  resource_group_name=var.resource_group_name
+  location=var.location
+}
+
 module "container-env" {
   source                       = "../../modules/infra/compute/container_env"
   resource_group_name          = var.resource_group_name
@@ -44,12 +50,18 @@ module "container-env" {
   te_container_apps_subnet_id  = module.vnet.te_container_apps_subnet_id
   key_vault_id                 = module.keys.key_vault_id
   db_fqdn                      = module.db-and-cache.db_fqdn
+  redis_hostname               = module.db-and-cache.redis_hostname
+  redis_primary_key            = module.db-and-cache.redis_primary_key
+  storage_account_name         = module.storage.storage_account_name
   depends_on                   = [module.vnet, module.db-and-cache]
+
 }
 
 module "keys" {
     source = "../../modules/infra/keys"
     resource_group_name=var.resource_group_name
     location=var.location
-    db_password = var.db_password
+    # db_password = var.db_password
 }
+
+

@@ -61,3 +61,16 @@ variable "db_password" {
 variable "db_fqdn" {
   type = string
 }
+
+variable "redis_hostname" {
+  type = string
+}
+
+variable "redis_primary_key" {
+  type = string
+  sensitive = true
+}
+
+variable "storage_account_name" {
+  type = string
+}

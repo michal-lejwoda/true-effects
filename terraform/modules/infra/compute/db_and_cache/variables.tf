@@ -49,3 +49,12 @@ variable "te_postgres_name" {
 variable "db_fqdn" {
   type = string
 }
+
+variable "redis_hostname" {
+  type = string
+}
+
+variable "redis_primary_key" {
+  type = string
+  sensitive = true
+}
