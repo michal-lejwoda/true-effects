@@ -62,7 +62,10 @@ module "keys" {
     source = "../../modules/infra/keys"
     resource_group_name=var.resource_group_name
     location=var.location
-    # db_password = var.db_password
+    db_password = var.db_password
+    db_name = var.db_name
+    db_port = var.db_port
+    db_username = var.db_username
 }
 
 
