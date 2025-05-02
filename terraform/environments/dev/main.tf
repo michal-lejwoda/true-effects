@@ -53,6 +53,7 @@ module "container-env" {
   redis_hostname               = module.db-and-cache.redis_hostname
   redis_primary_key            = module.db-and-cache.redis_primary_key
   storage_account_name         = module.storage.storage_account_name
+  BLOB_URL = module.storage.BLOB_URL
   depends_on                   = [module.vnet, module.db-and-cache]
 
 }

@@ -22,10 +22,3 @@ variable "mime_types" {
     txt  = "text/plain"
   }
 }
-
-variable "storage_account_name" {
-  type = string
-}
-variable "BLOB_URL" {
-  type = string
-}

@@ -50,11 +50,11 @@ variable "te_postgres_name" {
 #   type = string
 # }
 
-variable "redis_hostname" {
-  type = string
-}
-
-variable "redis_primary_key" {
-  type = string
-  sensitive = true
-}
+# variable "redis_hostname" {
+#   type = string
+# }
+#
+# variable "redis_primary_key" {
+#   type = string
+#   sensitive = true
+# }
