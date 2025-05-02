@@ -8,6 +8,23 @@ data "azurerm_key_vault_secret" "db_admin_password" {
   key_vault_id = var.key_vault_id
 }
 
+data "azurerm_key_vault_secret" "db_name" {
+  name         = "db-name"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "db_username" {
+  name         = "db-username"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "db_password" {
+  name         = "db-password"
+  key_vault_id = var.key_vault_id
+}
+
+
+
 resource "azurerm_redis_cache" "redis" {
   name                = var.te_redis_name
   location            = var.location
@@ -32,7 +49,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
   version                = "14"
   administrator_login    = data.azurerm_key_vault_secret.db_admin_username.value
   administrator_password = data.azurerm_key_vault_secret.db_admin_password.value
-  sku_name               = "GP_Standard_D2s_v3"
+  sku_name               = "B_Standard_B1ms"
 
   storage_mb             = 32768
   backup_retention_days  = 7
@@ -49,15 +66,15 @@ resource "null_resource" "init_postgres" {
       # Create database if not exists
       az postgres flexible-server execute \
         --name "${var.te_postgres_name}" \
-        --admin-user "${var.db_admin_username}" \
+        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
         --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
-        --database-name "postgres" \
+        --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
         --query "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_database WHERE datname = '${data.azurerm_key_vault_secret.db_name.value}') THEN CREATE DATABASE ${data.azurerm_key_vault_secret.db_name.value}; END IF; END \$\$;"
 
       # Create user if not exists
       az postgres flexible-server execute \
         --name "${var.te_postgres_name}" \
-        --admin-user "${var.db_admin_username}" \
+        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
         --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
         --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
         --query "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${data.azurerm_key_vault_secret.db_username.value}') THEN CREATE ROLE ${data.azurerm_key_vault_secret.db_username.value} WITH LOGIN PASSWORD '${data.azurerm_key_vault_secret.db_password.value}'; END IF; END \$\$;"
@@ -65,7 +82,7 @@ resource "null_resource" "init_postgres" {
       # Grant privileges
       az postgres flexible-server execute \
         --name "${var.te_postgres_name}" \
-        --admin-user "${var.db_admin_username}" \
+        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
         --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
         --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
         --query "GRANT ALL PRIVILEGES ON DATABASE ${data.azurerm_key_vault_secret.db_name.value} TO ${data.azurerm_key_vault_secret.db_username.value};"
