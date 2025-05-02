@@ -72,7 +72,7 @@ resource "azurerm_container_app" "frontend_nginx" {
   template {
     container {
       name   = "frontend"
-      image  = "saxatachi/trueeffects_nginx:dev"  # Zastąp swoim obrazem
+      image  = "saxatachi/trueeffects_nginx:dev"
       cpu    = 0.5
       memory = "1.0Gi"
       ports  = [80]

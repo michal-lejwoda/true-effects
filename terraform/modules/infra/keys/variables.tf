@@ -8,23 +8,23 @@ variable "location" {
   description = "This defines the location of the resource group and the resources"
 }
 
-variable "db_password" {
-  type        = string
-  description = "Password for db"
-  # sensitive   = true
-}
-
-variable "db_username" {
-  type      = string
-  description = "Username for db"
-}
-
-variable "db_name"{
-  type = string
-  description = "Name of db"
-}
-
-variable "db_port" {
-  type = string
-  description = "Port of db"
-}
+# variable "db_password" {
+#   type        = string
+#   description = "Password for db"
+#   # sensitive   = true
+# }
+#
+# variable "db_username" {
+#   type      = string
+#   description = "Username for db"
+# }
+#
+# variable "db_name"{
+#   type = string
+#   description = "Name of db"
+# }
+#
+# variable "db_port" {
+#   type = string
+#   description = "Port of db"
+# }
