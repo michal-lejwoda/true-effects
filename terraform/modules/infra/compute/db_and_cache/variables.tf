@@ -46,9 +46,9 @@ variable "te_postgres_name" {
   type = string
 }
 
-variable "db_fqdn" {
-  type = string
-}
+# variable "db_fqdn" {
+#   type = string
+# }
 
 variable "redis_hostname" {
   type = string

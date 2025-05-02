@@ -31,6 +31,7 @@ variable "key_vault_id" {
   type        = string
 }
 variable "db_fqdn" {
+  description = "FQDN of the database"
   type = string
 }
 

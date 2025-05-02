@@ -4,8 +4,8 @@ services:
     image: saxatachi/trueeffects_nginx:dev
     container_name: trueeffects_nginx
     build:
-      context: ./trueeffectsfrontend/
-      dockerfile: ../compose/azure-dev/nginx/Dockerfile
+      context: .
+      dockerfile: ./compose/azure-dev/nginx/Dockerfile
     ports:
       - 80:80
     networks:
