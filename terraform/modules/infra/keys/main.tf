@@ -46,3 +46,15 @@ resource "azurerm_key_vault_secret" "db_port" {
   value        = var.db_port
   key_vault_id = azurerm_key_vault.te_key_vault_dev.id
 }
+
+resource "azurerm_key_vault_secret" "db_admin_username" {
+  name         = "db-admin-username"
+  value        = var.db_admin_username
+  key_vault_id = azurerm_key_vault.te_key_vault_dev.id
+}
+
+resource "azurerm_key_vault_secret" "db_admin_password" {
+  name         = "db-admin-password"
+  value        = var.db_admin_password
+  key_vault_id = azurerm_key_vault.te_key_vault_dev.id
+}

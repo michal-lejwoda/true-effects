@@ -18,6 +18,8 @@ data "azurerm_key_vault_secret" "db_port" {
   key_vault_id = var.key_vault_id
 }
 
+
+
 resource "azurerm_container_app_environment" "te_container_app_env" {
   name                = var.te_container_app_env_name
   location            = var.location

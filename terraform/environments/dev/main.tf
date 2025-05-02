@@ -31,6 +31,7 @@ module "db-and-cache" {
   te_db_subnet_id             = module.vnet.te_db_subnet_id
   te_cache_subnet_id          = module.vnet.te_cache_subnet_id
   te_private_dns_zone_db_id   = module.vnet.te_private_dns_zone_db_id
+  key_vault_id                = module.keys.key_vault_id
   depends_on                  = [module.vnet]
 }
 
@@ -53,7 +54,7 @@ module "container-env" {
   redis_hostname               = module.db-and-cache.redis_hostname
   redis_primary_key            = module.db-and-cache.redis_primary_key
   storage_account_name         = module.storage.storage_account_name
-  BLOB_URL = module.storage.BLOB_URL
+  BLOB_URL                     = module.storage.BLOB_URL
   depends_on                   = [module.vnet, module.db-and-cache]
 
 }
@@ -66,6 +67,8 @@ module "keys" {
     db_name = var.db_name
     db_port = var.db_port
     db_username = var.db_username
+    db_admin_username = var.db_admin_username
+    db_admin_password = var.db_admin_password
 }
 
 

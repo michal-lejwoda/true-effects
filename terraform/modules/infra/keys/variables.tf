@@ -28,3 +28,13 @@ variable "db_port" {
   type = string
   description = "Port of db"
 }
+
+variable "db_admin_username" {
+  type = string
+  description = "Admin username"
+}
+
+variable "db_admin_password" {
+  type = string
+  description = "Admin password"
+}

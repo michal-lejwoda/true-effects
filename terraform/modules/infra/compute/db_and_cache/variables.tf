@@ -46,6 +46,13 @@ variable "te_postgres_name" {
   type = string
 }
 
+variable "key_vault_id" {
+  description = "ID Key Vault"
+  type        = string
+}
+
+
+
 # variable "db_fqdn" {
 #   type = string
 # }
