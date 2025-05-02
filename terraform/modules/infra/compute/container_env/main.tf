@@ -68,27 +68,20 @@ resource "azurerm_container_app" "frontend_nginx" {
   container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
   resource_group_name          = var.resource_group_name
   revision_mode                = "Single"
-
   template {
     container {
       name   = "frontend"
       image  = "saxatachi/trueeffects_nginx:dev"
       cpu    = 0.5
       memory = "1.0Gi"
-      ports  = [80]
-
-      environment_variables = {
-        BLOB_URL = var.BLOB_URL
+      env {
+        name  = "BLOB_URL"
+        value = var.BLOB_URL
       }
 
-      volume {
-        name      = "frontend_volume"
-        mount_path = "/usr/share/nginx/html"
-        read_only  = true
-      }
     }
-  }
 
+  }
   ingress {
     external_enabled = true
     target_port      = 80
@@ -96,14 +89,6 @@ resource "azurerm_container_app" "frontend_nginx" {
     traffic_weight {
       latest_revision = true
       percentage      = 100
-    }
-  }
-
-  volume {
-    name = "frontend_volume"
-    secret {
-      name  = "frontend_files"
-      value = "https://${var.storage_account_name}.z13.web.core.windows.net"
     }
   }
 }
