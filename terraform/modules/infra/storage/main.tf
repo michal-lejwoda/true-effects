@@ -17,5 +17,5 @@ resource "azurerm_storage_blob" "react_zip" {
   storage_account_name   = azurerm_storage_account.frontend.name
   storage_container_name = azurerm_storage_container.frontend_container.name
   type                   = "Block"
-  source                 = "${path.module}/../../../trueeffectsfrontend/build.zip"
+  source                 = "${path.module}/../../../../trueeffectsfrontend/build.zip"
 }

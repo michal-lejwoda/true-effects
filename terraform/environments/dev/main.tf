@@ -32,7 +32,7 @@ module "db-and-cache" {
   te_cache_subnet_id          = module.vnet.te_cache_subnet_id
   te_private_dns_zone_db_id   = module.vnet.te_private_dns_zone_db_id
   key_vault_id                = module.keys.key_vault_id
-  depends_on                  = [module.vnet]
+  depends_on                  = [module.vnet, module.resource-group, module.storage]
 }
 
 module "storage" {
@@ -69,6 +69,7 @@ module "keys" {
     db_username = var.db_username
     db_admin_username = var.db_admin_username
     db_admin_password = var.db_admin_password
+    depends_on          = [module.resource-group]
 }
 
 
