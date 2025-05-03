@@ -62,19 +62,18 @@ resource "azurerm_postgresql_flexible_server" "db" {
 
 resource "azurerm_postgresql_flexible_server_database" "te_db_dev" {
   name                = data.azurerm_key_vault_secret.db_name.value
-  server_name         = azurerm_postgresql_flexible_server.db.name
-  resource_group_name = var.resource_group_name
+  server_id = azurerm_postgresql_flexible_server.db.id
   charset             = "UTF8"
   collation           = "en_US.utf8"
 }
 
-resource "azurerm_postgresql_flexible_server_role" "user" {
-  name                = "testowy"
-  server_name         = azurerm_postgresql_flexible_server.db.name
-  resource_group_name = var.resource_group_name
-  password            = "asdasdasdhjikgbasyuhbgsda"
-  login               = true
-}
+# resource "azurerm_postgresql_flexible_server_role" "user" {
+#   name                = data.azurerm_key_vault_secret.db_username
+#   server_name         = azurerm_postgresql_flexible_server.db.name
+#   resource_group_name = var.resource_group_name
+#   password            = data.azurerm_key_vault_secret.db_password
+#   login               = true
+# }
 
 # resource "null_resource" "init_postgres" {
 #
