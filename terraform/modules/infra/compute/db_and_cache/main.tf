@@ -60,39 +60,49 @@ resource "azurerm_postgresql_flexible_server" "db" {
   zone                   = "1"
 }
 
-resource "null_resource" "init_postgres" {
-  provisioner "local-exec" {
-    command = <<-EOT
-      # Create database if not exists
-      az postgres flexible-server execute \
-        --name "${var.te_postgres_name}" \
-        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
-        --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
-        --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
-        --query "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_database WHERE datname = '${data.azurerm_key_vault_secret.db_name.value}') THEN CREATE DATABASE ${data.azurerm_key_vault_secret.db_name.value}; END IF; END \$\$;"
-
-      # Create user if not exists
-      az postgres flexible-server execute \
-        --name "${var.te_postgres_name}" \
-        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
-        --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
-        --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
-        --query "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${data.azurerm_key_vault_secret.db_username.value}') THEN CREATE ROLE ${data.azurerm_key_vault_secret.db_username.value} WITH LOGIN PASSWORD '${data.azurerm_key_vault_secret.db_password.value}'; END IF; END \$\$;"
-
-      # Grant privileges
-      az postgres flexible-server execute \
-        --name "${var.te_postgres_name}" \
-        --admin-user "${data.azurerm_key_vault_secret.db_admin_username.value}" \
-        --admin-password "${data.azurerm_key_vault_secret.db_admin_password.value}" \
-        --database-name "${data.azurerm_key_vault_secret.db_name.value}" \
-        --query "GRANT ALL PRIVILEGES ON DATABASE ${data.azurerm_key_vault_secret.db_name.value} TO ${data.azurerm_key_vault_secret.db_username.value};"
-    EOT
-    interpreter = ["bash", "-c"]
-  }
-
-  triggers = {
-    always_run = timestamp()
-  }
-
-  depends_on = [azurerm_postgresql_flexible_server.db]
+resource "azurerm_postgresql_flexible_server_database" "te_db_dev" {
+  name                = data.azurerm_key_vault_secret.db_name.value
+  server_name         = azurerm_postgresql_flexible_server.db.name
+  resource_group_name = var.resource_group_name
+  charset             = "UTF8"
+  collation           = "en_US.utf8"
 }
+
+resource "azurerm_postgresql_flexible_server_role" "user" {
+  name                = "testowy"
+  server_name         = azurerm_postgresql_flexible_server.db.name
+  resource_group_name = var.resource_group_name
+  password            = "asdasdasdhjikgbasyuhbgsda"
+  login               = true
+}
+
+# resource "null_resource" "init_postgres" {
+#
+#   provisioner "local-exec" {
+#     environment = {
+#       PGPASSWORD = data.azurerm_key_vault_secret.db_admin_password.value
+#     }
+#
+#     command = <<-EOT
+#       # Create database if not exists
+#       psql "host=${azurerm_postgresql_flexible_server.db.fqdn} port=5432 user=${data.azurerm_key_vault_secret.db_admin_username.value} dbname=postgres sslmode=require" \
+#         -c "SELECT 'CREATE DATABASE ${data.azurerm_key_vault_secret.db_name.value}' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = '${data.azurerm_key_vault_secret.db_name.value}')\\gexec"
+#
+#       # Create user if not exists
+#       psql "host=${azurerm_postgresql_flexible_server.db.fqdn} port=5432 user=${data.azurerm_key_vault_secret.db_admin_username.value} dbname=${data.azurerm_key_vault_secret.db_name.value} sslmode=require" \
+#         -c "DO \$\$ BEGIN IF NOT EXISTS (SELECT FROM pg_roles WHERE rolname = '${data.azurerm_key_vault_secret.db_username.value}') THEN CREATE ROLE ${data.azurerm_key_vault_secret.db_username.value} WITH LOGIN PASSWORD '${data.azurerm_key_vault_secret.db_password.value}'; END IF; END \$\$;"
+#
+#       # Grant privileges
+#       psql "host=${azurerm_postgresql_flexible_server.db.fqdn} port=5432 user=${data.azurerm_key_vault_secret.db_admin_username.value} dbname=${data.azurerm_key_vault_secret.db_name.value} sslmode=require" \
+#         -c "GRANT ALL PRIVILEGES ON DATABASE ${data.azurerm_key_vault_secret.db_name.value} TO ${data.azurerm_key_vault_secret.db_username.value};"
+#     EOT
+#
+#     interpreter = ["bash", "-c"]
+#   }
+#
+#   triggers = {
+#     always_run = timestamp()
+#   }
+#
+#   depends_on = [azurerm_postgresql_flexible_server.db]
+# }
