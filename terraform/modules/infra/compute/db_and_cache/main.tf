@@ -32,6 +32,8 @@ resource "azurerm_redis_cache" "redis" {
   capacity            = 1
   family              = "P"
   sku_name            = "Premium"
+  #TODO Uncomment when move to azure
+  public_network_access_enabled = true
   # enable_non_ssl_port = false
 
   redis_configuration {
@@ -53,16 +55,24 @@ resource "azurerm_postgresql_flexible_server" "db" {
 
   storage_mb             = 32768
   backup_retention_days  = 7
-
-  delegated_subnet_id    = var.te_db_subnet_id
-  private_dns_zone_id    = var.te_private_dns_zone_db_id
-  public_network_access_enabled = false
+  #TODO UNCOMMENT
+  # delegated_subnet_id = null
+  # delegated_subnet_id    = var.te_db_subnet_id
+  # private_dns_zone_id    = var.te_private_dns_zone_db_id
+  public_network_access_enabled = true
   zone                   = "1"
 }
 
 resource "azurerm_postgresql_flexible_server_database" "te_db_dev" {
   name                = data.azurerm_key_vault_secret.db_name.value
-  server_id = azurerm_postgresql_flexible_server.db.id
+  server_id           = azurerm_postgresql_flexible_server.db.id
   charset             = "UTF8"
   collation           = "en_US.utf8"
+}
+
+resource "azurerm_postgresql_flexible_server_firewall_rule" "allow_local" {
+  name             = "AllowLocalIP"
+  server_id        = azurerm_postgresql_flexible_server.db.id
+  start_ip_address = "37.225.76.195"
+  end_ip_address   = "37.225.76.195"
 }
