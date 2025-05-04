@@ -35,12 +35,11 @@ resource "azurerm_redis_cache" "redis" {
   #TODO Uncomment when move to azure
   public_network_access_enabled = true
   # enable_non_ssl_port = false
-
   redis_configuration {
     maxmemory_policy = "allkeys-lru"
   }
 
-  subnet_id = var.te_cache_subnet_id
+  # subnet_id = var.te_cache_subnet_id
   minimum_tls_version = "1.2"
 }
 
