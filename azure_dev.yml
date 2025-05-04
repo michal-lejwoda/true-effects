@@ -28,7 +28,7 @@ services:
       - /app/backend/local-backend-static:/app/backend/local-backend-static
       - .:/app
     env_file:
-      - ./.envs/local/.django
+      - ./.envs/azure_dev/.django
     networks:
       - backend
 #    depends_on:
