@@ -1,10 +1,10 @@
-data "azurerm_key_vault_secret" "db_username" {
-  name         = "db-username"
+data "azurerm_key_vault_secret" "db_admin_username" {
+  name         = "db-admin-username"
   key_vault_id = var.key_vault_id
 }
 
-data "azurerm_key_vault_secret" "db_password" {
-  name         = "db-password"
+data "azurerm_key_vault_secret" "db_admin_password" {
+  name         = "db-admin-password"
   key_vault_id = var.key_vault_id
 }
 
@@ -14,7 +14,7 @@ data "azurerm_key_vault_secret" "db_name" {
 }
 
 data "azurerm_key_vault_secret" "db_port" {
-  name         = "db-name"
+  name         = "db-port"
   key_vault_id = var.key_vault_id
 }
 
