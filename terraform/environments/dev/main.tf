@@ -39,6 +39,7 @@ module "storage" {
   source = "../../modules/infra/storage"
   resource_group_name=var.resource_group_name
   location=var.location
+  depends_on = [module.resource-group]
 }
 
 module "container-env" {
@@ -69,6 +70,12 @@ module "keys" {
     db_username = var.db_username
     db_admin_username = var.db_admin_username
     db_admin_password = var.db_admin_password
+    secret_key = var.secret_key
+    email_host_user = var.email_host_user
+    email_host_password = var.email_host_password
+    django_settings_module = var.django_settings_module
+    url = var.url
+    auth_user_model = var.auth_user_model
     depends_on          = [module.resource-group]
 }
 

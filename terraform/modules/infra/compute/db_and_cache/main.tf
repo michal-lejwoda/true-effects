@@ -13,15 +13,6 @@ data "azurerm_key_vault_secret" "db_name" {
   key_vault_id = var.key_vault_id
 }
 
-data "azurerm_key_vault_secret" "db_username" {
-  name         = "db-username"
-  key_vault_id = var.key_vault_id
-}
-
-data "azurerm_key_vault_secret" "db_password" {
-  name         = "db-password"
-  key_vault_id = var.key_vault_id
-}
 
 
 

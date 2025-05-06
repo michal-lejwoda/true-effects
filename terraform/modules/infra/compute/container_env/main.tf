@@ -18,6 +18,35 @@ data "azurerm_key_vault_secret" "db_port" {
   key_vault_id = var.key_vault_id
 }
 
+data "azurerm_key_vault_secret" "secret_key" {
+  name         = "secret-key"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "email_host_user" {
+  name         = "email-host-user"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "email_host_password" {
+  name         = "email-host-password"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "django_settings_module" {
+  name         = "django-settings-module"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "url" {
+  name         = "url"
+  key_vault_id = var.key_vault_id
+}
+
+data "azurerm_key_vault_secret" "auth_user_model" {
+  name         = "auth-user-model"
+  key_vault_id = var.key_vault_id
+}
 
 
 resource "azurerm_container_app_environment" "te_container_app_env" {
@@ -51,6 +80,32 @@ resource "azurerm_container_app" "backend" {
     name  = "REDIS_URL"
     value = local.redis_url
   }
+      env{
+        name="SECRET_KEY"
+        value = data.azurerm_key_vault_secret.secret_key.value
+      }
+      env{
+        name="EMAIL_HOST_USER"
+        value = data.azurerm_key_vault_secret.email_host_user.value
+      }
+      env{
+        name="EMAIL_HOST_PASSWORD"
+        value = data.azurerm_key_vault_secret.email_host_password.value
+      }
+      #TODO BACK HERE
+      env{
+        name="URL"
+        value = data.azurerm_key_vault_secret.url.value
+      }
+      env{
+        name="DJANGO_SETTINGS_MODULE"
+        value = data.azurerm_key_vault_secret.django_settings_module.value
+      }
+      env{
+        name="AUTH_USER_MODEL"
+        value = data.azurerm_key_vault_secret.auth_user_model.value
+      }
+
     }
   }
   ingress {

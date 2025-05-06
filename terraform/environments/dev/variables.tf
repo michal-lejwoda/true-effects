@@ -77,3 +77,26 @@ variable "db_admin_username" {
 variable "db_admin_password" {
   type = string
 }
+variable "secret_key" {
+  type = string
+}
+
+variable "email_host_user" {
+  type = string
+}
+
+variable "email_host_password" {
+  type = string
+}
+
+variable "django_settings_module" {
+  type = string
+}
+
+variable "url" {
+  type = string
+}
+
+variable "auth_user_model" {
+  type = string
+}
