@@ -19,6 +19,8 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from api.v1.api_router import router
 
+from api.v1.api_router import router
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(router.urls)),

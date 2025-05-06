@@ -1,5 +1,6 @@
 FROM nginx:1.21.6 as nginx_proxy
-
+ARG ENV=local
+ENV ENV=${ENV}
 COPY ./compose/local/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY ./compose/local/nginx/conf.d/headers.conf /etc/nginx/headers.conf
 COPY ./compose/local/nginx/conf.d/ssl.conf /etc/nginx/ssl.conf

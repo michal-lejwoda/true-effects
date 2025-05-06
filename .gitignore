@@ -20,4 +20,5 @@ trueeffectsfrontend/build
 .env.production
 .envs/production/
 .idea
-node_modules
+.env.azure.dev
+.env.azure.prod
