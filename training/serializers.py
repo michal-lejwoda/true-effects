@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.relations import PrimaryKeyRelatedField
@@ -21,7 +21,7 @@ class UserDimensionSerializerForCreate(serializers.ModelSerializer):
         keys_to_remove = [key for key in self.fields.keys() if
                           key not in user_dimension_config_attrs or not user_dimension_config_attrs[key]]
         for key in keys_to_remove:
-            if key is "date":
+            if key == "date":
                 continue
             self.fields.pop(key)
         self.fields.pop('user', None)

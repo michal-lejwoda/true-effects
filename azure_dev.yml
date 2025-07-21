@@ -31,8 +31,6 @@ services:
       - ./.envs/azure_dev/.django
     networks:
       - backend
-#    depends_on:
-#      - trueeffects_db
 
 networks:
   backend:
