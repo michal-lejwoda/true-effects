@@ -119,33 +119,42 @@ resource "azurerm_container_app" "backend" {
         }
   }
 }
-
-resource "azurerm_container_app" "frontend_nginx" {
-  name                         = var.frontend_container_name
-  container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
-  resource_group_name          = var.resource_group_name
-  revision_mode                = "Single"
-  template {
-    container {
-      name   = "frontend"
-      image  = "saxatachi/trueeffects_nginx:dev"
-      cpu    = 0.5
-      memory = "1.0Gi"
-      env {
-        name  = "BLOB_URL"
-        value = var.BLOB_URL
-      }
-
-    }
-
-  }
-  ingress {
-    external_enabled = true
-    target_port      = 80
-    transport        = "auto"
-    traffic_weight {
-      latest_revision = true
-      percentage      = 100
-    }
-  }
+#TODO Blob Storage + Private Endpoint + CDN
+# Azure CDN /       │ Azure Front Door    │
+#
+resource "azurerm_static_web_app" "frontend" {
+  name                = "frontend"
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
+
+
+# resource "azurerm_container_app" "frontend_nginx" {
+#   name                         = var.frontend_container_name
+#   container_app_environment_id = azurerm_container_app_environment.te_container_app_env.id
+#   resource_group_name          = var.resource_group_name
+#   revision_mode                = "Single"
+#   template {
+#     container {
+#       name   = "frontend"
+#       image  = "saxatachi/trueeffects_nginx:dev"
+#       cpu    = 0.5
+#       memory = "1.0Gi"
+#       env {
+#         name  = "BLOB_URL"
+#         value = var.BLOB_URL
+#       }
+#
+#     }
+#
+#   }
+#   ingress {
+#     external_enabled = true
+#     target_port      = 80
+#     transport        = "auto"
+#     traffic_weight {
+#       latest_revision = true
+#       percentage      = 100
+#     }
+#   }
+# }
