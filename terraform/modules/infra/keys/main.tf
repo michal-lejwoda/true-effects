@@ -49,15 +49,15 @@ resource "azurerm_key_vault_secret" "db_port" {
 
 resource "azurerm_key_vault_secret" "db_admin_username" {
   name         = "db-admin-username"
-  value         = "hardoced value"
-  # value        = var.db_admin_username
+  # value         = "hardoced value"
+  value        = var.db_admin_username
   key_vault_id = azurerm_key_vault.te_key_vault_dev.id
 }
 
 resource "azurerm_key_vault_secret" "db_admin_password" {
   name         = "db-admin-password"
-  value = "sadasdasddsa"
-  # value        = var.db_admin_password
+  # value = "sadasdasddsa"
+  value        = var.db_admin_password
   key_vault_id = azurerm_key_vault.te_key_vault_dev.id
 }
 #-----

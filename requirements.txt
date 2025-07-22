@@ -24,6 +24,7 @@ psycopg2-binary==2.9.10
 #python-dateutil==2.8.2
 python-decouple==3.8
 django-silk==5.4.0
+pillow==11.3.0
 #pytz==2023.3.post1
 #redis[ssl]
 #six==1.16.0
