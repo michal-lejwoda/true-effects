@@ -47,6 +47,55 @@ variable "storage_account_name" {
   type = string
 }
 
-variable "BLOB_URL" {
+variable "db_admin_username" {
   type = string
+  sensitive = true
+
 }
+
+variable "db_admin_password" {
+  type = string
+  sensitive = true
+}
+
+variable "db_name" {
+  type = string
+  sensitive = true
+}
+
+variable "db_port"{
+  type = string
+  sensitive = true
+}
+variable "secret_key"{
+  type = string
+  sensitive = true
+}
+
+variable "email_host_user"{
+  type = string
+  sensitive = true
+}
+
+variable "email_host_password"{
+  type = string
+  sensitive = true
+}
+variable "django_settings_module"{
+  type = string
+  sensitive = true
+}
+variable "url"{
+  type = string
+  sensitive = true
+}
+variable "auth_user_model"{
+  type = string
+  sensitive = true
+}
+
+
+
+# variable "BLOB_URL" {
+#   type = string
+# }

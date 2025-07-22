@@ -32,6 +32,9 @@ module "db-and-cache" {
   te_cache_subnet_id          = module.vnet.te_cache_subnet_id
   te_private_dns_zone_db_id   = module.vnet.te_private_dns_zone_db_id
   key_vault_id                = module.keys.key_vault_id
+  db_admin_username           = module.keys.db_admin_username_value
+  db_admin_password           = module.keys.db_admin_password_value
+  db_name                     = module.keys.db_name_value
   depends_on                  = [module.vnet, module.resource-group, module.storage]
 }
 
@@ -55,7 +58,17 @@ module "container-env" {
   redis_hostname               = module.db-and-cache.redis_hostname
   redis_primary_key            = module.db-and-cache.redis_primary_key
   storage_account_name         = module.storage.storage_account_name
-  BLOB_URL                     = module.storage.BLOB_URL
+  db_admin_username            = module.keys.db_admin_username_value
+  db_admin_password            = module.keys.db_admin_password_value
+  db_name                      = module.keys.db_name_value
+  db_port                      = module.keys.db_port_value
+  secret_key                   = module.keys.secret_key_value
+  email_host_user              = module.keys.email_host_user_value
+  email_host_password          = module.keys.email_host_password_value
+  django_settings_module       = module.keys.django_settings_module_value
+  url                          = module.keys.url_value
+  auth_user_model              = module.keys.auth_user_model_value
+  #BLOB_URL                     = module.storage.BLOB_URL
   depends_on                   = [module.vnet, module.db-and-cache]
 
 }
@@ -70,6 +83,8 @@ module "keys" {
     db_username = var.db_username
     db_admin_username = var.db_admin_username
     db_admin_password = var.db_admin_password
+    # db_admin_username = module.keys.db_admin_username_value
+    # db_admin_password = module.keys.db_admin_password_value
     secret_key = var.secret_key
     email_host_user = var.email_host_user
     email_host_password = var.email_host_password

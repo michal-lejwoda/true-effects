@@ -3,7 +3,7 @@ locals {
     replace(
       replace(
         replace(
-          data.azurerm_key_vault_secret.db_admin_password.value,
+          var.db_admin_password,
           "@", "%40"
         ),
         ":", "%3A"
@@ -12,7 +12,7 @@ locals {
     ),
     "/", "%2F"
   )
-  db_url = "postgres://${data.azurerm_key_vault_secret.db_admin_username.value}:${local.encoded_db_password}@${var.db_fqdn}:${data.azurerm_key_vault_secret.db_port.value}/${data.azurerm_key_vault_secret.db_name.value}"
+  db_url = "postgres://${var.db_admin_username}:${local.encoded_db_password}@${var.db_fqdn}:${var.db_port}/${var.db_name}"
 
   encoded_redis_key = replace(
     replace(
