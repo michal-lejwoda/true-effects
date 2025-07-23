@@ -1,4 +1,4 @@
-FROM postgres:12-bullseye
+FROM postgres:16.5-bullseye
 ARG ENV=local
 ENV ENV=${ENV}
 # Install apt packages

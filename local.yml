@@ -34,10 +34,12 @@ services:
       - 5432:5432
 
   trueeffects_backend:
+    image: saxatachi/trueeffects_backend:dev
     container_name: django
     build:
       context: .
       dockerfile: compose/local/django/Dockerfile
+#    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 & celery -A backend.tasks worker --loglevel=info"
     volumes:
       - ./backend/media:/app/media

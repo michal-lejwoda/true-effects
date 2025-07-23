@@ -1,9 +1,8 @@
 SECRET_KEY=ASDASDHJASDKNHIKSANIKNAJKFGBNJKSABNFHJIE
-DATABASE_URL=postgres://postgres:postgres@trueeffects_db:5432/postgres5
+DATABASE_URL=postgres://importantuser:importantpassword@te-postgres-name-dev.postgres.database.azure.com:5432/postgres5
 EMAIL_HOST_USER=walt.kowalski345@gmail.com
 EMAIL_HOST_PASSWORD=jwocebncjwftrsxp
 URL=http://0.0.0.0:3000
-REDIS_URL=redis://trueeffects_redis:6379/0
+REDIS_URL=rediss://:UIAURyXdWQ6enq0bkOwQwbYV0NOf1N02rAzCaGYO9Uw%3D@te-redis-name-dev.redis.cache.windows.net:6380/0
 DJANGO_SETTINGS_MODULE=backend.settings.local
 AUTH_USER_MODEL=authorization.CustomUser
-REDIS_CONTAINER=trueeffects_redis

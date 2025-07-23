@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-ARG ENV=local
+ARG ENV=azure_dev
 ENV ENV=${ENV}
 ENV PYTHONUNBUFFERED=1
 
@@ -12,7 +12,7 @@ RUN pip install --upgrade pip && \
 
 
 COPY . /app/
-COPY ./compose/local/django/entrypoint.sh /app/
+COPY ./compose/azure-dev/django/entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
 

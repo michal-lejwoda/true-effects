@@ -65,13 +65,13 @@ resource "azurerm_container_app" "backend" {
   revision_mode                = "Single"
 
 
+
   template {
     container {
       name   = "backend"
-      image  = "docker.io/saxatachi/trueeffects_backend:dev"
+      image  = "docker.io/saxatachi/trueeffects_backend:azure_dev"
       cpu    = 0.5
       memory = "1.0Gi"
-
       env {
     name  = "DATABASE_URL"
     value = local.db_url
@@ -109,8 +109,8 @@ resource "azurerm_container_app" "backend" {
     }
   }
   ingress {
-        external_enabled = false
-        target_port      = 8000
+        external_enabled = true
+        target_port      = 80
         transport        = "auto"
 
         traffic_weight {

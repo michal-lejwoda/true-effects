@@ -36,7 +36,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
   name                   = var.te_postgres_name
   resource_group_name    = var.resource_group_name
   location               = var.location
-  version                = "14"
+  version                = "16"
   administrator_login    = "importantuser"
   # administrator_login    = var.db_admin_username
   administrator_password = "importantpassword"
