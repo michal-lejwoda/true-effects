@@ -42,15 +42,12 @@ resource "azurerm_postgresql_flexible_server" "db" {
   administrator_password = "importantpassword"
   # administrator_password = var.db_admin_password
   sku_name               = "B_Standard_B1ms"
-
   storage_mb             = 32768
   backup_retention_days  = 7
 
-  #TODO UNCOMMENT
-  # delegated_subnet_id = null
-  # delegated_subnet_id    = var.te_db_subnet_id
-  # private_dns_zone_id    = var.te_private_dns_zone_db_id
-  public_network_access_enabled = true
+  delegated_subnet_id    = var.te_db_subnet_id
+  private_dns_zone_id    = var.te_private_dns_zone_db_id
+  public_network_access_enabled = false
   zone                   = "1"
 }
 

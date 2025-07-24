@@ -105,7 +105,6 @@ resource "azurerm_container_app" "backend" {
         name="AUTH_USER_MODEL"
         value = var.auth_user_model
       }
-
     }
   }
   ingress {

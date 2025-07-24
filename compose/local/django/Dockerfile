@@ -21,5 +21,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gettext \
  && rm -rf /var/lib/apt/lists/*
 
-ENTRYPOINT ["/app/entrypoint.sh"]
+#ENTRYPOINT ["/app/entrypoint.sh"]
 
