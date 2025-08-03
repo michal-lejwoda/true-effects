@@ -22,3 +22,6 @@ variable "mime_types" {
     txt  = "text/plain"
   }
 }
+# variable "frontend_static_website_url"{
+#   type = string
+# }

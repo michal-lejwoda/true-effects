@@ -71,6 +71,7 @@ module "container-env" {
   django_settings_module       = module.keys.django_settings_module_value
   url                          = module.keys.url_value
   auth_user_model              = module.keys.auth_user_model_value
+  frontend_static_website_url  = module.storage.frontend_static_website_url
   #BLOB_URL                     = module.storage.BLOB_URL
   depends_on                   = [module.vnet, module.db-and-cache]
 

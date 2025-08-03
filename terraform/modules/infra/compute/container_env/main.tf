@@ -47,6 +47,9 @@
 #   name         = "auth-user-model"
 #   key_vault_id = var.key_vault_id
 # }
+locals {
+  frontend_fqdn = replace(replace(var.frontend_static_website_url, "^https?://", ""), "/$", "")
+}
 
 
 resource "azurerm_container_app_environment" "te_container_app_env" {
@@ -120,6 +123,122 @@ resource "azurerm_container_app" "backend" {
 }
 #TODO Blob Storage + Private Endpoint + CDN
 # Azure CDN /       │ Azure Front Door    │
+resource "azurerm_public_ip" "appgw_public_ip" {
+  name                = "appgw-public-ip"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+
+  domain_name_label = var.public_ip_dns_name
+}
+
+
+resource "azurerm_application_gateway" "appgw" {
+  name                = "appgw-myapp"
+  location            = var.location
+  resource_group_name = var.resource_group_name
+
+  sku {
+    name     = "WAF_v2"
+    tier     = "WAF_v2"
+    capacity = 1
+  }
+
+  gateway_ip_configuration {
+    name      = "appgw-ip-config"
+    subnet_id = var.te_container_apps_subnet_id
+  }
+
+  frontend_port {
+    name = "frontendPort"
+    port = 80
+  }
+
+  frontend_ip_configuration {
+    name                 = "frontendIP"
+    public_ip_address_id = azurerm_public_ip.appgw_public_ip.id
+  }
+
+  backend_address_pool {
+  name = "backendPool"
+
+  fqdns = [azurerm_container_app.backend.latest_revision_fqdn]
+}
+
+  backend_http_settings {
+  name                  = "backendHttpSettings"
+  cookie_based_affinity = "Disabled"
+  port                  = 80
+  protocol              = "Http"
+
+  # probe {
+  #   name                = "backendHealthProbe"
+  #   host                = azurerm_container_app.backend.latest_revision_fqdn
+  #   path                = "/health"
+  #   interval            = 30
+  #   timeout             = 30
+  #   unhealthy_threshold = 3
+  #   protocol            = "Http"
+  # }
+}
+
+backend_address_pool {
+  name  = "frontendPool"
+  fqdns = [local.frontend_fqdn]
+}
+
+  backend_http_settings {
+    name                  = "frontendHttpSettings"
+    cookie_based_affinity = "Disabled"
+    port                  = 80
+    protocol              = "Http"
+  }
+
+  # probe {
+  #   name                = "backendHealthProbe"
+  #   host                = azurerm_container_app.backend.latest_revision_fqdn
+  #   path                = "/health"
+  #   interval            = 30
+  #   timeout             = 30
+  #   unhealthy_threshold = 3
+  #   protocol            = "Http"
+  # }
+
+  http_listener {
+    name                           = "httpListener"
+    frontend_ip_configuration_name = "frontendIP"
+    frontend_port_name             = "frontendPort"
+    protocol                       = "Http"
+  }
+
+  url_path_map {
+    name               = "urlPathMap"
+    default_backend_address_pool_name  = "frontendPool"
+    default_backend_http_settings_name = "frontendHttpSettings"
+
+    path_rule {
+      name                       = "apiRule"
+      paths                      = ["/api/*"]
+      backend_address_pool_name  = "backendPool"
+      backend_http_settings_name = "backendHttpSettings"
+    }
+  }
+
+  request_routing_rule {
+    name               = "apiRoutingRule"
+    rule_type          = "PathBasedRouting"
+    http_listener_name = "httpListener"
+    url_path_map_name  = "urlPathMap"
+  }
+}
+
+output "application_gateway_url" {
+  value = "http://${azurerm_public_ip.appgw_public_ip.fqdn}"
+  description = "URL do Twojego Application Gateway"
+}
+
+
 
 
 

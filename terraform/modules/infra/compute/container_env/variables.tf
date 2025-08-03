@@ -93,9 +93,17 @@ variable "auth_user_model"{
   type = string
   sensitive = true
 }
-
-
-
+variable "public_ip_dns_name" {
+  description = "Unikalna nazwa DNS do publicznego IP Application Gateway, np. mojappgw-test-1234"
+  type        = string
+  default     = "mojappgw-test-1234"
+}
+variable "frontend_static_website_url"{
+  type        = string
+}
+# variable "backend_fqdn"  {
+#   type = string
+# }
 # variable "BLOB_URL" {
 #   type = string
 # }
