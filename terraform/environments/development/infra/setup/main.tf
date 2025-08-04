@@ -10,6 +10,7 @@ terraform {
 }
 
 
+
 # resource "azurerm_resource_group" "true-effects-rgp" {
 #   location = "West Europe"
 #   name     = "true-effects-rgp"
