@@ -39,6 +39,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Terraform lint
         run: |
+          pwd
+          ls
           cd ../../terraform/environments/development/infra
           docker compose run --rm terraform -chdir=deploy init -backend=false
           docker compose run --rm terraform -chdir=setup init -backend=false
