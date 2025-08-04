@@ -36,3 +36,15 @@ resource "azurerm_role_assignment" "blob_data_contributor" {
   principal_id         = azuread_service_principal.true-effects-cd.object_id # object_id because i need only GUID not URL
 }
 
+resource "azurerm_role_assignment" "acr_push_app_role" {
+  scope                = azurerm_container_registry.app.id
+  role_definition_name = "AcrPush"
+  principal_id         = azuread_service_principal.true-effects-cd.object_id
+}
+
+resource "azurerm_role_assignment" "acr_push_proxy_role" {
+  scope                = azurerm_container_registry.proxy.id
+  role_definition_name = "AcrPush"
+  principal_id         = azuread_service_principal.true-effects-cd.object_id
+}
+
