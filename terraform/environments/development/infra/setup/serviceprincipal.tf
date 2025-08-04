@@ -31,6 +31,7 @@ resource "azuread_application_password" "true-effects-cd-secret" {
   display_name   = "true-effects-cd-secret"
 }
 
+
 resource "azurerm_role_assignment" "blob_data_contributor" {
   scope                = data.azurerm_storage_account.true_effects_tf_state.id
   role_definition_name = "Storage Blob Data Contributor"
