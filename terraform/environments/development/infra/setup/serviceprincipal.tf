@@ -25,6 +25,7 @@ resource "azuread_service_principal" "true-effects-cd" {
   client_id = azuread_application_registration.true-effects-cd-registration.client_id
 }
 
+
 resource "azuread_application_password" "true-effects-cd-secret" {
   application_id = azuread_application_registration.true-effects-cd-registration.id
   display_name   = "true-effects-cd-secret"
