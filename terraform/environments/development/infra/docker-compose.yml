@@ -5,5 +5,5 @@ services:
       - ./setup:/tf/setup
       - ./deploy:/tf/deploy
     working_dir: /tf
-    env_file:
-      - ./../../../../.envs/azure_dev/.terraform
+#    env_file:
+#      - ./../../../../.envs/azure_dev/.terraform
