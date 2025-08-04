@@ -9,6 +9,14 @@ on:
       DOCKERHUB_TOKEN:
         required: true
         description: "Token for DockerHub auth"
+      ARM_CLIENT_SECRET:
+        required: true
+      ARM_CLIENT_ID:
+        required: true
+      ARM_SUBSCRIPTION_ID:
+        required: true
+      ARM_TENANT_ID:
+        required: true
 
 jobs:
   python:
