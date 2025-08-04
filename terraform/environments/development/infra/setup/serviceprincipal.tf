@@ -12,6 +12,7 @@ data "azurerm_storage_account" "true_effects_tf_state" {
 }
 
 
+
 data "azurerm_storage_container" "true_effects_container_tf_state" {
   name                 = "tfstate"
   storage_account_name = data.azurerm_storage_account.true_effects_tf_state.name
