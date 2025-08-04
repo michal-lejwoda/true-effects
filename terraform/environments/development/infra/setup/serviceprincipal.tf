@@ -11,11 +11,12 @@ data "azurerm_storage_account" "true_effects_tf_state" {
   resource_group_name = data.azurerm_resource_group.true_effects_rgp.name
 }
 
+
+
 data "azurerm_storage_container" "true_effects_container_tf_state" {
   name                 = "tfstate"
   storage_account_name = data.azurerm_storage_account.true_effects_tf_state.name
 }
-
 
 resource "azuread_application_registration" "true-effects-cd-registration" {
   display_name = "true-effects-cd"
