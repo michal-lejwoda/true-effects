@@ -16,7 +16,6 @@ data "azurerm_storage_container" "true_effects_container_tf_state" {
   storage_account_name = data.azurerm_storage_account.true_effects_tf_state.name
 }
 
-
 resource "azuread_application_registration" "true-effects-cd-registration" {
   display_name = "true-effects-cd"
 }
