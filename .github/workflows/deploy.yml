@@ -77,8 +77,7 @@ jobs:
           export TF_VAR_acr_app_image="${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
           export TF_VAR_acr_proxy_image="${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
           workspace=$(cat .workspace)
-          echo workspace
-          echo $workspace
+
           cd ./terraform/environments/development/infra
           docker compose run --rm \
             -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
@@ -86,17 +85,6 @@ jobs:
             -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
             -e ARM_TENANT_ID=$ARM_TENANT_ID \
             terraform -chdir=deploy/ init \
-            -var "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
-            -var "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" \
-            -var "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
-            -var "ARM_TENANT_ID=$ARM_TENANT_ID"
-
-          docker compose run --rm \
-            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
-            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
-            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
-            -e ARM_TENANT_ID=$ARM_TENANT_ID \
-            terraform -chdir=deploy workspace select $workspace \
             -var "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
             -var "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" \
             -var "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
