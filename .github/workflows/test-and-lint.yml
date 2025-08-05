@@ -59,9 +59,39 @@ jobs:
       - name: Terraform lint
         run: |
           cd ./terraform/environments/development/infra
-          docker compose run --rm terraform -chdir=deploy init -backend=false
-          docker compose run --rm terraform -chdir=setup init -backend=false
-          docker compose run --rm terraform -chdir=setup validate
-          docker compose run --rm terraform -chdir=setup fmt -check
-          docker compose run --rm terraform -chdir=deploy validate
-          docker compose run --rm terraform -chdir=deploy fmt -check
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=deploy init -backend=false
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=setup init -backend=false
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=setup validate
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=setup fmt -check
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=deploy validate
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=deploy fmt -check
