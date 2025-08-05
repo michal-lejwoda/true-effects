@@ -51,7 +51,7 @@ jobs:
           echo "Building and pushing app image..."
           docker build \
             --compress \
-            --file compose/local/django/Dockerfile \
+            --file compose/azure-dev/django/Dockerfile \
             --tag ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
           docker push ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
 
@@ -61,7 +61,7 @@ jobs:
           echo "Building and pushing proxy image..."
           docker build \
             --compress \
-            --file proxy/Dockerfile \
+            --file compose/azure-dev/nginx/Dockerfile \
             --tag ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
             .
           docker push ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
