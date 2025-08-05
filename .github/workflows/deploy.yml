@@ -17,50 +17,50 @@ on:
         ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
         ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
 
-    deploy:
-      name: Deploy
-      runs-on: ubuntu-22.04
-      needs: [test-lint]
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-        - name: Set vars
-          run: |
-            if [[ "$GITHUB_REF" == 'refs/heads/prod' ]]; then
-              echo "prod" > .workspace
-            else
-              echo "staging" > .workspace
-            fi
-        - name: Push to ACR
-          env:
-            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-            ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
-            ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
-          run: |
-            echo "Logging in to Azure..."
-            az login --service-principal \
-              --username ${{ vars.ARM_CLIENT_ID }} \
-              --password ${{ secrets.ARM_CLIENT_SECRET }} \
-              --tenant ${{ vars.ARM_TENANT_ID }}
-
-            echo "Logging in to ACR..."
-            az acr login --name ${{ vars.ACR_NAME_APP }}
-
-            echo "Building and pushing app image..."
-            docker build \
-              --compress \
-              --file compose/local/django/Dockerfile \
-              --tag ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
-            docker push ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
-
-            echo "Logging in to proxy ACR..."
-            az acr login --name ${{ vars.ACR_NAME_PROXY }}
-
-            echo "Building and pushing proxy image..."
-            docker build \
-              --compress \
-              --file proxy/Dockerfile \
-              --tag ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
-              proxy/
-            docker push ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
+#    deploy:
+#      name: Deploy
+#      runs-on: ubuntu-22.04
+#      needs: [test-lint]
+#      steps:
+#        - name: Checkout
+#          uses: actions/checkout@v4
+#        - name: Set vars
+#          run: |
+#            if [[ "$GITHUB_REF" == 'refs/heads/prod' ]]; then
+#              echo "prod" > .workspace
+#            else
+#              echo "staging" > .workspace
+#            fi
+#        - name: Push to ACR
+#          env:
+#            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+#            ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+#            ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+#            ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+#          run: |
+#            echo "Logging in to Azure..."
+#            az login --service-principal \
+#              --username ${{ vars.ARM_CLIENT_ID }} \
+#              --password ${{ secrets.ARM_CLIENT_SECRET }} \
+#              --tenant ${{ vars.ARM_TENANT_ID }}
+#
+#            echo "Logging in to ACR..."
+#            az acr login --name ${{ vars.ACR_NAME_APP }}
+#
+#            echo "Building and pushing app image..."
+#            docker build \
+#              --compress \
+#              --file compose/local/django/Dockerfile \
+#              --tag ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
+#            docker push ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
+#
+#            echo "Logging in to proxy ACR..."
+#            az acr login --name ${{ vars.ACR_NAME_PROXY }}
+#
+#            echo "Building and pushing proxy image..."
+#            docker build \
+#              --compress \
+#              --file proxy/Dockerfile \
+#              --tag ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
+#              proxy/
+#            docker push ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
