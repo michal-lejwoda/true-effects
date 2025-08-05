@@ -33,10 +33,10 @@ on:
             fi
         - name: Push to ACR
           env:
-            - ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-            - ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-            - ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
-            - ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+            ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
           run: |
             echo "Logging in to Azure..."
             az login --service-principal \
