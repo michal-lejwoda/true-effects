@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - prod
+
 jobs:
   test-lint:
     name: "Test and Lint"
