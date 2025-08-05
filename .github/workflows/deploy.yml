@@ -95,7 +95,7 @@ jobs:
             -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
             -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
             -e ARM_TENANT_ID=$ARM_TENANT_ID \
-            terraform -chdir=deploy workspace select "staging" -or-create \
+            terraform -chdir=deploy workspace select -or-create "staging"  \
             -var "ARM_CLIENT_ID=$ARM_CLIENT_ID" \
             -var "ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET" \
             -var "ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID" \
