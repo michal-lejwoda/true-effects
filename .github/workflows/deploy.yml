@@ -65,3 +65,19 @@ jobs:
             --tag ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
             .
           docker push ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
+      - name: Terraform Apply
+        env:
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+#          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
+#          TF_VAR_django_secret_key: ${{ secrets.TF_VAR_DJANGO_SECRET_KEY }}
+        run: |
+          export TF_VAR_acr_app_image="${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
+          export TF_VAR_acr_proxy_image="${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
+          workspace=$(cat .workspace)
+          cd ./terraform/environments/development/infra
+          docker compose run --rm terraform -chdir=deploy/ init
+          docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
+          docker compose run --rm terraform -chdir=deploy/ apply -auto-approve
