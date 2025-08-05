@@ -26,14 +26,17 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USER }} #Variable is from workflow_call and defined in checks
+          username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v4
-#      - name: Test
-#        run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
-#      - name: Python flake8
-#        run: docker-compose run --rm app sh -c "flake8"
+
+#     - name: Test
+#       run: docker-compose run --rm app sh -c "python manage.py wait_for_db && python manage.py test"
+#     - name: Python flake8
+#       run: docker-compose run --rm app sh -c "flake8"
+
   terraform:
     name: Terraform
     runs-on: ubuntu-22.04
@@ -42,22 +45,48 @@ jobs:
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
     steps:
       - name: Login to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USER }} #Variable is from workflow_call and defined in checks
+          username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Terraform lint
-        run: | 
+        run: |
           echo "$ARM_CLIENT_ID"
           echo "$ARM_SUBSCRIPTION_ID"
+
           cd ./terraform/environments/development/infra
-          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=deploy init -backend=false
-          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=setup init -backend=false
-          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=setup validate
-#          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=setup fmt -check
-          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=deploy validate
-#          docker compose run --rm -e ARM_CLIENT_ID=$ARM_CLIENT_ID -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID -e ARM_TENANT_ID=$ARM_TENANT_ID terraform -chdir=deploy fmt -check
+
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=deploy init -backend=false
+
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=setup init -backend=false
+
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=setup validate
+
+          docker compose run --rm \
+            -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
+            -e ARM_CLIENT_SECRET=$ARM_CLIENT_SECRET \
+            -e ARM_SUBSCRIPTION_ID=$ARM_SUBSCRIPTION_ID \
+            -e ARM_TENANT_ID=$ARM_TENANT_ID \
+            terraform -chdir=deploy validate
