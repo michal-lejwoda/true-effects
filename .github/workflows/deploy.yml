@@ -5,17 +5,17 @@ on:
     branches:
       - main
       - prod
-  jobs:
-    test-lint:
-      name: "Test and Lint"
-      uses: "./.github/workflows/test-and-lint.yml"
-      secrets:
-        DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
-        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-        ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
-        ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
-        ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+jobs:
+  test-lint:
+    name: "Test and Lint"
+    uses: "./.github/workflows/test-and-lint.yml"
+    secrets:
+      DOCKERHUB_USER: ${{ vars.DOCKERHUB_USER }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+      ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+      ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
 
 #    deploy:
 #      name: Deploy
