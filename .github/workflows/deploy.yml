@@ -48,11 +48,19 @@ on:
             az acr login --name ${{ vars.ACR_NAME }}
             
             echo "Building and pushing app image..."
-            docker build --compress -t ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
+#            docker build --compress -t ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
+            docker build \
+             --compress \
+             --file compose/local/django/Dockerfile \
+             --tag ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
             docker push ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
             
             az acr login --name $ACR_PROXY_NAME
             
             echo "Building and pushing proxy image..."
-            docker build --compress -t ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA proxy/
+                 docker build \
+                 --compress \
+                 --file proxy/Dockerfile \
+                 --tag ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
+                 proxy/
             docker push ${{ vars.ACR_NAME }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
