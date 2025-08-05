@@ -77,6 +77,8 @@ jobs:
           export TF_VAR_acr_app_image="${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
           export TF_VAR_acr_proxy_image="${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
           workspace=$(cat .workspace)
+          echo workspace
+          echo $workspace
           cd ./terraform/environments/development/infra
           docker compose run --rm \
             -e ARM_CLIENT_ID=$ARM_CLIENT_ID \
