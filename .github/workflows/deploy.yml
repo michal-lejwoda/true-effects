@@ -75,6 +75,10 @@ jobs:
           TF_VAR_client_secret: ${{ secrets.ARM_CLIENT_SECRET }}
           TF_VAR_subscription_id: ${{ vars.ARM_SUBSCRIPTION_ID }}
           TF_VAR_tenant_id: ${{ vars.ARM_TENANT_ID }}
+          TF_VAR_ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          TF_VAR_ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+          TF_VAR_ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
 #          TF_VAR_db_password: ${{ secrets.TF_VAR_DB_PASSWORD }}
 #          TF_VAR_django_secret_key: ${{ secrets.TF_VAR_DJANGO_SECRET_KEY }}
         run: |
