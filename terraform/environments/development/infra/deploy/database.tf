@@ -16,6 +16,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
   # zone                   = "1"
 }
 
+
 resource "azurerm_private_endpoint" "db_endpoint_a" {
   name                = "db_endpoint"
   location            = "West Europe"
