@@ -49,3 +49,8 @@ resource "azurerm_role_assignment" "acr_push_proxy_role" {
   principal_id         = azuread_service_principal.true-effects-cd.object_id
 }
 
+# resource "azurerm_role_assignment" "network_contributor" {
+#   scope                = "ssda" # lub np. azurerm_virtual_network.main.id
+#   role_definition_name = "Network Contributor"
+#   principal_id         = azuread_service_principal.true-effects-cd.object_id
+# }
