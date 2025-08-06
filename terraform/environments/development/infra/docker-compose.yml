@@ -10,5 +10,6 @@ services:
       ARM_CLIENT_SECRET: "${ARM_CLIENT_SECRET}"
       ARM_SUBSCRIPTION_ID: "${ARM_SUBSCRIPTION_ID}"
       ARM_TENANT_ID: "${ARM_TENANT_ID}"
+
 #    env_file:
 #      - ./../../../../.envs/azure_dev/.terraform
