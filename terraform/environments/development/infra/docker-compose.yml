@@ -14,4 +14,5 @@ services:
       TF_VAR_ARM_CLIENT_ID: "${ARM_CLIENT_ID}"
       TF_VAR_ARM_SUBSCRIPTION_ID: "${ARM_SUBSCRIPTION_ID}"
       TF_VAR_ARM_TENANT_ID: "${ARM_TENANT_ID}"
+      TF_VAR_db_password: "${TF_VAR_db_password}"
 #      TF_WORKSPACE: "staging"

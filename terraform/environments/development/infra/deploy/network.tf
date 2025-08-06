@@ -75,6 +75,7 @@ resource "azurerm_subnet" "private_b" {
 }
 #
 # ##Enpoint to allow to Access ACR, CLoudwatch and System Manager
+#TODO BACK HERE
 #
 resource "azurerm_network_security_group" "endpoint_access" {
   location            = "West Europe"
