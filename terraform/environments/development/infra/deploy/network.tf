@@ -65,6 +65,15 @@ resource "azurerm_subnet" "private_a" {
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes       = ["10.1.10.0/24"]
+  delegation {
+    name = "postgresql-delegation"
+    service_delegation {
+      name = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/action"
+      ]
+    }
+  }
 }
 
 resource "azurerm_subnet" "private_b" {
@@ -72,6 +81,15 @@ resource "azurerm_subnet" "private_b" {
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
   address_prefixes       = ["10.1.11.0/24"]
+  delegation {
+    name = "postgresql-delegation"
+    service_delegation {
+      name = "Microsoft.DBforPostgreSQL/flexibleServers"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/action"
+      ]
+    }
+  }
 }
 #
 # ##Enpoint to allow to Access ACR, CLoudwatch and System Manager
