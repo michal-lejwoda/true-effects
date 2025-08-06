@@ -10,7 +10,6 @@ resource "azurerm_postgresql_flexible_server" "db" {
   sku_name               = "B_Standard_B1ms"
   storage_mb             = 32768
   backup_retention_days  = 7
-
   delegated_subnet_id    = azurerm_subnet.private_a.id
   # private_dns_zone_id    = var.te_private_dns_zone_db_id
   public_network_access_enabled = false
