@@ -1,5 +1,5 @@
 resource "azurerm_postgresql_flexible_server" "db" {
-  name                   = "postgres-db-1"
+  name                   = "true-effecs-postgres-db-1"
   resource_group_name    = "true-effects-rgp"
   location               = "West Europe"
   version                = "16"
