@@ -75,7 +75,6 @@ resource "azurerm_subnet" "private_a" {
     }
   }
 }
-
 resource "azurerm_subnet" "private_b" {
   name                 = "private_b"
   resource_group_name  = "true-effects-rgp"
