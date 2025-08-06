@@ -1,0 +1,33 @@
+name: Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Which environment to remove Azure resources for?
+        options:
+          - staging
+          - prod
+  jobs:
+    destroy:
+      name: Destroy
+      runs-on: ubuntu-22.04
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+        - name: Terraform Destroy
+          env:
+            ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+            ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+            ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+            TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+            TF_VAR_ARM_CLIENT_ID: ${{ vars.ARM_CLIENT_ID }}
+            TF_VAR_ARM_SUBSCRIPTION_ID: ${{ vars.ARM_SUBSCRIPTION_ID }}
+            TF_VAR_ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
+          run: |
+            export TF_WORKSPACE=${{ github.event.inputs.environment }}
+            cd ./terraform/environments/development/infra
+            docker compose run --rm terraform -chdir=deploy/ init
+            docker compose run --rm terraform -chdir=deploy/ destroy -auto-approve
