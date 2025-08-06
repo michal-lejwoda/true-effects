@@ -83,7 +83,7 @@ jobs:
           workspace=$(cat .workspace)
 
           cd ./terraform/environments/development/infra
-          docker compose run --rm terraform env | grep ARM_
+          docker compose run --rm --entrypoint env terraform | grep ARM_
           echo Zmasdasd
           docker compose run --rm terraform -chdir=deploy/ init 
           docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
