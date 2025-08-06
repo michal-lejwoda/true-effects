@@ -78,18 +78,11 @@ jobs:
           TF_VAR_ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
 
         run: |
-          echo $ARM_CLIENT_SECRET
-          echo $ARM_CLIENT_ID
-          echo $ARM_SUBSCRIPTION_ID
-          echo $ARM_TENANT_ID
-          
-          echo Zmienna
           export TF_VAR_acr_app_image="${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
           export TF_VAR_acr_proxy_image="${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
           workspace=$(cat .workspace)
 
           cd ./terraform/environments/development/infra
-          echo Zmasdasd
           docker compose run --rm terraform -chdir=deploy/ init 
           docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
           docker compose run --rm terraform -chdir=deploy/ apply -auto-approve

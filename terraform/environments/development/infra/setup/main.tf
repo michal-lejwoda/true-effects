@@ -1,14 +1,23 @@
 #connection with blob
 
-terraform {
-  backend "azurerm" {
+# terraform {
+#   backend "azurerm" {
+#     resource_group_name  = "true-effects-rgp"
+#     storage_account_name = "trueeffectstfstate"
+#     container_name       = "tfstate"
+#     key                  = "dev.terraform.tfstate"
+#   }
+# }
+
+data "terraform_remote_state" "deploy" {
+  backend = "azurerm"
+  config = {
     resource_group_name  = "true-effects-rgp"
     storage_account_name = "trueeffectstfstate"
     container_name       = "tfstate"
     key                  = "dev.terraform.tfstate"
   }
 }
-
 
 # resource "azurerm_resource_group" "true-effects-rgp" {
 #   location = "West Europe"
