@@ -76,25 +76,25 @@ resource "azurerm_subnet" "private_b" {
 #
 # ##Enpoint to allow to Access ACR, CLoudwatch and System Manager
 #
-# resource "azurerm_network_security_group" "endpoint_access" {
-#   location            = "West Europe"
-#   name                = "endpoint_access"
-#   resource_group_name = "true-effects-rgp"
-# }
-#
-# resource "azurerm_network_security_rule" "allow_https_from_vnet" {
-#   name                        = "allow_https_from_vnet"
-#   priority                    = 100
-#   direction                   = "Inbound"
-#   access                      = "Allow"
-#   protocol                    = "Tcp"
-#   source_port_range           = "*"
-#   destination_port_range      = "443"
-#   source_address_prefix       = "10.1.0.0/16"
-#   destination_address_prefix  = "*"
-#   resource_group_name         = "true-effects-rgp"
-#   network_security_group_name = azurerm_network_security_group.endpoint_access.name
-# }
+resource "azurerm_network_security_group" "endpoint_access" {
+  location            = "West Europe"
+  name                = "endpoint_access"
+  resource_group_name = "true-effects-rgp"
+}
+
+resource "azurerm_network_security_rule" "allow_https_from_vnet" {
+  name                        = "allow_https_from_vnet"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "443"
+  source_address_prefix       = "10.1.0.0/16"
+  destination_address_prefix  = "*"
+  resource_group_name         = "true-effects-rgp"
+  network_security_group_name = azurerm_network_security_group.endpoint_access.name
+}
 #TODO Uncomment later
 # resource "azurerm_private_endpoint" "acr_a" {
 #   name                = "acr-private-a-endpoint"
