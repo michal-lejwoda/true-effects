@@ -13,7 +13,7 @@ resource "azurerm_postgresql_flexible_server" "db" {
   delegated_subnet_id    = azurerm_subnet.private_a.id
   private_dns_zone_id    = azurerm_private_dns_zone.db_dns_zone.id
   public_network_access_enabled = false
-  zone                   = "1"
+  # zone                   = "1"
 }
 
 resource "azurerm_private_endpoint" "db_endpoint_a" {
