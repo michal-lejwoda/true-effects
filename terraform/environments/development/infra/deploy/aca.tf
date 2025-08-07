@@ -1,9 +1,24 @@
+resource "azurerm_log_analytics_workspace" "logs" {
+  name                = "true-effects-logs"
+  location            = "West Europe"
+  resource_group_name = "true-effects-rgp"
+  sku                 = "PerGB2018"
+  retention_in_days   = 1
+}
+resource "azurerm_container_app_environment" "true_effect_environment" {
+  name                       = "true-effects-environment"
+  location                   = "West Europe"
+  resource_group_name        = "true-effects-rgp"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logs.id
+  infrastructure_subnet_id = azurerm_subnet.private_a.id
+}
+
 resource "azurerm_container_app" "example" {
   name                         = "example-app"
-  container_app_environment_id = azurerm_container_app_environment.example.id
-  resource_group_name          = azurerm_resource_group.example.name
+  container_app_environment_id = azurerm_container_app_environment.true_effect_environment.id
+  resource_group_name          = "true-effects-rgp"
   revision_mode                = "Single"
-  location                     = azurerm_resource_group.example.location
+  location                     = "Eu"
 
    template {
     container {
@@ -14,11 +29,11 @@ resource "azurerm_container_app" "example" {
       memory = "1.0Gi"
       env {
     name  = "DATABASE_URL"
-    value = local.db_url
+    value = var.db_url
   }
       env {
     name  = "REDIS_URL"
-    value = local.redis_url
+    value = var.redis_url
   }
       env{
         name="SECRET_KEY"
@@ -60,23 +75,6 @@ resource "azurerm_container_app" "example" {
       }
     }
 
-    scale {
-      min_replicas = 1
-      max_replicas = 3
-    }
-  }
-
-  ingress {
-    external_enabled = true
-    target_port      = 8000  # port na którym proxy/app nasłuchuje
-    transport        = "auto"
-  }
-}
-
-    # scale {
-    #   min_replicas = 0
-    #   max_replicas = 1
-    # }
   }
 
   ingress {
@@ -86,17 +84,5 @@ resource "azurerm_container_app" "example" {
   }
 }
 
-resource "azurerm_container_app_environment" "example" {
-  name                       = "Example-Environment"
-  location                   = azurerm_resource_group.example.location
-  resource_group_name        = azurerm_resource_group.example.name
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.example.id
-}
 
-resource "azurerm_log_analytics_workspace" "example" {
-  name                = "acctest-01"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
-  sku                 = "PerGB2018"
-  retention_in_days   = 30
-}
+
