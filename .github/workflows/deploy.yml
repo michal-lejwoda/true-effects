@@ -47,25 +47,22 @@ jobs:
             --tenant ${{ vars.ARM_TENANT_ID }}
 
           echo "Logging in to ACR..."
-          az acr login --name ${{ vars.ACR_NAME_APP }}
+          az acr login --name ${{ vars.ACR_NAME_MAIN }}
 
           echo "Building and pushing app image..."
           docker build \
             --compress \
             --file compose/azure-dev/django/Dockerfile \
-            --tag ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
-          docker push ${{ vars.ACR_NAME_APP }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
-
-          echo "Logging in to proxy ACR..."
-          az acr login --name ${{ vars.ACR_NAME_PROXY }}
+            --tag ${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA .
+          docker push ${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA
 
           echo "Building and pushing proxy image..."
           docker build \
             --compress \
             --file compose/azure-dev/nginx/Dockerfile \
-            --tag ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
+            --tag ${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA \
             .
-          docker push ${{ vars.ACR_NAME_PROXY }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
+          docker push ${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA
       - name: Terraform Apply
         env:
           ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
@@ -78,10 +75,9 @@ jobs:
           TF_VAR_ARM_TENANT_ID: ${{ vars.ARM_TENANT_ID }}
 
         run: |
-          export TF_VAR_acr_app_image="${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
-          export TF_VAR_acr_proxy_image="${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
+          export TF_VAR_acr_app_image="${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
+          export TF_VAR_acr_proxy_image="${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
           workspace=$(cat .workspace)
-
           cd ./terraform/environments/development/infra
           docker compose run --rm terraform -chdir=deploy/ init 
           docker compose run --rm terraform -chdir=deploy/ workspace select -or-create $workspace
