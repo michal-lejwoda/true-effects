@@ -19,3 +19,11 @@ variable "ARM_CLIENT_SECRET" {
 variable "ARM_TENANT_ID" {
   type = string
 }
+
+variable "TF_VAR_acr_proxy_image" {
+  type = string
+}
+
+variable "TF_VAR_acr_app_image" {
+  type = string
+}
