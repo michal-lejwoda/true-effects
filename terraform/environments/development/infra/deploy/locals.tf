@@ -25,7 +25,7 @@ locals {
     "/", "%2F"
   )
 
-  db_url = "postgresql://${var.db_admin_username}:${local.encoded_db_password}@${local.db_fqdn}:${local.db_port}/${local.db_name}"
+  db_url = "postgresql://${local.db_admin_username}:${local.encoded_db_password}@${local.db_fqdn}:${local.db_port}/${local.db_name}"
 
   # Redis
   redis_hostname    = azurerm_redis_cache.redis.hostname
