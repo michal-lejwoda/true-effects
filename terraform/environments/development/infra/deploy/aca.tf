@@ -24,7 +24,7 @@ resource "azurerm_container_app" "true_effects_container_app" {
     container {
       name = "backend"
       # image  = "docker.io/saxatachi/trueeffects_backend:azure_dev"
-      image  = var.TF_VAR_acr_app_image
+      image  = var.acr_app_image
       cpu    = 0.5
       memory = "1.0Gi"
       env {
@@ -37,34 +37,34 @@ resource "azurerm_container_app" "true_effects_container_app" {
       }
       env {
         name  = "SECRET_KEY"
-        value = var.secret_key
+        value = local.secret_key
       }
       env {
         name  = "EMAIL_HOST_USER"
-        value = var.email_host_user
+        value = local.email_host_user
       }
       env {
         name  = "EMAIL_HOST_PASSWORD"
-        value = var.email_host_password
+        value = local.email_host_password
       }
       #TODO BACK HERE
       env {
         name  = "URL"
-        value = var.url
+        value = local.url
       }
       env {
         name  = "DJANGO_SETTINGS_MODULE"
-        value = var.django_settings_module
+        value = local.django_settings_module
       }
       env {
         name  = "AUTH_USER_MODEL"
-        value = var.auth_user_model
+        value = local.auth_user_model
       }
     }
 
     container {
       name   = "proxy"
-      image  = var.TF_VAR_acr_proxy_image
+      image  = var.acr_proxy_image
       cpu    = 0.25
       memory = "0.5Gi"
 

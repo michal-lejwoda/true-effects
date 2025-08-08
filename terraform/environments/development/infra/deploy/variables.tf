@@ -20,11 +20,11 @@ variable "ARM_TENANT_ID" {
   type = string
 }
 
-variable "TF_VAR_acr_proxy_image" {
+variable "acr_proxy_image" {
   type = string
 }
 
-variable "TF_VAR_acr_app_image" {
+variable "acr_app_image" {
   type = string
 }
 variable "secret_key" {

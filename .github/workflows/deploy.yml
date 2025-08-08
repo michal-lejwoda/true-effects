@@ -77,6 +77,8 @@ jobs:
         run: |
           export TF_VAR_acr_app_image="${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_APP }}:$GITHUB_SHA"
           export TF_VAR_acr_proxy_image="${{ vars.ACR_NAME_MAIN }}/${{ vars.ACR_REPO_PROXY }}:$GITHUB_SHA"
+          echo $TF_VAR_acr_app_image
+          echo $TF_VAR_acr_proxy_image
           workspace=$(cat .workspace)
           cd ./terraform/environments/development/infra
           docker compose run --rm terraform -chdir=deploy/ init 
