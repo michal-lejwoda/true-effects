@@ -1,15 +1,15 @@
 resource "azurerm_postgresql_flexible_server" "db" {
-  name                   = "true-effects-postgres-db-1"
-  resource_group_name    = "true-effects-rgp"
-  location               = "West Europe"
-  version                = "16"
-  administrator_login    = "importantuser"
-  administrator_password = "importantpassword"
-  sku_name               = "GP_Standard_D2s_v3"
-  storage_mb             = 32768
-  backup_retention_days  = 7
-  delegated_subnet_id    = azurerm_subnet.private_a.id
-  private_dns_zone_id    = azurerm_private_dns_zone.db_dns_zone.id
+  name                          = "true-effects-postgres-db-1"
+  resource_group_name           = "true-effects-rgp"
+  location                      = "West Europe"
+  version                       = "16"
+  administrator_login           = "importantuser"
+  administrator_password        = "importantpassword"
+  sku_name                      = "GP_Standard_D2s_v3"
+  storage_mb                    = 32768
+  backup_retention_days         = 7
+  delegated_subnet_id           = azurerm_subnet.private_a.id
+  private_dns_zone_id           = azurerm_private_dns_zone.db_dns_zone.id
   public_network_access_enabled = false
 }
 

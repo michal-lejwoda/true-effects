@@ -50,4 +50,37 @@ variable "url" {
 variable "auth_user_model" {
   type = string
 }
-variable "db_url" {}
+variable "db_url" {
+  type = string
+}
+
+variable "db_admin_username" {
+  type    = string
+  default = "importantuser"
+}
+
+variable "db_admin_password" {
+  type    = string
+  default = "importantpassword"
+}
+
+variable "db_fqdn" {
+  type = string
+}
+
+variable "db_port" {
+  type = string
+}
+
+variable "db_name" {
+  type = string
+}
+
+variable "redis_primary_key" {
+  type = string
+}
+
+variable "redis_hostname" {
+  type = string
+}
+
