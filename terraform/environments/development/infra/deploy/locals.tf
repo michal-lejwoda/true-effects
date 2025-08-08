@@ -15,7 +15,7 @@ locals {
     replace(
       replace(
         replace(
-          var.db_admin_password,
+          local.db_admin_password,
           "@", "%40"
         ),
         ":", "%3A"
