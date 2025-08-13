@@ -1,4 +1,4 @@
-FROM postgres:12-bullseye
+FROM postgres:16.5-bullseye
 
 # Install apt packages
 RUN apt-get update && apt-get install --no-install-recommends -y \
