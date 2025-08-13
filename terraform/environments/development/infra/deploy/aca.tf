@@ -1,0 +1,93 @@
+resource "azurerm_log_analytics_workspace" "logs" {
+  name                = "true-effects-logs"
+  location            = "West Europe"
+  resource_group_name = "true-effects-rgp"
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+resource "azurerm_container_app_environment" "true_effect_environment" {
+  name                       = "true-effects-environment"
+  location                   = "West Europe"
+  resource_group_name        = "true-effects-rgp"
+  log_analytics_workspace_id = azurerm_log_analytics_workspace.logs.id
+  infrastructure_subnet_id   = azurerm_subnet.private_a.id
+}
+
+resource "azurerm_container_app" "true_effects_container_app" {
+  name                         = "true-effects-container-app"
+  container_app_environment_id = azurerm_container_app_environment.true_effect_environment.id
+  resource_group_name          = "true-effects-rgp"
+  revision_mode                = "Single"
+  # location                     = "West Europe"
+
+  template {
+    container {
+      name = "backend"
+      # image  = "docker.io/saxatachi/trueeffects_backend:azure_dev"
+      image  = var.acr_app_image
+      cpu    = 0.5
+      memory = "1.0Gi"
+      env {
+        name  = "DATABASE_URL"
+        value = local.db_url
+      }
+      env {
+        name  = "REDIS_URL"
+        value = local.redis_url
+      }
+      env {
+        name  = "SECRET_KEY"
+        value = local.secret_key
+      }
+      env {
+        name  = "EMAIL_HOST_USER"
+        value = local.email_host_user
+      }
+      env {
+        name  = "EMAIL_HOST_PASSWORD"
+        value = local.email_host_password
+      }
+      #TODO BACK HERE
+      env {
+        name  = "URL"
+        value = local.url
+      }
+      env {
+        name  = "DJANGO_SETTINGS_MODULE"
+        value = local.django_settings_module
+      }
+      env {
+        name  = "AUTH_USER_MODEL"
+        value = local.auth_user_model
+      }
+    }
+
+    container {
+      name   = "proxy"
+      image  = var.acr_proxy_image
+      cpu    = 0.25
+      memory = "0.5Gi"
+
+
+      env {
+        name  = "PROXY_SETTING"
+        value = "some_value"
+      }
+    }
+
+  }
+
+  ingress {
+    external_enabled = true
+    target_port      = 8000
+    transport        = "auto"
+
+    traffic_weight {
+      latest_revision = true
+      percentage      = 100
+    }
+  }
+}
+
+
+

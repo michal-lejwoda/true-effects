@@ -5,11 +5,11 @@ resource "azurerm_virtual_network" "main" {
   resource_group_name = "true-effects-rgp"
 }
 
-resource "azurerm_subnet" "public_a"{
+resource "azurerm_subnet" "public_a" {
   name                 = "public_a"
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes       = ["10.1.1.0/24"]
+  address_prefixes     = ["10.1.1.0/24"]
   # route_table_id       = azurerm_route_table.example.id
 }
 
@@ -20,11 +20,11 @@ resource "azurerm_route_table" "public_a" {
 }
 
 resource "azurerm_route" "public_internet_access_a" {
-  name                   = "public-internet-access-a-route"
-  resource_group_name    = "true-effects-rgp"
-  route_table_name       = azurerm_route_table.public_a.name
-  address_prefix         = "0.0.0.0/0"
-  next_hop_type          = "Internet"
+  name                = "public-internet-access-a-route"
+  resource_group_name = "true-effects-rgp"
+  route_table_name    = azurerm_route_table.public_a.name
+  address_prefix      = "0.0.0.0/0"
+  next_hop_type       = "Internet"
 }
 
 resource "azurerm_subnet_route_table_association" "public_a" {
@@ -32,11 +32,11 @@ resource "azurerm_subnet_route_table_association" "public_a" {
   route_table_id = azurerm_route_table.public_a.id
 }
 
-resource "azurerm_subnet" "public_b"{
+resource "azurerm_subnet" "public_b" {
   name                 = "public_b"
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes       = ["10.1.2.0/24"]
+  address_prefixes     = ["10.1.2.0/24"]
 
 }
 
@@ -47,11 +47,11 @@ resource "azurerm_route_table" "public_b" {
 }
 
 resource "azurerm_route" "public_internet_access_b" {
-  name                   = "public-internet-access-a-route"
-  resource_group_name    = "true-effects-rgp"
-  route_table_name       = azurerm_route_table.public_b.name
-  address_prefix         = "0.0.0.0/0"
-  next_hop_type          = "Internet"
+  name                = "public-internet-access-a-route"
+  resource_group_name = "true-effects-rgp"
+  route_table_name    = azurerm_route_table.public_b.name
+  address_prefix      = "0.0.0.0/0"
+  next_hop_type       = "Internet"
 }
 
 resource "azurerm_subnet_route_table_association" "public_b" {
@@ -64,7 +64,7 @@ resource "azurerm_subnet" "private_a" {
   name                 = "private_a"
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes       = ["10.1.10.0/24"]
+  address_prefixes     = ["10.1.10.0/24"]
   delegation {
     name = "postgresql-delegation"
     service_delegation {
@@ -79,7 +79,7 @@ resource "azurerm_subnet" "private_b" {
   name                 = "private_b"
   resource_group_name  = "true-effects-rgp"
   virtual_network_name = azurerm_virtual_network.main.name
-  address_prefixes       = ["10.1.11.0/24"]
+  address_prefixes     = ["10.1.11.0/24"]
   delegation {
     name = "postgresql-delegation"
     service_delegation {

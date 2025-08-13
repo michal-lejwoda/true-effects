@@ -1,7 +1,4 @@
-#
-# data "azuread_domains" "true-effects-domain" {
-#   only_initial = true
-# }
+
 data "azurerm_resource_group" "true_effects_rgp" {
   name = "true-effects-rgp"
 }
@@ -38,16 +35,16 @@ resource "azurerm_role_assignment" "blob_data_contributor" {
 }
 
 resource "azurerm_role_assignment" "acr_push_app_role" {
-  scope                = azurerm_container_registry.app.id
+  scope                = azurerm_container_registry.main.id
   role_definition_name = "AcrPush"
   principal_id         = azuread_service_principal.true-effects-cd.object_id
 }
 
-resource "azurerm_role_assignment" "acr_push_proxy_role" {
-  scope                = azurerm_container_registry.proxy.id
-  role_definition_name = "AcrPush"
-  principal_id         = azuread_service_principal.true-effects-cd.object_id
-}
+# resource "azurerm_role_assignment" "acr_push_proxy_role" {
+#   scope                = azurerm_container_registry.proxy.id
+#   role_definition_name = "AcrPush"
+#   principal_id         = azuread_service_principal.true-effects-cd.object_id
+# }
 
 # resource "azurerm_role_assignment" "network_contributor" {
 #   scope                = data.terraform_remote_state.deploy.outputs.vnet_id
