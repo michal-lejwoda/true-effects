@@ -4,11 +4,12 @@ import '../../new_sass/achievements.scss'
 import {useTranslation} from "react-i18next";
 
 const AchievementsSummary = (props) => {
+    // #TODO BACK HERE
     const {t} = useTranslation();
     // #TODO BACK HERE
     const baseUrl = process.env.NODE_ENV === 'development'
     ? "http://0.0.0.0:80"
-    : '';
+    : process.env.REACT_APP_TRUEEFFECTS_URL;
     return (
         <div className="achievements">
             <div className="achievements__title">
