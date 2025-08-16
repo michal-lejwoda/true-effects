@@ -2,7 +2,7 @@ import dj_database_url
 from decouple import Config
 from .base import *
 
-DEBUG = False
+DEBUG = True
 config = Config('.envs/production/.django')
 SECRET_KEY = config.get('PRODUCTION_SECRET_KEY')
 #TODO BACK HERE

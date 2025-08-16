@@ -14,6 +14,7 @@ import i18n from "i18next";
 import webSocketClient from "../../components/websockets/LogInTimeWebSocket";
 
 const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
+console.log("Trueeffects", TRUEEFFECTS_URL)
 
 export const postResetPassword = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
