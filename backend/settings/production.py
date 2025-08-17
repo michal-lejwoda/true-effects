@@ -6,7 +6,7 @@ DEBUG = True
 config = Config('.envs/production/.django')
 SECRET_KEY = config.get('PRODUCTION_SECRET_KEY')
 #TODO BACK HERE
-ALLOWED_HOSTS = ['https://true-effects.pl','https://www.true-effects.pl']
+ALLOWED_HOSTS = ['true-effects.pl','www.true-effects.pl']
 
 """DATABASES"""
 CSRF_TRUSTED_ORIGINS = [
