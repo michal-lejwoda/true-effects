@@ -9,7 +9,10 @@ SECRET_KEY = config.get('PRODUCTION_SECRET_KEY')
 ALLOWED_HOSTS = ['*']
 
 """DATABASES"""
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://true-effects.pl",
+    "https://www.true-effects.pl",
+]
 DATABASES = {'default': dj_database_url.config(default=config.get('PRODUCTION_DATABASE_URL'))}
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
