@@ -13,6 +13,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://true-effects.pl",
     "https://www.true-effects.pl",
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://www.true-effects.pl",
+    "https://true-effects.pl",
+]
+
 DATABASES = {'default': dj_database_url.config(default=config.get('PRODUCTION_DATABASE_URL'))}
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
