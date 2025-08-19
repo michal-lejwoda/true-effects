@@ -6,6 +6,7 @@ config = Config(RepositoryEnv('.envs/local/.django'))
 URL = config('URL')
 SECRET_KEY = config.get('SECRET_KEY')
 ALLOWED_HOSTS = ['*']
+CORS_ALLOW_ALL_ORIGINS = True
 
 """DATABASES"""
 

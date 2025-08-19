@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 APP_DIR = Path(__file__).resolve().parent.parent.parent
 
-CORS_ALLOW_ALL_ORIGINS = True
+
 AUTH_USER_MODEL = "authorization.CustomUser"
 INSTALLED_APPS = [
     'daphne',
