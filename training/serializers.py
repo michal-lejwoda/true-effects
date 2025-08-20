@@ -137,7 +137,6 @@ class SingleSeriesSerializerv2(serializers.ModelSerializer):
     exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
 
     def to_internal_value(self, data):
-        print("singleseriesv222", data)
         if isinstance(data.get('exercise'), dict) and 'id' in data['exercise']:
             data = data.copy()
             data['exercise'] = data['exercise']['id']
