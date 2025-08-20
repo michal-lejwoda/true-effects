@@ -182,5 +182,22 @@
   "Field date can't be empty": "Datum darf nicht leer sein",
   "Create Training": "Training Erstellen",
   "Modify Series": "Serien Anpassen",
-  "Save training changes": "Speichern"
+  "Save training changes": "Speichern",
+  "Congratulations!!! You've created your first workout.": "Glückwunsch!!! Du hast dein erstes Training erstellt.",
+  "Congratulations!!! You've created your tenth workout.": "Glückwunsch!!! Du hast dein zehntes Training erstellt.",
+  "Congratulations!!! You've created your twentieth workout.": "Glückwunsch!!! Du hast dein zwanzigstes Training erstellt.",
+  "Congratulations!!! You've modified your first workout.": "Glückwunsch!!! Du hast dein erstes Training geändert.",
+  "Congratulations!!! You've modified your tenth workout.": "Glückwunsch!!! Du hast dein zehntes Training geändert.",
+  "Congratulations!!! You've created your first training goal.": "Glückwunsch!!! Du hast dein erstes Trainingsziel erstellt.",
+  "Congratulations!!! You've created your fifth training goal.": "Glückwunsch!!! Du hast dein fünftes Trainingsziel erstellt.",
+  "Congratulations!!! You've created your twentieth training goal.": "Glückwunsch!!! Du hast dein zwanzigstes Trainingsziel erstellt.",
+  "Congratulations!!! You've created your first training measurement.": "Glückwunsch!!! Du hast deine erste Trainingsmessung erstellt.",
+  "Congratulations!!! You've created your eighth training measurement.": "Glückwunsch!!! Du hast deine achte Trainingsmessung erstellt.",
+  "Congratulations!!! You've created your thirtieth training goal.": "Glückwunsch!!! Du hast dein dreißigstes Trainingsziel erstellt.",
+  "Congratulations!!! You've been logged in for 5 minutes.": "Glückwunsch!!! Du bist seit 5 Minuten angemeldet.",
+  "Congratulations!!! You've been logged in for 1 hour.": "Glückwunsch!!! Du bist seit 1 Stunde angemeldet.",
+  "Congratulations!!! You've been logged in for 2 hours.": "Glückwunsch!!! Du bist seit 2 Stunden angemeldet.",
+  "Congratulations!!! You've spent 3 hours on our site.": "Glückwunsch!!! Du hast 3 Stunden auf unserer Seite verbracht.",
+  "Congratulations!!! You've spent 10 hours on our site.": "Glückwunsch!!! Du hast 10 Stunden auf unserer Seite verbracht.",
+  "Congratulations!!! You've spent 24 hours on our site.": "Glückwunsch!!! Du hast 24 Stunden auf unserer Seite verbracht."
 }

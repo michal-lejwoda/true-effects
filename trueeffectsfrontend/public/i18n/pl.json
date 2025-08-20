@@ -182,5 +182,22 @@
   "Field date can't be empty": "Data nie może być pusta",
   "Create Training": "Stwórz Trening",
   "Modify Series": "Modyfikuj Serie",
-  "Save training changes": "Zapisz zmiany"
+  "Save training changes": "Zapisz zmiany",
+  "Congratulations!!! You've created your first workout.": "Gratulacje!!! Stworzyłeś swój pierwszy trening.",
+  "Congratulations!!! You've created your tenth workout.": "Gratulacje!!! Stworzyłeś swój dziesiąty trening.",
+  "Congratulations!!! You've created your twentieth workout.": "Gratulacje!!! Stworzyłeś swój dwudziesty trening.",
+  "Congratulations!!! You've modified your first workout.": "Gratulacje!!! Zmodyfikowałeś swój pierwszy trening.",
+  "Congratulations!!! You've modified your tenth workout.": "Gratulacje!!! Zmodyfikowałeś swój dziesiąty trening.",
+  "Congratulations!!! You've created your first training goal.": "Gratulacje!!! Stworzyłeś swój pierwszy cel treningowy.",
+  "Congratulations!!! You've created your fifth training goal.": "Gratulacje!!! Stworzyłeś swój piąty cel treningowy.",
+  "Congratulations!!! You've created your twentieth training goal.": "Gratulacje!!! Stworzyłeś swój dwudziesty cel treningowy.",
+  "Congratulations!!! You've created your first training measurement.": "Gratulacje!!! Stworzyłeś swój pierwszy pomiar treningowy.",
+  "Congratulations!!! You've created your eighth training measurement.": "Gratulacje!!! Stworzyłeś swój ósmy pomiar treningowy.",
+  "Congratulations!!! You've created your thirtieth training goal.": "Gratulacje!!! Stworzyłeś swój trzydziesty cel treningowy.",
+  "Congratulations!!! You've been logged in for 5 minutes.": "Gratulacje!!! Jesteś zalogowany przez 5 minut.",
+  "Congratulations!!! You've been logged in for 1 hour.": "Gratulacje!!! Jesteś zalogowany przez 1 godzinę.",
+  "Congratulations!!! You've been logged in for 2 hours.": "Gratulacje!!! Jesteś zalogowany przez 2 godziny.",
+  "Congratulations!!! You've spent 3 hours on our site.": "Gratulacje!!! Spędziłeś na naszej stronie 3 godziny.",
+  "Congratulations!!! You've spent 10 hours on our site.": "Gratulacje!!! Spędziłeś na naszej stronie 10 godzin.",
+  "Congratulations!!! You've spent 24 hours on our site.": "Gratulacje!!! Spędziłeś na naszej stronie 24 godziny."
 }
