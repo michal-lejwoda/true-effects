@@ -217,7 +217,6 @@ class MultiSeriesSerializerv2(serializers.ModelSerializer):
     exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
 
     def to_internal_value(self, data):
-        print("data", data)
         if isinstance(data.get('exercise'), dict) and 'id' in data['exercise']:
             data = data.copy()
             data['exercise'] = data['exercise']['id']
