@@ -4,7 +4,8 @@ from django.utils.translation import gettext_lazy as _
 from authorization.models import CustomUser
 
 class ACHIEVEMENT_TYPES(models.TextChoices):
-    SUM_MEASUREMENTS_COMPLETED = "SUM_MEASUREMENTS_COMPLETED", "Sum Measurements Completed"
+    SUM_MEASUREMENTS_ADDED = "SUM_MEASUREMENTS_ADDED", "Sum Measurements Added"
+    SUM_USER_GOALS_ADDED = "SUM_USER_GOALS_ADDED", "Sum User Goals Added"
     SUM_EXERCISE_CREATED = "SUM_EXERCISE_CREATED", "Sum Exercise Created"
     SUM_TRAININGS_CREATED = "SUM_TRAININGS_CREATED", "Sum Trainings Created"
     SUM_TRAININGS_COMPLETED = "SUM_TRAININGS_COMPLETED", "Sum Trainings Completed"
