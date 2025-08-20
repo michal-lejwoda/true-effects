@@ -3,11 +3,25 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from authorization.models import CustomUser
 
+class ACHIEVEMENT_TYPES(models.TextChoices):
+    SUM_MEASUREMENTS_COMPLETED = "SUM_MEASUREMENTS_COMPLETED", "Sum Measurements Completed"
+    SUM_EXERCISE_CREATED = "SUM_EXERCISE_CREATED", "Sum Exercise Created"
+    SUM_TRAININGS_CREATED = "SUM_TRAININGS_CREATED", "Sum Trainings Created"
+    SUM_TRAININGS_COMPLETED = "SUM_TRAININGS_COMPLETED", "Sum Trainings Completed"
+    SUM_LOGGED_TIME = "SUM_LOGGED_TIME", "Sum Logged Time"
+    LOGGED_TIME = "LOGGED_TIME", "Logged Time"
+    SUM_USER_MODIFY_TRAINING = "SUM_USER_MODIFY_TRAINING", "Sum User Modify Training"
+
+
 class TypeAchievement(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(
+        max_length=100,
+        choices=ACHIEVEMENT_TYPES.choices,
+        unique=True
+    )
 
     def __str__(self):
-        return self.name
+        return self.get_name_display()
 
 
 class Achievement(models.Model):

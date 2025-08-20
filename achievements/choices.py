@@ -10,7 +10,7 @@ class ACHIEVEMENT_CHOICES:
 
 LANGUAGES = (
     ("en", "English"),
-    ("pl", "Polish"),
+    ("pl", "Polski"),
     ("de", "Deutsch"),
 )
 
