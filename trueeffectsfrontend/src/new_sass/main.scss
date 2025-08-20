@@ -67,3 +67,27 @@ main{
     margin-bottom: 2rem;
     color: $colar_pink;
 }
+
+input {
+    color: white;            /* zwykły tekst */
+    background-color: #222;  /* ciemne tło */
+    caret-color: white;      /* migająca kreska będzie widoczna */
+}
+
+/* Autofill Firefox */
+input:-moz-autofill {
+    background-color: transparent !important;
+    box-shadow: 0 0 0 1000px transparent inset !important;
+    -moz-text-fill-color: white !important;
+    caret-color: white !important; /* wymusza widoczny caret */
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Autofill Chrome/Safari/Edge */
+input:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+    transition: background-color 5000s ease-in-out 0s;
+}

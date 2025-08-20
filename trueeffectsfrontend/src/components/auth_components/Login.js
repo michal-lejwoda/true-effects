@@ -34,6 +34,7 @@ const Login = (props) => {
                         <div className="form__username animatedInput">
                             <input
                                 name="username"
+                                autocomplete="username"
                                 onChange={handleChange}
                                 type="text"
                             />
