@@ -120,7 +120,7 @@ const ModifyTraining = (props) => {
                             </div>
                         </div>
                         <div className="mt-data--list">
-                            <h1 className="title modify-training__title">{t("Modify series")}</h1>
+                            <h1 className="title modify-training__title">{t("Modify Series")}</h1>
                             <div className="multiseries mt-data__multiseries">
                                 {values.multi_series.map((multiseries, index) => {
                                     return (<div className="multi-element multiseries__multi-element--collapse"

@@ -180,5 +180,7 @@
   "Field training name is required": "Nazwa treningu jest wymagana",
   "Field date is invalid": "Data jest nieprawidłowa",
   "Field date can't be empty": "Data nie może być pusta",
-  "Create Training": "Stwórz Trening"
+  "Create Training": "Stwórz Trening",
+  "Modify Series": "Modyfikuj Serie",
+  "Save training changes": "Zapisz zmiany"
 }

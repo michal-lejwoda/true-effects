@@ -183,7 +183,9 @@
   "Account": "Account",
   "Settings saved": "Settings saved",
   "Successfully saved the settings !!!": "Successfully saved the settings !!!",
-  "Create Training": "Create Training"
+  "Create Training": "Create Training",
+  "Modify Series": "Modify Series",
+  "Save training changes": "Save training changes"
 
 
 }
