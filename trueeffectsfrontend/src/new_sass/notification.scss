@@ -9,10 +9,14 @@
   &__icon{
     display:flex;
     justify-content: end;
+    cursor: pointer;
   }
   &__message{
     font-size: 1rem;
     font-weight: 600;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
   }
 }
 
