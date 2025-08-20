@@ -136,6 +136,30 @@ class TrainingExerciseSerializer(serializers.ModelSerializer):
 class SingleSeriesSerializerv2(serializers.ModelSerializer):
     exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
 
+    def to_internal_value(self, data):
+        if isinstance(data.get('exercise'), dict) and 'id' in data['exercise']:
+            data = data.copy()
+            data['exercise'] = data['exercise']['id']
+            return super().to_internal_value(data)
+
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.exercise:
+            data['exercise'] = {
+                'id': instance.exercise.id,
+                'name': instance.exercise.name
+            }
+        return data
+
+    def get_exercise(self, obj):
+        if obj.exercise:
+            return {
+                'id': obj.exercise.id,
+                'name': obj.exercise.name
+            }
+        return None
+
     def create(self, validated_data):
         user_id = validated_data.pop('user')
         validated_data['user'] = user_id
@@ -157,6 +181,7 @@ class SingleSeriesSerializerv2(serializers.ModelSerializer):
     class Meta:
         model = SingleSeries
         fields = '__all__'
+
 
 
 class SingleSeriesSerializer(serializers.ModelSerializer):
@@ -188,13 +213,36 @@ class SingleSeriesSerializer(serializers.ModelSerializer):
 
 
 class MultiSeriesSerializerv2(serializers.ModelSerializer):
-    exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
     single_series = SingleSeriesSerializerv2(required=False, allow_null=True, many=True)
+    exercise = PrimaryKeyRelatedField(queryset=Exercise.objects.all())
+
+    def to_internal_value(self, data):
+        if isinstance(data.get('exercise'), dict) and 'id' in data['exercise']:
+            data = data.copy()
+            data['exercise'] = data['exercise']['id']
+
+        return super().to_internal_value(data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        if instance.exercise:
+            data['exercise'] = {
+                'id': instance.exercise.id,
+                'name': instance.exercise.name
+            }
+        return data
 
     class Meta:
         model = MultiSeries
         fields = '__all__'
 
+    def get_exercise(self, obj):
+        if obj.exercise:
+            return {
+                'id': obj.exercise.id,
+                'name': obj.exercise.name
+            }
+        return None
     def create(self, validated_data):
         single_series_data = validated_data.pop('single_series', [])
         multi_series_obj = MultiSeries.objects.create(**validated_data)
@@ -243,22 +291,20 @@ class TrainingSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         multiseries_elements = validated_data.pop('multi_series')
         training = Training.objects.create(**validated_data)
-        user = self.context['request'].user.id
+        user = self.context['request'].user
         multi_series_list = []
         for multiseries_element in multiseries_elements:
             single_series_data = multiseries_element.pop('single_series')
             multiseries_element['user'] = user
-            multi_series_serializer = MultiSeriesSerializerv2(data=multiseries_element)
-            if multi_series_serializer.is_valid():
-                multi_series_obj = multi_series_serializer.save()
-                multi_series_list.append(multi_series_obj)
-                single_series_list = []
-                for single_series_element in single_series_data:
-                    single_series_element['user'] = user
-                    single_series_serializer = SingleSeriesSerializerv2(data=single_series_element)
-                    if single_series_serializer.is_valid():
-                        single_series_obj = single_series_serializer.save()
-                        single_series_list.append(single_series_obj)
-                    multi_series_obj.single_series.set(single_series_list)
-            training.multi_series.set(multi_series_list)
+            multi_series_obj = MultiSeries.objects.create(**multiseries_element)
+            multi_series_list.append(multi_series_obj)
+            single_series_list = []
+            for single_series_element in single_series_data:
+                single_series_element['user'] = user
+                single_series_obj = SingleSeries.objects.create(**single_series_element)
+                single_series_list.append(single_series_obj)
+
+            multi_series_obj.single_series.set(single_series_list)
+
+        training.multi_series.set(multi_series_list)
         return training
