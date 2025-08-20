@@ -22,6 +22,10 @@
 
     .header {
       &__element {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
         &:hover {
           cursor: pointer;
           color: $colar_pink;
@@ -43,6 +47,7 @@
       font-size: 1.2rem;
       @include breakpoint(mobilebig) {
         font-size: 1.6rem;
+        margin: 0 20px 0;
         //margin: 0px 20px 0px;
       }
     }
