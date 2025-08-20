@@ -179,5 +179,6 @@
   "Field training name is too short": "Trainingsname ist zu kurz",
   "Field training name is required": "Trainingsname ist erforderlich",
   "Field date is invalid": "Datum ist ungültig",
-  "Field date can't be empty": "Datum darf nicht leer sein"
+  "Field date can't be empty": "Datum darf nicht leer sein",
+  "Create Training": "Training Erstellen"
 }

@@ -52,7 +52,7 @@ const CreateMultiSeries = (props) => {
     return (
         <>
             <form className="create-series create-training__create-series" onSubmit={handleSubmit}>
-                <h1 className="create-series__title">{t("Create series")}</h1>
+                <h1 className="create-series__title">{t("Create Series")}</h1>
                 <div className="inputs create-series__inputs">
                     <div className="inputs__select">
                         <AsyncSelect placeholder={t("Select exercise")} name="exercise" onChange={handleChangeExercise}
