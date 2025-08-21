@@ -19,7 +19,9 @@ services:
       dockerfile: ./compose/production/django/Dockerfile
     entrypoint: /app/entrypoint.sh
     volumes:
-      - /app/backend/production-static:/app/backend/production-static
+      - production_trueeffects_static:/app/backend/production-trueeffects-static
+      - production_trueeffects_media:/app/backend/production-trueeffects-media
+#      - /app/backend/production-static:/app/backend/production-static
     env_file:
       - .envs/production/.django
     depends_on:
@@ -42,4 +44,8 @@ networks:
     external: true
 
 volumes:
-  prod_postgres_data:
+  prod_postgres_data: {}
+  production_trueeffects_media:
+    external: true
+  production_trueeffects_static:
+    external: true

@@ -36,9 +36,9 @@ CACHES = {
 """STATICFILES"""
 
 STATIC_URL = '/production-static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'production-static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'backend/production-trueeffects-static')
 MEDIA_URL = '/production-media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'production-media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'backend/production-trueeffects-media')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
