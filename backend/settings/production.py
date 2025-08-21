@@ -37,8 +37,8 @@ CACHES = {
 
 STATIC_URL = '/production-static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'production-static')
-MEDIA_URL = '/production-static/media/'
-MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'production-static', 'media')
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
