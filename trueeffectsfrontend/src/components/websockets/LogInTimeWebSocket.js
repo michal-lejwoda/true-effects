@@ -17,7 +17,8 @@ class WebSocketClient {
         }
 
         return new Promise((resolve, reject) => {
-            this.url = `ws://0.0.0.0:80/ws/login-time/?token=${token}&language=${language}`;
+            const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
+            this.url = `ws://${TRUEEFFECTS_URL}/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {
