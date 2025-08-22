@@ -13,12 +13,14 @@ class WebSocketClient {
     connect(token, language) {
         console.log("connect")
         if (this.isConnected) {
+            console.log("isConnected")
             this.reset();
         }
-
+        console.log("return before promise")
         return new Promise((resolve, reject) => {
-            const TRUEEFFECTS_URL = process.env.REACT_APP_TRUEEFFECTS_URL
-            this.url = `ws://${TRUEEFFECTS_URL}/ws/login-time/?token=${token}&language=${language}`;
+            const WS_URL = process.env.REACT_WS_URL
+            console.log("run connection", WS_URL)
+            this.url = `ws://${WS_URL}/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {
