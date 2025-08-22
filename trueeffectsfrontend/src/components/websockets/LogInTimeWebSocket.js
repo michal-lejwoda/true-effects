@@ -22,6 +22,7 @@ class WebSocketClient {
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {
+                console.log("[WebSocket] Connected with:", this.url);
                 this.isConnected = true;
                 this.shouldReconnect = true;
                 this.startHeartbeat();
@@ -29,6 +30,7 @@ class WebSocketClient {
             };
 
             this.socket.onerror = (error) => {
+                console.error("[WebSocket] Connection Error:", error);
                 this.isConnected = false;
                 if (this.shouldReconnect) {
                     this.reconnect(token, language);
@@ -46,6 +48,7 @@ class WebSocketClient {
             };
 
             this.socket.onmessage = (event) => {
+
                 const data = JSON.parse(event.data);
                 this.onMessageCallbacks.forEach(callback => {
                     callback(data);
