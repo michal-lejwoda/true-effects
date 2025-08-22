@@ -7,8 +7,6 @@ const AchievementsSummary = (props) => {
     // #TODO BACK HERE
     const {t} = useTranslation();
     // #TODO BACK HERE
-    console.log("props", props)
-    console.log("props.achievements_summary.achievements",props.achievements_summary.achievements)
     const baseUrl = process.env.NODE_ENV === 'development'
     ? "http://0.0.0.0:80"
     : process.env.REACT_APP_TRUEEFFECTS_URL;
@@ -22,7 +20,6 @@ const AchievementsSummary = (props) => {
                 <ul className="achievements__container">
                     <p className="achievements__container__result">{t("Achievement achieved")} {props.achievements_summary.earned_achievements_count} / {props.achievements_summary.total_achievements}</p>
                     {props.achievements_summary.achievements.map((el) =>{
-                        console.log("el",el)
                         return (
                         <li className={`achievements__list ${el.earned ? "achievements__list--bold" : "achievements__list--normal"}`}
                             style={{fontWeight: el.earned && 'bold'}}
