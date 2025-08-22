@@ -31,4 +31,5 @@ until check_postgres_ready; do
 done
 python manage.py migrate --settings=backend.settings.production
 python manage.py collectstatic --clear --noinput --settings=backend.settings.production
-exec gunicorn backend.wsgi:application -b 0.0.0.0:8000
+exec daphne backend.asgi:application -b 0.0.0.0 -p 8000
+#exec gunicorn backend.wsgi:application -b 0.0.0.0:8000
