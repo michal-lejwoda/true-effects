@@ -18,7 +18,7 @@ class WebSocketClient {
         }
         console.log("return before promise")
         return new Promise((resolve, reject) => {
-            const WS_URL = process.env.REACT_WS_URL
+            const WS_URL = window.location.protocol === 'https:' ? 'www.true-effects.pl' : '0.0.0.0:80';
             const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
             this.url = `${protocol}://${WS_URL}/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);
