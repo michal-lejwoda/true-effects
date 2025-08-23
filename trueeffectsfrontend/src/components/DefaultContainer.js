@@ -109,7 +109,7 @@ const DefaultContainer = (props) => {
         if (cookies.true_effects_training !== undefined) {
             setShowBackToTrainingModal(true);
         }
-    }, [cookies]);
+    }, []);
 
     return (
         <>
