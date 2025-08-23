@@ -175,11 +175,13 @@ const Training = (props) => {
 
                 <div className="buttons content__buttons">
                     <button
+                        type="button"
                         onClick={() => setShowFinishTraining(true)}
                         className="buttons__finish standard-button"
                     >{t("Finish training")}
                     </button>
                     <button
+                        type="button"
                         onClick={handleMovetoAnotherSeries}
                         className="buttons__next standard-button"
                         style={{
