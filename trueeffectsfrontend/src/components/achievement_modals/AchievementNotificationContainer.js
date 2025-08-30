@@ -35,7 +35,6 @@ const AchievementNotificationContainer = (props) => {
                         websocketRef.current.close();
                         websocketRef.current.removeAllCallbacks();
                     }
-                    console.log("connection")
                     await webSocketClient.connect(token, i18n.language);
 
                     websocketRef.current = webSocketClient;

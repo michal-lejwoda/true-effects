@@ -11,12 +11,9 @@ class WebSocketClient {
     }
 
     connect(token, language) {
-        console.log("connect")
         if (this.isConnected) {
-            console.log("isConnected")
             this.reset();
         }
-        console.log("return before promise")
         return new Promise((resolve, reject) => {
             const WS_URL = window.location.protocol === 'https:' ? 'www.true-effects.pl' : '0.0.0.0:80';
             const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -24,7 +21,6 @@ class WebSocketClient {
             this.socket = new WebSocket(this.url);
 
             this.socket.onopen = () => {
-                console.log("[WebSocket] Connected with:", this.url);
                 this.isConnected = true;
                 this.shouldReconnect = true;
                 this.startHeartbeat();
@@ -41,7 +37,6 @@ class WebSocketClient {
             };
 
             this.socket.onclose = () => {
-                console.log("socket on close")
                 this.isConnected = false;
                 this.stopHeartbeat();
                 if (this.shouldReconnect) {
@@ -68,7 +63,6 @@ class WebSocketClient {
     }
 
     reset() {
-        console.log("reset")
         this.shouldReconnect = false;
         this.close();
         this.removeAllCallbacks();
