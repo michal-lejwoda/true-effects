@@ -1,4 +1,4 @@
-# 💪 True Effects – Fitness Tracking Application  
+# 💪 True Effects - Fitness Tracking Application  
 
 🌍 **Demo**: [https://www.true-effects.pl](https://www.true-effects.pl)  
 
@@ -21,31 +21,31 @@ A **comprehensive fitness application** designed to help users monitor **physica
 
 ## 🚀 Features  
 
-- 🔑 **User Authentication** – login & registration system  
-- 🗓️ **Calendar with Trainings** – display all workouts, modify or start sessions  
-- 🏋️ **Create & Modify Trainings** – fully customizable workouts with phases, reps, rest times  
-- 📚 **Exercise Library** – pre-defined and custom exercises  
-- 🎯 **Goals & Achievements** – track milestones and unlock rewards  
-- 🔴 **Real-Time Updates** – WebSocket integration for achievements and progress tracking  
-- ⚙️ **User Settings** – customize display, change password, manage preferences  
-- 💪 **Training Mode** – after each workout, progress is saved for review  
+- 🔑 **User Authentication** - login & registration system  
+- 🗓️ **Calendar with Trainings** - display all workouts, modify or start sessions  
+- 🏋️ **Create & Modify Trainings** - fully customizable workouts with phases, reps, rest times  
+- 📚 **Exercise Library** - pre-defined and custom exercises  
+- 🎯 **Goals & Achievements** - track milestones and unlock rewards  
+- 🔴 **Real-Time Updates** - WebSocket integration for achievements and progress tracking  
+- ⚙️ **User Settings** - customize display, change password, manage preferences  
+- 💪 **Training Mode** - after each workout, progress is saved for review  
 
 ---
 
 ## 🛠️ Technology Stack  
 
 ### 🔙 Backend
-- **Django + Django REST Framework** – API and business logic  
-- **WebSockets** – real-time updates (achievements, training progress)  
-- **PostgreSQL** – database  
+- **Django + Django REST Framework** - API and business logic  
+- **WebSockets** - real-time updates (achievements, training progress)  
+- **PostgreSQL** - database  
 
 ### 🎨 Frontend
-- **React + Redux** – UI and state management  
-- **Sass** – styling  
+- **React + Redux** - UI and state management  
+- **Sass** - styling  
 
 ### ⚙️ DevOps
-- **Docker** – containerized deployment  
-- **GitHub Actions** – CI/CD automation  
+- **Docker** - containerized deployment  
+- **GitHub Actions** - CI/CD automation  
 
 ---
 
