@@ -1,42 +1,73 @@
-# True Effects - Application that allows you to manage your training. 
+# 💪 True Effects - Application that allows you to manage your training  
 
-### Demo: https://true-effects.pl
+🌍 **Demo**: [https://www.true-effects.pl](https://www.true-effects.pl)  
 
-## Test Account
+---
 
-### Login: testowy_uzytkownik 
-### Password: trueeffects
+## 🔑 Test Account
 
-## Technology stack
+### 👤 Login: **testuser**  
+### 🔒 Password: **testuser**  
 
-### DevOps
-- Nginx
-- Docker
-### Backend 
-- Django
-### Frontend:
-- React
-- Redux
-- Formik (to handle forms)
+---
 
-## Application technology description
+## 🛠️ Technology Stack
 
-The backend of this application is written in django framework. The application contains Login and Registration for user and requires the user to be logged in to use the application. Frontend of aplication is written in react, for easier management of the application status, redux was used. Forms are validated via Formik library and every input is validated by yup to prevent errors. Application utilizes Docker containers for seamless deployment and execution, while staticfiles are served via nginx. The application is hosted on my vps server and with each approved PR it is built and reloaded automatically, thanks to github actions.
+### ⚙️ DevOps & Infrastructure
+- 🐳 **Docker** - containerized deployment  
+- 🌐 **Nginx** - serving static files & reverse proxy  
+- ☁️ **Terraform** - Infrastructure as Code (Azure resource provisioning)  
+- 🔷 **Microsoft Azure** - cloud hosting (App Services, Container Apps, Storage, Networking)  
+- 🤖 **GitHub Actions** - CI/CD automation  
 
+### 🔙 Backend
+- 🐍 **Django** - core backend framework  
+- 🔌 **WebSockets** - real-time updates (achievements system, training progress)  
 
-## Application allows to:
+### 🎨 Frontend
+- ⚛️ **React** - component-based UI  
+- 📦 **Redux** - global state management  
+- 📝 **Formik** - form handling  
+- ✅ **Yup** - form validation  
 
-- Login user
-- Register user
-- Create own training(Customized to your needs)
-- Display trainings in Calendar(where user can access every single training and decide if he want to modify or train).
-- Create exercises(User has access to already created exercises but can also create their own with two clicks and use them in training)
-- Create Goals(Goal include completion date, name, description, and allow user to determine if it has already been completed or not)
-- Create Dimensions(Creating dimensions is pretty east app allows to compare two dimensions)
-- Modify Settings (User can modify what app display f.e user can decide which fields in dimensions will be showed or do some basic commands like password change)
-- Modify Training (User can modify every single series and fit for user needs)
-- Create Training (Just like Modify Training user can create training depends on needs. There is option to create manually single series or with single click create as many series as user wants. Every Series contains many informations like time of rest number of reps or phases)
-- Train - MOST IMPORTANT FEATURE!!! (After each workout, the workout data is saved so that the user can preview his or her results in the calendar.)
-- And much more :)
+---
 
+## 📖 Application Description
+
+The backend of this application is built with the **Django framework**.  
+- Users can **register and log in** - authentication is required to use the app.  
+- **Frontend** is written in **React**, with **Redux** for centralized state management.  
+- Forms are validated via **Formik** + **Yup** to ensure proper data input.  
+- **Docker** is used for seamless deployment.  
+- **Nginx** serves static files and proxies requests.  
+- **Terraform** provisions **Azure infrastructure** (App Services, Container Apps, Storage Accounts, Networking) as code, ensuring reproducibility and scalability.  
+- The app is hosted on **Azure** and automatically rebuilt & reloaded with every approved PR using **GitHub Actions**.  
+- **WebSockets** are integrated to provide **real-time updates** (mainly for achievements and progress tracking).  
+
+---
+
+## 🚀 Features
+
+- 🔑 **User Authentication** - login & registration system  
+- 🗓️ **Calendar with Trainings** - display all trainings, preview details, modify or start workouts  
+- 🏋️ **Create Trainings** - build fully customized workouts with rest times, reps, phases etc.  
+- ✏️ **Modify Trainings** - update every detail of your workout to fit your needs  
+- 📚 **Exercise Library** - use predefined exercises or create your own in just a few clicks  
+- 🎯 **Goals System** - set goals with deadlines, names, descriptions and track completion status  
+- 📏 **Dimensions Tracking** - log your body measurements and compare progress over time  
+- ⚙️ **User Settings** - customize app display, manage visible fields in dimensions, change password etc.  
+- 🏆 **Achievements System (NEW!)** - unlock badges & milestones as you progress through your training  
+- 🔴 **WebSocket Integration** - get real-time updates (achievements, training progress, notifications)  
+- 💪 **Training Mode** - most important feature: after each workout, all data is saved so the user can review results in the calendar  
+- 🚀 And much more!  
+
+---
+
+## 🏗️ Architecture
+
+🔹 **Frontend (React + Redux)** - deployed in Azure App Service  
+🔹 **Backend (Django + WebSockets)** - deployed in Azure Container Apps  
+🔹 **Nginx** - reverse proxy & static file serving  
+🔹 **Terraform** - defines Azure infrastructure as code (App Services, Container Apps, Storage, Networking, CI/CD integration)  
+🔹 **GitHub Actions** - builds & deploys Docker images to Azure  
 
