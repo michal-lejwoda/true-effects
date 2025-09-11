@@ -10,6 +10,7 @@ import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 
 const Login = (props) => {
+    console.log(props.login_error)
     const {t} = useTranslation();
     const navigate = useNavigate()
     const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors] = useLogin(props)

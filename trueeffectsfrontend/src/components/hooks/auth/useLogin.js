@@ -22,9 +22,11 @@ export const useLogin = (props) => {
             "username": values.username,
             "password": values.password
         }
-        const res = await props.loadUser(data, handleSetToken)
-        const language = 'en'
-        // await connectLogInTimeWebSocket(res['token'], language);
+        try {
+            await props.loadUser(data, handleSetToken);
+        } catch (err) {
+            console.error("Problem with logging:", err);
+        }
     }
 
     const {values, handleChange, handleSubmit, errors} = useFormik({

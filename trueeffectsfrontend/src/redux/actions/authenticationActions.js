@@ -169,7 +169,6 @@ export const loadUser = (data, handleSetToken) => async (dispatch) => {
       type: USER_LOADED,
       payload: res.data,
     });
-
     return res.data;
   } catch (err) {
     let errorPayload;
