@@ -119,15 +119,15 @@ const DefaultContainer = (props) => {
                 <>
                     <Navbar/>
                     <Routes>
-                        <Route exact path="/" component={Dashboard}/>
-                        <Route path="/goals" component={Goals}/>
-                        <Route path="/dimensions" component={Dimensions}/>
-                        <Route path="/settings" component={Settings}/>
-                        <Route path="/scheduler" component={Scheduler}/>
-                        <Route path="/training/:trainingId" component={Training}/>
-                        <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
-                        <Route path="/create_training" component={CreateTraining}/>
-                        <Route path="/achievements" component={AchievementsSummary}/>
+                        <Route path="/" element={<Dashboard/>}/>
+                        <Route path="/goals" element={<Goals/>}/>
+                        <Route path="/dimensions" element={<Dimensions/>}/>
+                        <Route path="/settings" element={<Settings/>}/>
+                        <Route path="/scheduler" element={<Scheduler/>}/>
+                        <Route path="/training/:trainingId" element={<Training/>}/>
+                        <Route path="/modify_training/:trainingId" element={<ModifyTraining/>}/>
+                        <Route path="/create_training" element={<CreateTraining/>}/>
+                        <Route path="/achievements" element={<AchievementsSummary/>}/>
                     </Routes>
                     <BackToTrainingModal
                         handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}

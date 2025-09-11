@@ -87,7 +87,7 @@ export const postRegister = (data, handleSetToken) => dispatch => {
         .then(res => {
             i18n.changeLanguage(res.data.default_language);
             handleSetToken(res.data.token)
-            return res
+            return res.data
         })
         .then(res => dispatch(
             {
@@ -109,7 +109,7 @@ export const postLogoutAuth = (removeCookie) => (dispatch, getState) => {
             dispatch({
                 type: POST_LOGOUT_AUTH
             })
-            return res
+            return res.data
         })
 }
 
@@ -118,7 +118,7 @@ export const changeLanguage = (data) => (dispatch, getState) => {
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/change_default_language/`, data)
         .then(res => {
-            return res
+            return res.data
         })
 }
 
@@ -143,7 +143,7 @@ export const loadUser = (data, handleSetToken) => (dispatch) => {
         .then(res => {
             i18n.changeLanguage(res.data.default_language);
             handleSetToken(res.data.token)
-            return res
+            return res.data
         })
         .then(res => {
             dispatch({

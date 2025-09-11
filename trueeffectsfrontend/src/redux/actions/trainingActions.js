@@ -150,7 +150,7 @@ export const getTrainings = () => (dispatch, getState) => {
     return axios.get(`${TRUEEFFECTS_URL}/api/v1/trainings/`)
         .then(res => dispatch({
             type: GET_TRAININGS_SUCCESS,
-            payload: res,
+            payload: res.data,
         }))
         .catch(() => dispatch({
             type: GET_TRAININGS_ERROR
@@ -300,7 +300,7 @@ export const createUserExercise = (data) => (dispatch, getState) => {
     axios.defaults.headers.common['Authorization'] = `Token ${token}`
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/exercise/post_user_exercise/`, data)
         .then(res => {
-            return res
+            return res.data
         })
         .catch(err => {
             // return err.response.data
