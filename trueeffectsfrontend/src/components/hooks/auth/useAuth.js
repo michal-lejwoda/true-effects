@@ -1,50 +1,47 @@
 import {useCookies} from "react-cookie";
-import {useEffect, useCallback, useRef} from "react";
+import {useEffect, useCallback} from "react";
 import {useNavigate} from "react-router-dom";
+import {useDispatch} from "react-redux";
 import webSocketClient from "../../websockets/LogInTimeWebSocket";
 
 export const useAuth = (token, loadToken) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [cookies, setCookie, removeCookie] = useCookies(['true_effects_token']);
-    const initialized = useRef(false);
-    const lastTokenRef = useRef(token);
 
     const redirectToLogin = useCallback(() => {
+        dispatch({ type: 'POST_LOGOUT_AUTH' });
+
         removeCookie('true_effects_token', { path: '/' });
         if (webSocketClient && webSocketClient.close) {
             webSocketClient.close();
         }
         navigate('/login');
-    }, [removeCookie, navigate]);
+    }, [dispatch, removeCookie, navigate]);
 
     useEffect(() => {
-        if (initialized.current) return;
-        if (!token && cookies.true_effects_token) {
-            loadToken(cookies.true_effects_token);
-        } else if (!token && !cookies.true_effects_token) {
-            redirectToLogin();
-        }
-
-        initialized.current = true;
-        lastTokenRef.current = token;
-    }, []);
-
-    useEffect(() => {
-        if (!initialized.current) return;
-        if (lastTokenRef.current === token) return;
         if (token) {
-            setCookie('true_effects_token', token, {
-                path: '/',
-                maxAge: 24 * 60 * 60
-            });
-        } else {
-            redirectToLogin();
+            if (!cookies.true_effects_token) {
+                console.log('Cookie zostało usunięte - czyszczę token z Redux');
+                dispatch({ type: 'POST_LOGOUT_AUTH' });
+                return;
+            }
+
+            if (cookies.true_effects_token !== token) {
+                setCookie('true_effects_token', token, { path: '/', maxAge: 24 * 60 * 60 });
+            }
+            return;
         }
 
-        lastTokenRef.current = token;
-    }, [token]);
+        if (cookies.true_effects_token) {
+            console.log('Ładuję token z cookie do Redux');
+            loadToken(cookies.true_effects_token);
+            return;
+        }
 
-    return {
-        logout: redirectToLogin
-    };
+        redirectToLogin();
+
+    }, [token, cookies.true_effects_token, setCookie, loadToken, redirectToLogin]);
+
+    return { logout: redirectToLogin };
 };
