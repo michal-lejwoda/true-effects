@@ -5,8 +5,8 @@ import {useFormik} from "formik";
 import {updateGoalValidation} from "../validation/validation";
 import {handleDateForGoals} from "../helpers/function_helpers";
 import {CloseButton} from "react-bootstrap";
-import Checkbox from "@material-ui/core/Checkbox";
-import {FormControlLabel} from "@material-ui/core";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import {useTranslation} from "react-i18next";
 
 

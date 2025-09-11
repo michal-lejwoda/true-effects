@@ -12,7 +12,7 @@ import {
     getUpcomingTrainings
 } from "../../redux/actions/trainingActions";
 import { useTranslation } from "react-i18next";
-import { BoxLoading } from "react-loadingg";
+import { ClipLoader } from "react-spinners";
 
 const Dashboard = props => {
     const { t } = useTranslation();
@@ -20,7 +20,7 @@ const Dashboard = props => {
 
     return (
         !isDataLoaded ? (
-            <BoxLoading />
+            <ClipLoader />
         ) : (
             <div className="dashboard">
                 <h1 className="title">{t("Homepage")}</h1>

@@ -1,16 +1,16 @@
 import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 const DisplayTrainingOnSchedulerModal = (props) => {
     const {trainingForModal} = props
-    const history = useHistory()
+    const navigate = useNavigate()
 
     const goToTraining = () => {
-        handleMoveToTraining(props.history)
+        handleMoveToTraining(navigate)
     }
-
+    // TODO BACK HERE
     return (
         <>
             <Modal show={props.show} onHide={props.handleClose}>
@@ -30,7 +30,7 @@ const DisplayTrainingOnSchedulerModal = (props) => {
                     <button className="standard-button">Usuń trening</button>
                     <button className="standard-button">Dodaj trening do innego dnia</button>
                     <button className="standard-button" onClick={goToTraining}>Ćwicz</button>
-                    <button className="standard-button" onClick={() => handleMoveToModifyTraining(history)}>Modyfikuj
+                    <button className="standard-button" onClick={() => handleMoveToModifyTraining(navigate)}>Modyfikuj
                         trening
                     </button>
                 </Modal.Footer>

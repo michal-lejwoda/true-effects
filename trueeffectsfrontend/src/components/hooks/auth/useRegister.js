@@ -1,16 +1,18 @@
 import {useCookies} from "react-cookie";
 import {useFormik} from "formik";
 import {registerUserValidation} from "../../validation/validation";
+import {useNavigate} from "react-router-dom";
 
 export const useRegister = (props) => {
     const [, setCookie] = useCookies(['true_effects_token']);
+    const navigate = useNavigate()
 
     const handleSetToken = (token) => {
         setCookie("true_effects_token", token)
     }
 
     const handleMoveToLogin = () => {
-        props.history.push('/login')
+        navigate('/login')
     }
 
     const handleRegister = async () => {

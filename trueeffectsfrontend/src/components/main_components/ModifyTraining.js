@@ -21,10 +21,12 @@ import AddTrainingToDifferentDayModal from "../modify_training/modals/AddTrainin
 import RemoveTrainingModal from "../modify_training/modals/RemoveTrainingModal";
 import useModifyTraining from "../hooks/training/useModifyTraining";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const ModifyTraining = (props) => {
     const {t} = useTranslation();
-    const [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining, setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
+    const navigate = useNavigate()
+    const [visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal, handleModifyTraining, setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility] = useModifyTraining(props)
 
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)
@@ -32,7 +34,7 @@ const ModifyTraining = (props) => {
                 let date = new Date()
                 let res = date.toISOString().split('T')[0]
                 if (training.date === res) {
-                    handleMoveToTraining(history, id)
+                    handleMoveToTraining(navigate, id)
                 } else {
                     let data = training
                     data.date = res
@@ -41,7 +43,7 @@ const ModifyTraining = (props) => {
                             props.getUpcomingTrainings()
                             props.getLastCompletedTrainings()
                             props.getTrainings()
-                            handleMoveToTraining(history, res.id)
+                            handleMoveToTraining(navigate, res.id)
                         })
                 }
             })
@@ -50,7 +52,7 @@ const ModifyTraining = (props) => {
         {apiData && <>
             <RemoveTrainingModal id={trainingId} show={removeTrainingModal} handleClose={setRemoveTrainingModal}
                                  getTrainings={props.getTrainings} handleDeleteTraining={handleDeleteTraining}
-                                 handleMoveToScheduler={handleMoveToScheduler} history={props.history}
+                                 handleMoveToScheduler={handleMoveToScheduler}
                                  getUpcomingTrainings={props.getUpcomingTrainings}
                                  getLastCompletedTrainings={props.getLastCompletedTrainings}
             />
@@ -60,7 +62,6 @@ const ModifyTraining = (props) => {
                                             getLastCompletedTrainings={props.getLastCompletedTrainings}
                                             getUpcomingTrainings={props.getUpcomingTrainings}
                                             handleMoveToScheduler={handleMoveToScheduler}
-                                            history={props.history}
             />
             <Formik
                 initialValues={apiData}

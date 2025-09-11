@@ -7,15 +7,15 @@ import 'moment/locale/pl';
 import 'moment/locale/de';
 import "../../new_sass/scheduler.scss"
 import {getSingleTraining, getTrainings} from "../../redux/actions/trainingActions";
-import {useHistory} from "react-router-dom";
-import {BoxLoading} from "react-loadingg";
+import {useNavigate} from "react-router-dom";
+import { ClipLoader } from "react-spinners";
 import {handleMoveToModifyTraining} from "../helpers/history_helpers";
 import {useTranslation} from "react-i18next";
 import i18n from "i18next";
 
 const Scheduler = (props) => {
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const localizer = momentLocalizer(moment)
     let events = []
     if (props.trainings !== undefined) {
@@ -31,7 +31,7 @@ const Scheduler = (props) => {
         })
     }
     const handleSelect = async (e) => {
-        await handleMoveToModifyTraining(history, e.id)
+        await handleMoveToModifyTraining(navigate, e.id)
     }
     return props.trainingsLoaded ? (
         <div className="scheduler">
@@ -52,7 +52,7 @@ const Scheduler = (props) => {
         </div>
     ) : (
         <div className="box-loading">
-            <BoxLoading/>
+            <ClipLoader />
         </div>
     )
 }

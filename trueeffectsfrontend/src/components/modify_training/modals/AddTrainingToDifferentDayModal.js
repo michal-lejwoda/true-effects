@@ -6,9 +6,11 @@ import DatePicker from "react-datepicker";
 import {useFormik} from "formik";
 import {addTrainingToDifferentDayValidation} from "../../validation/validation";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const AddTrainingToDifferentDayModal = (props) => {
     const {t} = useTranslation();
+    const navigate = useNavigate()
     const {values, setFieldValue, handleSubmit, handleChange, errors} = useFormik({
         initialValues: {
             name: props.training.name,
@@ -26,10 +28,11 @@ const AddTrainingToDifferentDayModal = (props) => {
                     props.getTrainings()
                     props.getUpcomingTrainings()
                     props.getLastCompletedTrainings()
-                    props.handleMoveToScheduler(props.history)
+                    props.handleMoveToScheduler(navigate)
                 })
         },
     });
+    // TODO FIX DATE PICKER ISSUE
     return (
         <div>
             <Modal show={props.show} onHide={() => props.handleClose(false)}>

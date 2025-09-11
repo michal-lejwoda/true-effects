@@ -129,7 +129,7 @@ const CreateMultiSeries = (props) => {
                     </div>
                 </div>
             </form>
-            <CreateExerciseModal history={props.history}
+            <CreateExerciseModal
                                  showCreateExerciseModal={props.showCreateExerciseModal}
                                  handleCloseCreateExerciseModal={props.handleCloseCreateExerciseModal}
                                  createUserExercise={props.createUserExercise}

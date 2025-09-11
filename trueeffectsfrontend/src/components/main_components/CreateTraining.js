@@ -14,14 +14,14 @@ import {
 import DisplayMultiSeries from "../create_training_components/DisplayMultiSeries";
 import {convertDate} from "../helpers/function_helpers";
 import CreatedTrainingModal from "../create_training_components/modals/CreatedTrainingModal";
-import {useHistory} from "react-router-dom";
 import {useCreateTraining} from "../hooks/training/useCreateTraining";
 import '../../new_sass/create_training.scss'
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const CreateTraining = (props) => {
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const [multiSeries, multiSeriesIndex, singleSeries, values, errors, showCreatedTrainingModal, showCreateExerciseModal, createdTraining, setMultiSeries, setMultiSeriesIndex,
         setSingleSeries, setFieldValue, handleChange, handleSubmit, handleCloseCreatedTrainingModal, handleCloseCreateExerciseModal,
         setShowExerciseModal] = useCreateTraining(props.createTraining, props.getTrainings, props.getUpcomingTrainings, props.getLastCompletedTrainings)
@@ -73,12 +73,11 @@ const CreateTraining = (props) => {
                                setShowExerciseModal={setShowExerciseModal}
                                defaultExercises={defaultExercises}
                                setDefaultExercises={setDefaultExercises}
-                               history={history}
                                showCreateExerciseModal={showCreateExerciseModal}
                                handleCloseCreateExerciseModal={handleCloseCreateExerciseModal}
                                createUserExercise={props.createUserExercise}
             />
-            <CreatedTrainingModal history={history}
+            <CreatedTrainingModal
                                   showCreatedTrainingModal={showCreatedTrainingModal}
                                   handleCloseCreatedTrainingModal={handleCloseCreatedTrainingModal}
                                   createdTraining={createdTraining}

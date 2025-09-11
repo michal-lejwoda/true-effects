@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {handleMovetoHome, handleMoveToScheduler} from "../../helpers/history_helpers";
 import {getBackendField} from "../../helpers/function_helpers";
 
 const useModifyTraining = (props) => {
-    const history = useHistory()
+    const navigate = useNavigate()
     const [visibleElements, setVisibleElements] = useState([]);
     const [apiData, setApiData] = useState(null);
     const [removeTrainingModal, setRemoveTrainingModal] = useState(false);
@@ -16,13 +16,13 @@ const useModifyTraining = (props) => {
                 setApiData(res);
             })
             .catch(() => {
-                handleMovetoHome(history)
+                handleMovetoHome(navigate)
             })
     }, [trainingId])
 
     const handleModifyTraining = async (data) => {
         await props.updateTraining(data)
-        await handleMoveToScheduler(history)
+        await handleMoveToScheduler(navigate)
     }
 
     const handleDeleteTraining = async (id) => {
@@ -36,10 +36,11 @@ const useModifyTraining = (props) => {
                 props.getSingleTraining(trainingId)
                     .then((res) => {
                         setApiData(res);
+                        // TODO Back Here
                         alert("Seria została zmodyfikowana")
                     })
                     .catch(() => {
-                        handleMovetoHome(history)
+                        handleMovetoHome(navigate)
                     })
             })
             .catch((err) => {
@@ -63,7 +64,7 @@ const useModifyTraining = (props) => {
             }
         });
     };
-    return [history, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal,
+    return [navigate, visibleElements, apiData, trainingId, removeTrainingModal, differentDayModal, setRemoveTrainingModal,
         handleModifyTraining, setDifferentDayModal, handleDeleteTraining, handleModifySingleSeries, toggleVisibility]
 };
 

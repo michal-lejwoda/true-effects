@@ -8,7 +8,7 @@ import {
     putDimensionConfiguration
 } from "../../redux/actions/trainingActions";
 import {settingsDimensionValidation} from "../validation/validation";
-import {BoxLoading} from "react-loadingg";
+import { ClipLoader } from "react-spinners";
 import {useTranslation} from "react-i18next";
 
 const SettingsDimensionItems = (props) => {
@@ -157,7 +157,7 @@ const SettingsDimensionItems = (props) => {
         </form>
     ) : props.userDimensionConfigurationLoading && (
         <div className="box-loading">
-            <BoxLoading/>
+            <ClipLoader />
         </div>
     );
 };

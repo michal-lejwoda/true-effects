@@ -1,4 +1,4 @@
-import {Route, useHistory} from 'react-router-dom';
+import {Route, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
@@ -33,10 +33,11 @@ import AchievementsSummary from "./main_components/AchievementsSummary";
 
 
 const DefaultContainer = (props) => {
-    useAuth(props.token, props.loadToken, props.postLogoutAuth, props.history);
+    const navigate = useNavigate();
+    useAuth(props.token, props.loadToken, props.postLogoutAuth, navigate);
     const [cookies, , removeCookieTraining] = useCookies(['true_effects_training']);
     const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false);
-    const history = useHistory();
+
 
     async function fetchHomepageData() {
         const promises = [
@@ -102,7 +103,7 @@ const DefaultContainer = (props) => {
     const handleCloseBackToTrainingModal = () => {
         removeCookieTraining('true_effects_training');
         setShowBackToTrainingModal(false);
-        handleMoveToDashboard(history);
+        handleMoveToDashboard(navigate);
     };
 
     useEffect(() => {
@@ -129,7 +130,6 @@ const DefaultContainer = (props) => {
                         handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
                         showBackToTrainingModal={showBackToTrainingModal}
                         setShowBackToTrainingModal={setShowBackToTrainingModal}
-                        history={history}
                     />
                     <AchievementNotificationContainer>
                     </AchievementNotificationContainer>

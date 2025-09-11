@@ -10,7 +10,7 @@ const BackToTrainingModal = (props) => {
     const [cookies, ,] = useCookies('true_effects_training')
     const handleBackToTraining = () => {
         props.setShowBackToTrainingModal(false)
-        handleMoveToTraining(props.history, cookies.true_effects_training.trainingId)
+        handleMoveToTraining(props.navigate, cookies.true_effects_training.trainingId)
     }
     return (
         <div className="created-training-modal create-training__created-training-modal">

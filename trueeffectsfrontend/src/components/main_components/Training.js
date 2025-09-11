@@ -7,14 +7,14 @@ import CustomStopwatch from "../training_components/CustomStopwatch";
 import {handleMovetoHome, handleMoveToScheduler} from "../helpers/history_helpers";
 import {timeToString} from "../helpers/function_helpers";
 import FinishTrainingModal from "../training_components/modals/FinishTrainingModal";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTraining} from "../hooks/training/useTraining";
 import {useCookies} from "react-cookie";
 import {useTranslation} from "react-i18next";
 
 const Training = (props) => {
         const {t} = useTranslation();
-        const history = useHistory()
+        const navigate = useNavigate()
         const [cookies, , removeCookieTraining] = useCookies('true_effects_training')
         const [apiData, setApiData] = useState(null);
         const [oldApiData, setOldApiData] = useState(null)
@@ -46,7 +46,7 @@ const Training = (props) => {
                     setOldApiData(JSON.parse(JSON.stringify(res)));
                 })
                 .catch(() => {
-                    handleMovetoHome(history)
+                    handleMovetoHome(navigate)
                 })
         }, [trainingId])
         const [concentric_phase, pause_after_concentric_phase, eccentric_phase, pause_after_eccentric_phase,
@@ -68,7 +68,7 @@ const Training = (props) => {
             training_obj.time = string_time
             await props.updateTraining(training_obj)
             await removeCookieTraining("true_effects_training")
-            await handleMoveToScheduler(history)
+            await handleMoveToScheduler(navigate)
         }
         return (
             <div className="training">

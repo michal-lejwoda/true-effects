@@ -1,18 +1,18 @@
 import React from 'react';
 import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const DashboardCompletedTrainings = (props) => {
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)
             .then((training) => {
                 let date = new Date()
                 let res = date.toISOString().split('T')[0]
                 if (training.date === res) {
-                    handleMoveToTraining(history, id)
+                    handleMoveToTraining(navigate, id)
                 } else {
                     let data = training
                     data.date = res
@@ -21,7 +21,7 @@ const DashboardCompletedTrainings = (props) => {
                             props.getUpcomingTrainings()
                             props.getLastCompletedTrainings()
                             props.getTrainings()
-                            handleMoveToTraining(history, res.id)
+                            handleMoveToTraining(navigate, res.id)
                         })
                 }
             })
@@ -30,7 +30,8 @@ const DashboardCompletedTrainings = (props) => {
         <div className="completed-trainings">
             <div className="completed-trainings__title dashboard__title">{t("Trainings completed")}</div>
             <div className="completed-trainings__list">
-                {props.lastCompletedTrainings.length === 0 && <p className="dashboard__error-message">{t("You haven't completed any training yet")}</p>}
+                {props.lastCompletedTrainings.length === 0 &&
+                    <p className="dashboard__error-message">{t("You haven't completed any training yet")}</p>}
                 {props.lastCompletedTrainings.map(completed_training => {
                     return (
                         <div className="completed-trainings__item" key={completed_training.id}>
@@ -40,7 +41,7 @@ const DashboardCompletedTrainings = (props) => {
                                 </button>
                                 <button
                                     className="completed-trainings__button dashboard__button"
-                                    onClick={()=>handleMoveToModifyTraining(history, completed_training.id)}
+                                    onClick={() => handleMoveToModifyTraining(navigate, completed_training.id)}
                                 >{t("Check")}
 
                                 </button>

@@ -5,7 +5,7 @@ import {deleteGoal, getCompletedGoals, getGoalsToAchieve, postGoal, putGoal} fro
 import {CreateGoal} from "../goals_and_measurements_modals/CreateGoal";
 import {CheckGoal} from "../goals_and_measurements_modals/CheckGoal";
 import "../../new_sass/goals.scss"
-import {BoxLoading} from "react-loadingg";
+import { ClipLoader } from "react-spinners";
 import {useTranslation} from "react-i18next";
 
 
@@ -79,7 +79,7 @@ const Goals = (props) => {
         ) :
         (
             <div className="box-loading">
-                <BoxLoading/>
+                <ClipLoader />
             </div>
         )
 };

@@ -1,18 +1,18 @@
 import React from 'react';
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {handleMoveToModifyTraining, handleMoveToTraining} from "../helpers/history_helpers";
 import {useTranslation} from "react-i18next";
 
 const DashboardUpcomingTrainings = (props) => {
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)
             .then((training) => {
                 let date = new Date()
                 let res = date.toISOString().split('T')[0]
                 if (training.date === res) {
-                    handleMoveToTraining(history, id)
+                    handleMoveToTraining(navigate, id)
                 } else {
                     let data = training
                     data.date = res
@@ -21,7 +21,7 @@ const DashboardUpcomingTrainings = (props) => {
                             props.getUpcomingTrainings()
                             props.getLastCompletedTrainings()
                             props.getTrainings()
-                            handleMoveToTraining(history, res.id)
+                            handleMoveToTraining(navigate, res.id)
                         })
                 }
             })
@@ -40,7 +40,7 @@ const DashboardUpcomingTrainings = (props) => {
                                         className="upcoming_training__button dashboard__button">{t("Train now")}
                                 </button>
                                 <button className="upcoming_training__button dashboard__button"
-                                        onClick={() => handleMoveToModifyTraining(history, upcoming_training.id)}
+                                        onClick={() => handleMoveToModifyTraining(navigate, upcoming_training.id)}
                                 >{t("Check")}
                                 </button>
                             </div>

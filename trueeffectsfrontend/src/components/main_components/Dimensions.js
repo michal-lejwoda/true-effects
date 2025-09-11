@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {getDimensions, postDimension, putDimension} from "../../redux/actions/trainingActions";
 import "../../new_sass/main.scss"
 import "../../new_sass/dimensions.scss"
-import {BoxLoading} from "react-loadingg";
+import { ClipLoader } from "react-spinners";
 import {ModifyDimension} from "../goals_and_measurements_modals/ModifyDimension";
 import {useTranslation} from "react-i18next";
 
@@ -88,7 +88,7 @@ const Dimensions = (props) => {
         </div>
     ) : (
         <div className="box-loading">
-            <BoxLoading/>
+            <ClipLoader />
         </div>
     );
 };

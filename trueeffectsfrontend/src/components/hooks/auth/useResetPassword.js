@@ -1,12 +1,14 @@
 import {useFormik} from "formik";
 import {resetPasswordValidation} from "../../validation/validation";
+import {useNavigate} from "react-router-dom";
 
 export const useResetPassword = (props) => {
+    const navigate = useNavigate()
     const handleMoveToLogin = () => {
-        props.history.push('/login')
+        navigate('/login')
     }
     const handleMoveToRegister = () => {
-        props.history.push('/register')
+        navigate('/register')
     }
     const handleResetPassword = async () => {
         let data = {
@@ -14,7 +16,7 @@ export const useResetPassword = (props) => {
         }
         return await props.postResetPassword(data)
     }
-
+    // TODO Back here translation problem
     const {values, handleChange, handleSubmit, errors} = useFormik({
         initialValues: {
             email: ""

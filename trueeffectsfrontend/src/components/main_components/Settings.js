@@ -9,7 +9,7 @@ import {connect} from "react-redux";
 import {changePassword, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import SaveSettingsSuccessModal from "../settings_components/modals/SaveSettingsSuccessModal";
 import {useTranslation} from "react-i18next";
-import {BoxLoading} from "react-loadingg";
+import { ClipLoader } from "react-spinners";
 
 
 const Settings = (props) => {
@@ -51,7 +51,7 @@ const Settings = (props) => {
                 </div>
             ) : (
                 <div className="box-loading">
-                    <BoxLoading/>
+                    <ClipLoader />
                 </div>
             )}
         </>

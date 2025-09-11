@@ -7,15 +7,17 @@ import {postRegister} from "../../redux/actions/authenticationActions";
 import "../../new_sass/register.scss";
 import {useRegister} from "../hooks/auth/useRegister";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const Register = (props) => {
     const {t} = useTranslation();
+    const navigate = useNavigate()
     const [handleMoveToLogin, handleChange, handleSubmit, errors] = useRegister(props)
     useEffect(() => {
         if (props.token !== null) {
-            props.history.push('/');
+            navigate('/');
         }
-    }, [props.token, props.history]);
+    }, [props.token]);
     return (
         <div className="register">
             <div className="authenticate-logo register__authentication-logo">

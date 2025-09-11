@@ -2,19 +2,19 @@ import React from 'react';
 import Modal from "react-bootstrap/Modal";
 import {handleMoveToModifyTraining, handleMoveToScheduler, handleMoveToTraining} from "../../helpers/history_helpers";
 import {CloseButton} from "react-bootstrap";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const CreatedTrainingModal = (props) => {
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const handleGoToTraining = (id) => {
         props.getSingleTraining(id)
             .then((training) => {
                 let date = new Date()
                 let res = date.toISOString().split('T')[0]
                 if (training.date === res) {
-                    handleMoveToTraining(history, id)
+                    handleMoveToTraining(navigate, id)
                 } else {
                     let data = training
                     data.date = res
@@ -23,7 +23,7 @@ const CreatedTrainingModal = (props) => {
                             props.getUpcomingTrainings()
                             props.getLastCompletedTrainings()
                             props.getTrainings()
-                            handleMoveToTraining(history, res.id)
+                            handleMoveToTraining(navigate, res.id)
                         })
                 }
             })
@@ -40,13 +40,13 @@ const CreatedTrainingModal = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <button className="standard-button"
-                            onClick={() => handleMoveToModifyTraining(props.history, props.createdTraining.id)}>{t("Modify Training")}
+                            onClick={() => handleMoveToModifyTraining(navigate, props.createdTraining.id)}>{t("Modify Training")}
                     </button>
                     <button className="standard-button"
                             onClick={() => handleGoToTraining(props.createdTraining.id)}>{t("Train now")}
                     </button>
                     <button className="standard-button"
-                            onClick={() => handleMoveToScheduler(props.history)}>{t("Go to the calendar")}
+                            onClick={() => handleMoveToScheduler(navigate)}>{t("Go to the calendar")}
                     </button>
                 </Modal.Footer>
             </Modal>

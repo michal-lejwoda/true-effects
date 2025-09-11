@@ -18,7 +18,7 @@ import {
     handleMoveToScheduler,
     handleMovetoSettings
 } from "../helpers/history_helpers";
-import {useHistory} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {connect} from "react-redux";
 import {changeLanguage, postLogoutAuth} from "../../redux/actions/authenticationActions";
 import {useCookies} from "react-cookie";
@@ -27,7 +27,7 @@ import webSocketClient from "../websockets/LogInTimeWebSocket";
 import {useTranslation} from "react-i18next";
 
 const Navbar = (props) => {
-    const history = useHistory()
+    const navigate = useNavigate()
     const {i18n, t} = useTranslation();
     const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
     const [cookies, , removeCookie] = useCookies(['true_effects_token']);
@@ -87,30 +87,30 @@ const Navbar = (props) => {
                     </select>
                 )}
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMoveToDashboard(history)}>
+                    onClick={() => handleMoveToDashboard(navigate)}>
                     <button className="nav_bar__button">{t("Homepage")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMoveToScheduler(history)}>
+                    onClick={() => handleMoveToScheduler(navigate)}>
                     <button className="nav_bar__button">{t("Training Calendar")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMoveToCreateTraining(history)}>
+                    onClick={() => handleMoveToCreateTraining(navigate)}>
                     <button className="nav_bar__button">{t("Training Creator")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMoveToAchievements(history)}>
+                    onClick={() => handleMoveToAchievements(navigate)}>
                     <button className="nav_bar__button">{t("Achievements")}</button>
                 </li>
-                <li className="nav_bar__element nav_bar__desktop__element" onClick={() => handleMovetoGoals(history)}>
+                <li className="nav_bar__element nav_bar__desktop__element" onClick={() => handleMovetoGoals(navigate)}>
                     <button className="nav_bar__button">{t("Goals")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMovetoDimensions(history)}>
+                    onClick={() => handleMovetoDimensions(navigate)}>
                     <button className="nav_bar__button">{t("Body Measurements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
-                    onClick={() => handleMovetoSettings(history)}>
+                    onClick={() => handleMovetoSettings(navigate)}>
                     <button className="nav_bar__button">{t("Settings")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__desktop__element"
@@ -120,36 +120,36 @@ const Navbar = (props) => {
             </ul>
             <ul className="nav_bar__mobile" style={{display: isMobileNavOpen ? 'flex' : 'none'}}>
                 <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => handleMoveToMobileDashboard(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    onClick={() => handleMoveToMobileDashboard(navigate, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Homepage")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => handleMoveToMobileScheduler(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    onClick={() => handleMoveToMobileScheduler(navigate, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Training Calendar")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => handleMoveToMobileCreateTraining(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    onClick={() => handleMoveToMobileCreateTraining(navigate, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Training Creator")}
                     </button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element" onClick={() => {
-                    handleMoveToMobileAchievements(history, isMobileNavOpen, setIsMobileNavOpen)
+                    handleMoveToMobileAchievements(navigate, isMobileNavOpen, setIsMobileNavOpen)
                 }}>
                     <button className="nav_bar__button">{t("Achievements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element" onClick={() => {
-                    handleMoveToMobileGoals(history, isMobileNavOpen, setIsMobileNavOpen)
+                    handleMoveToMobileGoals(navigate, isMobileNavOpen, setIsMobileNavOpen)
                 }}>
                     <button className="nav_bar__button">{t("Goals")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => handleMovetoMobileDimensions(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    onClick={() => handleMovetoMobileDimensions(navigate, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Body Measurements")}</button>
                 </li>
                 <li className="nav_bar__element nav_bar__mobile__element"
-                    onClick={() => handleMoveToMobileSettings(history, isMobileNavOpen, setIsMobileNavOpen)}>
+                    onClick={() => handleMoveToMobileSettings(navigate, isMobileNavOpen, setIsMobileNavOpen)}>
                     <button className="nav_bar__button">{t("Settings")}</button>
                 </li>
                 {props.token &&

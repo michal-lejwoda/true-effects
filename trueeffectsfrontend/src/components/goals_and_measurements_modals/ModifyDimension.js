@@ -3,7 +3,8 @@ import Modal from 'react-bootstrap/Modal'
 import {useFormik} from "formik";
 import {createDimensionValidation} from "../validation/validation";
 import {CloseButton} from "react-bootstrap";
-import {MenuItem, Select} from "@material-ui/core";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 import {useTranslation} from "react-i18next";
 
 

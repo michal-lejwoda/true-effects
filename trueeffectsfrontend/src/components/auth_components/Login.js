@@ -7,15 +7,17 @@ import {loadUser} from "../../redux/actions/authenticationActions";
 import '../../new_sass/login.scss';
 import {useLogin} from "../hooks/auth/useLogin";
 import {useTranslation} from "react-i18next";
+import {useNavigate} from "react-router-dom";
 
 const Login = (props) => {
     const {t} = useTranslation();
+    const navigate = useNavigate()
     const [handleMoveToRegister, handleMoveToResetPassword, handleChange, handleSubmit, errors] = useLogin(props)
     useEffect(() => {
         if (props.token !== null) {
-            props.history.push('/');
+            navigate('/');
         }
-    }, [props.token, props.history]);
+    }, [props.token]);
     return (
         <div className="login">
             <div className="authenticate-logo login__authentication-logo">
@@ -34,7 +36,7 @@ const Login = (props) => {
                         <div className="form__username animatedInput">
                             <input
                                 name="username"
-                                autocomplete="username"
+                                autoComplete="username"
                                 onChange={handleChange}
                                 type="text"
                             />

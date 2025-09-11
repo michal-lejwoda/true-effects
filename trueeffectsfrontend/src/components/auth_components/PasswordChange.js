@@ -9,13 +9,13 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import {useFormik} from "formik";
 import {changePasswordviaTokenValidation} from "../validation/validation";
 import {handleMoveToLogin, handleMoveToRegister} from "../helpers/history_helpers";
-import {useHistory, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useTranslation} from "react-i18next";
 
 const PasswordChange = (props) => {
     const {token} = useParams();
     const {t} = useTranslation();
-    const history = useHistory()
+    const navigate = useNavigate()
     const {handleChange, handleSubmit, errors} = useFormik({
         initialValues: {
             email: "",
@@ -31,7 +31,7 @@ const PasswordChange = (props) => {
             props.postPasswordChangeWithToken(data)
                 .then(() => {
                     alert(t("Password has been changed"))
-                    handleMoveToLogin(history)
+                    handleMoveToLogin(navigate)
                 })
                 .catch(() => {
                     alert(t("Can't change password. Try again"))
@@ -45,10 +45,10 @@ const PasswordChange = (props) => {
             </div>
             <div className="container login__container">
                 <div className="header--space-between container__header">
-                    <div className="header__element" onClick={() => handleMoveToLogin(history)}>
+                    <div className="header__element" onClick={() => handleMoveToLogin(navigate)}>
                         <FontAwesomeIcon icon={faArrowLeft}/>{t("Log in")}
                     </div>
-                    <div className="header__element" onClick={() => handleMoveToRegister(history)}>
+                    <div className="header__element" onClick={() => handleMoveToRegister(navigate)}>
                         {t("Register")}<FontAwesomeIcon icon={faArrowRight}/>
                     </div>
                 </div>
