@@ -15,7 +15,6 @@ import { useTranslation } from "react-i18next";
 import { ClipLoader } from "react-spinners";
 
 const Dashboard = props => {
-    console.log("props", props)
     const { t } = useTranslation();
     const isDataLoaded = props.upcomingTrainingsLoaded && props.lastCompletedTrainingsLoaded && props.userDimensionsLoaded;
 
