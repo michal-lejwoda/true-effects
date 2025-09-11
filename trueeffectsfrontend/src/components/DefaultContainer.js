@@ -34,7 +34,7 @@ import AchievementsSummary from "./main_components/AchievementsSummary";
 
 const DefaultContainer = (props) => {
     const navigate = useNavigate();
-    useAuth(props.token, props.loadToken, props.postLogoutAuth, navigate);
+    useAuth(props.token, props.loadToken);
     const [cookies, , removeCookieTraining] = useCookies(['true_effects_training']);
     const [showBackToTrainingModal, setShowBackToTrainingModal] = useState(false);
 

@@ -99,19 +99,26 @@ export const postRegister = (data, handleSetToken) => dispatch => {
             payload: err.response.data
         }))
 }
+// TODO FIX Translation
 export const postLogoutAuth = (removeCookie) => (dispatch, getState) => {
-    let token = getState().authentication.token
-    axios.defaults.headers.common['Authorization'] = `Token ${token}`
+    let token = getState().authentication.token;
+    axios.defaults.headers.common['Authorization'] = `Token ${token}`;
+
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/logout/`)
         .then(res => {
-            removeCookie("true_effects_token")
+            removeCookie("true_effects_token");
             webSocketClient.close();
-            dispatch({
-                type: POST_LOGOUT_AUTH
-            })
-            return res.data
+            dispatch({ type: POST_LOGOUT_AUTH });
+            return res.data;
         })
-}
+        .catch(err => {
+            console.error("Błąd przy wylogowaniu:", err);
+            removeCookie("true_effects_token");
+            webSocketClient.close();
+            dispatch({ type: POST_LOGOUT_AUTH });
+        });
+};
+
 
 export const changeLanguage = (data) => (dispatch, getState) => {
     let token = getState().authentication.token
@@ -136,28 +143,36 @@ export const getUser = () => (dispatch, getState) => {
 }
 
 
-export const loadUser = (data, handleSetToken) => (dispatch) => {
-    dispatch({type: USER_LOADING});
-    delete axios.defaults.headers.common["Authorization"];
-    return axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data)
-        .then(res => {
-            i18n.changeLanguage(res.data.default_language);
-            handleSetToken(res.data.token)
-            return res.data
-        })
-        .then(res => {
-            dispatch({
-                type: USER_LOADED,
-                payload: res.data
-            })
-            return res.data
-        }).catch(err => {
-            dispatch({
-                type: LOGIN_ERROR,
-                payload: err.response.data
-            })
-        })
-}
+export const loadUser = (data, handleSetToken) => async (dispatch) => {
+  dispatch({ type: USER_LOADING });
+  delete axios.defaults.headers.common["Authorization"];
+
+  try {
+    const res = await axios.post(`${TRUEEFFECTS_URL}/api/v1/login/`, data);
+    i18n.changeLanguage(res.data.default_language);
+    handleSetToken(res.data.token);
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+
+    return res.data;
+  } catch (err) {
+    let errorPayload;
+    if (err.response) {
+      errorPayload = err.response.data;
+    } else if (err.request) {
+      errorPayload = { detail: "No response from server" };
+    } else {
+      errorPayload = { detail: err.message };
+    }
+    dispatch({
+      type: LOGIN_ERROR,
+      payload: errorPayload,
+    });
+    throw errorPayload;
+  }
+};
 
 export const loadToken = (token) => (dispatch, getState) => {
     dispatch({
