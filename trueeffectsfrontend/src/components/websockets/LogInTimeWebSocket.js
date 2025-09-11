@@ -17,8 +17,8 @@ class WebSocketClient {
 
         // TODO Fix it
         return new Promise((resolve, reject) => {
-            const WS_URL = window.location.protocol === 'https:' ? 'www.true-effects.pl' : '127.0.0.1:80';
-            const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+            const WS_URL = process.env.WS_URL;
+            const protocol = process.env.WS_PROTOCOL;
             this.url = `${protocol}://${WS_URL}/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);
 

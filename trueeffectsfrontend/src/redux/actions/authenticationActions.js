@@ -102,21 +102,35 @@ export const postRegister = (data, handleSetToken) => dispatch => {
 // TODO FIX Translation
 export const postLogoutAuth = (removeCookie) => (dispatch, getState) => {
     let token = getState().authentication.token;
+
+    if (!token) {
+        removeCookie("true_effects_token", { path: '/' });
+        webSocketClient.close();
+        dispatch({ type: POST_LOGOUT_AUTH });
+        return Promise.resolve();
+    }
+
     axios.defaults.headers.common['Authorization'] = `Token ${token}`;
 
     return axios.post(`${TRUEEFFECTS_URL}/api/v1/logout/`)
         .then(res => {
-            removeCookie("true_effects_token");
-            webSocketClient.close();
-            dispatch({ type: POST_LOGOUT_AUTH });
+            cleanupAfterLogout(dispatch, removeCookie);
             return res.data;
         })
         .catch(err => {
             console.error("Błąd przy wylogowaniu:", err);
-            removeCookie("true_effects_token");
-            webSocketClient.close();
-            dispatch({ type: POST_LOGOUT_AUTH });
+            cleanupAfterLogout(dispatch, removeCookie);
+            throw err;
         });
+};
+
+const cleanupAfterLogout = (dispatch, removeCookie) => {
+    removeCookie("true_effects_token", { path: '/' });
+    delete axios.defaults.headers.common['Authorization'];
+    if (webSocketClient && webSocketClient.close) {
+        webSocketClient.close();
+    }
+    dispatch({ type: POST_LOGOUT_AUTH });
 };
 
 
