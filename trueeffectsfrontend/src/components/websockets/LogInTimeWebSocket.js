@@ -14,8 +14,10 @@ class WebSocketClient {
         if (this.isConnected) {
             this.reset();
         }
+
+        // TODO Fix it
         return new Promise((resolve, reject) => {
-            const WS_URL = window.location.protocol === 'https:' ? 'www.true-effects.pl' : '0.0.0.0:80';
+            const WS_URL = window.location.protocol === 'https:' ? 'www.true-effects.pl' : '127.0.0.1:80';
             const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
             this.url = `${protocol}://${WS_URL}/ws/login-time/?token=${token}&language=${language}`;
             this.socket = new WebSocket(this.url);

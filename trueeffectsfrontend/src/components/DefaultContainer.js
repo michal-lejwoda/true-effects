@@ -1,4 +1,4 @@
-import {Route, useNavigate} from 'react-router-dom';
+import {Route, Routes, useNavigate} from 'react-router-dom';
 import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import Settings from './main_components/Settings';
@@ -49,7 +49,8 @@ const DefaultContainer = (props) => {
 
         try {
             await Promise.all(promises);
-        } catch {}
+        } catch {
+        }
     }
 
     async function fetchRestData() {
@@ -117,15 +118,17 @@ const DefaultContainer = (props) => {
             {props.token && (
                 <>
                     <Navbar/>
-                    <Route exact path="/" component={Dashboard}/>
-                    <Route path="/goals" component={Goals}/>
-                    <Route path="/dimensions" component={Dimensions}/>
-                    <Route path="/settings" component={Settings}/>
-                    <Route path="/scheduler" component={Scheduler}/>
-                    <Route path="/training/:trainingId" component={Training}/>
-                    <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
-                    <Route path="/create_training" component={CreateTraining}/>
-                    <Route path="/achievements" component={AchievementsSummary}/>
+                    <Routes>
+                        <Route exact path="/" component={Dashboard}/>
+                        <Route path="/goals" component={Goals}/>
+                        <Route path="/dimensions" component={Dimensions}/>
+                        <Route path="/settings" component={Settings}/>
+                        <Route path="/scheduler" component={Scheduler}/>
+                        <Route path="/training/:trainingId" component={Training}/>
+                        <Route path="/modify_training/:trainingId" component={ModifyTraining}/>
+                        <Route path="/create_training" component={CreateTraining}/>
+                        <Route path="/achievements" component={AchievementsSummary}/>
+                    </Routes>
                     <BackToTrainingModal
                         handleCloseBackToTrainingModal={handleCloseBackToTrainingModal}
                         showBackToTrainingModal={showBackToTrainingModal}
